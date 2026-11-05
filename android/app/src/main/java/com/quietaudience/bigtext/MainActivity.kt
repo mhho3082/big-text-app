@@ -1,4 +1,4 @@
-package com.bigtext
+package com.quietaudience.bigtext
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
