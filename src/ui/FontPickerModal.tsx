@@ -50,7 +50,10 @@ export function FontPickerModal({
                     <Text
                       style={[
                         styles.fontChoicePreview,
-                        {fontFamily: family},
+                        {
+                          fontFamily: family,
+                          fontWeight: option.fontWeight,
+                        },
                       ]}
                     >
                       {option.sample}

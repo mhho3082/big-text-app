@@ -72,7 +72,6 @@ export const styles = StyleSheet.create({
   fontSampleText: {
     color: '#ffffff',
     fontSize: 12,
-    fontWeight: '700',
   },
   button: {
     alignSelf: 'flex-start',

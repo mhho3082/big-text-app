@@ -18,7 +18,6 @@
 		C4185C71DDDB414794606C5C /* PlaywriteUSTrad-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 808C1A9044134CA8A127C509 /* PlaywriteUSTrad-Regular.ttf */; };
 		B7725DD448DB4045B852BBD6 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AFD421B7F83C486BA9D40374 /* Oswald-Regular.ttf */; };
 		CFE5241182C34371BF3F7290 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C15367B9D8D45F4964B597C /* PlayfairDisplay-Regular.ttf */; };
-		41EEDE6BBCC44185A58D4129 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95349DA142824DC1AC5D5CBB /* OpenSans-Regular.ttf */; };
 		75C1B90AB7034B7C8EB44F55 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AD813860BF8447A87E80DC5 /* Roboto-Regular.ttf */; };
 		0D65E3D6521D41E2A44E4B0E /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB6474C4965A4AD2AFBB838B /* OFL.txt */; };
 		DC70BB469A7346918574527F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 59DD149E109D46858B668432 /* LICENSE */; };
@@ -31,6 +30,13 @@
 		993927533ABD49379EECB1F5 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61AD2FC98B284D699FA61272 /* OFL.txt */; };
 		B9D24DE8A832406798BD7B06 /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 693B5C300F69428DA29C6472 /* PermanentMarker-Regular.ttf */; };
 		3ADECA4A0E2A4C87B66E57C8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4B54A45F2D3439983CBDB94 /* LICENSE.txt */; };
+		AAF05094980F4A70A8EFAFB2 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = F54B744427F24D8AB4D1858C /* OFL.txt */; };
+		2EA034DBC53D489DAA2E6920 /* Monoton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F022A9DE1C7A4E9DB1D979A7 /* Monoton-Regular.ttf */; };
+		3ED35927D1FB4CA1924CEBA2 /* Orbitron-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72018CAC718F4FF3A3F36B46 /* Orbitron-Regular.ttf */; };
+		AC1E9C7460F64DEE8FD1CF9E /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C44B1632B0FE466DA2DBE318 /* OFL.txt */; };
+		05E0453D18964AE4B64206F6 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = E43AC1488D2048E6B8F2B1B3 /* OFL.txt */; };
+		455CBFC72E074C97A234EAC7 /* Doto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4001C7DCB74A74B4D8152E /* Doto-Black.ttf */; };
+		7C107C56C0E6402AABA04732 /* Doto_Rounded-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24247D2EDC23426AACF58C54 /* Doto_Rounded-Black.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,19 +57,24 @@
 		808C1A9044134CA8A127C509 /* PlaywriteUSTrad-Regular.ttf */ = {isa = PBXFileReference; name = "PlaywriteUSTrad-Regular.ttf"; path = "../assets/fonts/en/Playwrite/static/PlaywriteUSTrad-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		AFD421B7F83C486BA9D40374 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; name = "Oswald-Regular.ttf"; path = "../assets/fonts/en/Oswald/static/Oswald-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		3C15367B9D8D45F4964B597C /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; name = "PlayfairDisplay-Regular.ttf"; path = "../assets/fonts/en/Playfair_Display/static/PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		95349DA142824DC1AC5D5CBB /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/en/Open_Sans/static/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0AD813860BF8447A87E80DC5 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../assets/fonts/en/Roboto/static/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FB6474C4965A4AD2AFBB838B /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/DeliusUnicase/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		59DD149E109D46858B668432 /* LICENSE */ = {isa = PBXFileReference; name = "LICENSE"; path = "../assets/fonts/en/DepartureMono/LICENSE"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		55E11E98FEB54A45A4FC98D7 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playwrite/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7256DC5F191644168B5795A2 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Oswald/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		EB623A6ED6D44B1C93907294 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playfair_Display/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DFED518B4ED745E6A35AA6E2 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Open_Sans/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8FE17F356EC74EC2AC013B8C /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Roboto/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7AA651E5E2C6441DA8A25754 /* PlaypenSans-Regular.ttf */ = {isa = PBXFileReference; name = "PlaypenSans-Regular.ttf"; path = "../assets/fonts/en/Playpen_Sans/static/PlaypenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		61AD2FC98B284D699FA61272 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playpen_Sans/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		693B5C300F69428DA29C6472 /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; name = "PermanentMarker-Regular.ttf"; path = "../assets/fonts/en/Permanent_Marker/PermanentMarker-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C4B54A45F2D3439983CBDB94 /* LICENSE.txt */ = {isa = PBXFileReference; name = "LICENSE.txt"; path = "../assets/fonts/en/Permanent_Marker/LICENSE.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F54B744427F24D8AB4D1858C /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Doto/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F022A9DE1C7A4E9DB1D979A7 /* Monoton-Regular.ttf */ = {isa = PBXFileReference; name = "Monoton-Regular.ttf"; path = "../assets/fonts/en/Monoton/Monoton-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		72018CAC718F4FF3A3F36B46 /* Orbitron-Regular.ttf */ = {isa = PBXFileReference; name = "Orbitron-Regular.ttf"; path = "../assets/fonts/en/Orbitron/static/Orbitron-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C44B1632B0FE466DA2DBE318 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Monoton/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E43AC1488D2048E6B8F2B1B3 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Orbitron/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1F4001C7DCB74A74B4D8152E /* Doto-Black.ttf */ = {isa = PBXFileReference; name = "Doto-Black.ttf"; path = "../assets/fonts/en/Doto/static/Doto-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		24247D2EDC23426AACF58C54 /* Doto_Rounded-Black.ttf */ = {isa = PBXFileReference; name = "Doto_Rounded-Black.ttf"; path = "../assets/fonts/en/Doto/static/Doto_Rounded-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +159,6 @@
 				808C1A9044134CA8A127C509 /* PlaywriteUSTrad-Regular.ttf */,
 				AFD421B7F83C486BA9D40374 /* Oswald-Regular.ttf */,
 				3C15367B9D8D45F4964B597C /* PlayfairDisplay-Regular.ttf */,
-				95349DA142824DC1AC5D5CBB /* OpenSans-Regular.ttf */,
 				0AD813860BF8447A87E80DC5 /* Roboto-Regular.ttf */,
 				FB6474C4965A4AD2AFBB838B /* OFL.txt */,
 				59DD149E109D46858B668432 /* LICENSE */,
@@ -161,6 +171,13 @@
 				61AD2FC98B284D699FA61272 /* OFL.txt */,
 				693B5C300F69428DA29C6472 /* PermanentMarker-Regular.ttf */,
 				C4B54A45F2D3439983CBDB94 /* LICENSE.txt */,
+				F54B744427F24D8AB4D1858C /* OFL.txt */,
+				F022A9DE1C7A4E9DB1D979A7 /* Monoton-Regular.ttf */,
+				72018CAC718F4FF3A3F36B46 /* Orbitron-Regular.ttf */,
+				C44B1632B0FE466DA2DBE318 /* OFL.txt */,
+				E43AC1488D2048E6B8F2B1B3 /* OFL.txt */,
+				1F4001C7DCB74A74B4D8152E /* Doto-Black.ttf */,
+				24247D2EDC23426AACF58C54 /* Doto_Rounded-Black.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -234,7 +251,6 @@
 				C4185C71DDDB414794606C5C /* PlaywriteUSTrad-Regular.ttf in Resources */,
 				B7725DD448DB4045B852BBD6 /* Oswald-Regular.ttf in Resources */,
 				CFE5241182C34371BF3F7290 /* PlayfairDisplay-Regular.ttf in Resources */,
-				41EEDE6BBCC44185A58D4129 /* OpenSans-Regular.ttf in Resources */,
 				75C1B90AB7034B7C8EB44F55 /* Roboto-Regular.ttf in Resources */,
 				0D65E3D6521D41E2A44E4B0E /* OFL.txt in Resources */,
 				DC70BB469A7346918574527F /* LICENSE in Resources */,
@@ -247,6 +263,13 @@
 				993927533ABD49379EECB1F5 /* OFL.txt in Resources */,
 				B9D24DE8A832406798BD7B06 /* PermanentMarker-Regular.ttf in Resources */,
 				3ADECA4A0E2A4C87B66E57C8 /* LICENSE.txt in Resources */,
+				AAF05094980F4A70A8EFAFB2 /* OFL.txt in Resources */,
+				2EA034DBC53D489DAA2E6920 /* Monoton-Regular.ttf in Resources */,
+				3ED35927D1FB4CA1924CEBA2 /* Orbitron-Regular.ttf in Resources */,
+				AC1E9C7460F64DEE8FD1CF9E /* OFL.txt in Resources */,
+				05E0453D18964AE4B64206F6 /* OFL.txt in Resources */,
+				455CBFC72E074C97A234EAC7 /* Doto-Black.ttf in Resources */,
+				7C107C56C0E6402AABA04732 /* Doto_Rounded-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

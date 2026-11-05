@@ -15,36 +15,6 @@ export const fontOptions: FontOption[] = [
     sample: 'Aa',
   },
   {
-    displayName: 'Roboto Condensed',
-    androidFamily: 'Roboto_Condensed-Regular',
-    iosFamily: 'Roboto Condensed',
-    sample: 'Aa',
-  },
-  {
-    displayName: 'Roboto SemiCondensed',
-    androidFamily: 'Roboto_SemiCondensed-Regular',
-    iosFamily: 'Roboto SemiCondensed',
-    sample: 'Aa',
-  },
-  {
-    displayName: 'Open Sans',
-    androidFamily: 'OpenSans-Regular',
-    iosFamily: 'Open Sans',
-    sample: 'Aa',
-  },
-  {
-    displayName: 'Open Sans Condensed',
-    androidFamily: 'OpenSans_Condensed-Regular',
-    iosFamily: 'Open Sans Condensed',
-    sample: 'Aa',
-  },
-  {
-    displayName: 'Open Sans SemiCondensed',
-    androidFamily: 'OpenSans_SemiCondensed-Regular',
-    iosFamily: 'Open Sans SemiCondensed',
-    sample: 'Aa',
-  },
-  {
     displayName: 'Oswald',
     androidFamily: 'Oswald-Regular',
     iosFamily: 'Oswald',
@@ -72,6 +42,30 @@ export const fontOptions: FontOption[] = [
     displayName: 'Playpen Sans',
     androidFamily: 'PlaypenSans-Regular',
     iosFamily: 'Playpen Sans',
+    sample: 'Aa',
+  },
+  {
+    displayName: 'Doto',
+    androidFamily: 'Doto-Black',
+    iosFamily: 'Doto Black',
+    sample: 'Aa',
+  },
+  {
+    displayName: 'Doto Rounded',
+    androidFamily: 'Doto_Rounded-Black',
+    iosFamily: 'Doto Rounded Black',
+    sample: 'Aa',
+  },
+  {
+    displayName: 'Orbitron',
+    androidFamily: 'Orbitron-Regular',
+    iosFamily: 'Orbitron',
+    sample: 'Aa',
+  },
+  {
+    displayName: 'Monoton',
+    androidFamily: 'Monoton-Regular',
+    iosFamily: 'Monoton',
     sample: 'Aa',
   },
   {

@@ -18,12 +18,32 @@
       "sha1": "f4c4b129fa42c77a34447df52d8a6cfa8a203009"
     },
     {
-      "path": "assets/fonts/en/Open_Sans/OFL.txt",
-      "sha1": "fdc97f70aff35bfbe18931c0f7849b42eca8a680"
+      "path": "assets/fonts/en/Doto/OFL.txt",
+      "sha1": "5f05e358368f0373753ff28b1855e240245a3122"
     },
     {
-      "path": "assets/fonts/en/Open_Sans/static/OpenSans-Regular.ttf",
-      "sha1": "576aa669c4ceb3830fde859a4db52916def172af"
+      "path": "assets/fonts/en/Doto/static/Doto_Rounded-Black.ttf",
+      "sha1": "58ba5981c335b2a20196342814f5c5cc3a5d22c7"
+    },
+    {
+      "path": "assets/fonts/en/Doto/static/Doto-Black.ttf",
+      "sha1": "cdc291c6401acb3f82862cf2220effd05598a62a"
+    },
+    {
+      "path": "assets/fonts/en/Monoton/Monoton-Regular.ttf",
+      "sha1": "153a328e43fe091266e300116d93536044d74109"
+    },
+    {
+      "path": "assets/fonts/en/Monoton/OFL.txt",
+      "sha1": "ef46514b8023c4ce2d0a28c4dcc153bb31cd42ee"
+    },
+    {
+      "path": "assets/fonts/en/Orbitron/OFL.txt",
+      "sha1": "6977a0b6d1b11bff2c36fd099c62a11c3b94e582"
+    },
+    {
+      "path": "assets/fonts/en/Orbitron/static/Orbitron-Regular.ttf",
+      "sha1": "9d73a88e5582667c7f2289c57548fee6833e611a"
     },
     {
       "path": "assets/fonts/en/Oswald/OFL.txt",

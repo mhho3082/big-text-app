@@ -75,7 +75,7 @@ export function HomeScreen({ insets }: Props) {
             style={styles.colorButton}
           >
             <View style={styles.fontSampleBubble}>
-              <Text style={[styles.fontSampleText]}>Aa</Text>
+              <Text style={styles.fontSampleText}>Aa</Text>
             </View>
             <Text style={styles.colorButtonText}>
               Font:{' '}
