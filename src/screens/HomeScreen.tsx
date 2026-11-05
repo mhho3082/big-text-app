@@ -90,6 +90,7 @@ export function HomeScreen({ insets }: Props) {
         >
           <Text style={styles.buttonText}>Show text</Text>
         </Pressable>
+        <Text style={styles.exitHint}>Notes: double-tap to exit the display screen</Text>
       </View>
       <ColorPickerModal
         visible={foregroundPickerVisible}

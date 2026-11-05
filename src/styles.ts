@@ -74,7 +74,6 @@ export const styles = StyleSheet.create({
     fontSize: 12,
   },
   button: {
-    alignSelf: 'flex-start',
     backgroundColor: '#6750a4',
     borderRadius: 20,
     paddingHorizontal: 20,
@@ -87,6 +86,11 @@ export const styles = StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.45,
+  },
+  exitHint: {
+    color: '#9a9a9a',
+    fontSize: 12,
+    marginTop: -6,
   },
   outputScreen: { flex: 1 },
   outputFill: {

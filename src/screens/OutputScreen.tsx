@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { BackHandler, Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 
@@ -15,6 +15,18 @@ export function OutputScreen({ insets }: Props) {
   const goHome = useAppStore(state => state.goHome);
   const { width, height } = useWindowDimensions();
   const [layoutTick, setLayoutTick] = React.useState(0);
+  const lastTapAt = React.useRef(0);
+
+  React.useEffect(() => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      goHome();
+      return true;
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [goHome]);
 
   React.useLayoutEffect(() => {
     setLayoutTick(tick => tick + 1);
@@ -30,8 +42,20 @@ export function OutputScreen({ insets }: Props) {
     insets.right,
   );
 
+  const handlePress = React.useCallback(() => {
+    const now = Date.now();
+
+    if (now - lastTapAt.current < 300) {
+      lastTapAt.current = 0;
+      goHome();
+      return;
+    }
+
+    lastTapAt.current = now;
+  }, [goHome]);
+
   return (
-    <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={goHome}>
+    <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={handlePress}>
       <View style={[styles.outputFill, { padding: outputPadding }]}>
         <Text
           key={outputKey}
