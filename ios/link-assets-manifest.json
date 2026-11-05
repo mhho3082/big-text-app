@@ -38,12 +38,28 @@
       "sha1": "10599ee4b500dead0a5fa3ef70bbbeb568c16c11"
     },
     {
+      "path": "assets/fonts/en/Permanent_Marker/LICENSE.txt",
+      "sha1": "47b573e3824cd5e02a1a3ae99e2735b49e0256e4"
+    },
+    {
+      "path": "assets/fonts/en/Permanent_Marker/PermanentMarker-Regular.ttf",
+      "sha1": "bc40bfbc7eb7715af82b136429848a3c7a83a2b3"
+    },
+    {
       "path": "assets/fonts/en/Playfair_Display/OFL.txt",
       "sha1": "acad091bc4116270f41b6ab5bc3c6ecb3e08e7cb"
     },
     {
       "path": "assets/fonts/en/Playfair_Display/static/PlayfairDisplay-Regular.ttf",
       "sha1": "3e12c2cf422de852cd0af0227179901b155abf14"
+    },
+    {
+      "path": "assets/fonts/en/Playpen_Sans/OFL.txt",
+      "sha1": "77bbd3d34b7708c813bc34799e22966278332e5c"
+    },
+    {
+      "path": "assets/fonts/en/Playpen_Sans/static/PlaypenSans-Regular.ttf",
+      "sha1": "53ea9b011294b95cac37b8770bb013825248d646"
     },
     {
       "path": "assets/fonts/en/Playwrite/OFL.txt",

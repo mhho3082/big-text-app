@@ -27,6 +27,10 @@
 		65CD54F4618F417A8B967D0D /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = EB623A6ED6D44B1C93907294 /* OFL.txt */; };
 		90B798F9C6DA4BF59F54F45B /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = DFED518B4ED745E6A35AA6E2 /* OFL.txt */; };
 		DA602AA090C04CC9BDF7C263 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FE17F356EC74EC2AC013B8C /* OFL.txt */; };
+		71B51AC623F6472BB7A43149 /* PlaypenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA651E5E2C6441DA8A25754 /* PlaypenSans-Regular.ttf */; };
+		993927533ABD49379EECB1F5 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61AD2FC98B284D699FA61272 /* OFL.txt */; };
+		B9D24DE8A832406798BD7B06 /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 693B5C300F69428DA29C6472 /* PermanentMarker-Regular.ttf */; };
+		3ADECA4A0E2A4C87B66E57C8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4B54A45F2D3439983CBDB94 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,10 @@
 		EB623A6ED6D44B1C93907294 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playfair_Display/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DFED518B4ED745E6A35AA6E2 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Open_Sans/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8FE17F356EC74EC2AC013B8C /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Roboto/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7AA651E5E2C6441DA8A25754 /* PlaypenSans-Regular.ttf */ = {isa = PBXFileReference; name = "PlaypenSans-Regular.ttf"; path = "../assets/fonts/en/Playpen_Sans/static/PlaypenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		61AD2FC98B284D699FA61272 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playpen_Sans/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		693B5C300F69428DA29C6472 /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; name = "PermanentMarker-Regular.ttf"; path = "../assets/fonts/en/Permanent_Marker/PermanentMarker-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C4B54A45F2D3439983CBDB94 /* LICENSE.txt */ = {isa = PBXFileReference; name = "LICENSE.txt"; path = "../assets/fonts/en/Permanent_Marker/LICENSE.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +157,10 @@
 				EB623A6ED6D44B1C93907294 /* OFL.txt */,
 				DFED518B4ED745E6A35AA6E2 /* OFL.txt */,
 				8FE17F356EC74EC2AC013B8C /* OFL.txt */,
+				7AA651E5E2C6441DA8A25754 /* PlaypenSans-Regular.ttf */,
+				61AD2FC98B284D699FA61272 /* OFL.txt */,
+				693B5C300F69428DA29C6472 /* PermanentMarker-Regular.ttf */,
+				C4B54A45F2D3439983CBDB94 /* LICENSE.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -231,6 +243,10 @@
 				65CD54F4618F417A8B967D0D /* OFL.txt in Resources */,
 				90B798F9C6DA4BF59F54F45B /* OFL.txt in Resources */,
 				DA602AA090C04CC9BDF7C263 /* OFL.txt in Resources */,
+				71B51AC623F6472BB7A43149 /* PlaypenSans-Regular.ttf in Resources */,
+				993927533ABD49379EECB1F5 /* OFL.txt in Resources */,
+				B9D24DE8A832406798BD7B06 /* PermanentMarker-Regular.ttf in Resources */,
+				3ADECA4A0E2A4C87B66E57C8 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

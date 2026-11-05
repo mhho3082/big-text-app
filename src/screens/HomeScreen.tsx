@@ -26,6 +26,7 @@ export function HomeScreen({ insets }: Props) {
   const [backgroundPickerVisible, setBackgroundPickerVisible] =
     React.useState(false);
   const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
+  const canShowText = text.trim().length > 0;
 
   return (
     <View
@@ -82,7 +83,11 @@ export function HomeScreen({ insets }: Props) {
             </Text>
           </Pressable>
         </View>
-        <Pressable onPress={goToOutput} style={styles.button}>
+        <Pressable
+          disabled={!canShowText}
+          onPress={goToOutput}
+          style={[styles.button, !canShowText && styles.buttonDisabled]}
+        >
           <Text style={styles.buttonText}>Show text</Text>
         </Pressable>
       </View>

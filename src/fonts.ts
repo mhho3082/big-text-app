@@ -51,6 +51,12 @@ export const fontOptions: FontOption[] = [
     sample: 'Aa',
   },
   {
+    displayName: 'Permanent Marker',
+    androidFamily: 'PermanentMarker-Regular',
+    iosFamily: 'Permanent Marker',
+    sample: 'Aa',
+  },
+  {
     displayName: 'Playfair Display',
     androidFamily: 'PlayfairDisplay-Regular',
     iosFamily: 'Playfair Display',
@@ -60,6 +66,12 @@ export const fontOptions: FontOption[] = [
     displayName: 'Playwrite',
     androidFamily: 'PlaywriteUSTrad-Regular',
     iosFamily: 'Playwrite US Trad',
+    sample: 'Aa',
+  },
+  {
+    displayName: 'Playpen Sans',
+    androidFamily: 'PlaypenSans-Regular',
+    iosFamily: 'Playpen Sans',
     sample: 'Aa',
   },
   {

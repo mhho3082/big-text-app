@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 
@@ -14,6 +14,15 @@ export function OutputScreen({ insets }: Props) {
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const goHome = useAppStore(state => state.goHome);
   const lastTapAtRef = React.useRef<number | null>(null);
+  const { width, height } = useWindowDimensions();
+  const [layoutTick, setLayoutTick] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    setLayoutTick(tick => tick + 1);
+  }, [width, height]);
+
+  const outputKey = `${width}x${height}:${layoutTick}`;
+
   const outputPadding = Math.max(
     32,
     insets.top,
@@ -36,14 +45,14 @@ export function OutputScreen({ insets }: Props) {
 
   return (
     <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={handleTap}>
-      <View style={styles.outputFill}>
+      <View style={[styles.outputFill, { padding: outputPadding }]}>
         <Text
+          key={outputKey}
           adjustsFontSizeToFit={true}
           style={[
             styles.outputText,
             {
               color: foregroundColor,
-              margin: outputPadding,
               fontFamily: outputFontFamily,
             },
           ]}

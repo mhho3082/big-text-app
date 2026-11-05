@@ -86,17 +86,19 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  buttonDisabled: {
+    opacity: 0.45,
+  },
   outputScreen: { flex: 1 },
   outputFill: {
     flex: 1,
     overflow: 'hidden',
-    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   outputText: {
     fontSize: 999,
-    textAlign: 'center',
+    textAlign: 'left',
     overflow: 'visible',
   },
   backdrop: {
