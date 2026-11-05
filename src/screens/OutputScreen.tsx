@@ -13,7 +13,6 @@ export function OutputScreen({ insets }: Props) {
   const backgroundColor = useAppStore(state => state.backgroundColor);
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const goHome = useAppStore(state => state.goHome);
-  const lastTapAtRef = React.useRef<number | null>(null);
   const { width, height } = useWindowDimensions();
   const [layoutTick, setLayoutTick] = React.useState(0);
 
@@ -31,20 +30,8 @@ export function OutputScreen({ insets }: Props) {
     insets.right,
   );
 
-  const handleTap = React.useCallback(() => {
-    const now = Date.now();
-
-    if (lastTapAtRef.current !== null && now - lastTapAtRef.current < 300) {
-      lastTapAtRef.current = null;
-      goHome();
-      return;
-    }
-
-    lastTapAtRef.current = now;
-  }, [goHome]);
-
   return (
-    <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={handleTap}>
+    <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={goHome}>
       <View style={[styles.outputFill, { padding: outputPadding }]}>
         <Text
           key={outputKey}
