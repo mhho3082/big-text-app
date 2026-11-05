@@ -1,0 +1,65 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/en/DeliusUnicase/DeliusUnicase-Regular.ttf",
+      "sha1": "f1a680307cc657651d4d1b96c5a520ac19cf47e7"
+    },
+    {
+      "path": "assets/fonts/en/DeliusUnicase/OFL.txt",
+      "sha1": "362caa0bc3c605a854a9ea142979575565acc182"
+    },
+    {
+      "path": "assets/fonts/en/DepartureMono/DepartureMono-Regular.otf",
+      "sha1": "9a09d3950537d6e69c2acc124dd11b155adc4c5f"
+    },
+    {
+      "path": "assets/fonts/en/DepartureMono/LICENSE",
+      "sha1": "f4c4b129fa42c77a34447df52d8a6cfa8a203009"
+    },
+    {
+      "path": "assets/fonts/en/Open_Sans/OFL.txt",
+      "sha1": "fdc97f70aff35bfbe18931c0f7849b42eca8a680"
+    },
+    {
+      "path": "assets/fonts/en/Open_Sans/static/OpenSans-Regular.ttf",
+      "sha1": "576aa669c4ceb3830fde859a4db52916def172af"
+    },
+    {
+      "path": "assets/fonts/en/Oswald/OFL.txt",
+      "sha1": "79b551518aa8cde3635b375e06d9f00fae0148d9"
+    },
+    {
+      "path": "assets/fonts/en/Oswald/static/Oswald-Bold.ttf",
+      "sha1": "0fe7815dc9fe639677f6ddda70ca3a88dd1a09d5"
+    },
+    {
+      "path": "assets/fonts/en/Oswald/static/Oswald-Regular.ttf",
+      "sha1": "10599ee4b500dead0a5fa3ef70bbbeb568c16c11"
+    },
+    {
+      "path": "assets/fonts/en/Playfair_Display/OFL.txt",
+      "sha1": "acad091bc4116270f41b6ab5bc3c6ecb3e08e7cb"
+    },
+    {
+      "path": "assets/fonts/en/Playfair_Display/static/PlayfairDisplay-Regular.ttf",
+      "sha1": "3e12c2cf422de852cd0af0227179901b155abf14"
+    },
+    {
+      "path": "assets/fonts/en/Playwrite/OFL.txt",
+      "sha1": "d32dec7b71d75de31f40714453ef322f44ae6a88"
+    },
+    {
+      "path": "assets/fonts/en/Playwrite/static/PlaywriteUSTrad-Regular.ttf",
+      "sha1": "16e25b0c717789590252bc6e4b67f90fe7f69338"
+    },
+    {
+      "path": "assets/fonts/en/Roboto/OFL.txt",
+      "sha1": "7c62c0047419f600fdc74d58862cafb9ed538d78"
+    },
+    {
+      "path": "assets/fonts/en/Roboto/static/Roboto-Regular.ttf",
+      "sha1": "cb6cc5710764b9f06b8d8c923f961e3c1ceb7a59"
+    }
+  ]
+}

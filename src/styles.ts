@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: 18,
   },
-  colorRow: {
+  buttonRow: {
     flexDirection: 'row',
     gap: 12,
   },
@@ -61,6 +61,19 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
+  fontSampleBubble: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2b2b2b',
+  },
+  fontSampleText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontWeight: '700',
+  },
   button: {
     alignSelf: 'flex-start',
     backgroundColor: '#6750a4',
@@ -83,7 +96,6 @@ export const styles = StyleSheet.create({
   },
   outputText: {
     fontSize: 999,
-    fontWeight: '700',
     textAlign: 'center',
     overflow: 'visible',
   },
@@ -122,6 +134,39 @@ export const styles = StyleSheet.create({
   },
   picker: {
     gap: 16,
+  },
+  fontGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  fontChoiceButton: {
+    width: '48%',
+    minHeight: 96,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: '#333333',
+    backgroundColor: '#1b1b1b',
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    justifyContent: 'space-between',
+  },
+  fontChoiceButtonSelected: {
+    borderColor: '#6750a4',
+    backgroundColor: '#221b33',
+  },
+  fontChoiceButtonPressed: {
+    opacity: 0.8,
+  },
+  fontChoicePreview: {
+    color: '#ffffff',
+    fontSize: 28,
+    includeFontPadding: false,
+  },
+  fontChoiceLabel: {
+    color: '#cfcfcf',
+    fontSize: 13,
+    fontWeight: '600',
   },
   preview: {
     height: 52,

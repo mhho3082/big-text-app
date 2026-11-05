@@ -11,6 +11,7 @@ export function OutputScreen({ insets }: Props) {
   const text = useAppStore(state => state.text);
   const foregroundColor = useAppStore(state => state.foregroundColor);
   const backgroundColor = useAppStore(state => state.backgroundColor);
+  const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const goHome = useAppStore(state => state.goHome);
   const lastTapAtRef = React.useRef<number | null>(null);
   const outputPadding = Math.max(
@@ -34,16 +35,17 @@ export function OutputScreen({ insets }: Props) {
   }, [goHome]);
 
   return (
-    <Pressable
-      style={[styles.outputScreen, { backgroundColor }]}
-      onPress={handleTap}
-    >
+    <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={handleTap}>
       <View style={styles.outputFill}>
         <Text
           adjustsFontSizeToFit={true}
           style={[
             styles.outputText,
-            { color: foregroundColor, margin: outputPadding },
+            {
+              color: foregroundColor,
+              margin: outputPadding,
+              fontFamily: outputFontFamily,
+            },
           ]}
         >
           {text || ' '}

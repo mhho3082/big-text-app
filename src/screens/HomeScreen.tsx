@@ -1,8 +1,10 @@
 import React from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
+import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
+import { FontPickerModal } from '../ui/FontPickerModal';
 import { styles } from '../styles';
 
 type Props = {
@@ -13,12 +15,17 @@ export function HomeScreen({ insets }: Props) {
   const text = useAppStore(state => state.text);
   const foregroundColor = useAppStore(state => state.foregroundColor);
   const backgroundColor = useAppStore(state => state.backgroundColor);
+  const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const setText = useAppStore(state => state.setText);
   const setForegroundColor = useAppStore(state => state.setForegroundColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
+  const setOutputFontFamily = useAppStore(state => state.setOutputFontFamily);
   const goToOutput = useAppStore(state => state.goToOutput);
-  const [foregroundPickerVisible, setForegroundPickerVisible] = React.useState(false);
-  const [backgroundPickerVisible, setBackgroundPickerVisible] = React.useState(false);
+  const [foregroundPickerVisible, setForegroundPickerVisible] =
+    React.useState(false);
+  const [backgroundPickerVisible, setBackgroundPickerVisible] =
+    React.useState(false);
+  const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
 
   return (
     <View
@@ -43,7 +50,7 @@ export function HomeScreen({ insets }: Props) {
           multiline
           textAlignVertical="top"
         />
-        <View style={styles.colorRow}>
+        <View style={styles.buttonRow}>
           <ColorButton
             label="Text"
             color={foregroundColor}
@@ -58,6 +65,22 @@ export function HomeScreen({ insets }: Props) {
               setBackgroundPickerVisible(true);
             }}
           />
+        </View>
+        <View style={styles.buttonRow}>
+          <Pressable
+            onPress={() => {
+              setFontPickerVisible(true);
+            }}
+            style={styles.colorButton}
+          >
+            <View style={styles.fontSampleBubble}>
+              <Text style={[styles.fontSampleText]}>Aa</Text>
+            </View>
+            <Text style={styles.colorButtonText}>
+              Font:{' '}
+              {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
+            </Text>
+          </Pressable>
         </View>
         <Pressable onPress={goToOutput} style={styles.button}>
           <Text style={styles.buttonText}>Show text</Text>
@@ -76,6 +99,15 @@ export function HomeScreen({ insets }: Props) {
         initialColor={backgroundColor}
         onClose={() => setBackgroundPickerVisible(false)}
         onColorChange={setBackgroundColor}
+      />
+      <FontPickerModal
+        visible={fontPickerVisible}
+        selectedFontFamily={outputFontFamily || defaultOutputFontFamily}
+        onClose={() => setFontPickerVisible(false)}
+        onFontChange={family => {
+          setOutputFontFamily(family);
+          setFontPickerVisible(false);
+        }}
       />
     </View>
   );

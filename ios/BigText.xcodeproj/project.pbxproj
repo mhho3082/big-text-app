@@ -12,6 +12,21 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		761780EF2CA45674006654EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EE2CA45674006654EF /* SceneDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8260A3E0B4F64E55AC7FEA3C /* DepartureMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 43EEDD3EC518447284BC5BE1 /* DepartureMono-Regular.otf */; };
+		6555D57997434474805D831F /* DeliusUnicase-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC112515630349B284A94F58 /* DeliusUnicase-Regular.ttf */; };
+		2D023A913A3D41C88BD8F288 /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3127CA5FE43A489E9456C21C /* Oswald-Bold.ttf */; };
+		C4185C71DDDB414794606C5C /* PlaywriteUSTrad-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 808C1A9044134CA8A127C509 /* PlaywriteUSTrad-Regular.ttf */; };
+		B7725DD448DB4045B852BBD6 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AFD421B7F83C486BA9D40374 /* Oswald-Regular.ttf */; };
+		CFE5241182C34371BF3F7290 /* PlayfairDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C15367B9D8D45F4964B597C /* PlayfairDisplay-Regular.ttf */; };
+		41EEDE6BBCC44185A58D4129 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95349DA142824DC1AC5D5CBB /* OpenSans-Regular.ttf */; };
+		75C1B90AB7034B7C8EB44F55 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AD813860BF8447A87E80DC5 /* Roboto-Regular.ttf */; };
+		0D65E3D6521D41E2A44E4B0E /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB6474C4965A4AD2AFBB838B /* OFL.txt */; };
+		DC70BB469A7346918574527F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 59DD149E109D46858B668432 /* LICENSE */; };
+		27F7B87F4CD445CD8F8134A7 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55E11E98FEB54A45A4FC98D7 /* OFL.txt */; };
+		656C4A0004564A1083C4D193 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7256DC5F191644168B5795A2 /* OFL.txt */; };
+		65CD54F4618F417A8B967D0D /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = EB623A6ED6D44B1C93907294 /* OFL.txt */; };
+		90B798F9C6DA4BF59F54F45B /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = DFED518B4ED745E6A35AA6E2 /* OFL.txt */; };
+		DA602AA090C04CC9BDF7C263 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8FE17F356EC74EC2AC013B8C /* OFL.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +41,21 @@
 		761780EE2CA45674006654EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = BigText/SceneDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BigText/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		43EEDD3EC518447284BC5BE1 /* DepartureMono-Regular.otf */ = {isa = PBXFileReference; name = "DepartureMono-Regular.otf"; path = "../assets/fonts/en/DepartureMono/DepartureMono-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DC112515630349B284A94F58 /* DeliusUnicase-Regular.ttf */ = {isa = PBXFileReference; name = "DeliusUnicase-Regular.ttf"; path = "../assets/fonts/en/DeliusUnicase/DeliusUnicase-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3127CA5FE43A489E9456C21C /* Oswald-Bold.ttf */ = {isa = PBXFileReference; name = "Oswald-Bold.ttf"; path = "../assets/fonts/en/Oswald/static/Oswald-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		808C1A9044134CA8A127C509 /* PlaywriteUSTrad-Regular.ttf */ = {isa = PBXFileReference; name = "PlaywriteUSTrad-Regular.ttf"; path = "../assets/fonts/en/Playwrite/static/PlaywriteUSTrad-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AFD421B7F83C486BA9D40374 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; name = "Oswald-Regular.ttf"; path = "../assets/fonts/en/Oswald/static/Oswald-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3C15367B9D8D45F4964B597C /* PlayfairDisplay-Regular.ttf */ = {isa = PBXFileReference; name = "PlayfairDisplay-Regular.ttf"; path = "../assets/fonts/en/Playfair_Display/static/PlayfairDisplay-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		95349DA142824DC1AC5D5CBB /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/en/Open_Sans/static/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0AD813860BF8447A87E80DC5 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../assets/fonts/en/Roboto/static/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FB6474C4965A4AD2AFBB838B /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/DeliusUnicase/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		59DD149E109D46858B668432 /* LICENSE */ = {isa = PBXFileReference; name = "LICENSE"; path = "../assets/fonts/en/DepartureMono/LICENSE"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		55E11E98FEB54A45A4FC98D7 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playwrite/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7256DC5F191644168B5795A2 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Oswald/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EB623A6ED6D44B1C93907294 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Playfair_Display/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DFED518B4ED745E6A35AA6E2 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Open_Sans/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8FE17F356EC74EC2AC013B8C /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Roboto/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +107,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				9799152551C94C6BA9EA373B /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -99,6 +130,29 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		9799152551C94C6BA9EA373B /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				43EEDD3EC518447284BC5BE1 /* DepartureMono-Regular.otf */,
+				DC112515630349B284A94F58 /* DeliusUnicase-Regular.ttf */,
+				3127CA5FE43A489E9456C21C /* Oswald-Bold.ttf */,
+				808C1A9044134CA8A127C509 /* PlaywriteUSTrad-Regular.ttf */,
+				AFD421B7F83C486BA9D40374 /* Oswald-Regular.ttf */,
+				3C15367B9D8D45F4964B597C /* PlayfairDisplay-Regular.ttf */,
+				95349DA142824DC1AC5D5CBB /* OpenSans-Regular.ttf */,
+				0AD813860BF8447A87E80DC5 /* Roboto-Regular.ttf */,
+				FB6474C4965A4AD2AFBB838B /* OFL.txt */,
+				59DD149E109D46858B668432 /* LICENSE */,
+				55E11E98FEB54A45A4FC98D7 /* OFL.txt */,
+				7256DC5F191644168B5795A2 /* OFL.txt */,
+				EB623A6ED6D44B1C93907294 /* OFL.txt */,
+				DFED518B4ED745E6A35AA6E2 /* OFL.txt */,
+				8FE17F356EC74EC2AC013B8C /* OFL.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -162,6 +216,21 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				8260A3E0B4F64E55AC7FEA3C /* DepartureMono-Regular.otf in Resources */,
+				6555D57997434474805D831F /* DeliusUnicase-Regular.ttf in Resources */,
+				2D023A913A3D41C88BD8F288 /* Oswald-Bold.ttf in Resources */,
+				C4185C71DDDB414794606C5C /* PlaywriteUSTrad-Regular.ttf in Resources */,
+				B7725DD448DB4045B852BBD6 /* Oswald-Regular.ttf in Resources */,
+				CFE5241182C34371BF3F7290 /* PlayfairDisplay-Regular.ttf in Resources */,
+				41EEDE6BBCC44185A58D4129 /* OpenSans-Regular.ttf in Resources */,
+				75C1B90AB7034B7C8EB44F55 /* Roboto-Regular.ttf in Resources */,
+				0D65E3D6521D41E2A44E4B0E /* OFL.txt in Resources */,
+				DC70BB469A7346918574527F /* LICENSE in Resources */,
+				27F7B87F4CD445CD8F8134A7 /* OFL.txt in Resources */,
+				656C4A0004564A1083C4D193 /* OFL.txt in Resources */,
+				65CD54F4618F417A8B967D0D /* OFL.txt in Resources */,
+				90B798F9C6DA4BF59F54F45B /* OFL.txt in Resources */,
+				DA602AA090C04CC9BDF7C263 /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
