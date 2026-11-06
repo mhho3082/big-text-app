@@ -6,6 +6,8 @@ import { HomeThemeName } from '../theme';
 
 export type Screen = 'home' | 'output';
 export type OutputFontSizeMode = 'automatic' | 'custom';
+export type OutputDisplayStyle = 'static' | 'strobe' | 'pulse';
+export type OutputAlignment = 'left' | 'center' | 'right';
 
 type AppState = {
   screen: Screen;
@@ -19,6 +21,8 @@ type AppState = {
   outputFontSize: number;
   outputOneLine: boolean;
   outputWordBreak: boolean;
+  outputDisplayStyle: OutputDisplayStyle;
+  outputAlignment: OutputAlignment;
   toggleHomeTheme: () => void;
   setLanguage: (language: AppLanguage) => void;
   cycleLanguage: () => void;
@@ -30,6 +34,8 @@ type AppState = {
   setOutputFontSize: (size: number) => void;
   setOutputOneLine: (oneLine: boolean) => void;
   setOutputWordBreak: (wordBreak: boolean) => void;
+  setOutputDisplayStyle: (style: OutputDisplayStyle) => void;
+  setOutputAlignment: (alignment: OutputAlignment) => void;
   goToOutput: () => void;
   goHome: () => void;
 };
@@ -46,6 +52,8 @@ export const useAppStore = create<AppState>(set => ({
   outputFontSize: 120,
   outputOneLine: false,
   outputWordBreak: false,
+  outputDisplayStyle: 'static',
+  outputAlignment: 'left',
   toggleHomeTheme: () =>
     set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
   setLanguage: language =>
@@ -67,6 +75,8 @@ export const useAppStore = create<AppState>(set => ({
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
   setOutputOneLine: outputOneLine => set({ outputOneLine }),
   setOutputWordBreak: outputWordBreak => set({ outputWordBreak }),
+  setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
+  setOutputAlignment: outputAlignment => set({ outputAlignment }),
   goToOutput: () => set({ screen: 'output' }),
   goHome: () => set({ screen: 'home' }),
 }));

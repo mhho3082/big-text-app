@@ -157,6 +157,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   outputText: {
+    alignSelf: 'stretch',
     textAlign: 'left',
     overflow: 'visible',
   },

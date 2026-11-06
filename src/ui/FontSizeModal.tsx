@@ -17,7 +17,7 @@ type Props = {
 };
 
 const MIN_FONT_SIZE = 8;
-const MAX_FONT_SIZE = 240;
+const MAX_FONT_SIZE = 480;
 const FONT_SIZE_STEP = 2;
 
 export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, onFontSizeChange, theme }: Props) {

@@ -1,10 +1,11 @@
 import React from 'react';
-import { BackHandler, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { Animated, BackHandler, Easing, Pressable, useWindowDimensions, View } from 'react-native';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
 
 const AUTOMATIC_OUTPUT_FONT_SIZE = 999;
+const OUTPUT_EFFECT_HALF_CYCLE_MS = 1200;
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
@@ -19,10 +20,13 @@ export function OutputScreen({ insets }: Props) {
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputOneLine = useAppStore(state => state.outputOneLine);
   const outputWordBreak = useAppStore(state => state.outputWordBreak);
+  const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
+  const outputAlignment = useAppStore(state => state.outputAlignment);
   const goHome = useAppStore(state => state.goHome);
   const { width, height } = useWindowDimensions();
   const [layoutTick, setLayoutTick] = React.useState(0);
   const lastTapAt = React.useRef(0);
+  const opacity = React.useRef(new Animated.Value(1)).current;
 
   React.useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -47,7 +51,55 @@ export function OutputScreen({ insets }: Props) {
     };
   }, []);
 
-  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputOneLine}:${outputWordBreak}:${text.length}`;
+  React.useEffect(() => {
+    opacity.stopAnimation();
+
+    if (outputDisplayStyle === 'static') {
+      opacity.setValue(1);
+      return;
+    }
+
+    if (outputDisplayStyle === 'strobe') {
+      let visible = true;
+      opacity.setValue(1);
+
+      const interval = setInterval(() => {
+        visible = !visible;
+        opacity.setValue(visible ? 1 : 0);
+      }, OUTPUT_EFFECT_HALF_CYCLE_MS);
+
+      return () => {
+        clearInterval(interval);
+        opacity.setValue(1);
+      };
+    }
+
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacity, {
+          toValue: 1,
+          duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+
+    loop.start();
+
+    return () => {
+      loop.stop();
+      opacity.setValue(1);
+    };
+  }, [opacity, outputDisplayStyle]);
+
+  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputOneLine}:${outputWordBreak}:${outputDisplayStyle}:${outputAlignment}:${text.length}`;
 
   const outputPadding = Math.max(
     32,
@@ -71,8 +123,8 @@ export function OutputScreen({ insets }: Props) {
 
   return (
     <Pressable style={[styles.outputScreen, { backgroundColor }]} onPress={handlePress}>
-      <View style={[styles.outputFill, { padding: outputPadding }]}>
-        <Text
+      <View style={[styles.outputFill, { padding: outputPadding }]}> 
+        <Animated.Text
           key={outputKey}
           adjustsFontSizeToFit={outputFontSizeMode === 'automatic'}
           ellipsizeMode="clip"
@@ -82,6 +134,10 @@ export function OutputScreen({ insets }: Props) {
           textBreakStrategy={outputWordBreak ? 'highQuality' : 'simple'}
           style={[
             styles.outputText,
+            {
+              textAlign: outputAlignment,
+              opacity,
+            },
             {
               color: foregroundColor,
               fontFamily: outputFontFamily,
@@ -93,7 +149,7 @@ export function OutputScreen({ insets }: Props) {
           ]}
         >
           {text || ' '}
-        </Text>
+        </Animated.Text>
       </View>
     </Pressable>
   );

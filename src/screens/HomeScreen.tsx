@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
-import { useAppStore } from '../state/useAppStore';
+import { OutputAlignment, OutputDisplayStyle, useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
 import { FontPickerModal } from '../ui/FontPickerModal';
@@ -25,6 +25,8 @@ export function HomeScreen({ insets }: Props) {
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputOneLine = useAppStore(state => state.outputOneLine);
   const outputWordBreak = useAppStore(state => state.outputWordBreak);
+  const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
+  const outputAlignment = useAppStore(state => state.outputAlignment);
   const setText = useAppStore(state => state.setText);
   const setForegroundColor = useAppStore(state => state.setForegroundColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
@@ -33,6 +35,8 @@ export function HomeScreen({ insets }: Props) {
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
   const setOutputOneLine = useAppStore(state => state.setOutputOneLine);
   const setOutputWordBreak = useAppStore(state => state.setOutputWordBreak);
+  const setOutputDisplayStyle = useAppStore(state => state.setOutputDisplayStyle);
+  const setOutputAlignment = useAppStore(state => state.setOutputAlignment);
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
   const goToOutput = useAppStore(state => state.goToOutput);
@@ -43,6 +47,10 @@ export function HomeScreen({ insets }: Props) {
   const canShowText = text.trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
+  const cycleOption = <T extends string>(value: T, options: readonly T[], setter: (next: T) => void) => {
+    const index = options.indexOf(value);
+    setter(options[(index + 1) % options.length] ?? options[0]);
+  };
 
   return (
     <View
@@ -167,6 +175,36 @@ export function HomeScreen({ insets }: Props) {
           >
             <View style={[styles.optionIndicator, { borderColor: theme.optionBorder }, outputWordBreak ? { backgroundColor: theme.optionOn } : { backgroundColor: theme.optionOff }]} />
             <Text style={[styles.optionButtonText, { color: theme.optionText }]}>{translate('home.wordBreak')}</Text>
+          </Pressable>
+        </View>
+        <View style={styles.toggleRow}>
+          <Pressable
+            onPress={() => {
+              cycleOption<OutputDisplayStyle>(outputDisplayStyle, ['static', 'strobe', 'pulse'], setOutputDisplayStyle);
+            }}
+            style={({pressed}) => [
+              styles.optionButton,
+              { borderColor: theme.optionBorder, backgroundColor: theme.surface },
+              pressed && styles.optionButtonPressed,
+            ]}
+          >
+            <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
+              {translate('home.displayStyle.label')}: {translate(`home.displayStyle.${outputDisplayStyle}`)}
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              cycleOption<OutputAlignment>(outputAlignment, ['left', 'center', 'right'], setOutputAlignment);
+            }}
+            style={({pressed}) => [
+              styles.optionButton,
+              { borderColor: theme.optionBorder, backgroundColor: theme.surface },
+              pressed && styles.optionButtonPressed,
+            ]}
+          >
+            <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
+              {translate('home.alignment.label')}: {translate(`home.alignment.${outputAlignment}`)}
+            </Text>
           </Pressable>
         </View>
         <Pressable
