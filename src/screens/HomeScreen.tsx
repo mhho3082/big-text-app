@@ -5,6 +5,7 @@ import { useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
 import { FontPickerModal } from '../ui/FontPickerModal';
+import { FontSizeModal } from '../ui/FontSizeModal';
 import { styles } from '../styles';
 
 type Props = {
@@ -16,16 +17,21 @@ export function HomeScreen({ insets }: Props) {
   const foregroundColor = useAppStore(state => state.foregroundColor);
   const backgroundColor = useAppStore(state => state.backgroundColor);
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
+  const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
+  const outputFontSize = useAppStore(state => state.outputFontSize);
   const setText = useAppStore(state => state.setText);
   const setForegroundColor = useAppStore(state => state.setForegroundColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
   const setOutputFontFamily = useAppStore(state => state.setOutputFontFamily);
+  const setOutputFontSizeMode = useAppStore(state => state.setOutputFontSizeMode);
+  const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
   const goToOutput = useAppStore(state => state.goToOutput);
   const [foregroundPickerVisible, setForegroundPickerVisible] =
     React.useState(false);
   const [backgroundPickerVisible, setBackgroundPickerVisible] =
     React.useState(false);
   const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
+  const [fontSizePickerVisible, setFontSizePickerVisible] = React.useState(false);
   const canShowText = text.trim().length > 0;
 
   return (
@@ -78,8 +84,20 @@ export function HomeScreen({ insets }: Props) {
               <Text style={styles.fontSampleText}>Aa</Text>
             </View>
             <Text style={styles.colorButtonText}>
-              Font:{' '}
-              {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
+              Font: {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setFontSizePickerVisible(true);
+            }}
+            style={styles.colorButton}
+          >
+            <View style={styles.fontSampleBubble}>
+              <Text style={styles.fontSampleText}>T</Text>
+            </View>
+            <Text style={styles.colorButtonText}>
+              Size: {outputFontSizeMode === 'automatic' ? 'Auto' : outputFontSize}
             </Text>
           </Pressable>
         </View>
@@ -114,6 +132,14 @@ export function HomeScreen({ insets }: Props) {
           setOutputFontFamily(family);
           setFontPickerVisible(false);
         }}
+      />
+      <FontSizeModal
+        visible={fontSizePickerVisible}
+        mode={outputFontSizeMode}
+        fontSize={outputFontSize}
+        onClose={() => setFontSizePickerVisible(false)}
+        onModeChange={mode => setOutputFontSizeMode(mode)}
+        onFontSizeChange={size => setOutputFontSize(size)}
       />
     </View>
   );

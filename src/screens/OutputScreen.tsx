@@ -3,6 +3,8 @@ import { BackHandler, Pressable, Text, useWindowDimensions, View } from 'react-n
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 
+const AUTOMATIC_OUTPUT_FONT_SIZE = 999;
+
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
 };
@@ -12,6 +14,8 @@ export function OutputScreen({ insets }: Props) {
   const foregroundColor = useAppStore(state => state.foregroundColor);
   const backgroundColor = useAppStore(state => state.backgroundColor);
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
+  const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
+  const outputFontSize = useAppStore(state => state.outputFontSize);
   const goHome = useAppStore(state => state.goHome);
   const { width, height } = useWindowDimensions();
   const [layoutTick, setLayoutTick] = React.useState(0);
@@ -32,7 +36,7 @@ export function OutputScreen({ insets }: Props) {
     setLayoutTick(tick => tick + 1);
   }, [width, height]);
 
-  const outputKey = `${width}x${height}:${layoutTick}`;
+  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}`;
 
   const outputPadding = Math.max(
     32,
@@ -59,12 +63,17 @@ export function OutputScreen({ insets }: Props) {
       <View style={[styles.outputFill, { padding: outputPadding }]}>
         <Text
           key={outputKey}
-          adjustsFontSizeToFit={true}
+          adjustsFontSizeToFit={outputFontSizeMode === 'automatic'}
+          minimumFontScale={0.05}
           style={[
             styles.outputText,
             {
               color: foregroundColor,
               fontFamily: outputFontFamily,
+              fontSize:
+                outputFontSizeMode === 'automatic'
+                  ? AUTOMATIC_OUTPUT_FONT_SIZE
+                  : outputFontSize,
             },
           ]}
         >

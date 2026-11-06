@@ -100,7 +100,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   outputText: {
-    fontSize: 999,
     textAlign: 'left',
     overflow: 'visible',
   },
@@ -215,6 +214,53 @@ export const styles = StyleSheet.create({
   hueSlider: {
     height: 28,
     borderRadius: 999,
+  },
+  fontSizeModeRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  fontSizeModeButton: {
+    flex: 1,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#333333',
+    backgroundColor: '#1b1b1b',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  fontSizeModeButtonSelected: {
+    borderColor: '#6750a4',
+    backgroundColor: '#221b33',
+  },
+  fontSizeModeButtonPressed: {
+    opacity: 0.8,
+  },
+  fontSizeModeButtonText: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  fontSizeSliderBlock: {
+    gap: 12,
+  },
+  fontSizeValueRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  fontSizeLabel: {
+    color: '#cfcfcf',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  fontSizeValue: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  fontSizeSlider: {
+    width: '100%',
   },
   colorTextInput: {
     color: '#ffffff'
