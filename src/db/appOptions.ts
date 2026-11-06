@@ -5,6 +5,18 @@ type StoredValueRow = {
   value: string | null;
 };
 
+type DisplayHistoryRow = {
+  id: number;
+  created_at: number;
+  options_json: string | null;
+};
+
+export type DisplayHistoryEntry = {
+  id: number;
+  createdAt: number;
+  options: PersistedAppOptions;
+};
+
 const DB_NAME = 'big-text-app.db';
 
 const INIT_SQL = `
@@ -33,6 +45,30 @@ function splitStatements(sql: string): string[] {
     .split(';')
     .map(statement => statement.trim())
     .filter(statement => statement.length > 0);
+}
+
+function parsePersistedOptionsJson(value: string): Partial<PersistedAppOptions> | null {
+  try {
+    const parsed = JSON.parse(value);
+
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      const result: Partial<PersistedAppOptions> = {};
+
+      for (const key of persistedAppOptionKeys) {
+        const nextValue = (parsed as Record<string, unknown>)[key];
+
+        if (nextValue !== undefined) {
+          (result as Record<string, unknown>)[key] = nextValue;
+        }
+      }
+
+      return result;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
 }
 
 function enqueueWrite<T>(fn: () => Promise<T>): Promise<T> {
@@ -72,27 +108,61 @@ export async function loadPersistedAppOptions(): Promise<Partial<PersistedAppOpt
     return {};
   }
 
-  try {
-    const parsed = JSON.parse(row.value);
+  const parsed = parsePersistedOptionsJson(row.value);
 
-    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
-      const result: Partial<PersistedAppOptions> = {};
-
-      for (const key of persistedAppOptionKeys) {
-        const value = (parsed as Record<string, unknown>)[key];
-
-        if (value !== undefined) {
-          (result as Record<string, unknown>)[key] = value;
-        }
-      }
-
-      return result;
-    }
-  } catch {
-    return {};
+  if (parsed) {
+    return parsed;
   }
 
   return {};
+}
+
+export async function loadDisplayHistory(): Promise<DisplayHistoryEntry[]> {
+  const database = await ensureDb();
+  const res = await database.execute(
+    'SELECT id, created_at, options_json FROM display_history ORDER BY created_at DESC, id DESC',
+  );
+  const rows = (res.rows ?? []) as DisplayHistoryRow[];
+
+  return rows.flatMap(row => {
+    if (!row.options_json) {
+      return [];
+    }
+
+    const parsed = parsePersistedOptionsJson(row.options_json);
+
+    if (!parsed) {
+      return [];
+    }
+
+    return [
+      {
+        id: row.id,
+        createdAt: row.created_at,
+        options: parsed as PersistedAppOptions,
+      },
+    ];
+  });
+}
+
+export function deleteDisplayHistoryEntry(id: number): Promise<void> {
+  return enqueueWrite(async () => {
+    const database = await ensureDb();
+    await database.execute('DELETE FROM display_history WHERE id = ?', [id]);
+  });
+}
+
+export function resetDatabase(): Promise<void> {
+  return enqueueWrite(async () => {
+    const database = await ensureDb();
+
+    await database.execute('DROP TABLE IF EXISTS display_history');
+    await database.execute('DROP TABLE IF EXISTS app_options');
+
+    for (const statement of splitStatements(INIT_SQL)) {
+      await database.execute(statement);
+    }
+  });
 }
 
 export function savePersistedAppOptions(options: PersistedAppOptions): Promise<void> {

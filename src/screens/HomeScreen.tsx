@@ -35,6 +35,7 @@ export function HomeScreen({ insets }: Props) {
   const setOutputAlignment = useAppStore(state => state.setOutputAlignment);
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
+  const goToHistory = useAppStore(state => state.goToHistory);
   const goToOutput = useAppStore(state => state.goToOutput);
   const goToShare = useAppStore(state => state.goToShare);
   const [foregroundPickerVisible, setForegroundPickerVisible] = React.useState(false);
@@ -87,6 +88,14 @@ export function HomeScreen({ insets }: Props) {
           >
             <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
               {theme.name === 'dark' ? translate('home.lightMode') : translate('home.darkMode')}
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={goToHistory}
+            style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
+          >
+            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
+              {translate('home.history')}
             </Text>
           </Pressable>
         </View>

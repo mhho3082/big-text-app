@@ -41,6 +41,10 @@ export type HomeTheme = {
   modalSliderTrack: string;
   modalSliderThumb: string;
   colorPickerIcon: string;
+  historyCardBackground: string;
+  historyCardBorder: string;
+  historyActionBackground: string;
+  historyActionText: string;
 };
 
 export const homeThemes: Record<HomeThemeName, HomeTheme> = {
@@ -85,6 +89,10 @@ export const homeThemes: Record<HomeThemeName, HomeTheme> = {
     modalSliderTrack: '#d4c8b8',
     modalSliderThumb: '#1e1a16',
     colorPickerIcon: '#1e1a16',
+    historyCardBackground: '#f3ebe0',
+    historyCardBorder: '#d4c8b8',
+    historyActionBackground: '#1e1a16',
+    historyActionText: '#ffffff',
   },
   dark: {
     name: 'dark',
@@ -127,6 +135,10 @@ export const homeThemes: Record<HomeThemeName, HomeTheme> = {
     modalSliderTrack: '#3a3a3a',
     modalSliderThumb: '#ffffff',
     colorPickerIcon: '#ffffff',
+    historyCardBackground: '#1f1f1f',
+    historyCardBorder: '#333333',
+    historyActionBackground: '#f5f2ec',
+    historyActionText: '#1e1a16',
   },
 };
 

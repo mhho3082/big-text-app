@@ -11,10 +11,12 @@ export type OutputFontSizeMode = PersistedAppOptions['outputFontSizeMode'];
 export type OutputDisplayStyle = PersistedAppOptions['outputDisplayStyle'];
 export type OutputAlignment = PersistedAppOptions['outputAlignment'];
 
-export type Screen = 'home' | 'output' | 'share';
+export type Screen = 'home' | 'output' | 'share' | 'history';
 
 type AppState = {
   screen: Screen;
+  outputReturnScreen: Exclude<Screen, 'output' | 'share'>;
+  outputPreviewOptions: PersistedAppOptions | null;
   homeTheme: HomeThemeName;
   language: AppLanguage;
   text: string;
@@ -39,6 +41,9 @@ type AppState = {
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
   goToShare: () => void;
+  goToHistory: () => void;
+  showHistoryEntry: (options: PersistedAppOptions) => void;
+  applyHistoryEntry: (options: PersistedAppOptions) => void;
   goHome: () => void;
 };
 
@@ -59,6 +64,8 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
 
 export const useAppStore = create<AppState>((set, get) => ({
   screen: 'home',
+  outputReturnScreen: 'home',
+  outputPreviewOptions: null,
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
   language: 'en',
   text: '',
@@ -93,11 +100,25 @@ export const useAppStore = create<AppState>((set, get) => ({
   setPersistedOptions: options => set(options),
   goToOutput: () => {
     void recordDisplayOptions(getPersistedOptions(get()));
-    set({ screen: 'output' });
+    set({ screen: 'output', outputReturnScreen: 'home', outputPreviewOptions: null });
   },
   goToShare: () => {
     void recordDisplayOptions(getPersistedOptions(get()));
-    set({ screen: 'share' });
+    set({ screen: 'share', outputReturnScreen: 'home', outputPreviewOptions: null });
   },
-  goHome: () => set({ screen: 'home' }),
+  goToHistory: () => {
+    set({ screen: 'history', outputPreviewOptions: null });
+  },
+  showHistoryEntry: options => {
+    set({ screen: 'output', outputReturnScreen: 'history', outputPreviewOptions: options });
+  },
+  applyHistoryEntry: options => {
+    set({
+      ...options,
+      screen: 'home',
+      outputReturnScreen: 'home',
+      outputPreviewOptions: null,
+    });
+  },
+  goHome: () => set({ screen: 'home', outputReturnScreen: 'home', outputPreviewOptions: null }),
 }));
