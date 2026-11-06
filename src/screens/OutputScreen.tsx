@@ -16,6 +16,8 @@ export function OutputScreen({ insets }: Props) {
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
+  const outputOneLine = useAppStore(state => state.outputOneLine);
+  const outputWordBreak = useAppStore(state => state.outputWordBreak);
   const goHome = useAppStore(state => state.goHome);
   const { width, height } = useWindowDimensions();
   const [layoutTick, setLayoutTick] = React.useState(0);
@@ -36,7 +38,7 @@ export function OutputScreen({ insets }: Props) {
     setLayoutTick(tick => tick + 1);
   }, [width, height]);
 
-  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}`;
+  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputOneLine}:${outputWordBreak}:${text.length}`;
 
   const outputPadding = Math.max(
     32,
@@ -64,7 +66,11 @@ export function OutputScreen({ insets }: Props) {
         <Text
           key={outputKey}
           adjustsFontSizeToFit={outputFontSizeMode === 'automatic'}
+          ellipsizeMode="clip"
+          lineBreakStrategyIOS={outputWordBreak ? 'standard' : 'none'}
           minimumFontScale={0.05}
+          numberOfLines={outputOneLine ? 1 : undefined}
+          textBreakStrategy={outputWordBreak ? 'highQuality' : 'simple'}
           style={[
             styles.outputText,
             {

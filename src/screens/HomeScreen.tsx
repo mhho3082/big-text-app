@@ -19,12 +19,16 @@ export function HomeScreen({ insets }: Props) {
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
+  const outputOneLine = useAppStore(state => state.outputOneLine);
+  const outputWordBreak = useAppStore(state => state.outputWordBreak);
   const setText = useAppStore(state => state.setText);
   const setForegroundColor = useAppStore(state => state.setForegroundColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
   const setOutputFontFamily = useAppStore(state => state.setOutputFontFamily);
   const setOutputFontSizeMode = useAppStore(state => state.setOutputFontSizeMode);
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
+  const setOutputOneLine = useAppStore(state => state.setOutputOneLine);
+  const setOutputWordBreak = useAppStore(state => state.setOutputWordBreak);
   const goToOutput = useAppStore(state => state.goToOutput);
   const [foregroundPickerVisible, setForegroundPickerVisible] =
     React.useState(false);
@@ -99,6 +103,42 @@ export function HomeScreen({ insets }: Props) {
             <Text style={styles.colorButtonText}>
               Size: {outputFontSizeMode === 'automatic' ? 'Auto' : outputFontSize}
             </Text>
+          </Pressable>
+        </View>
+        <View style={styles.toggleRow}>
+          <Pressable
+            onPress={() => {
+              setOutputOneLine(!outputOneLine);
+            }}
+            style={({pressed}) => [
+              styles.optionButton,
+              pressed && styles.optionButtonPressed,
+            ]}
+          >
+            <View
+              style={[
+                styles.optionIndicator,
+                outputOneLine ? styles.optionIndicatorOn : styles.optionIndicatorOff,
+              ]}
+            />
+            <Text style={styles.optionButtonText}>One line</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setOutputWordBreak(!outputWordBreak);
+            }}
+            style={({pressed}) => [
+              styles.optionButton,
+              pressed && styles.optionButtonPressed,
+            ]}
+          >
+            <View
+              style={[
+                styles.optionIndicator,
+                outputWordBreak ? styles.optionIndicatorOn : styles.optionIndicatorOff,
+              ]}
+            />
+            <Text style={styles.optionButtonText}>Word break</Text>
           </Pressable>
         </View>
         <Pressable

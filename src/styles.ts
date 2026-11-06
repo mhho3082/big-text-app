@@ -37,6 +37,43 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 12,
   },
+  toggleRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  optionButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#333333',
+    backgroundColor: '#1b1b1b',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+  },
+  optionButtonPressed: {
+    opacity: 0.8,
+  },
+  optionIndicator: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
+  },
+  optionIndicatorOn: {
+    backgroundColor: '#2ecc71',
+  },
+  optionIndicatorOff: {
+    backgroundColor: '#e74c3c',
+  },
+  optionButtonText: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: '600',
+  },
   colorButton: {
     flex: 1,
     flexDirection: 'row',
