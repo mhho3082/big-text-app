@@ -23,8 +23,6 @@ export function HomeScreen({ insets }: Props) {
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
-  const outputOneLine = useAppStore(state => state.outputOneLine);
-  const outputWordBreak = useAppStore(state => state.outputWordBreak);
   const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
   const outputAlignment = useAppStore(state => state.outputAlignment);
   const setText = useAppStore(state => state.setText);
@@ -33,8 +31,6 @@ export function HomeScreen({ insets }: Props) {
   const setOutputFontFamily = useAppStore(state => state.setOutputFontFamily);
   const setOutputFontSizeMode = useAppStore(state => state.setOutputFontSizeMode);
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
-  const setOutputOneLine = useAppStore(state => state.setOutputOneLine);
-  const setOutputWordBreak = useAppStore(state => state.setOutputWordBreak);
   const setOutputDisplayStyle = useAppStore(state => state.setOutputDisplayStyle);
   const setOutputAlignment = useAppStore(state => state.setOutputAlignment);
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
@@ -129,7 +125,9 @@ export function HomeScreen({ insets }: Props) {
               <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>Aa</Text>
             </View>
             <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
-              {translate('home.font')}: {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
+              {translate('home.font')}
+              {translate('home.labelSeparator')}
+              {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
             </Text>
           </Pressable>
           <Pressable
@@ -145,36 +143,10 @@ export function HomeScreen({ insets }: Props) {
               <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>T</Text>
             </View>
             <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
-              {translate('home.fontSize')}: {outputFontSizeMode === 'automatic' ? translate('home.auto') : outputFontSize}
+              {translate('home.fontSize')}
+              {translate('home.labelSeparator')}
+              {outputFontSizeMode === 'automatic' ? translate('home.auto') : outputFontSize}
             </Text>
-          </Pressable>
-        </View>
-        <View style={styles.toggleRow}>
-          <Pressable
-            onPress={() => {
-              setOutputOneLine(!outputOneLine);
-            }}
-            style={({pressed}) => [
-              styles.optionButton,
-              { borderColor: theme.optionBorder, backgroundColor: theme.surface },
-              pressed && styles.optionButtonPressed,
-            ]}
-          >
-            <View style={[styles.optionIndicator, { borderColor: theme.optionBorder }, outputOneLine ? { backgroundColor: theme.optionOn } : { backgroundColor: theme.optionOff }]} />
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>{translate('home.oneLine')}</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setOutputWordBreak(!outputWordBreak);
-            }}
-            style={({pressed}) => [
-              styles.optionButton,
-              { borderColor: theme.optionBorder, backgroundColor: theme.surface },
-              pressed && styles.optionButtonPressed,
-            ]}
-          >
-            <View style={[styles.optionIndicator, { borderColor: theme.optionBorder }, outputWordBreak ? { backgroundColor: theme.optionOn } : { backgroundColor: theme.optionOff }]} />
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>{translate('home.wordBreak')}</Text>
           </Pressable>
         </View>
         <View style={styles.toggleRow}>
@@ -189,12 +161,14 @@ export function HomeScreen({ insets }: Props) {
             ]}
           >
             <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
-              {translate('home.displayStyle.label')}: {translate(`home.displayStyle.${outputDisplayStyle}`)}
+              {translate('home.displayStyle.label')}
+              {translate('home.labelSeparator')}
+              {translate(`home.displayStyle.${outputDisplayStyle}`)}
             </Text>
           </Pressable>
           <Pressable
             onPress={() => {
-              cycleOption<OutputAlignment>(outputAlignment, ['left', 'center', 'right'], setOutputAlignment);
+              cycleOption<OutputAlignment>(outputAlignment, ['center', 'left', 'right'], setOutputAlignment);
             }}
             style={({pressed}) => [
               styles.optionButton,
@@ -203,7 +177,9 @@ export function HomeScreen({ insets }: Props) {
             ]}
           >
             <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
-              {translate('home.alignment.label')}: {translate(`home.alignment.${outputAlignment}`)}
+              {translate('home.alignment.label')}
+              {translate('home.labelSeparator')}
+              {translate(`home.alignment.${outputAlignment}`)}
             </Text>
           </Pressable>
         </View>

@@ -19,8 +19,6 @@ type AppState = {
   outputFontFamily: string;
   outputFontSizeMode: OutputFontSizeMode;
   outputFontSize: number;
-  outputOneLine: boolean;
-  outputWordBreak: boolean;
   outputDisplayStyle: OutputDisplayStyle;
   outputAlignment: OutputAlignment;
   toggleHomeTheme: () => void;
@@ -32,8 +30,6 @@ type AppState = {
   setOutputFontFamily: (family: string) => void;
   setOutputFontSizeMode: (mode: OutputFontSizeMode) => void;
   setOutputFontSize: (size: number) => void;
-  setOutputOneLine: (oneLine: boolean) => void;
-  setOutputWordBreak: (wordBreak: boolean) => void;
   setOutputDisplayStyle: (style: OutputDisplayStyle) => void;
   setOutputAlignment: (alignment: OutputAlignment) => void;
   goToOutput: () => void;
@@ -50,10 +46,8 @@ export const useAppStore = create<AppState>(set => ({
   outputFontFamily: defaultOutputFontFamily,
   outputFontSizeMode: 'automatic',
   outputFontSize: 120,
-  outputOneLine: false,
-  outputWordBreak: false,
   outputDisplayStyle: 'static',
-  outputAlignment: 'left',
+  outputAlignment: 'center',
   toggleHomeTheme: () =>
     set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
   setLanguage: language =>
@@ -73,8 +67,6 @@ export const useAppStore = create<AppState>(set => ({
   setOutputFontFamily: outputFontFamily => set({ outputFontFamily }),
   setOutputFontSizeMode: outputFontSizeMode => set({ outputFontSizeMode }),
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
-  setOutputOneLine: outputOneLine => set({ outputOneLine }),
-  setOutputWordBreak: outputWordBreak => set({ outputWordBreak }),
   setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
   setOutputAlignment: outputAlignment => set({ outputAlignment }),
   goToOutput: () => set({ screen: 'output' }),
