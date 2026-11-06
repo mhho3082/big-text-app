@@ -141,6 +141,23 @@ export const styles = StyleSheet.create({
   picker: {
     gap: 16,
   },
+  colorSwatches: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    gap: 10,
+    padding: 12,
+    borderRadius: 18,
+  },
+  colorSwatchChip: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginHorizontal: 0,
+    marginBottom: 0,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.16)',
+  },
   fontPickerBody: {
     flex: 1,
     minHeight: 0,
@@ -263,6 +280,6 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   colorTextInput: {
-    color: '#ffffff'
+    color: '#ffffff',
   },
 });

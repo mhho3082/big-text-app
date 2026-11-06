@@ -5,6 +5,7 @@ import ColorPicker, {
   Panel1,
   InputWidget,
   Preview,
+  Swatches,
 } from 'reanimated-color-picker';
 import { styles } from '../styles';
 
@@ -57,6 +58,7 @@ export function ColorPickerModal({
             >
               <Panel1 style={styles.panel} />
               <HueSlider style={styles.hueSlider} />
+              <Swatches style={styles.colorSwatches} swatchStyle={styles.colorSwatchChip} />
               <InputWidget
                 inputStyle={styles.colorTextInput}
                 inputTitleStyle={styles.colorTextInput}
