@@ -11,6 +11,8 @@ export type FontFamilyPair = {
 export type FontOption = {
   displayName: string;
   category: FontCategory;
+  license: string;
+  credit: string;
   androidFamily?: string;
   iosFamily?: string;
   secondaryFamilies?: FontFamilyPair[];
@@ -22,6 +24,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Roboto',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Roboto Project Authors',
     androidFamily: 'Roboto-Regular',
     iosFamily: 'Roboto',
     sample: 'Aa',
@@ -29,6 +33,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Oswald',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Oswald Project Authors',
     androidFamily: 'Oswald-Regular',
     iosFamily: 'Oswald',
     sample: 'Aa',
@@ -36,6 +42,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Atkinson Hyperlegible',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Braille Institute of America, Inc.',
     androidFamily: 'AtkinsonHyperlegible-Regular',
     iosFamily: 'Atkinson Hyperlegible',
     sample: 'Aa',
@@ -43,6 +51,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Lexend',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Lexend Project Authors',
     androidFamily: 'Lexend-Regular',
     iosFamily: 'Lexend',
     sample: 'Aa',
@@ -50,6 +60,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Anton',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Anton Project Authors',
     androidFamily: 'Anton-Regular',
     iosFamily: 'Anton',
     sample: 'Aa',
@@ -57,6 +69,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Playfair Display',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Playfair Display Project Authors',
     androidFamily: 'PlayfairDisplay-Regular',
     iosFamily: 'Playfair Display',
     sample: 'Aa',
@@ -64,6 +78,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Cinzel',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Cinzel Project Authors',
     androidFamily: 'Cinzel-Regular',
     iosFamily: 'Cinzel',
     sample: 'Aa',
@@ -71,6 +87,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Cinzel Decorative',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Natanael Gama',
     androidFamily: 'CinzelDecorative-Regular',
     iosFamily: 'Cinzel Decorative',
     sample: 'Aa',
@@ -78,6 +96,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'DM Serif Display',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Adobe and Google LLC',
     androidFamily: 'DMSerifDisplay-Regular',
     iosFamily: 'DM Serif Display',
     sample: 'Aa',
@@ -85,6 +105,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Lora',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Lora Project Authors',
     androidFamily: 'Lora-Regular',
     iosFamily: 'Lora',
     sample: 'Aa',
@@ -92,6 +114,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Permanent Marker',
     category: 'english',
+    license: 'Apache License 2.0',
+    credit: 'Font Diner',
     androidFamily: 'PermanentMarker-Regular',
     iosFamily: 'Permanent Marker',
     sample: 'Aa',
@@ -99,6 +123,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Delius Unicase',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Natalia Raices and Igino Marini',
     androidFamily: 'DeliusUnicase-Regular',
     iosFamily: 'Delius Unicase',
     sample: 'Aa',
@@ -106,6 +132,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Playwrite',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Playwrite Project Authors',
     androidFamily: 'PlaywriteUSTrad-Regular',
     iosFamily: 'Playwrite US Trad',
     sample: 'Aa',
@@ -113,6 +141,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Playpen Sans',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Playpen Sans Project Authors',
     androidFamily: 'PlaypenSans-Regular',
     iosFamily: 'Playpen Sans',
     sample: 'Aa',
@@ -120,6 +150,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Doto',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Doto Project Authors',
     androidFamily: 'Doto-Black',
     iosFamily: 'Doto Black',
     sample: 'Aa',
@@ -127,6 +159,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Doto Rounded',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Doto Project Authors',
     androidFamily: 'Doto_Rounded-Black',
     iosFamily: 'Doto Rounded Black',
     sample: 'Aa',
@@ -134,6 +168,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Orbitron',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Orbitron Project Authors',
     androidFamily: 'Orbitron-Regular',
     iosFamily: 'Orbitron',
     sample: 'Aa',
@@ -141,6 +177,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Monoton',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'vernon adams',
     androidFamily: 'Monoton-Regular',
     iosFamily: 'Monoton',
     sample: 'Aa',
@@ -148,6 +186,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Departure Mono',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Helena Zhang',
     androidFamily: 'DepartureMono-Regular',
     iosFamily: 'Departure Mono',
     sample: 'Aa',
@@ -155,6 +195,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: 'Silkscreen',
     category: 'english',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Silkscreen Project Authors',
     androidFamily: 'Silkscreen-Regular',
     iosFamily: 'Silkscreen',
     sample: 'Aa',
@@ -162,6 +204,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '源流明體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'But Ko',
     androidFamily: 'GenRyuMin2TC-R',
     iosFamily: 'GenRyuMin2 TC',
     sample: '源流明體',
@@ -169,6 +213,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '源雲明體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'But Ko',
     androidFamily: 'GenWanMin2TC-R',
     iosFamily: 'GenWanMin2 TC',
     sample: '源雲明體',
@@ -176,6 +222,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '源石黑體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'But Ko',
     androidFamily: 'GenSekiGothic2TC-R',
     iosFamily: 'GenSekiGothic2 TC',
     sample: '源石黑體',
@@ -183,6 +231,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '芫荽',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Iansui Project Authors',
     androidFamily: 'Iansui-Regular',
     iosFamily: 'Iansui',
     sample: '芫荽',
@@ -190,6 +240,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '饅頭黑體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Mant0u and The Dela Gothic Project Authors',
     androidFamily: 'MantouSans-Regular',
     iosFamily: 'Mantou Sans',
     sample: '饅頭黑體',
@@ -197,6 +249,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '貓啃什錦黑',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'Skr-ZERO',
     androidFamily: 'MaokenAssortedSans-TC',
     iosFamily: 'MaokenAssortedSans-TC',
     sample: '貓啃什錦黑',
@@ -204,6 +258,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '內海字體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'max32002',
     androidFamily: 'NaikaiFont-Regular',
     iosFamily: 'NaikaiFont',
     sample: '內海字體',
@@ -211,6 +267,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '昭源宋體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Chiron Sung HK Project Authors',
     androidFamily: 'ChironSungHK-Regular',
     iosFamily: 'Chiron Sung HK',
     sample: '昭源宋體',
@@ -218,6 +276,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '昭源黑體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Chiron Hei HK Project Authors',
     androidFamily: 'ChironHeiHK-Regular',
     iosFamily: 'Chiron Hei HK',
     sample: '昭源黑體',
@@ -225,6 +285,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '昭源環方',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'The Chiron GoRound TC Project Authors',
     androidFamily: 'ChironGoRoundTC-Regular',
     iosFamily: 'Chiron GoRound TC',
     sample: '昭源環方',
@@ -232,6 +294,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '隨峰體',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: '阿坤',
     androidFamily: 'ThePeakFontBeta_V0_102',
     iosFamily: 'The Peak Font 隨峰體 Beta',
     sample: '隨峰體',
@@ -239,6 +303,8 @@ export const fontOptions: FontOption[] = [
   {
     displayName: '俐方體11號',
     category: 'chinese',
+    license: 'SIL Open Font License 1.1',
+    credit: 'M+ FONTS PROJECT',
     androidFamily: 'Cubic_11',
     iosFamily: 'Cubic 11',
     sample: '俐方體11號',

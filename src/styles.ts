@@ -216,6 +216,12 @@ export const styles = StyleSheet.create({
     color: '#cfcfcf',
     fontSize: 13,
     fontWeight: '600',
+    marginBottom: 4,
+  },
+  fontChoiceCredit: {
+    color: '#8f8f8f',
+    fontSize: 11,
+    lineHeight: 14,
   },
   preview: {
     height: 52,

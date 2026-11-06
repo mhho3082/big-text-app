@@ -89,6 +89,8 @@ export function FontPickerModal({
               {option.sample}
             </Text>
             <Text style={styles.fontChoiceLabel}>{option.displayName}</Text>
+            {option.credit ? <Text style={styles.fontChoiceCredit}>{option.credit}</Text> : null}
+            <Text style={styles.fontChoiceCredit}>{option.license}</Text>
           </Pressable>
         );
       }}
