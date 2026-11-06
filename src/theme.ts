@@ -1,0 +1,135 @@
+export type HomeThemeName = 'light' | 'dark';
+
+export type HomeTheme = {
+  name: HomeThemeName;
+  screenBackground: string;
+  surface: string;
+  border: string;
+  titleText: string;
+  mutedText: string;
+  buttonText: string;
+  buttonIconText: string;
+  buttonSurface: string;
+  buttonBorder: string;
+  buttonChip: string;
+  buttonChipText: string;
+  swatchBorder: string;
+  inputBackground: string;
+  inputBorder: string;
+  inputText: string;
+  placeholderText: string;
+  optionText: string;
+  optionTextMuted: string;
+  optionOn: string;
+  optionOff: string;
+  optionBorder: string;
+  statusBarBg: string;
+  modalBackdrop: string;
+  modalSheet: string;
+  modalText: string;
+  modalMutedText: string;
+  modalButton: string;
+  modalButtonText: string;
+  modalPanel: string;
+  modalPreview: string;
+  modalPreviewBorder: string;
+  modalTabBar: string;
+  modalTabActive: string;
+  modalTabInactive: string;
+  modalSelectedCard: string;
+  modalSelectedCardBorder: string;
+  modalSliderTrack: string;
+  modalSliderThumb: string;
+  colorPickerIcon: string;
+};
+
+export const homeThemes: Record<HomeThemeName, HomeTheme> = {
+  light: {
+    name: 'light',
+    screenBackground: '#f5f2ec',
+    surface: '#ffffff',
+    border: '#d4c8b8',
+    titleText: '#1e1a16',
+    mutedText: '#6d6257',
+    buttonText: '#1e1a16',
+    buttonIconText: '#1e1a16',
+    buttonSurface: '#ffffff',
+    buttonBorder: '#d4c8b8',
+    buttonChip: '#1e1a16',
+    buttonChipText: '#ffffff',
+    swatchBorder: '#9f9487',
+    inputBackground: '#ffffff',
+    inputBorder: '#d4c8b8',
+    inputText: '#1e1a16',
+    placeholderText: '#8a7d6f',
+    optionText: '#1e1a16',
+    optionTextMuted: '#6d6257',
+    optionOn: '#2ecc71',
+    optionOff: '#e74c3c',
+    optionBorder: '#d4c8b8',
+    statusBarBg: '#f5f2ec',
+    modalBackdrop: 'rgba(0,0,0,0.24)',
+    modalSheet: '#fffaf3',
+    modalText: '#1e1a16',
+    modalMutedText: '#6d6257',
+    modalButton: '#1e1a16',
+    modalButtonText: '#ffffff',
+    modalPanel: '#ebe2d6',
+    modalPreview: '#ffffff',
+    modalPreviewBorder: '#d4c8b8',
+    modalTabBar: '#fffaf3',
+    modalTabActive: '#1e1a16',
+    modalTabInactive: '#8a7d6f',
+    modalSelectedCard: '#f3ebe0',
+    modalSelectedCardBorder: '#6750a4',
+    modalSliderTrack: '#d4c8b8',
+    modalSliderThumb: '#1e1a16',
+    colorPickerIcon: '#1e1a16',
+  },
+  dark: {
+    name: 'dark',
+    screenBackground: '#111111',
+    surface: '#1b1b1b',
+    border: '#333333',
+    titleText: '#ffffff',
+    mutedText: '#9a9a9a',
+    buttonText: '#ffffff',
+    buttonIconText: '#ffffff',
+    buttonSurface: '#1b1b1b',
+    buttonBorder: '#333333',
+    buttonChip: '#f5f2ec',
+    buttonChipText: '#1e1a16',
+    swatchBorder: '#555555',
+    inputBackground: '#1b1b1b',
+    inputBorder: '#333333',
+    inputText: '#ffffff',
+    placeholderText: '#777777',
+    optionText: '#ffffff',
+    optionTextMuted: '#9a9a9a',
+    optionOn: '#2ecc71',
+    optionOff: '#e74c3c',
+    optionBorder: '#333333',
+    statusBarBg: '#111111',
+    modalBackdrop: 'rgba(0,0,0,0.4)',
+    modalSheet: '#111111',
+    modalText: '#ffffff',
+    modalMutedText: '#8f8f8f',
+    modalButton: '#2b2b2b',
+    modalButtonText: '#ffffff',
+    modalPanel: '#1b1b1b',
+    modalPreview: '#ffffff',
+    modalPreviewBorder: '#ffffff',
+    modalTabBar: '#111111',
+    modalTabActive: '#ffffff',
+    modalTabInactive: '#a7a7a7',
+    modalSelectedCard: '#221b33',
+    modalSelectedCardBorder: '#6750a4',
+    modalSliderTrack: '#3a3a3a',
+    modalSliderThumb: '#ffffff',
+    colorPickerIcon: '#ffffff',
+  },
+};
+
+export function getHomeTheme(name: HomeThemeName): HomeTheme {
+  return homeThemes[name];
+}

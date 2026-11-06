@@ -6,10 +6,38 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#111111',
   },
   screen: {
     flex: 1,
+  },
+  homeScreen: {
+    flex: 1,
+  },
+  homeStatusBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  homeTitle: {
+    fontSize: 22,
+    lineHeight: 28,
+    fontWeight: '700',
+    includeFontPadding: false,
+  },
+  homeThemeButton: {
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  homeThemeButtonText: {
+    fontSize: 14,
+    lineHeight: 18,
+    fontWeight: '700',
+    includeFontPadding: false,
   },
   content: {
     flex: 1,
@@ -18,7 +46,6 @@ export const styles = StyleSheet.create({
     gap: 16,
   },
   title: {
-    color: '#ffffff',
     fontSize: 22,
     fontWeight: '600',
   },
@@ -26,9 +53,6 @@ export const styles = StyleSheet.create({
     minHeight: 160,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#333333',
-    backgroundColor: '#1b1b1b',
-    color: '#ffffff',
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 18,
@@ -48,8 +72,6 @@ export const styles = StyleSheet.create({
     gap: 10,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#333333',
-    backgroundColor: '#1b1b1b',
     paddingHorizontal: 14,
     paddingVertical: 12,
   },
@@ -70,7 +92,6 @@ export const styles = StyleSheet.create({
     backgroundColor: '#e74c3c',
   },
   optionButtonText: {
-    color: '#ffffff',
     fontSize: 15,
     fontWeight: '600',
   },
@@ -81,8 +102,6 @@ export const styles = StyleSheet.create({
     gap: 10,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#333333',
-    backgroundColor: '#1b1b1b',
     paddingHorizontal: 14,
     paddingVertical: 12,
   },
@@ -91,10 +110,8 @@ export const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#555555',
   },
   colorButtonText: {
-    color: '#ffffff',
     fontSize: 15,
     fontWeight: '600',
   },
@@ -104,10 +121,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#2b2b2b',
   },
   fontSampleText: {
-    color: '#ffffff',
     fontSize: 12,
   },
   button: {
@@ -125,7 +140,6 @@ export const styles = StyleSheet.create({
     opacity: 0.45,
   },
   exitHint: {
-    color: '#9a9a9a',
     fontSize: 12,
     marginTop: -6,
   },
@@ -142,12 +156,10 @@ export const styles = StyleSheet.create({
   },
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'center',
     padding: 20,
   },
   sheet: {
-    backgroundColor: '#111111',
     borderRadius: 24,
     padding: 20,
     gap: 16,
@@ -160,18 +172,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   modalTitle: {
-    color: '#ffffff',
     fontSize: 18,
     fontWeight: '600',
   },
   closeButton: {
     borderRadius: 16,
-    backgroundColor: '#2b2b2b',
     paddingHorizontal: 14,
     paddingVertical: 10,
   },
   closeButtonText: {
-    color: '#ffffff',
     fontSize: 14,
     fontWeight: '600',
   },
@@ -193,7 +202,6 @@ export const styles = StyleSheet.create({
     marginHorizontal: 0,
     marginBottom: 0,
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.16)',
   },
   fontPickerBody: {
     flex: 1,
@@ -207,12 +215,13 @@ export const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 8,
   },
+  fontChoiceColumnWrapper: {
+    gap: 12,
+  },
   fontTabBar: {
-    backgroundColor: '#111111',
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 1,
-    borderBottomColor: '#2b2b2b',
   },
   fontTab: {
     flex: 1,
@@ -231,40 +240,32 @@ export const styles = StyleSheet.create({
     minHeight: 96,
     borderRadius: 18,
     borderWidth: 1,
-    borderColor: '#333333',
-    backgroundColor: '#1b1b1b',
     paddingHorizontal: 12,
     paddingVertical: 14,
     justifyContent: 'space-between',
   },
   fontChoiceButtonSelected: {
     borderColor: '#6750a4',
-    backgroundColor: '#221b33',
   },
   fontChoiceButtonPressed: {
     opacity: 0.8,
   },
   fontChoicePreview: {
-    color: '#ffffff',
     fontSize: 28,
     includeFontPadding: false,
   },
   fontChoiceLabel: {
-    color: '#cfcfcf',
     fontSize: 13,
     fontWeight: '600',
     marginBottom: 4,
   },
   fontChoiceCredit: {
-    color: '#8f8f8f',
     fontSize: 11,
     lineHeight: 14,
   },
   preview: {
     height: 52,
-    backgroundColor: '#ffffff',
     borderWidth: 2,
-    borderColor: '#ffffff',
     borderRadius: 16,
   },
   panel: {
@@ -283,21 +284,17 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#333333',
-    backgroundColor: '#1b1b1b',
     paddingHorizontal: 14,
     paddingVertical: 12,
     alignItems: 'center',
   },
   fontSizeModeButtonSelected: {
     borderColor: '#6750a4',
-    backgroundColor: '#221b33',
   },
   fontSizeModeButtonPressed: {
     opacity: 0.8,
   },
   fontSizeModeButtonText: {
-    color: '#ffffff',
     fontSize: 15,
     fontWeight: '600',
   },
@@ -310,19 +307,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   fontSizeLabel: {
-    color: '#cfcfcf',
     fontSize: 14,
     fontWeight: '600',
   },
   fontSizeValue: {
-    color: '#ffffff',
     fontSize: 16,
     fontWeight: '700',
   },
   fontSizeSlider: {
     width: '100%',
   },
-  colorTextInput: {
-    color: '#ffffff',
-  },
+  colorTextInput: {},
 });

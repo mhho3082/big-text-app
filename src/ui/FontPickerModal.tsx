@@ -8,12 +8,14 @@ import {
   getFontFamily,
 } from '../fonts';
 import {styles} from '../styles';
+import {HomeTheme} from '../theme';
 
 type Props = {
   visible: boolean;
   selectedFontFamily: string;
   onClose: () => void;
   onFontChange: (family: string) => void;
+  theme: HomeTheme;
 };
 
 export function FontPickerModal({
@@ -21,6 +23,7 @@ export function FontPickerModal({
   selectedFontFamily,
   onClose,
   onFontChange,
+  theme,
 }: Props) {
   const layout = useWindowDimensions();
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -62,7 +65,7 @@ export function FontPickerModal({
       contentContainerStyle={styles.fontListContent}
       data={options}
       numColumns={fontColumns}
-      columnWrapperStyle={{gap: 12}}
+      columnWrapperStyle={styles.fontChoiceColumnWrapper}
       keyExtractor={option => option.displayName}
       renderItem={({item: option}) => {
         const family = getFontFamily(option);
@@ -73,7 +76,15 @@ export function FontPickerModal({
             onPress={() => onFontChange(family)}
             style={({pressed}) => [
               styles.fontChoiceButton,
+              {
+                borderColor: theme.border,
+                backgroundColor: theme.surface,
+              },
               selected && styles.fontChoiceButtonSelected,
+              selected && {
+                borderColor: theme.modalSelectedCardBorder,
+                backgroundColor: theme.modalSelectedCard,
+              },
               pressed && styles.fontChoiceButtonPressed,
             ]}
           >
@@ -83,14 +94,23 @@ export function FontPickerModal({
                 {
                   fontFamily: family,
                   fontWeight: option.fontWeight,
+                  color: theme.modalText,
                 },
               ]}
             >
               {option.sample}
             </Text>
-            <Text style={styles.fontChoiceLabel}>{option.displayName}</Text>
-            {option.credit ? <Text style={styles.fontChoiceCredit}>{option.credit}</Text> : null}
-            <Text style={styles.fontChoiceCredit}>{option.license}</Text>
+            <Text style={[styles.fontChoiceLabel, { color: theme.modalText }]}>
+              {option.displayName}
+            </Text>
+            {option.credit ? (
+              <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
+                {option.credit}
+              </Text>
+            ) : null}
+            <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
+              {option.license}
+            </Text>
           </Pressable>
         );
       }}
@@ -106,12 +126,12 @@ export function FontPickerModal({
       onRequestClose={onClose}
     >
       {visible ? (
-        <View style={styles.backdrop}>
-          <View style={styles.sheet}>
+        <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
+          <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Output font</Text>
-              <Pressable onPress={onClose} style={styles.closeButton}>
-                <Text style={styles.closeButtonText}>Close</Text>
+              <Text style={[styles.modalTitle, { color: theme.modalText }]}>Output font</Text>
+              <Pressable onPress={onClose} style={[styles.closeButton, { backgroundColor: theme.modalButton }]}>
+                <Text style={[styles.closeButtonText, { color: theme.modalButtonText }]}>Close</Text>
               </Pressable>
             </View>
             <View style={styles.fontPickerBody}>
@@ -126,11 +146,20 @@ export function FontPickerModal({
                 renderTabBar={props => (
                   <TabBar
                     {...props}
-                    indicatorStyle={styles.fontTabIndicator}
-                    style={styles.fontTabBar}
+                    indicatorStyle={[
+                      styles.fontTabIndicator,
+                      { backgroundColor: theme.modalSelectedCardBorder },
+                    ]}
+                    style={[
+                      styles.fontTabBar,
+                      {
+                        backgroundColor: theme.modalTabBar,
+                        borderBottomColor: theme.border,
+                      },
+                    ]}
                     tabStyle={styles.fontTab}
-                    activeColor="#ffffff"
-                    inactiveColor="#a7a7a7"
+                    activeColor={theme.modalTabActive}
+                    inactiveColor={theme.modalTabInactive}
                   />
                 )}
               />

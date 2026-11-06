@@ -1,11 +1,14 @@
 import { create } from 'zustand';
+import { Appearance } from 'react-native';
 import { defaultOutputFontFamily } from '../fonts';
+import { HomeThemeName } from '../theme';
 
 export type Screen = 'home' | 'output';
 export type OutputFontSizeMode = 'automatic' | 'custom';
 
 type AppState = {
   screen: Screen;
+  homeTheme: HomeThemeName;
   text: string;
   foregroundColor: string;
   backgroundColor: string;
@@ -14,6 +17,7 @@ type AppState = {
   outputFontSize: number;
   outputOneLine: boolean;
   outputWordBreak: boolean;
+  toggleHomeTheme: () => void;
   setText: (text: string) => void;
   setForegroundColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
@@ -28,6 +32,7 @@ type AppState = {
 
 export const useAppStore = create<AppState>(set => ({
   screen: 'home',
+  homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
   text: '',
   foregroundColor: '#ffffff',
   backgroundColor: '#111111',
@@ -36,6 +41,8 @@ export const useAppStore = create<AppState>(set => ({
   outputFontSize: 120,
   outputOneLine: false,
   outputWordBreak: false,
+  toggleHomeTheme: () =>
+    set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
   setText: text => set({ text }),
   setForegroundColor: foregroundColor => set({ foregroundColor }),
   setBackgroundColor: backgroundColor => set({ backgroundColor }),
