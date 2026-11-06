@@ -3,7 +3,6 @@ import {FlatList, Modal, Pressable, Text, useWindowDimensions, View} from 'react
 import {TabBar, TabView} from 'react-native-tab-view';
 import {
   getFontCategories,
-  getFontCategory,
   getFontOptionsByCategory,
   getFontFamily,
 } from '../fonts';
@@ -33,14 +32,6 @@ export function FontPickerModal({
   }, [layout.width]);
 
   const fontCategories = React.useMemo(() => getFontCategories(), []);
-
-  React.useEffect(() => {
-    if (visible) {
-      const category = getFontCategory(selectedFontFamily);
-      const index = fontCategories.indexOf(category ?? fontCategories[0]);
-      setTabIndex(index >= 0 ? index : 0);
-    }
-  }, [fontCategories, selectedFontFamily, visible]);
 
   const routes = React.useMemo(
     () =>
