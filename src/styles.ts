@@ -137,6 +137,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
+  buttonHalf: {
+    flex: 1,
+    alignItems: 'center',
+  },
   buttonText: {
     color: '#ffffff',
     fontSize: 16,
@@ -150,11 +154,36 @@ export const styles = StyleSheet.create({
     marginTop: -6,
   },
   outputScreen: { flex: 1 },
+  outputHeadlessScreen: {
+    position: 'absolute',
+    left: -10000,
+    top: 0,
+    width: '100%',
+    height: '100%',
+  },
+  outputScreenPressable: {
+    flex: 1,
+  },
   outputFill: {
     flex: 1,
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  outputCaptureLayer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  outputHiddenMeasurementLayer: {
+    opacity: 0,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   outputText: {
     alignSelf: 'stretch',

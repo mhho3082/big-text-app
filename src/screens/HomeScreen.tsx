@@ -36,6 +36,7 @@ export function HomeScreen({ insets }: Props) {
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
   const goToOutput = useAppStore(state => state.goToOutput);
+  const goToShare = useAppStore(state => state.goToShare);
   const [foregroundPickerVisible, setForegroundPickerVisible] = React.useState(false);
   const [backgroundPickerVisible, setBackgroundPickerVisible] = React.useState(false);
   const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
@@ -183,13 +184,22 @@ export function HomeScreen({ insets }: Props) {
             </Text>
           </Pressable>
         </View>
-        <Pressable
-          disabled={!canShowText}
-          onPress={goToOutput}
-          style={[styles.button, !canShowText && styles.buttonDisabled]}
-        >
-          <Text style={styles.buttonText}>{translate('home.showText')}</Text>
-        </Pressable>
+        <View style={styles.buttonRow}>
+          <Pressable
+            disabled={!canShowText}
+            onPress={goToOutput}
+            style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
+          >
+            <Text style={styles.buttonText}>{translate('home.showText')}</Text>
+          </Pressable>
+          <Pressable
+            disabled={!canShowText}
+            onPress={goToShare}
+            style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
+          >
+            <Text style={styles.buttonText}>{translate('home.shareImage')}</Text>
+          </Pressable>
+        </View>
         <Text style={[styles.exitHint, { color: theme.mutedText }]}>{translate('home.exitHint')}</Text>
       </View>
       <ColorPickerModal

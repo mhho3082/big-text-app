@@ -4,7 +4,7 @@ import { defaultOutputFontFamily } from '../fonts';
 import { AppLanguage, nextLanguage, setLanguage as setI18nLanguage } from '../i18n';
 import { HomeThemeName } from '../theme';
 
-export type Screen = 'home' | 'output';
+export type Screen = 'home' | 'output' | 'share';
 export type OutputFontSizeMode = 'automatic' | 'custom';
 export type OutputDisplayStyle = 'static' | 'strobe' | 'pulse';
 export type OutputAlignment = 'left' | 'center' | 'right';
@@ -33,6 +33,7 @@ type AppState = {
   setOutputDisplayStyle: (style: OutputDisplayStyle) => void;
   setOutputAlignment: (alignment: OutputAlignment) => void;
   goToOutput: () => void;
+  goToShare: () => void;
   goHome: () => void;
 };
 
@@ -70,5 +71,6 @@ export const useAppStore = create<AppState>(set => ({
   setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
   setOutputAlignment: outputAlignment => set({ outputAlignment }),
   goToOutput: () => set({ screen: 'output' }),
+  goToShare: () => set({ screen: 'share' }),
   goHome: () => set({ screen: 'home' }),
 }));
