@@ -2,6 +2,38 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/en/Anton/Anton-Regular.ttf",
+      "sha1": "726b5b90799781efcdbea11b90722cea38c9d8c7"
+    },
+    {
+      "path": "assets/fonts/en/Anton/OFL.txt",
+      "sha1": "e9f0c258dec9b2c21698c824d22189be828d772e"
+    },
+    {
+      "path": "assets/fonts/en/Atkinson_Hyperlegible/AtkinsonHyperlegible-Regular.ttf",
+      "sha1": "7d87c7f4ac5f18a3e39250a1eb6e6ab2b121320b"
+    },
+    {
+      "path": "assets/fonts/en/Atkinson_Hyperlegible/OFL.txt",
+      "sha1": "b888b4956881d53ab790470520fe9bced6f5dac8"
+    },
+    {
+      "path": "assets/fonts/en/Cinzel_Decorative/CinzelDecorative-Regular.ttf",
+      "sha1": "c7c4f19fcfb7cc34ded9341ecc6d1c72ee272dbf"
+    },
+    {
+      "path": "assets/fonts/en/Cinzel_Decorative/OFL.txt",
+      "sha1": "667dc8d00d41c951ad98dce7a38d090f5084540b"
+    },
+    {
+      "path": "assets/fonts/en/Cinzel/OFL.txt",
+      "sha1": "145f3043ddc779395c4acccfa8fa379e4dc2622e"
+    },
+    {
+      "path": "assets/fonts/en/Cinzel/static/Cinzel-Regular.ttf",
+      "sha1": "e69b593cf3181656bb3634477f0ceb0089846645"
+    },
+    {
       "path": "assets/fonts/en/DeliusUnicase/DeliusUnicase-Regular.ttf",
       "sha1": "f1a680307cc657651d4d1b96c5a520ac19cf47e7"
     },
@@ -18,6 +50,14 @@
       "sha1": "f4c4b129fa42c77a34447df52d8a6cfa8a203009"
     },
     {
+      "path": "assets/fonts/en/DM_Serif_Display/DMSerifDisplay-Regular.ttf",
+      "sha1": "efabe55b7e799d9674a691f994accadd19aaa588"
+    },
+    {
+      "path": "assets/fonts/en/DM_Serif_Display/OFL.txt",
+      "sha1": "0002178cf7e55f0ec2349136a5867644d5569f2a"
+    },
+    {
       "path": "assets/fonts/en/Doto/OFL.txt",
       "sha1": "5f05e358368f0373753ff28b1855e240245a3122"
     },
@@ -28,6 +68,22 @@
     {
       "path": "assets/fonts/en/Doto/static/Doto-Black.ttf",
       "sha1": "cdc291c6401acb3f82862cf2220effd05598a62a"
+    },
+    {
+      "path": "assets/fonts/en/Lexend/OFL.txt",
+      "sha1": "90849ce07e303976e08b807a29ac1f808a47afd5"
+    },
+    {
+      "path": "assets/fonts/en/Lexend/static/Lexend-Regular.ttf",
+      "sha1": "6b1a67df80ac5b837be9112bf27e6c718ed36c08"
+    },
+    {
+      "path": "assets/fonts/en/Lora/OFL.txt",
+      "sha1": "de2ca828c5f3d6af1ab0e577b7b2b6a428505a42"
+    },
+    {
+      "path": "assets/fonts/en/Lora/static/Lora-Regular.ttf",
+      "sha1": "2f0de70df8ae30d4e64fffcb8850fc9b111365c3"
     },
     {
       "path": "assets/fonts/en/Monoton/Monoton-Regular.ttf",
@@ -96,6 +152,14 @@
     {
       "path": "assets/fonts/en/Roboto/static/Roboto-Regular.ttf",
       "sha1": "cb6cc5710764b9f06b8d8c923f961e3c1ceb7a59"
+    },
+    {
+      "path": "assets/fonts/en/Silkscreen/OFL.txt",
+      "sha1": "c64cf75c1d80c95f6d86645e44e13b097514e360"
+    },
+    {
+      "path": "assets/fonts/en/Silkscreen/Silkscreen-Regular.ttf",
+      "sha1": "c86540c60122726280387c8ebb9c997db6efb5e1"
     }
   ]
 }

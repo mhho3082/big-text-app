@@ -1,5 +1,13 @@
 module.exports = {
   assets: [
+    './assets/fonts/en/Atkinson_Hyperlegible',
+    './assets/fonts/en/Anton',
+    './assets/fonts/en/Cinzel',
+    './assets/fonts/en/Cinzel_Decorative',
+    './assets/fonts/en/DM_Serif_Display',
+    './assets/fonts/en/Lexend',
+    './assets/fonts/en/Lora',
+    './assets/fonts/en/Silkscreen',
     './assets/fonts/en/Doto',
     './assets/fonts/en/Orbitron',
     './assets/fonts/en/Monoton',

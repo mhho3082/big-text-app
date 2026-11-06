@@ -1,6 +1,7 @@
 import React from 'react';
-import {Modal, Pressable, Text, View} from 'react-native';
-import {fontOptions, getFontFamily} from '../fonts';
+import {FlatList, Modal, Pressable, Text, useWindowDimensions, View} from 'react-native';
+import {TabBar, TabView} from 'react-native-tab-view';
+import {getFontOptionsByCategory, getFontFamily} from '../fonts';
 import {styles} from '../styles';
 
 type Props = {
@@ -16,6 +17,74 @@ export function FontPickerModal({
   onClose,
   onFontChange,
 }: Props) {
+  const layout = useWindowDimensions();
+  const [tabIndex, setTabIndex] = React.useState(0);
+  const fontColumns = React.useMemo(() => {
+    const usableWidth = Math.max(layout.width - 64, 320);
+    return Math.max(2, Math.floor(usableWidth / 180));
+  }, [layout.width]);
+
+  React.useEffect(() => {
+    if (visible) {
+      setTabIndex(0);
+    }
+  }, [visible]);
+
+  const routes = React.useMemo(
+    () => [
+      {
+        key: 'english',
+        title: 'English',
+      },
+    ],
+    [],
+  );
+
+  const englishFontOptions = React.useMemo(
+    () => getFontOptionsByCategory('english'),
+    [],
+  );
+
+  const renderFontList = () => (
+    <FlatList
+      key={`font-grid-${fontColumns}`}
+      contentContainerStyle={styles.fontListContent}
+      data={englishFontOptions}
+      numColumns={fontColumns}
+      columnWrapperStyle={styles.fontChoiceRow}
+      keyExtractor={option => option.displayName}
+      renderItem={({item: option}) => {
+        const family = getFontFamily(option);
+        const selected = family === selectedFontFamily;
+
+        return (
+          <Pressable
+            onPress={() => onFontChange(family)}
+            style={({pressed}) => [
+              styles.fontChoiceButton,
+              selected && styles.fontChoiceButtonSelected,
+              pressed && styles.fontChoiceButtonPressed,
+            ]}
+          >
+            <Text
+              style={[
+                styles.fontChoicePreview,
+                {
+                  fontFamily: family,
+                  fontWeight: option.fontWeight,
+                },
+              ]}
+            >
+              {option.sample}
+            </Text>
+            <Text style={styles.fontChoiceLabel}>{option.displayName}</Text>
+          </Pressable>
+        );
+      }}
+      showsVerticalScrollIndicator={false}
+    />
+  );
+
   return (
     <Modal
       visible={visible}
@@ -32,36 +101,32 @@ export function FontPickerModal({
                 <Text style={styles.closeButtonText}>Close</Text>
               </Pressable>
             </View>
-            <View style={styles.fontGrid}>
-              {fontOptions.map(option => {
-                const family = getFontFamily(option);
-                const selected = family === selectedFontFamily;
-
-                return (
-                  <Pressable
-                    key={option.displayName}
-                    onPress={() => onFontChange(family)}
-                    style={({pressed}) => [
-                      styles.fontChoiceButton,
-                      selected && styles.fontChoiceButtonSelected,
-                      pressed && styles.fontChoiceButtonPressed,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.fontChoicePreview,
-                        {
-                          fontFamily: family,
-                          fontWeight: option.fontWeight,
-                        },
-                      ]}
-                    >
-                      {option.sample}
-                    </Text>
-                    <Text style={styles.fontChoiceLabel}>{option.displayName}</Text>
-                  </Pressable>
-                );
-              })}
+            <View style={styles.fontPickerBody}>
+              <TabView
+                style={styles.fontTabView}
+                navigationState={{index: tabIndex, routes}}
+                renderScene={({route}) => {
+                  switch (route.key) {
+                    case 'english':
+                      return renderFontList();
+                    default:
+                      return null;
+                  }
+                }}
+                onIndexChange={setTabIndex}
+                initialLayout={{width: layout.width - 40}}
+                renderTabBar={props => (
+                  <TabBar
+                    {...props}
+                    indicatorStyle={styles.fontTabIndicator}
+                    style={styles.fontTabBar}
+                    tabStyle={styles.fontTab}
+                    labelStyle={styles.fontTabLabel}
+                    activeColor="#ffffff"
+                    inactiveColor="#a7a7a7"
+                  />
+                )}
+              />
             </View>
           </View>
         </View>

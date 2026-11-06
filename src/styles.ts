@@ -115,6 +115,8 @@ export const styles = StyleSheet.create({
     borderRadius: 24,
     padding: 20,
     gap: 16,
+    height: '85%',
+    maxHeight: '85%',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -140,13 +142,42 @@ export const styles = StyleSheet.create({
   picker: {
     gap: 16,
   },
-  fontGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  fontPickerBody: {
+    flex: 1,
+    minHeight: 0,
+  },
+  fontTabView: {
+    flex: 1,
+  },
+  fontListContent: {
+    gap: 12,
+    paddingTop: 16,
+    paddingBottom: 8,
+  },
+  fontChoiceRow: {
     gap: 12,
   },
+  fontTabBar: {
+    backgroundColor: '#111111',
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#2b2b2b',
+  },
+  fontTab: {
+    width: 'auto',
+  },
+  fontTabLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    textTransform: 'none',
+  },
+  fontTabIndicator: {
+    backgroundColor: '#6750a4',
+    height: 3,
+  },
   fontChoiceButton: {
-    width: '48%',
+    flex: 1,
     minHeight: 96,
     borderRadius: 18,
     borderWidth: 1,
