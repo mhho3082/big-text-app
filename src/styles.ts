@@ -153,9 +153,6 @@ export const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 8,
   },
-  fontChoiceRow: {
-    gap: 12,
-  },
   fontTabBar: {
     backgroundColor: '#111111',
     elevation: 0,
@@ -164,7 +161,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#2b2b2b',
   },
   fontTab: {
-    width: 'auto',
+    flex: 1,
   },
   fontTabLabel: {
     fontSize: 14,
@@ -205,6 +202,9 @@ export const styles = StyleSheet.create({
   },
   preview: {
     height: 52,
+    backgroundColor: '#ffffff',
+    borderWidth: 2,
+    borderColor: '#ffffff',
     borderRadius: 16,
   },
   panel: {

@@ -53,6 +53,21 @@
 		9A2C395744A9409B9D155C5E /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 050330E0A8D344F58BC007E1 /* OFL.txt */; };
 		C692473C690240BEBE775E23 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F9DFF3188A74812A50FA49A /* Anton-Regular.ttf */; };
 		8E6A5036334C4DD6860B83C0 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 816760488C914D29B88903C5 /* OFL.txt */; };
+		F6D2B36CFCE2466E8FB7F046 /* ChironSungHK-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D929641D26194F14A4FF6067 /* ChironSungHK-Regular.ttf */; };
+		31709A905C2A4A969A823413 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8423BE93246940BDAB2E3147 /* OFL.txt */; };
+		539D24C557B944868D9B7F10 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = CF491754293B4C4885DB402F /* OFL.txt */; };
+		C05E4FB6942B4052AFD1A272 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0F3D447B55CE45E9B7C7F162 /* OFL.txt */; };
+		5FBD6AA653424F2EBF65E1DF /* ChironHeiHK-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91B686F12D7947249914051A /* ChironHeiHK-Regular.ttf */; };
+		B24ACE9BC8B846B287E99344 /* ChironGoRoundTC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0267074379549B7A3423E62 /* ChironGoRoundTC-Regular.ttf */; };
+		0291A46257DF4461ACC0A558 /* Cubic_11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FB30B9FC1B9463190D2BF7D /* Cubic_11.ttf */; };
+		AAA4B8E3D4FC4DAFABCD460F /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 94FCD4C70F66400399CCFD3D /* OFL.txt */; };
+		D3DC00C35103411CBD23D013 /* NaikaiFont-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13C3B3DE72A44032964863FE /* NaikaiFont-Regular.ttf */; };
+		8096B7519F2447C59BF64DFE /* MantouSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F55CFA937FD14F26B2219B3D /* MantouSans-Regular.ttf */; };
+		9D917523875141F5ACC89CB5 /* SIL_Open_Font_License_1.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6A7ADDC1406A42C499F48B0E /* SIL_Open_Font_License_1.1.txt */; };
+		0F9DD66327404AC98966ABB1 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 569427578B3C488BA76F0CF7 /* OFL.txt */; };
+		0A817F6B04D24741A75B1EF2 /* MaokenAssortedSans-TC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D83841BC74588B43C1220 /* MaokenAssortedSans-TC.ttf */; };
+		3E2A265D23B544A6BF881BAF /* licence-notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9F9BD0E1C04449808F149FF2 /* licence-notes.txt */; };
+		BB6976E1F9414AC285E99B5A /* ThePeakFontBeta_V0_102.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2376555EC67F4A69A4581A2E /* ThePeakFontBeta_V0_102.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +122,21 @@
 		050330E0A8D344F58BC007E1 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Lora/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		8F9DFF3188A74812A50FA49A /* Anton-Regular.ttf */ = {isa = PBXFileReference; name = "Anton-Regular.ttf"; path = "../assets/fonts/en/Anton/Anton-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		816760488C914D29B88903C5 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/en/Anton/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D929641D26194F14A4FF6067 /* ChironSungHK-Regular.ttf */ = {isa = PBXFileReference; name = "ChironSungHK-Regular.ttf"; path = "../assets/fonts/tc/Chiron_Sung_HK/static/ChironSungHK-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8423BE93246940BDAB2E3147 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/tc/Chiron_Hei_HK/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CF491754293B4C4885DB402F /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/tc/Chiron_GoRound_TC/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0F3D447B55CE45E9B7C7F162 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/tc/Chiron_Sung_HK/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		91B686F12D7947249914051A /* ChironHeiHK-Regular.ttf */ = {isa = PBXFileReference; name = "ChironHeiHK-Regular.ttf"; path = "../assets/fonts/tc/Chiron_Hei_HK/static/ChironHeiHK-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D0267074379549B7A3423E62 /* ChironGoRoundTC-Regular.ttf */ = {isa = PBXFileReference; name = "ChironGoRoundTC-Regular.ttf"; path = "../assets/fonts/tc/Chiron_GoRound_TC/static/ChironGoRoundTC-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6FB30B9FC1B9463190D2BF7D /* Cubic_11.ttf */ = {isa = PBXFileReference; name = "Cubic_11.ttf"; path = "../assets/fonts/tc/Cubic-11/fonts/ttf/Cubic_11.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		94FCD4C70F66400399CCFD3D /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/tc/Cubic-11/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		13C3B3DE72A44032964863FE /* NaikaiFont-Regular.ttf */ = {isa = PBXFileReference; name = "NaikaiFont-Regular.ttf"; path = "../assets/fonts/tc/naikaifont-1.89/NaikaiFont-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F55CFA937FD14F26B2219B3D /* MantouSans-Regular.ttf */ = {isa = PBXFileReference; name = "MantouSans-Regular.ttf"; path = "../assets/fonts/tc/Mantou_Sans/MantouSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6A7ADDC1406A42C499F48B0E /* SIL_Open_Font_License_1.1.txt */ = {isa = PBXFileReference; name = "SIL_Open_Font_License_1.1.txt"; path = "../assets/fonts/tc/GenRyuMin2TC-otf/SIL_Open_Font_License_1.1.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		569427578B3C488BA76F0CF7 /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/tc/Mantou_Sans/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9D7D83841BC74588B43C1220 /* MaokenAssortedSans-TC.ttf */ = {isa = PBXFileReference; name = "MaokenAssortedSans-TC.ttf"; path = "../assets/fonts/tc/MaokenAssortedSans-TC/MaokenAssortedSans-TC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9F9BD0E1C04449808F149FF2 /* licence-notes.txt */ = {isa = PBXFileReference; name = "licence-notes.txt"; path = "../assets/fonts/tc/MaokenAssortedSans-TC/licence-notes.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2376555EC67F4A69A4581A2E /* ThePeakFontBeta_V0_102.ttf */ = {isa = PBXFileReference; name = "ThePeakFontBeta_V0_102.ttf"; path = "../assets/fonts/tc/ThePeakFont/ThePeakFontBeta_V0_102.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +256,21 @@
 				050330E0A8D344F58BC007E1 /* OFL.txt */,
 				8F9DFF3188A74812A50FA49A /* Anton-Regular.ttf */,
 				816760488C914D29B88903C5 /* OFL.txt */,
+				D929641D26194F14A4FF6067 /* ChironSungHK-Regular.ttf */,
+				8423BE93246940BDAB2E3147 /* OFL.txt */,
+				CF491754293B4C4885DB402F /* OFL.txt */,
+				0F3D447B55CE45E9B7C7F162 /* OFL.txt */,
+				91B686F12D7947249914051A /* ChironHeiHK-Regular.ttf */,
+				D0267074379549B7A3423E62 /* ChironGoRoundTC-Regular.ttf */,
+				6FB30B9FC1B9463190D2BF7D /* Cubic_11.ttf */,
+				94FCD4C70F66400399CCFD3D /* OFL.txt */,
+				13C3B3DE72A44032964863FE /* NaikaiFont-Regular.ttf */,
+				F55CFA937FD14F26B2219B3D /* MantouSans-Regular.ttf */,
+				6A7ADDC1406A42C499F48B0E /* SIL_Open_Font_License_1.1.txt */,
+				569427578B3C488BA76F0CF7 /* OFL.txt */,
+				9D7D83841BC74588B43C1220 /* MaokenAssortedSans-TC.ttf */,
+				9F9BD0E1C04449808F149FF2 /* licence-notes.txt */,
+				2376555EC67F4A69A4581A2E /* ThePeakFontBeta_V0_102.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -334,6 +379,21 @@
 				9A2C395744A9409B9D155C5E /* OFL.txt in Resources */,
 				C692473C690240BEBE775E23 /* Anton-Regular.ttf in Resources */,
 				8E6A5036334C4DD6860B83C0 /* OFL.txt in Resources */,
+				F6D2B36CFCE2466E8FB7F046 /* ChironSungHK-Regular.ttf in Resources */,
+				31709A905C2A4A969A823413 /* OFL.txt in Resources */,
+				539D24C557B944868D9B7F10 /* OFL.txt in Resources */,
+				C05E4FB6942B4052AFD1A272 /* OFL.txt in Resources */,
+				5FBD6AA653424F2EBF65E1DF /* ChironHeiHK-Regular.ttf in Resources */,
+				B24ACE9BC8B846B287E99344 /* ChironGoRoundTC-Regular.ttf in Resources */,
+				0291A46257DF4461ACC0A558 /* Cubic_11.ttf in Resources */,
+				AAA4B8E3D4FC4DAFABCD460F /* OFL.txt in Resources */,
+				D3DC00C35103411CBD23D013 /* NaikaiFont-Regular.ttf in Resources */,
+				8096B7519F2447C59BF64DFE /* MantouSans-Regular.ttf in Resources */,
+				9D917523875141F5ACC89CB5 /* SIL_Open_Font_License_1.1.txt in Resources */,
+				0F9DD66327404AC98966ABB1 /* OFL.txt in Resources */,
+				0A817F6B04D24741A75B1EF2 /* MaokenAssortedSans-TC.ttf in Resources */,
+				3E2A265D23B544A6BF881BAF /* licence-notes.txt in Resources */,
+				BB6976E1F9414AC285E99B5A /* ThePeakFontBeta_V0_102.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

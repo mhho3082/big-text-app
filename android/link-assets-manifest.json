@@ -160,6 +160,90 @@
     {
       "path": "assets/fonts/en/Silkscreen/Silkscreen-Regular.ttf",
       "sha1": "c86540c60122726280387c8ebb9c997db6efb5e1"
+    },
+    {
+      "path": "assets/fonts/tc/Chiron_GoRound_TC/OFL.txt",
+      "sha1": "1365086277163a84d7be61bb00f5b32bdda59186"
+    },
+    {
+      "path": "assets/fonts/tc/Chiron_GoRound_TC/static/ChironGoRoundTC-Regular.ttf",
+      "sha1": "997424e7f1211605507c3ccce485e5153497f9ca"
+    },
+    {
+      "path": "assets/fonts/tc/Chiron_Hei_HK/OFL.txt",
+      "sha1": "1cef5818971ef898709f27a3f7ff144cc3d1755d"
+    },
+    {
+      "path": "assets/fonts/tc/Chiron_Hei_HK/static/ChironHeiHK-Regular.ttf",
+      "sha1": "be6aeaddf37ce3e5a7ea14f935ffd112d6515712"
+    },
+    {
+      "path": "assets/fonts/tc/Chiron_Sung_HK/OFL.txt",
+      "sha1": "31ec5455cba14cd46b171d5514c3fd5abdabcce3"
+    },
+    {
+      "path": "assets/fonts/tc/Chiron_Sung_HK/static/ChironSungHK-Regular.ttf",
+      "sha1": "ce5ea88abaad611cfd8ad24dbb9225981bb8ecfe"
+    },
+    {
+      "path": "assets/fonts/tc/Cubic-11/fonts/ttf/Cubic_11.ttf",
+      "sha1": "7165607a9ddcb9b0ebf339acd29a8daccadb1d04"
+    },
+    {
+      "path": "assets/fonts/tc/Cubic-11/OFL.txt",
+      "sha1": "ca0caf0d819bf0193a9b1819814bf12fb1004c86"
+    },
+    {
+      "path": "assets/fonts/tc/GenRyuMin2TC-otf/GenRyuMin2TC-R.otf",
+      "sha1": "51c27be96800ddbe84a99669b286c21f146424a6"
+    },
+    {
+      "path": "assets/fonts/tc/GenRyuMin2TC-otf/SIL_Open_Font_License_1.1.txt",
+      "sha1": "4d4fda0dcf3f776fb8f243995acd8446d885a9b8"
+    },
+    {
+      "path": "assets/fonts/tc/GenSekiGothic2TC-otf/GenSekiGothic2TC-R.otf",
+      "sha1": "48f9a761c881dbebab6dfc14552440a3c6289e92"
+    },
+    {
+      "path": "assets/fonts/tc/GenWanMin2TC-otf/GenWanMin2TC-R.otf",
+      "sha1": "effecf203d0932659f72a2096f3f86db4fe6f551"
+    },
+    {
+      "path": "assets/fonts/tc/iansui/Iansui-Regular.ttf",
+      "sha1": "fdac599beca6b4f45518880b1efb74c28c2e0f38"
+    },
+    {
+      "path": "assets/fonts/tc/iansui/OFL.txt",
+      "sha1": "2af6b6f2f2dd31848eb1784459a964355ccd2f06"
+    },
+    {
+      "path": "assets/fonts/tc/Mantou_Sans/MantouSans-Regular.ttf",
+      "sha1": "0f82d2e9ecfc1a6d6e55b8746fa0f7488faecb36"
+    },
+    {
+      "path": "assets/fonts/tc/Mantou_Sans/OFL.txt",
+      "sha1": "10968de846640513a2a81b8fcc2ed1afc8548643"
+    },
+    {
+      "path": "assets/fonts/tc/MaokenAssortedSans-TC/licence-notes.txt",
+      "sha1": "458c4045120621435ad13be79c04736545902a78"
+    },
+    {
+      "path": "assets/fonts/tc/MaokenAssortedSans-TC/MaokenAssortedSans-TC.ttf",
+      "sha1": "ff3a2ce8f567e12ac7c8070bdc2a342f0268523a"
+    },
+    {
+      "path": "assets/fonts/tc/naikaifont-1.89/NaikaiFont-Regular.ttf",
+      "sha1": "dd2f12aaf93d458f5231d91be9835bd3369fa1ea"
+    },
+    {
+      "path": "assets/fonts/tc/naikaifont-1.89/SIL_Open_Font_License_1.1.txt",
+      "sha1": "e4575441fb9b826e243d7a76622686d7923835cb"
+    },
+    {
+      "path": "assets/fonts/tc/ThePeakFont/ThePeakFontBeta_V0_102.ttf",
+      "sha1": "23140747b2ba21d1aab574be467e209b6f3b1638"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import type {TextStyle} from 'react-native';
 
-export type FontCategory = 'english' | 'chinese';
+export type FontCategory = (typeof fontOptions)[number]['category'];
 
 export type FontFamilyPair = {
   android: string;
@@ -159,10 +159,104 @@ export const fontOptions: FontOption[] = [
     iosFamily: 'Silkscreen',
     sample: 'Aa',
   },
+  {
+    displayName: '源流明體',
+    category: 'chinese',
+    androidFamily: 'GenRyuMin2TC-R',
+    iosFamily: 'GenRyuMin2 TC',
+    sample: '源流明體',
+  },
+  {
+    displayName: '源雲明體',
+    category: 'chinese',
+    androidFamily: 'GenWanMin2TC-R',
+    iosFamily: 'GenWanMin2 TC',
+    sample: '源雲明體',
+  },
+  {
+    displayName: '源石黑體',
+    category: 'chinese',
+    androidFamily: 'GenSekiGothic2TC-R',
+    iosFamily: 'GenSekiGothic2 TC',
+    sample: '源石黑體',
+  },
+  {
+    displayName: '芫荽',
+    category: 'chinese',
+    androidFamily: 'Iansui-Regular',
+    iosFamily: 'Iansui',
+    sample: '芫荽',
+  },
+  {
+    displayName: '饅頭黑體',
+    category: 'chinese',
+    androidFamily: 'MantouSans-Regular',
+    iosFamily: 'Mantou Sans',
+    sample: '饅頭黑體',
+  },
+  {
+    displayName: '貓啃什錦黑',
+    category: 'chinese',
+    androidFamily: 'MaokenAssortedSans-TC',
+    iosFamily: 'MaokenAssortedSans-TC',
+    sample: '貓啃什錦黑',
+  },
+  {
+    displayName: '內海字體',
+    category: 'chinese',
+    androidFamily: 'NaikaiFont-Regular',
+    iosFamily: 'NaikaiFont',
+    sample: '內海字體',
+  },
+  {
+    displayName: '昭源宋體',
+    category: 'chinese',
+    androidFamily: 'ChironSungHK-Regular',
+    iosFamily: 'Chiron Sung HK',
+    sample: '昭源宋體',
+  },
+  {
+    displayName: '昭源黑體',
+    category: 'chinese',
+    androidFamily: 'ChironHeiHK-Regular',
+    iosFamily: 'Chiron Hei HK',
+    sample: '昭源黑體',
+  },
+  {
+    displayName: '昭源環方',
+    category: 'chinese',
+    androidFamily: 'ChironGoRoundTC-Regular',
+    iosFamily: 'Chiron GoRound TC',
+    sample: '昭源環方',
+  },
+  {
+    displayName: '隨峰體',
+    category: 'chinese',
+    androidFamily: 'ThePeakFontBeta_V0_102',
+    iosFamily: 'The Peak Font 隨峰體 Beta',
+    sample: '隨峰體',
+  },
+  {
+    displayName: '俐方體11號',
+    category: 'chinese',
+    androidFamily: 'Cubic_11',
+    iosFamily: 'Cubic 11',
+    sample: '俐方體11號',
+  },
 ];
 
 export function getFontOptionsByCategory(category: FontCategory) {
   return fontOptions.filter(option => option.category === category);
+}
+
+export function getFontCategories() {
+  return Array.from(new Set(fontOptions.map(option => option.category)));
+}
+
+export function getFontCategory(fontFamily: string) {
+  const option = fontOptions.find(item => getFontFamily(item) === fontFamily);
+
+  return option?.category;
 }
 
 export const defaultOutputFontFamily =

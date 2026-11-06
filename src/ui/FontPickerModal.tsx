@@ -1,7 +1,12 @@
 import React from 'react';
 import {FlatList, Modal, Pressable, Text, useWindowDimensions, View} from 'react-native';
 import {TabBar, TabView} from 'react-native-tab-view';
-import {getFontOptionsByCategory, getFontFamily} from '../fonts';
+import {
+  getFontCategories,
+  getFontCategory,
+  getFontOptionsByCategory,
+  getFontFamily,
+} from '../fonts';
 import {styles} from '../styles';
 
 type Props = {
@@ -24,34 +29,40 @@ export function FontPickerModal({
     return Math.max(2, Math.floor(usableWidth / 180));
   }, [layout.width]);
 
+  const fontCategories = React.useMemo(() => getFontCategories(), []);
+
   React.useEffect(() => {
     if (visible) {
-      setTabIndex(0);
+      const category = getFontCategory(selectedFontFamily);
+      const index = fontCategories.indexOf(category ?? fontCategories[0]);
+      setTabIndex(index >= 0 ? index : 0);
     }
-  }, [visible]);
+  }, [fontCategories, selectedFontFamily, visible]);
 
   const routes = React.useMemo(
-    () => [
-      {
-        key: 'english',
-        title: 'English',
-      },
-    ],
-    [],
+    () =>
+      fontCategories.map(category => ({
+        key: category,
+        title: category.charAt(0).toUpperCase() + category.slice(1),
+      })),
+    [fontCategories],
   );
 
-  const englishFontOptions = React.useMemo(
-    () => getFontOptionsByCategory('english'),
-    [],
+  const fontOptionsByCategory = React.useMemo(
+    () =>
+      Object.fromEntries(
+        fontCategories.map(category => [category, getFontOptionsByCategory(category)]),
+      ) as Record<string, ReturnType<typeof getFontOptionsByCategory>>,
+    [fontCategories],
   );
 
-  const renderFontList = () => (
+  const renderFontList = (options: ReturnType<typeof getFontOptionsByCategory>) => (
     <FlatList
       key={`font-grid-${fontColumns}`}
       contentContainerStyle={styles.fontListContent}
-      data={englishFontOptions}
+      data={options}
       numColumns={fontColumns}
-      columnWrapperStyle={styles.fontChoiceRow}
+      columnWrapperStyle={{gap: 12}}
       keyExtractor={option => option.displayName}
       renderItem={({item: option}) => {
         const family = getFontFamily(option);
@@ -106,12 +117,7 @@ export function FontPickerModal({
                 style={styles.fontTabView}
                 navigationState={{index: tabIndex, routes}}
                 renderScene={({route}) => {
-                  switch (route.key) {
-                    case 'english':
-                      return renderFontList();
-                    default:
-                      return null;
-                  }
+                  return renderFontList(fontOptionsByCategory[route.key] ?? []);
                 }}
                 onIndexChange={setTabIndex}
                 initialLayout={{width: layout.width - 40}}
@@ -121,7 +127,6 @@ export function FontPickerModal({
                     indicatorStyle={styles.fontTabIndicator}
                     style={styles.fontTabBar}
                     tabStyle={styles.fontTab}
-                    labelStyle={styles.fontTabLabel}
                     activeColor="#ffffff"
                     inactiveColor="#a7a7a7"
                   />
