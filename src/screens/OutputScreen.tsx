@@ -2,9 +2,14 @@ import React from 'react';
 import { Animated, BackHandler, Easing, Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import Share from 'react-native-share';
-import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
+import type {
+  OutputAlignment,
+  OutputDisplayStyle,
+  OutputFontSizeMode,
+  PersistedAppOptions,
+} from '../state/persistedOptions';
 
 const MIN_AUTOMATIC_OUTPUT_FONT_SIZE = 8;
 const MAX_AUTOMATIC_OUTPUT_FONT_SIZE = 1032;
@@ -42,23 +47,37 @@ function doesAutomaticFontSizeFit(
   return widestLine <= availableWidth + 0.5 && usedHeight <= availableHeight + 0.5;
 }
 
-type Props = {
+export type OutputScreenProps = Pick<
+  PersistedAppOptions,
+  | 'text'
+  | 'foregroundColor'
+  | 'backgroundColor'
+  | 'outputFontFamily'
+  | 'outputFontSizeMode'
+  | 'outputFontSize'
+  | 'outputDisplayStyle'
+  | 'outputAlignment'
+> & {
   insets: { top: number; right: number; bottom: number; left: number };
   mode: 'display' | 'share';
   headless?: boolean;
+  onExit: () => void;
 };
 
-export function OutputScreen({ insets, mode, headless = false }: Props) {
-  const screen = useAppStore(state => state.screen);
-  const text = useAppStore(state => state.text);
-  const foregroundColor = useAppStore(state => state.foregroundColor);
-  const backgroundColor = useAppStore(state => state.backgroundColor);
-  const outputFontFamily = useAppStore(state => state.outputFontFamily);
-  const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
-  const outputFontSize = useAppStore(state => state.outputFontSize);
-  const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
-  const outputAlignment = useAppStore(state => state.outputAlignment);
-  const goHome = useAppStore(state => state.goHome);
+export function OutputScreen({
+  insets,
+  mode,
+  headless = false,
+  onExit,
+  text,
+  foregroundColor,
+  backgroundColor,
+  outputFontFamily,
+  outputFontSizeMode,
+  outputFontSize,
+  outputDisplayStyle,
+  outputAlignment,
+}: OutputScreenProps) {
   const { width, height } = useWindowDimensions();
   const [outputLayout, setOutputLayout] = React.useState({ width: 0, height: 0 });
   const [layoutTick, setLayoutTick] = React.useState(0);
@@ -71,7 +90,7 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
   );
   const [automaticSearchComplete, setAutomaticSearchComplete] = React.useState(false);
   const lastTapAt = React.useRef(0);
-  const captureRefView = React.useRef<View>(null);
+  const captureRefView = React.useRef<React.ElementRef<typeof View> | null>(null);
   const shareRequestedRef = React.useRef(false);
   const automaticSearchRef = React.useRef({
     best: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
@@ -98,20 +117,20 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
     }
 
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      goHome();
+      onExit();
       return true;
     });
 
     return () => {
       subscription.remove();
     };
-  }, [goHome, headless]);
+  }, [headless, onExit]);
 
   React.useEffect(() => {
-    if (screen !== 'home' && outputFontSizeMode === 'automatic') {
+    if (outputFontSizeMode === 'automatic') {
       restartAutomaticSearch();
     }
-  }, [outputFontSizeMode, restartAutomaticSearch, screen]);
+  }, [outputFontSizeMode, restartAutomaticSearch]);
 
   React.useEffect(() => {
     if (headless) {
@@ -170,7 +189,7 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
           useNativeDriver: true,
         }),
       ]),
-      { resetBeforeIteration: false },
+      { iterations: -1, resetBeforeIteration: false },
     );
 
     loop.start();
@@ -234,8 +253,8 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
     outputAlignment,
     outputFontFamily,
     outputFontSizeMode,
-    text,
     restartAutomaticSearch,
+    text,
   ]);
 
   const handleAutomaticTextLayout = React.useCallback(
@@ -255,14 +274,14 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
         search.high = currentProbeFontSize - 1;
       }
 
-    if (search.low <= search.high) {
-      setAutomaticProbeFontSize(Math.floor((search.low + search.high) / 2));
-      return;
-    }
+      if (search.low <= search.high) {
+        setAutomaticProbeFontSize(Math.floor((search.low + search.high) / 2));
+        return;
+      }
 
-    setAutomaticOutputFontSize(search.best);
-    setAutomaticSearchComplete(true);
-  },
+      setAutomaticOutputFontSize(search.best);
+      setAutomaticSearchComplete(true);
+    },
     [availableHeight, availableWidth, automaticProbeFontSize, outputFontSizeMode],
   );
 
@@ -271,12 +290,12 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
 
     if (now - lastTapAt.current < 300) {
       lastTapAt.current = 0;
-      goHome();
+      onExit();
       return;
     }
 
     lastTapAt.current = now;
-  }, [goHome]);
+  }, [onExit]);
 
   React.useEffect(() => {
     if (mode !== 'share' || shareRequestedRef.current) {
@@ -298,7 +317,7 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
       }
 
       try {
-        const uri = await captureRef(node, { format: 'png', quality: 1 });
+        const uri = await captureRef(node as never, { format: 'png', quality: 1 });
 
         if (cancelled) {
           return;
@@ -311,10 +330,10 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
           failOnCancel: false,
         });
       } catch {
-        // Ignore share failures and return to the home screen.
+        // Ignore share failures and return to the caller.
       } finally {
         if (!cancelled) {
-          goHome();
+          onExit();
         }
       }
     };
@@ -329,7 +348,7 @@ export function OutputScreen({ insets, mode, headless = false }: Props) {
       cancelled = true;
       cancelAnimationFrame(frame);
     };
-  }, [automaticSearchComplete, goHome, mode, outputFontSizeMode]);
+  }, [automaticSearchComplete, mode, onExit, outputFontSizeMode]);
 
   return (
     <View
