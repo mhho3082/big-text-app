@@ -2,6 +2,7 @@ import React from 'react';
 import { BackHandler, Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
+import { setImmersiveMode } from '../native/immersiveMode';
 
 const AUTOMATIC_OUTPUT_FONT_SIZE = 999;
 
@@ -37,6 +38,14 @@ export function OutputScreen({ insets }: Props) {
   React.useLayoutEffect(() => {
     setLayoutTick(tick => tick + 1);
   }, [width, height]);
+
+  React.useEffect(() => {
+    setImmersiveMode(true);
+
+    return () => {
+      setImmersiveMode(false);
+    };
+  }, []);
 
   const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputOneLine}:${outputWordBreak}:${text.length}`;
 
