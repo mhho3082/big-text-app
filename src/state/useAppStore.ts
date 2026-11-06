@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Appearance } from 'react-native';
 import { defaultOutputFontFamily } from '../fonts';
+import { AppLanguage, nextLanguage, setLanguage as setI18nLanguage } from '../i18n';
 import { HomeThemeName } from '../theme';
 
 export type Screen = 'home' | 'output';
@@ -9,6 +10,7 @@ export type OutputFontSizeMode = 'automatic' | 'custom';
 type AppState = {
   screen: Screen;
   homeTheme: HomeThemeName;
+  language: AppLanguage;
   text: string;
   foregroundColor: string;
   backgroundColor: string;
@@ -18,6 +20,8 @@ type AppState = {
   outputOneLine: boolean;
   outputWordBreak: boolean;
   toggleHomeTheme: () => void;
+  setLanguage: (language: AppLanguage) => void;
+  cycleLanguage: () => void;
   setText: (text: string) => void;
   setForegroundColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
@@ -33,6 +37,7 @@ type AppState = {
 export const useAppStore = create<AppState>(set => ({
   screen: 'home',
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
+  language: 'en',
   text: '',
   foregroundColor: '#ffffff',
   backgroundColor: '#111111',
@@ -43,6 +48,17 @@ export const useAppStore = create<AppState>(set => ({
   outputWordBreak: false,
   toggleHomeTheme: () =>
     set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
+  setLanguage: language =>
+    set(() => {
+      setI18nLanguage(language);
+      return { language };
+    }),
+  cycleLanguage: () =>
+    set(state => {
+      const language = nextLanguage(state.language);
+      setI18nLanguage(language);
+      return { language };
+    }),
   setText: text => set({ text }),
   setForegroundColor: foregroundColor => set({ foregroundColor }),
   setBackgroundColor: backgroundColor => set({ backgroundColor }),

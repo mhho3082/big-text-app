@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
+import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
@@ -15,6 +16,7 @@ type Props = {
 
 export function HomeScreen({ insets }: Props) {
   const homeThemeName = useAppStore(state => state.homeTheme);
+  const language = useAppStore(state => state.language);
   const text = useAppStore(state => state.text);
   const foregroundColor = useAppStore(state => state.foregroundColor);
   const backgroundColor = useAppStore(state => state.backgroundColor);
@@ -32,15 +34,15 @@ export function HomeScreen({ insets }: Props) {
   const setOutputOneLine = useAppStore(state => state.setOutputOneLine);
   const setOutputWordBreak = useAppStore(state => state.setOutputWordBreak);
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
+  const cycleLanguage = useAppStore(state => state.cycleLanguage);
   const goToOutput = useAppStore(state => state.goToOutput);
-  const [foregroundPickerVisible, setForegroundPickerVisible] =
-    React.useState(false);
-  const [backgroundPickerVisible, setBackgroundPickerVisible] =
-    React.useState(false);
+  const [foregroundPickerVisible, setForegroundPickerVisible] = React.useState(false);
+  const [backgroundPickerVisible, setBackgroundPickerVisible] = React.useState(false);
   const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
   const [fontSizePickerVisible, setFontSizePickerVisible] = React.useState(false);
   const canShowText = text.trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
+  const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
 
   return (
     <View
@@ -57,7 +59,6 @@ export function HomeScreen({ insets }: Props) {
     >
       <StatusBar
         barStyle={theme.name === 'dark' ? 'light-content' : 'dark-content'}
-        backgroundColor={theme.statusBarBg}
       />
       <View
         style={[
@@ -65,17 +66,27 @@ export function HomeScreen({ insets }: Props) {
           { backgroundColor: theme.screenBackground, borderBottomColor: theme.border },
         ]}
       >
-        <Text style={[styles.homeTitle, { color: theme.titleText }]}>Big Text</Text>
-        <Pressable
-          onPress={toggleHomeTheme}
-          style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
-        >
-          <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}>
-            {theme.name === 'dark' ? 'Light mode' : 'Dark mode'}
-          </Text>
-        </Pressable>
+        <Text style={[styles.homeTitle, { color: theme.titleText }]}>{translate('app.title')}</Text>
+        <View style={styles.homeStatusBarActions}>
+          <Pressable
+            onPress={cycleLanguage}
+            style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
+          >
+            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
+              {LANGUAGE_BUTTON_LABELS[language]}
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={toggleHomeTheme}
+            style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
+          >
+            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
+              {theme.name === 'dark' ? translate('home.lightMode') : translate('home.darkMode')}
+            </Text>
+          </Pressable>
+        </View>
       </View>
-      <View style={[styles.content, { backgroundColor: theme.screenBackground }]}>
+      <View style={[styles.content, { backgroundColor: theme.screenBackground }]}> 
         <TextInput
           style={[
             styles.input,
@@ -87,14 +98,14 @@ export function HomeScreen({ insets }: Props) {
           ]}
           value={text}
           onChangeText={setText}
-          placeholder="Type your text"
+          placeholder={translate('home.textPlaceholder')}
           placeholderTextColor={theme.placeholderText}
           multiline
           textAlignVertical="top"
         />
         <View style={styles.buttonRow}>
-          <ColorButton label="Text" color={foregroundColor} onPress={() => setForegroundPickerVisible(true)} theme={theme} />
-          <ColorButton label="Background" color={backgroundColor} onPress={() => setBackgroundPickerVisible(true)} theme={theme} />
+          <ColorButton label={translate('home.textColor')} color={foregroundColor} onPress={() => setForegroundPickerVisible(true)} theme={theme} />
+          <ColorButton label={translate('home.backgroundColor')} color={backgroundColor} onPress={() => setBackgroundPickerVisible(true)} theme={theme} />
         </View>
         <View style={styles.buttonRow}>
           <Pressable
@@ -106,10 +117,12 @@ export function HomeScreen({ insets }: Props) {
               { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
             ]}
           >
-            <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}>
+            <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}> 
               <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>Aa</Text>
             </View>
-            <Text style={[styles.colorButtonText, { color: theme.buttonText }]}>Font: {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}</Text>
+            <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
+              {translate('home.font')}: {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
+            </Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -120,10 +133,12 @@ export function HomeScreen({ insets }: Props) {
               { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
             ]}
           >
-            <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}>
+            <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}> 
               <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>T</Text>
             </View>
-            <Text style={[styles.colorButtonText, { color: theme.buttonText }]}>Size: {outputFontSizeMode === 'automatic' ? 'Auto' : outputFontSize}</Text>
+            <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
+              {translate('home.fontSize')}: {outputFontSizeMode === 'automatic' ? translate('home.auto') : outputFontSize}
+            </Text>
           </Pressable>
         </View>
         <View style={styles.toggleRow}>
@@ -138,7 +153,7 @@ export function HomeScreen({ insets }: Props) {
             ]}
           >
             <View style={[styles.optionIndicator, { borderColor: theme.optionBorder }, outputOneLine ? { backgroundColor: theme.optionOn } : { backgroundColor: theme.optionOff }]} />
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>One line</Text>
+            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>{translate('home.oneLine')}</Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -151,7 +166,7 @@ export function HomeScreen({ insets }: Props) {
             ]}
           >
             <View style={[styles.optionIndicator, { borderColor: theme.optionBorder }, outputWordBreak ? { backgroundColor: theme.optionOn } : { backgroundColor: theme.optionOff }]} />
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>Word break</Text>
+            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>{translate('home.wordBreak')}</Text>
           </Pressable>
         </View>
         <Pressable
@@ -159,13 +174,13 @@ export function HomeScreen({ insets }: Props) {
           onPress={goToOutput}
           style={[styles.button, !canShowText && styles.buttonDisabled]}
         >
-          <Text style={styles.buttonText}>Show text</Text>
+          <Text style={styles.buttonText}>{translate('home.showText')}</Text>
         </Pressable>
-        <Text style={[styles.exitHint, { color: theme.mutedText }]}>Notes: double-tap to exit the display screen</Text>
+        <Text style={[styles.exitHint, { color: theme.mutedText }]}>{translate('home.exitHint')}</Text>
       </View>
       <ColorPickerModal
         visible={foregroundPickerVisible}
-        title="Text color"
+        title={translate('home.textColor')}
         initialColor={foregroundColor}
         onClose={() => setForegroundPickerVisible(false)}
         onColorChange={setForegroundColor}
@@ -173,7 +188,7 @@ export function HomeScreen({ insets }: Props) {
       />
       <ColorPickerModal
         visible={backgroundPickerVisible}
-        title="Background color"
+        title={translate('home.backgroundColor')}
         initialColor={backgroundColor}
         onClose={() => setBackgroundPickerVisible(false)}
         onColorChange={setBackgroundColor}

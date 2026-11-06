@@ -1,12 +1,8 @@
 import React from 'react';
 import { Modal, Pressable, Text as RNText, View } from 'react-native';
-import ColorPicker, {
-  HueSlider,
-  Panel1,
-  InputWidget,
-  Preview,
-  Swatches,
-} from 'reanimated-color-picker';
+import ColorPicker, { HueSlider, Panel1, InputWidget, Preview, Swatches } from 'reanimated-color-picker';
+import { t } from '../i18n';
+import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
 
@@ -19,14 +15,8 @@ type Props = {
   theme: HomeTheme;
 };
 
-export function ColorPickerModal({
-  visible,
-  title,
-  initialColor,
-  onClose,
-  onColorChange,
-  theme,
-}: Props) {
+export function ColorPickerModal({ visible, title, initialColor, onClose, onColorChange, theme }: Props) {
+  const language = useAppStore(state => state.language);
   const [draftColor, setDraftColor] = React.useState(initialColor);
 
   React.useEffect(() => {
@@ -36,19 +26,14 @@ export function ColorPickerModal({
   }, [initialColor, visible]);
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       {visible ? (
         <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
               <RNText style={[styles.modalTitle, { color: theme.modalText }]}>{title}</RNText>
               <Pressable onPress={onClose} style={[styles.closeButton, { backgroundColor: theme.modalButton }]}>
-                <RNText style={[styles.closeButtonText, { color: theme.modalButtonText }]}>Close</RNText>
+                <RNText style={[styles.closeButtonText, { color: theme.modalButtonText }]}>{t('modal.close', undefined, language)}</RNText>
               </Pressable>
             </View>
             <ColorPicker
@@ -61,15 +46,8 @@ export function ColorPickerModal({
             >
               <Panel1 style={styles.panel} />
               <HueSlider style={styles.hueSlider} />
-              <Swatches
-                style={[styles.colorSwatches, { backgroundColor: theme.modalPanel }]}
-                swatchStyle={[styles.colorSwatchChip, { borderColor: theme.swatchBorder }]}
-              />
-              <InputWidget
-                inputStyle={[styles.colorTextInput, { color: theme.inputText }]}
-                inputTitleStyle={[styles.colorTextInput, { color: theme.inputText }]}
-                iconColor={theme.colorPickerIcon}
-              />
+              <Swatches style={[styles.colorSwatches, { backgroundColor: theme.modalPanel }]} swatchStyle={[styles.colorSwatchChip, { borderColor: theme.swatchBorder }]} />
+              <InputWidget inputStyle={[styles.colorTextInput, { color: theme.inputText }]} inputTitleStyle={[styles.colorTextInput, { color: theme.inputText }]} iconColor={theme.colorPickerIcon} />
               <Preview
                 style={[
                   styles.preview,

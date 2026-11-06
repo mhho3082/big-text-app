@@ -1,13 +1,11 @@
 import React from 'react';
-import {FlatList, Modal, Pressable, Text, useWindowDimensions, View} from 'react-native';
-import {TabBar, TabView} from 'react-native-tab-view';
-import {
-  getFontCategories,
-  getFontOptionsByCategory,
-  getFontFamily,
-} from '../fonts';
-import {styles} from '../styles';
-import {HomeTheme} from '../theme';
+import { FlatList, Modal, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { TabBar, TabView } from 'react-native-tab-view';
+import { t } from '../i18n';
+import { getFontCategories, getFontOptionsByCategory, getFontFamily } from '../fonts';
+import { useAppStore } from '../state/useAppStore';
+import { styles } from '../styles';
+import { HomeTheme } from '../theme';
 
 type Props = {
   visible: boolean;
@@ -17,13 +15,8 @@ type Props = {
   theme: HomeTheme;
 };
 
-export function FontPickerModal({
-  visible,
-  selectedFontFamily,
-  onClose,
-  onFontChange,
-  theme,
-}: Props) {
+export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontChange, theme }: Props) {
+  const language = useAppStore(state => state.language);
   const layout = useWindowDimensions();
   const [tabIndex, setTabIndex] = React.useState(0);
   const fontColumns = React.useMemo(() => {
@@ -37,16 +30,17 @@ export function FontPickerModal({
     () =>
       fontCategories.map(category => ({
         key: category,
-        title: category.charAt(0).toUpperCase() + category.slice(1),
+        title: t(`fontCategory.${category}`, undefined, language),
       })),
-    [fontCategories],
+    [fontCategories, language],
   );
 
   const fontOptionsByCategory = React.useMemo(
     () =>
-      Object.fromEntries(
-        fontCategories.map(category => [category, getFontOptionsByCategory(category)]),
-      ) as Record<string, ReturnType<typeof getFontOptionsByCategory>>,
+      Object.fromEntries(fontCategories.map(category => [category, getFontOptionsByCategory(category)])) as Record<
+        string,
+        ReturnType<typeof getFontOptionsByCategory>
+      >,
     [fontCategories],
   );
 
@@ -58,14 +52,14 @@ export function FontPickerModal({
       numColumns={fontColumns}
       columnWrapperStyle={styles.fontChoiceColumnWrapper}
       keyExtractor={option => option.displayName}
-      renderItem={({item: option}) => {
+      renderItem={({ item: option }) => {
         const family = getFontFamily(option);
         const selected = family === selectedFontFamily;
 
         return (
           <Pressable
             onPress={() => onFontChange(family)}
-            style={({pressed}) => [
+            style={({ pressed }) => [
               styles.fontChoiceButton,
               {
                 borderColor: theme.border,
@@ -91,16 +85,12 @@ export function FontPickerModal({
             >
               {option.sample}
             </Text>
-            <Text style={[styles.fontChoiceLabel, { color: theme.modalText }]}>
-              {option.displayName}
-            </Text>
+            <Text style={[styles.fontChoiceLabel, { color: theme.modalText }]}>{option.displayName}</Text>
             {option.credit ? (
-              <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
-                {option.credit}
-              </Text>
+              <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
             ) : null}
             <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
-              {option.license}
+              {t(option.licenseKey, undefined, language)}
             </Text>
           </Pressable>
         );
@@ -110,37 +100,29 @@ export function FontPickerModal({
   );
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       {visible ? (
         <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: theme.modalText }]}>Output font</Text>
+              <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontPicker.title', undefined, language)}</Text>
               <Pressable onPress={onClose} style={[styles.closeButton, { backgroundColor: theme.modalButton }]}>
-                <Text style={[styles.closeButtonText, { color: theme.modalButtonText }]}>Close</Text>
+                <Text style={[styles.closeButtonText, { color: theme.modalButtonText }]}>{t('modal.close', undefined, language)}</Text>
               </Pressable>
             </View>
             <View style={styles.fontPickerBody}>
               <TabView
                 style={styles.fontTabView}
-                navigationState={{index: tabIndex, routes}}
-                renderScene={({route}) => {
+                navigationState={{ index: tabIndex, routes }}
+                renderScene={({ route }) => {
                   return renderFontList(fontOptionsByCategory[route.key] ?? []);
                 }}
                 onIndexChange={setTabIndex}
-                initialLayout={{width: layout.width - 40}}
+                initialLayout={{ width: layout.width - 40 }}
                 renderTabBar={props => (
                   <TabBar
                     {...props}
-                    indicatorStyle={[
-                      styles.fontTabIndicator,
-                      { backgroundColor: theme.modalSelectedCardBorder },
-                    ]}
+                    indicatorStyle={[styles.fontTabIndicator, { backgroundColor: theme.modalSelectedCardBorder }]}
                     style={[
                       styles.fontTabBar,
                       {

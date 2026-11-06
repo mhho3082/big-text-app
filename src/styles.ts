@@ -20,11 +20,17 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
+  homeStatusBarActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   homeTitle: {
     fontSize: 22,
     lineHeight: 28,
     fontWeight: '700',
     includeFontPadding: false,
+    flexShrink: 1,
   },
   homeThemeButton: {
     borderRadius: 999,
