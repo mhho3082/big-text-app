@@ -30,6 +30,7 @@ class MainActivity : ReactActivity() {
 
     if (hasFocus) {
       ImmersiveModeModule.setImmersiveMode(this, ImmersiveModeModule.isEnabled)
+      KeepScreenOnModule.setKeepScreenOn(this, KeepScreenOnModule.isEnabled)
     }
   }
 }
