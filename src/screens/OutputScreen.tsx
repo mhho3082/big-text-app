@@ -1,9 +1,20 @@
 import React from 'react';
-import { Animated, BackHandler, Easing, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import {
+  Animated,
+  BackHandler,
+  Easing,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import Share from 'react-native-share';
+import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { recordDisplayOptions } from '../db/appOptions';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
+import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
 
 const OUTPUT_WORD_BREAK = false;
@@ -14,6 +25,10 @@ const INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE = Math.floor(
   (MIN_AUTOMATIC_OUTPUT_FONT_SIZE + MAX_AUTOMATIC_OUTPUT_FONT_SIZE) / 2,
 );
 const OUTPUT_EFFECT_HALF_CYCLE_MS = 1200;
+const MIN_CUSTOM_OUTPUT_FONT_SIZE = 8;
+const MAX_CUSTOM_OUTPUT_FONT_SIZE = 480;
+const FONT_SIZE_PAN_STEP_PX = 18;
+const FONT_SIZE_HISTORY_DEBOUNCE_MS = 300;
 
 type TextLayoutLine = {
   height: number;
@@ -91,6 +106,12 @@ export function OutputScreen({
   const lastTapAt = React.useRef(0);
   const captureRefView = React.useRef<React.ElementRef<typeof View> | null>(null);
   const handledShareRequestIdRef = React.useRef<number | null>(null);
+  const historyUpdateTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const historyUpdatePendingRef = React.useRef(false);
+  const panStartFontSizeRef = React.useRef(outputFontSize);
+  const panLastAppliedFontSizeRef = React.useRef(outputFontSize);
+  const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
+  const canAdjustFontSize = mode === 'display' && outputFontSizeMode === 'custom';
   const automaticSearchRef = React.useRef({
     best: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
     high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
@@ -247,6 +268,110 @@ export function OutputScreen({
       : isCrossDisplayStyle
       ? animatedBackgroundColor
       : backgroundColor;
+
+  const flushPendingHistoryUpdate = React.useCallback(() => {
+    if (!historyUpdatePendingRef.current) {
+      return;
+    }
+
+    historyUpdatePendingRef.current = false;
+
+    if (historyUpdateTimeoutRef.current != null) {
+      clearTimeout(historyUpdateTimeoutRef.current);
+      historyUpdateTimeoutRef.current = null;
+    }
+
+    recordDisplayOptions(getPersistedOptions(useAppStore.getState())).catch(() => undefined);
+  }, []);
+
+  const queueHistoryUpdate = React.useCallback(() => {
+    if (!canAdjustFontSize) {
+      return;
+    }
+
+    historyUpdatePendingRef.current = true;
+
+    if (historyUpdateTimeoutRef.current != null) {
+      clearTimeout(historyUpdateTimeoutRef.current);
+    }
+
+    historyUpdateTimeoutRef.current = setTimeout(() => {
+      historyUpdateTimeoutRef.current = null;
+      flushPendingHistoryUpdate();
+    }, FONT_SIZE_HISTORY_DEBOUNCE_MS);
+  }, [canAdjustFontSize, flushPendingHistoryUpdate]);
+
+  React.useEffect(() => {
+    return () => {
+      flushPendingHistoryUpdate();
+    };
+  }, [flushPendingHistoryUpdate]);
+
+  const applyCustomFontSize = React.useCallback(
+    (nextFontSize: number) => {
+      if (!canAdjustFontSize) {
+        return;
+      }
+
+      const clampedFontSize = Math.min(
+        MAX_CUSTOM_OUTPUT_FONT_SIZE,
+        Math.max(MIN_CUSTOM_OUTPUT_FONT_SIZE, nextFontSize),
+      );
+
+      if (clampedFontSize === outputFontSize) {
+        return;
+      }
+
+      setOutputFontSize(clampedFontSize);
+
+      queueHistoryUpdate();
+    },
+    [canAdjustFontSize, outputFontSize, queueHistoryUpdate, setOutputFontSize],
+  );
+
+  const handleFontSizePanGestureEvent = React.useCallback(
+    (event: { nativeEvent: { translationX: number; translationY: number } }) => {
+      if (!canAdjustFontSize) {
+        return;
+      }
+
+      const totalSteps = Math.trunc(-event.nativeEvent.translationY / FONT_SIZE_PAN_STEP_PX);
+      const nextFontSize = panStartFontSizeRef.current + totalSteps * 2;
+
+      if (nextFontSize === panLastAppliedFontSizeRef.current) {
+        return;
+      }
+
+      panLastAppliedFontSizeRef.current = nextFontSize;
+      applyCustomFontSize(nextFontSize);
+    },
+    [applyCustomFontSize, canAdjustFontSize],
+  );
+
+  const handleFontSizePanStateChange = React.useCallback(
+    (event: {
+      nativeEvent: { state: number; translationX: number; translationY: number };
+    }) => {
+      if (!canAdjustFontSize) {
+        return;
+      }
+
+      if (event.nativeEvent.state === State.BEGAN) {
+        panStartFontSizeRef.current = outputFontSize;
+        panLastAppliedFontSizeRef.current = outputFontSize;
+        return;
+      }
+
+      if (
+        event.nativeEvent.state === State.END ||
+        event.nativeEvent.state === State.CANCELLED ||
+        event.nativeEvent.state === State.FAILED
+      ) {
+        flushPendingHistoryUpdate();
+      }
+    },
+    [canAdjustFontSize, flushPendingHistoryUpdate, outputFontSize],
+  );
 
   const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputAlignment}:${text.length}`;
 
@@ -408,68 +533,74 @@ export function OutputScreen({
       style={[styles.outputScreen, headless && styles.outputHeadlessScreen, { backgroundColor }]}
     >
       {!headless ? (
-        <Pressable style={styles.outputScreenPressable} onPress={handlePress}>
-          <View style={styles.outputFill} onLayout={handleOutputLayout}>
-            <Animated.View
-              ref={captureRefView}
-              collapsable={false}
-              style={[
-                styles.outputCaptureLayer,
-                { padding: outputPadding, backgroundColor: outputLayerBackgroundColor },
-              ]}
-            >
-              <Animated.Text
-                key={outputKey}
-                ellipsizeMode="clip"
-                lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
-                textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
+        <PanGestureHandler
+          enabled={canAdjustFontSize}
+          activeOffsetX={[-12, 12]}
+          activeOffsetY={[-12, 12]}
+          onGestureEvent={handleFontSizePanGestureEvent}
+          onHandlerStateChange={handleFontSizePanStateChange}
+        >
+          <View style={styles.outputScreenPressable}>
+            <Pressable style={styles.outputFill} onPress={handlePress} onLayout={handleOutputLayout}>
+              <Animated.View
+                ref={captureRefView}
+                collapsable={false}
                 style={[
-                styles.outputText,
-                {
-                  textAlign: outputAlignment,
-                  color: outputTextColor,
-                },
-                  {
-                    fontFamily: outputFontFamily,
-                    fontSize:
-                      outputFontSizeMode === 'automatic'
-                        ? automaticOutputFontSize
-                        : outputFontSize,
-                  },
+                  styles.outputCaptureLayer,
+                  { padding: outputPadding, backgroundColor: outputLayerBackgroundColor },
                 ]}
               >
-              {text || ' '}
-              </Animated.Text>
-            </Animated.View>
-            {outputFontSizeMode === 'automatic' ? (
-              <View
-                pointerEvents="none"
-                style={[styles.outputHiddenMeasurementLayer, { padding: outputPadding }]}
-              >
-                <Text
-                  key={automaticSearchGeneration}
+                <Animated.Text
+                  key={outputKey}
                   ellipsizeMode="clip"
-                  onTextLayout={handleAutomaticTextLayout}
                   lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
                   textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
                   style={[
                     styles.outputText,
                     {
                       textAlign: outputAlignment,
+                      color: outputTextColor,
                     },
                     {
-                      color: backgroundColor,
                       fontFamily: outputFontFamily,
-                      fontSize: automaticProbeFontSize,
+                      fontSize:
+                        outputFontSizeMode === 'automatic' ? automaticOutputFontSize : outputFontSize,
                     },
                   ]}
                 >
                   {text || ' '}
-                </Text>
-              </View>
-            ) : null}
+                </Animated.Text>
+              </Animated.View>
+              {outputFontSizeMode === 'automatic' ? (
+                <View
+                  pointerEvents="none"
+                  style={[styles.outputHiddenMeasurementLayer, { padding: outputPadding }]}
+                >
+                  <Text
+                    key={automaticSearchGeneration}
+                    ellipsizeMode="clip"
+                    onTextLayout={handleAutomaticTextLayout}
+                    lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
+                    textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
+                    style={[
+                      styles.outputText,
+                      {
+                        textAlign: outputAlignment,
+                      },
+                      {
+                        color: backgroundColor,
+                        fontFamily: outputFontFamily,
+                        fontSize: automaticProbeFontSize,
+                      },
+                    ]}
+                  >
+                    {text || ' '}
+                  </Text>
+                </View>
+              ) : null}
+            </Pressable>
           </View>
-        </Pressable>
+        </PanGestureHandler>
       ) : (
         <View style={styles.outputFill} onLayout={handleOutputLayout}>
           <Animated.View

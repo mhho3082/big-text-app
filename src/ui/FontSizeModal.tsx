@@ -73,6 +73,11 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
                 <Text style={[styles.fontSizeModeButtonText, { color: theme.modalText }]}>{t('fontSize.custom', undefined, language)}</Text>
               </Pressable>
             </View>
+            {mode === 'automatic' ? (
+              <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+                {t('fontSize.automaticNote', undefined, language)}
+              </Text>
+            ) : null}
             {mode === 'custom' ? (
               <View style={styles.fontSizeSliderBlock}>
                 <View style={styles.fontSizeValueRow}>
@@ -90,6 +95,9 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
                   onValueChange={value => onFontSizeChange(Math.round(value))}
                   style={styles.fontSizeSlider}
                 />
+                <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+                  {t('fontSize.customNote', undefined, language)}
+                </Text>
               </View>
             ) : null}
           </View>
