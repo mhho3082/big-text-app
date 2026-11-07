@@ -1,4 +1,4 @@
-package com.quietaudience.bigtext
+package com.mhho3082.bigtext
 
 import android.app.Application
 import com.facebook.react.PackageList

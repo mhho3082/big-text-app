@@ -118,110 +118,115 @@ export function HomeScreen({ insets }: Props) {
           { backgroundColor: theme.screenBackground },
         ]}
       >
-        <TextInput
-          style={[
-            styles.input,
-            {
-              borderColor: theme.inputBorder,
-              backgroundColor: theme.inputBackground,
-              color: theme.inputText,
-            },
-          ]}
-          value={text}
-          onChangeText={setText}
-          placeholder={translate('home.textPlaceholder')}
-          placeholderTextColor={theme.placeholderText}
-          multiline
-          textAlignVertical="top"
-        />
-        <View style={styles.buttonRow}>
-          <ColorButton label={translate('home.textColor')} color={foregroundColor} onPress={() => setForegroundPickerVisible(true)} theme={theme} />
-          <ColorButton label={translate('home.backgroundColor')} color={backgroundColor} onPress={() => setBackgroundPickerVisible(true)} theme={theme} />
-        </View>
-        <View style={styles.buttonRow}>
-          <Pressable
-            onPress={() => {
-              setFontPickerVisible(true);
-            }}
+        <View style={styles.homeMainContent}>
+          <TextInput
             style={[
-              styles.colorButton,
-              { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
+              styles.input,
+              {
+                borderColor: theme.inputBorder,
+                backgroundColor: theme.inputBackground,
+                color: theme.inputText,
+              },
             ]}
-          >
-            <Type color={theme.buttonChip} size={20} />
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={[styles.colorButtonText, styles.fontFamilyButtonText, { color: theme.buttonText }]}
+            value={text}
+            onChangeText={setText}
+            placeholder={translate('home.textPlaceholder')}
+            placeholderTextColor={theme.placeholderText}
+            multiline
+            textAlignVertical="top"
+          />
+          <View style={styles.buttonRow}>
+            <ColorButton label={translate('home.textColor')} color={foregroundColor} onPress={() => setForegroundPickerVisible(true)} theme={theme} />
+            <ColorButton label={translate('home.backgroundColor')} color={backgroundColor} onPress={() => setBackgroundPickerVisible(true)} theme={theme} />
+          </View>
+          <View style={styles.buttonRow}>
+            <Pressable
+              onPress={() => {
+                setFontPickerVisible(true);
+              }}
+              style={[
+                styles.colorButton,
+                { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
+              ]}
             >
-              {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setFontSizePickerVisible(true);
-            }}
-            style={[
-              styles.colorButton,
-              { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
-            ]}
-          >
-            <AArrowUp color={theme.buttonChip} size={20} />
-            <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
-              {outputFontSizeMode === 'automatic' ? translate('home.auto') : outputFontSize}
-            </Text>
-          </Pressable>
+              <Type color={theme.buttonChip} size={20} />
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={[styles.colorButtonText, styles.fontFamilyButtonText, { color: theme.buttonText }]}
+              >
+                {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                setFontSizePickerVisible(true);
+              }}
+              style={[
+                styles.colorButton,
+                { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
+              ]}
+            >
+              <AArrowUp color={theme.buttonChip} size={20} />
+              <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
+                {outputFontSizeMode === 'automatic' ? translate('home.auto') : outputFontSize}
+              </Text>
+            </Pressable>
+          </View>
+          <View style={styles.toggleRow}>
+            <Pressable
+              onPress={() => {
+                setEffectPickerVisible(true);
+              }}
+              style={[
+                styles.optionButton,
+                { borderColor: theme.optionBorder, backgroundColor: theme.surface },
+              ]}
+            >
+              <Sparkles color={theme.buttonChip} size={20} />
+              <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
+                {translate(`home.displayStyle.${outputDisplayStyle}`)}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                setAlignmentPickerVisible(true);
+              }}
+              style={({pressed}) => [
+                styles.optionButton,
+                { borderColor: theme.optionBorder, backgroundColor: theme.surface },
+                pressed && styles.optionButtonPressed,
+              ]}
+            >
+              <TrianglesCenterlineDashedVertical color={theme.buttonChip} size={20} />
+              <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
+                {translate(
+                  getAlignmentLabelKey(outputHorizontalAlignment, outputVerticalAlignment),
+                )}
+              </Text>
+            </Pressable>
+          </View>
+          <View style={styles.buttonRow}>
+            <Pressable
+              disabled={!canShowText}
+              onPress={goToOutput}
+              style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
+            >
+              <Text style={styles.buttonText}>{translate('home.showText')}</Text>
+            </Pressable>
+            <Pressable
+              disabled={!canShowText}
+              onPress={goToShare}
+              style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
+            >
+              <Text style={styles.buttonText}>{translate('home.shareImage')}</Text>
+            </Pressable>
+          </View>
+          <Text style={[styles.exitHint, { color: theme.mutedText }]}>{translate('home.exitHint')}</Text>
         </View>
-        <View style={styles.toggleRow}>
-          <Pressable
-            onPress={() => {
-              setEffectPickerVisible(true);
-            }}
-            style={[
-              styles.optionButton,
-              { borderColor: theme.optionBorder, backgroundColor: theme.surface },
-            ]}
-          >
-            <Sparkles color={theme.buttonChip} size={20} />
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>
-              {translate(`home.displayStyle.${outputDisplayStyle}`)}
-            </Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setAlignmentPickerVisible(true);
-            }}
-            style={({pressed}) => [
-              styles.optionButton,
-              { borderColor: theme.optionBorder, backgroundColor: theme.surface },
-              pressed && styles.optionButtonPressed,
-            ]}
-          >
-            <TrianglesCenterlineDashedVertical color={theme.buttonChip} size={20} />
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>
-              {translate(
-                getAlignmentLabelKey(outputHorizontalAlignment, outputVerticalAlignment),
-              )}
-            </Text>
-          </Pressable>
-        </View>
-        <View style={styles.buttonRow}>
-          <Pressable
-            disabled={!canShowText}
-            onPress={goToOutput}
-            style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
-          >
-            <Text style={styles.buttonText}>{translate('home.showText')}</Text>
-          </Pressable>
-          <Pressable
-            disabled={!canShowText}
-            onPress={goToShare}
-            style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
-          >
-            <Text style={styles.buttonText}>{translate('home.shareImage')}</Text>
-          </Pressable>
-        </View>
-        <Text style={[styles.exitHint, { color: theme.mutedText }]}>{translate('home.exitHint')}</Text>
+        <Text style={[styles.homeCredits, { color: theme.mutedText }]}> 
+          {translate('home.credits')}
+        </Text>
       </ScrollView>
       <ColorPickerModal
         visible={foregroundPickerVisible}

@@ -1,4 +1,4 @@
-package com.quietaudience.bigtext
+package com.mhho3082.bigtext
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

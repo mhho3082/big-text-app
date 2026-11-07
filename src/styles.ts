@@ -28,6 +28,10 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 24,
     gap: 16,
+  },
+  homeMainContent: {
+    gap: 16,
+    flexGrow: 1,
     justifyContent: 'center',
   },
   flexOne: {
@@ -256,6 +260,12 @@ export const styles = StyleSheet.create({
   exitHint: {
     fontSize: 12,
     marginTop: -6,
+  },
+  homeCredits: {
+    fontSize: 12,
+    textAlign: 'center',
+    paddingBottom: 4,
+    marginTop: 'auto',
   },
   outputScreen: { flex: 1 },
   outputHeadlessScreen: {
