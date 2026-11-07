@@ -3,9 +3,10 @@ import type { HomeThemeName } from '../theme';
 
 export type OutputFontSizeMode = 'automatic' | 'custom';
 export type OutputDisplayStyle = 'static' | 'strobe' | 'pulse' | 'crossStrobe' | 'crossPulse';
-export type OutputAlignment = 'left' | 'center' | 'right';
+export type OutputHorizontalAlignment = 'left' | 'center' | 'right';
+export type OutputVerticalAlignment = 'top' | 'center' | 'bottom';
 
-export const DEFAULT_OUTPUT_EFFECT_INTERVAL = 1.2;
+export const DEFAULT_OUTPUT_EFFECT_INTERVAL = 1;
 
 export type PersistedAppOptions = {
   homeTheme: HomeThemeName;
@@ -18,7 +19,8 @@ export type PersistedAppOptions = {
   outputFontSize: number;
   outputDisplayStyle: OutputDisplayStyle;
   outputEffectInterval: number;
-  outputAlignment: OutputAlignment;
+  outputHorizontalAlignment: OutputHorizontalAlignment;
+  outputVerticalAlignment: OutputVerticalAlignment;
 };
 
 export const persistedAppOptionKeys = [
@@ -32,5 +34,6 @@ export const persistedAppOptionKeys = [
   'outputFontSize',
   'outputDisplayStyle',
   'outputEffectInterval',
-  'outputAlignment',
+  'outputHorizontalAlignment',
+  'outputVerticalAlignment',
 ] as const;

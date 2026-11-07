@@ -6,6 +6,7 @@ import { getFontCategories, getFontOptionsByCategory, getFontFamily } from '../f
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
+import { X } from 'lucide-react-native';
 
 type Props = {
   visible: boolean;
@@ -111,8 +112,8 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontPicker.title', undefined, language)}</Text>
-              <Pressable onPress={onClose} style={[styles.closeButton, { backgroundColor: theme.modalButton }]}>
-                <Text style={[styles.closeButtonText, { color: theme.modalButtonText }]}>{t('modal.close', undefined, language)}</Text>
+              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
+                <X color={theme.modalButton} />
               </Pressable>
             </View>
             <View style={styles.fontPickerBody}>

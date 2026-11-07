@@ -3,14 +3,16 @@ import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
-import { OutputAlignment, useAppStore } from '../state/useAppStore';
+import { useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
+import { AlignmentPickerModal, getAlignmentLabelKey } from '../ui/AlignmentPickerModal';
 import { EffectPickerModal } from '../ui/EffectPickerModal';
 import { FontPickerModal } from '../ui/FontPickerModal';
 import { FontSizeModal } from '../ui/FontSizeModal';
 import { getHomeTheme } from '../theme';
 import { styles } from '../styles';
+import { AArrowUp, Moon, RotateCcwClock, Sparkles, Sun, TrianglesCenterlineDashedVertical, Type } from 'lucide-react-native';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
@@ -27,7 +29,8 @@ export function HomeScreen({ insets }: Props) {
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
   const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
-  const outputAlignment = useAppStore(state => state.outputAlignment);
+  const outputHorizontalAlignment = useAppStore(state => state.outputHorizontalAlignment);
+  const outputVerticalAlignment = useAppStore(state => state.outputVerticalAlignment);
   const setText = useAppStore(state => state.setText);
   const setForegroundColor = useAppStore(state => state.setForegroundColor);
   const setBackgroundColor = useAppStore(state => state.setBackgroundColor);
@@ -36,7 +39,8 @@ export function HomeScreen({ insets }: Props) {
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
   const setOutputDisplayStyle = useAppStore(state => state.setOutputDisplayStyle);
   const setOutputEffectInterval = useAppStore(state => state.setOutputEffectInterval);
-  const setOutputAlignment = useAppStore(state => state.setOutputAlignment);
+  const setOutputHorizontalAlignment = useAppStore(state => state.setOutputHorizontalAlignment);
+  const setOutputVerticalAlignment = useAppStore(state => state.setOutputVerticalAlignment);
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
   const goToHistory = useAppStore(state => state.goToHistory);
@@ -47,13 +51,10 @@ export function HomeScreen({ insets }: Props) {
   const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
   const [fontSizePickerVisible, setFontSizePickerVisible] = React.useState(false);
   const [effectPickerVisible, setEffectPickerVisible] = React.useState(false);
+  const [alignmentPickerVisible, setAlignmentPickerVisible] = React.useState(false);
   const canShowText = text.trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
-  const cycleOption = <T extends string>(value: T, options: readonly T[], setter: (next: T) => void) => {
-    const index = options.indexOf(value);
-    setter(options[(index + 1) % options.length] ?? options[0]);
-  };
 
   return (
     <View
@@ -74,10 +75,10 @@ export function HomeScreen({ insets }: Props) {
       <View
         style={[
           styles.homeStatusBar,
+          styles.homeStatusBarPadded,
           {
             backgroundColor: theme.screenBackground,
             borderBottomColor: theme.border,
-            paddingHorizontal: 24,
           },
         ]}
       >
@@ -93,27 +94,29 @@ export function HomeScreen({ insets }: Props) {
           </Pressable>
           <Pressable
             onPress={toggleHomeTheme}
-            style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
+            aria-label={theme.name === 'dark' ? translate('home.lightMode') : translate('home.darkMode')}
           >
-            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}>
-              {theme.name === 'dark' ? translate('home.lightMode') : translate('home.darkMode')}
-            </Text>
+              {theme.name === 'dark' ?
+                <Moon color={theme.buttonText} /> :
+                <Sun color={theme.buttonText} />
+              }
           </Pressable>
           <Pressable
             onPress={goToHistory}
-            style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
+            aria-label={translate('home.history')}
           >
-            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}>
-              {translate('home.history')}
-            </Text>
+            <RotateCcwClock color={theme.buttonText} />
           </Pressable>
         </View>
       </View>
       <ScrollView
-        style={{ flex: 1 }}
+        style={styles.flexOne}
         keyboardShouldPersistTaps="handled"
         nestedScrollEnabled
-        contentContainerStyle={{ backgroundColor: theme.screenBackground, flexGrow: 1, padding: 24, gap: 16, justifyContent: 'center' }}
+        contentContainerStyle={[
+          styles.homeScrollContent,
+          { backgroundColor: theme.screenBackground },
+        ]}
       >
         <TextInput
           style={[
@@ -145,16 +148,12 @@ export function HomeScreen({ insets }: Props) {
               { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
             ]}
           >
-            <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}> 
-              <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>Aa</Text>
-            </View>
+            <Type color={theme.buttonChip} size={20} />
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
               style={[styles.colorButtonText, styles.fontFamilyButtonText, { color: theme.buttonText }]}
             >
-              {translate('home.font')}
-              {translate('home.labelSeparator')}
               {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
             </Text>
           </Pressable>
@@ -167,12 +166,8 @@ export function HomeScreen({ insets }: Props) {
               { borderColor: theme.buttonBorder, backgroundColor: theme.buttonSurface },
             ]}
           >
-            <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}> 
-              <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>T</Text>
-            </View>
+            <AArrowUp color={theme.buttonChip} size={20} />
             <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
-              {translate('home.fontSize')}
-              {translate('home.labelSeparator')}
               {outputFontSizeMode === 'automatic' ? translate('home.auto') : outputFontSize}
             </Text>
           </Pressable>
@@ -182,21 +177,19 @@ export function HomeScreen({ insets }: Props) {
             onPress={() => {
               setEffectPickerVisible(true);
             }}
-            style={({pressed}) => [
+            style={[
               styles.optionButton,
               { borderColor: theme.optionBorder, backgroundColor: theme.surface },
-              pressed && styles.optionButtonPressed,
             ]}
           >
+            <Sparkles color={theme.buttonChip} size={20} />
             <Text style={[styles.optionButtonText, { color: theme.optionText }]}>
-              {translate('home.displayStyle.label')}
-              {translate('home.labelSeparator')}
               {translate(`home.displayStyle.${outputDisplayStyle}`)}
             </Text>
           </Pressable>
           <Pressable
             onPress={() => {
-              cycleOption<OutputAlignment>(outputAlignment, ['center', 'left', 'right'], setOutputAlignment);
+              setAlignmentPickerVisible(true);
             }}
             style={({pressed}) => [
               styles.optionButton,
@@ -204,10 +197,11 @@ export function HomeScreen({ insets }: Props) {
               pressed && styles.optionButtonPressed,
             ]}
           >
+            <TrianglesCenterlineDashedVertical color={theme.buttonChip} size={20} />
             <Text style={[styles.optionButtonText, { color: theme.optionText }]}>
-              {translate('home.alignment.label')}
-              {translate('home.labelSeparator')}
-              {translate(`home.alignment.${outputAlignment}`)}
+              {translate(
+                getAlignmentLabelKey(outputHorizontalAlignment, outputVerticalAlignment),
+              )}
             </Text>
           </Pressable>
         </View>
@@ -271,6 +265,15 @@ export function HomeScreen({ insets }: Props) {
         onClose={() => setEffectPickerVisible(false)}
         onStyleChange={style => setOutputDisplayStyle(style)}
         onIntervalChange={interval => setOutputEffectInterval(interval)}
+        theme={theme}
+      />
+      <AlignmentPickerModal
+        visible={alignmentPickerVisible}
+        horizontalAlignment={outputHorizontalAlignment}
+        verticalAlignment={outputVerticalAlignment}
+        onClose={() => setAlignmentPickerVisible(false)}
+        onHorizontalAlignmentChange={alignment => setOutputHorizontalAlignment(alignment)}
+        onVerticalAlignmentChange={alignment => setOutputVerticalAlignment(alignment)}
         theme={theme}
       />
     </View>

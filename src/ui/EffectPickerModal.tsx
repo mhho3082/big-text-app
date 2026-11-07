@@ -6,6 +6,7 @@ import { DEFAULT_OUTPUT_EFFECT_INTERVAL, type OutputDisplayStyle } from '../stat
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
+import { X } from 'lucide-react-native';
 
 type Props = {
   visible: boolean;
@@ -26,7 +27,7 @@ const DISPLAY_STYLES: OutputDisplayStyle[] = [
 ];
 
 const MIN_EFFECT_INTERVAL = 0.1;
-const MAX_EFFECT_INTERVAL = 5;
+const MAX_EFFECT_INTERVAL = 10;
 const EFFECT_INTERVAL_STEP = 0.1;
 
 export function EffectPickerModal({
@@ -67,10 +68,8 @@ export function EffectPickerModal({
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>
                 {t('effectPicker.title', undefined, language)}
               </Text>
-              <Pressable onPress={onClose} style={[styles.closeButton, { backgroundColor: theme.modalButton }]}>
-                <Text style={[styles.closeButtonText, { color: theme.modalButtonText }]}>
-                  {t('modal.close', undefined, language)}
-                </Text>
+              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
+                <X color={theme.modalButton} />
               </Pressable>
             </View>
             <View style={styles.effectOptionList}>

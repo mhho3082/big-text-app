@@ -18,7 +18,8 @@ export function AppNavigator() {
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
   const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
-  const outputAlignment = useAppStore(state => state.outputAlignment);
+  const outputHorizontalAlignment = useAppStore(state => state.outputHorizontalAlignment);
+  const outputVerticalAlignment = useAppStore(state => state.outputVerticalAlignment);
   const outputReturnScreen = useAppStore(state => state.outputReturnScreen);
   const outputPreviewOptions = useAppStore(state => state.outputPreviewOptions);
   const shareRequestId = useAppStore(state => state.shareRequestId);
@@ -35,7 +36,8 @@ export function AppNavigator() {
       outputFontSize,
       outputDisplayStyle,
       outputEffectInterval,
-      outputAlignment,
+      outputHorizontalAlignment,
+      outputVerticalAlignment,
     };
 
     return (
@@ -54,7 +56,8 @@ export function AppNavigator() {
           outputFontSize={options.outputFontSize}
           outputDisplayStyle={options.outputDisplayStyle}
           outputEffectInterval={options.outputEffectInterval}
-          outputAlignment={options.outputAlignment}
+          outputHorizontalAlignment={options.outputHorizontalAlignment}
+          outputVerticalAlignment={options.outputVerticalAlignment}
           shareRequestId={shareRequestId}
         />
       </View>
@@ -82,7 +85,12 @@ export function AppNavigator() {
           outputEffectInterval={
             outputPreviewOptions?.outputEffectInterval ?? outputEffectInterval
           }
-          outputAlignment={outputPreviewOptions?.outputAlignment ?? outputAlignment}
+          outputHorizontalAlignment={
+            outputPreviewOptions?.outputHorizontalAlignment ?? outputHorizontalAlignment
+          }
+          outputVerticalAlignment={
+            outputPreviewOptions?.outputVerticalAlignment ?? outputVerticalAlignment
+          }
           shareRequestId={shareRequestId}
         />
       )}

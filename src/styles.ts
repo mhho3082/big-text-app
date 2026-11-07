@@ -21,6 +21,18 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
+  homeStatusBarPadded: {
+    paddingHorizontal: 24,
+  },
+  homeScrollContent: {
+    flexGrow: 1,
+    padding: 24,
+    gap: 16,
+    justifyContent: 'center',
+  },
+  flexOne: {
+    flex: 1,
+  },
   homeStatusBarActions: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -31,6 +43,8 @@ export const styles = StyleSheet.create({
   },
   historyList: {
     flexGrow: 1,
+    padding: 16,
+    gap: 12,
   },
   historyRow: {
     flexDirection: 'row',

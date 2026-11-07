@@ -6,6 +6,7 @@ import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
+import { X } from 'lucide-react-native';
 
 type Props = {
   visible: boolean;
@@ -33,8 +34,8 @@ export function ColorPickerModal({ visible, title, initialColor, onClose, onColo
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}> 
             <View style={styles.modalHeader}>
               <RNText style={[styles.modalTitle, { color: theme.modalText }]}>{title}</RNText>
-              <Pressable onPress={onClose} style={[styles.closeButton, { backgroundColor: theme.modalButton }]}> 
-                <RNText style={[styles.closeButtonText, { color: theme.modalButtonText }]}>{t('modal.close', undefined, language)}</RNText>
+              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}> 
+                <X color={theme.modalButton} />
               </Pressable>
             </View>
             <ScrollView

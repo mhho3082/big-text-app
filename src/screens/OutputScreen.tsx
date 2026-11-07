@@ -28,7 +28,7 @@ const INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE = Math.floor(
   (MIN_AUTOMATIC_OUTPUT_FONT_SIZE + MAX_AUTOMATIC_OUTPUT_FONT_SIZE) / 2,
 );
 const MIN_CUSTOM_OUTPUT_FONT_SIZE = 8;
-const MAX_CUSTOM_OUTPUT_FONT_SIZE = 480;
+const MAX_CUSTOM_OUTPUT_FONT_SIZE = 1024;
 const FONT_SIZE_PAN_STEP_PX = 18;
 const FONT_SIZE_HISTORY_DEBOUNCE_MS = 300;
 
@@ -71,7 +71,8 @@ export type OutputScreenProps = Pick<
   | 'outputFontSize'
   | 'outputDisplayStyle'
   | 'outputEffectInterval'
-  | 'outputAlignment'
+  | 'outputHorizontalAlignment'
+  | 'outputVerticalAlignment'
 > & {
   insets: { top: number; right: number; bottom: number; left: number };
   mode: 'display' | 'share';
@@ -93,7 +94,8 @@ export function OutputScreen({
   outputFontSize,
   outputDisplayStyle,
   outputEffectInterval,
-  outputAlignment,
+  outputHorizontalAlignment,
+  outputVerticalAlignment,
   shareRequestId,
 }: OutputScreenProps) {
   const { width, height } = useWindowDimensions();
@@ -127,6 +129,12 @@ export function OutputScreen({
     outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
   const isStrobeStyle = outputDisplayStyle === 'strobe' || outputDisplayStyle === 'crossStrobe';
   const isPulseStyle = outputDisplayStyle === 'pulse' || outputDisplayStyle === 'crossPulse';
+  const outputVerticalJustifyContent =
+    outputVerticalAlignment === 'top'
+      ? 'flex-start'
+      : outputVerticalAlignment === 'bottom'
+      ? 'flex-end'
+      : 'center';
   const effectHalfCycleMs =
     (outputEffectInterval || DEFAULT_OUTPUT_EFFECT_INTERVAL) * 1000;
   const visibleMixValue = isCrossDisplayStyle ? 0 : 1;
@@ -380,7 +388,7 @@ export function OutputScreen({
     [canAdjustFontSize, flushPendingHistoryUpdate, outputFontSize],
   );
 
-  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputAlignment}:${text.length}`;
+  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
 
   const outputPadding = Math.max(
     32,
@@ -430,9 +438,10 @@ export function OutputScreen({
   }, [
     availableHeight,
     availableWidth,
-    outputAlignment,
+    outputHorizontalAlignment,
     outputFontFamily,
     outputFontSizeMode,
+    outputVerticalAlignment,
     restartAutomaticSearch,
     text,
   ]);
@@ -554,7 +563,11 @@ export function OutputScreen({
                 collapsable={false}
                 style={[
                   styles.outputCaptureLayer,
-                  { padding: outputPadding, backgroundColor: outputLayerBackgroundColor },
+                  {
+                    padding: outputPadding,
+                    backgroundColor: outputLayerBackgroundColor,
+                    justifyContent: outputVerticalJustifyContent,
+                  },
                 ]}
               >
                 <Animated.Text
@@ -565,7 +578,7 @@ export function OutputScreen({
                   style={[
                     styles.outputText,
                     {
-                      textAlign: outputAlignment,
+                      textAlign: outputHorizontalAlignment,
                       color: outputTextColor,
                     },
                     {
@@ -592,7 +605,7 @@ export function OutputScreen({
                     style={[
                       styles.outputText,
                       {
-                        textAlign: outputAlignment,
+                        textAlign: outputHorizontalAlignment,
                       },
                       {
                         color: backgroundColor,
@@ -615,7 +628,11 @@ export function OutputScreen({
             collapsable={false}
             style={[
               styles.outputCaptureLayer,
-              { padding: outputPadding, backgroundColor: outputLayerBackgroundColor },
+              {
+                padding: outputPadding,
+                backgroundColor: outputLayerBackgroundColor,
+                justifyContent: outputVerticalJustifyContent,
+              },
             ]}
           >
             <Animated.Text
@@ -626,7 +643,7 @@ export function OutputScreen({
               style={[
                 styles.outputText,
                 {
-                  textAlign: outputAlignment,
+                  textAlign: outputHorizontalAlignment,
                   color: outputTextColor,
                 },
                 {
@@ -655,7 +672,7 @@ export function OutputScreen({
                 style={[
                   styles.outputText,
                   {
-                    textAlign: outputAlignment,
+                    textAlign: outputHorizontalAlignment,
                   },
                   {
                     color: backgroundColor,

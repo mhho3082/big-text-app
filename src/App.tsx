@@ -23,11 +23,11 @@ function App() {
       lastSavedJson = nextJson;
 
       if (active && !suppressSave) {
-        void savePersistedAppOptions(nextOptions);
+        savePersistedAppOptions(nextOptions);
       }
     });
 
-    void (async () => {
+    (async () => {
       const storedOptions = await loadPersistedAppOptions();
 
       if (!active) {
@@ -37,7 +37,7 @@ function App() {
       useAppStore.setState(storedOptions);
       lastSavedJson = JSON.stringify(getPersistedOptions(useAppStore.getState()));
       suppressSave = false;
-      void savePersistedAppOptions(getPersistedOptions(useAppStore.getState()));
+      savePersistedAppOptions(getPersistedOptions(useAppStore.getState()));
     })();
 
     return () => {

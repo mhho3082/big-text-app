@@ -6,6 +6,7 @@ import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
 import { getHomeTheme } from '../theme';
 import { styles } from '../styles';
+import { TrashOff, X } from 'lucide-react-native';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
@@ -46,7 +47,7 @@ export function HistoryScreen({ insets }: Props) {
   React.useEffect(() => {
     let active = true;
 
-    void (async () => {
+    (async () => {
       const nextEntries = await loadDisplayHistory();
 
       if (active) {
@@ -96,23 +97,16 @@ export function HistoryScreen({ insets }: Props) {
         <View style={styles.homeStatusBarActions}>
           <Pressable
             onPress={() => setResetModalVisible(true)}
-            style={[styles.statusBarButton, { backgroundColor: theme.buttonChip }]}
+            aria-label={translate('history.reset')}
           >
-            <Text style={[styles.statusBarButtonText, { color: theme.buttonChipText }]}>
-              {translate('history.reset')}
-            </Text>
+            <TrashOff color={theme.buttonChip} />
           </Pressable>
-          <Pressable
-            onPress={goHome}
-            style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
-          >
-            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
-              {translate('history.close')}
-            </Text>
+          <Pressable onPress={goHome} aria-label={translate('history.close')}>
+            <X color={theme.buttonChip} />
           </Pressable>
         </View>
       </View>
-      <ScrollView contentContainerStyle={[styles.historyList, { padding: 16, gap: 12 }]}> 
+      <ScrollView contentContainerStyle={styles.historyList}> 
         {entries.length === 0 ? (
           <Text style={[styles.historyEmptyText, { color: theme.mutedText }]}>{translate('history.empty')}</Text>
         ) : null}
@@ -175,7 +169,9 @@ export function HistoryScreen({ insets }: Props) {
                   </Text>
                 </Pressable>
                 <Pressable
-                  onPress={() => void handleDeleteEntry(entry.id)}
+                  onPress={() => {
+                    handleDeleteEntry(entry.id);
+                  }}
                   style={[
                     styles.historyActionButton,
                     { backgroundColor: theme.historyActionBackground },
@@ -192,32 +188,35 @@ export function HistoryScreen({ insets }: Props) {
       </ScrollView>
       <StatusBar barStyle={statusBarStyle} />
       <Modal transparent visible={resetModalVisible} animationType="fade" onRequestClose={() => setResetModalVisible(false)}>
-        <View style={styles.backdrop}>
-          <Pressable style={styles.backdrop} onPress={() => setResetModalVisible(false)}>
-            <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}> 
-              <Text style={[styles.modalTitle, { color: theme.modalText }]}>{translate('history.resetTitle')}</Text>
-              <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>{translate('history.resetBody')}</Text>
-              <View style={styles.buttonRow}>
-                <Pressable
-                  onPress={() => setResetModalVisible(false)}
-                  style={[styles.button, { backgroundColor: theme.buttonSurface, flex: 1 }]}
-                >
-                  <Text style={[styles.buttonText, { color: theme.buttonText }]}>
-                    {translate('history.resetCancel')}
-                  </Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => void handleResetDatabase()}
-                  style={[styles.button, { backgroundColor: theme.buttonChip, flex: 1 }]}
-                >
-                  <Text style={[styles.buttonText, { color: theme.buttonChipText }]}>
-                    {translate('history.resetConfirm')}
-                  </Text>
-                </Pressable>
-              </View>
+        <Pressable
+          style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}
+          onPress={() => setResetModalVisible(false)}
+        >
+          <Pressable style={[styles.sheet, { backgroundColor: theme.modalSheet }]} onPress={() => {}}>
+            <Text style={[styles.modalTitle, { color: theme.modalText }]}>{translate('history.resetTitle')}</Text>
+            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>{translate('history.resetBody')}</Text>
+            <View style={styles.buttonRow}>
+              <Pressable
+                onPress={() => setResetModalVisible(false)}
+                style={[styles.button, styles.flexOne, { backgroundColor: theme.buttonSurface }]}
+              >
+                <Text style={[styles.buttonText, { color: theme.buttonText }]}>
+                  {translate('history.resetCancel')}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  handleResetDatabase();
+                }}
+                style={[styles.button, styles.flexOne, { backgroundColor: theme.buttonChip }]}
+              >
+                <Text style={[styles.buttonText, { color: theme.buttonChipText }]}>
+                  {translate('history.resetConfirm')}
+                </Text>
+              </Pressable>
             </View>
           </Pressable>
-        </View>
+        </Pressable>
       </Modal>
     </View>
   );

@@ -9,7 +9,8 @@ import { DEFAULT_OUTPUT_EFFECT_INTERVAL, type PersistedAppOptions } from './pers
 export type { PersistedAppOptions } from './persistedOptions';
 export type OutputFontSizeMode = PersistedAppOptions['outputFontSizeMode'];
 export type OutputDisplayStyle = PersistedAppOptions['outputDisplayStyle'];
-export type OutputAlignment = PersistedAppOptions['outputAlignment'];
+export type OutputHorizontalAlignment = PersistedAppOptions['outputHorizontalAlignment'];
+export type OutputVerticalAlignment = PersistedAppOptions['outputVerticalAlignment'];
 
 export type Screen = 'home' | 'output' | 'share' | 'history';
 
@@ -28,7 +29,8 @@ type AppState = {
   outputFontSize: number;
   outputDisplayStyle: OutputDisplayStyle;
   outputEffectInterval: number;
-  outputAlignment: OutputAlignment;
+  outputHorizontalAlignment: OutputHorizontalAlignment;
+  outputVerticalAlignment: OutputVerticalAlignment;
   toggleHomeTheme: () => void;
   setLanguage: (language: AppLanguage) => void;
   cycleLanguage: () => void;
@@ -40,7 +42,8 @@ type AppState = {
   setOutputFontSize: (size: number) => void;
   setOutputDisplayStyle: (style: OutputDisplayStyle) => void;
   setOutputEffectInterval: (interval: number) => void;
-  setOutputAlignment: (alignment: OutputAlignment) => void;
+  setOutputHorizontalAlignment: (alignment: OutputHorizontalAlignment) => void;
+  setOutputVerticalAlignment: (alignment: OutputVerticalAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
   goToShare: () => void;
@@ -62,7 +65,8 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
     outputFontSize: state.outputFontSize,
     outputDisplayStyle: state.outputDisplayStyle,
     outputEffectInterval: state.outputEffectInterval,
-    outputAlignment: state.outputAlignment,
+    outputHorizontalAlignment: state.outputHorizontalAlignment,
+    outputVerticalAlignment: state.outputVerticalAlignment,
   };
 }
 
@@ -81,7 +85,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   outputFontSize: 120,
   outputDisplayStyle: 'static',
   outputEffectInterval: DEFAULT_OUTPUT_EFFECT_INTERVAL,
-  outputAlignment: 'center',
+  outputHorizontalAlignment: 'center',
+  outputVerticalAlignment: 'center',
   toggleHomeTheme: () =>
     set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
   setLanguage: language =>
@@ -103,7 +108,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
   setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
   setOutputEffectInterval: outputEffectInterval => set({ outputEffectInterval }),
-  setOutputAlignment: outputAlignment => set({ outputAlignment }),
+  setOutputHorizontalAlignment: outputHorizontalAlignment => set({ outputHorizontalAlignment }),
+  setOutputVerticalAlignment: outputVerticalAlignment => set({ outputVerticalAlignment }),
   setPersistedOptions: options => set(options),
   goToOutput: () => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
