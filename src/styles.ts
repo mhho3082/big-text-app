@@ -25,7 +25,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    flexShrink: 0,
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
   },
   historyList: {
     flexGrow: 1,
@@ -204,6 +206,10 @@ export const styles = StyleSheet.create({
   colorButtonText: {
     fontSize: 15,
     fontWeight: '600',
+  },
+  fontFamilyButtonText: {
+    flexShrink: 1,
+    minWidth: 0,
   },
   fontSampleBubble: {
     width: 20,

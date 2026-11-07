@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StatusBar, Text, TextInput, View } from 'react-native';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
 import { OutputAlignment, OutputDisplayStyle, useAppStore } from '../state/useAppStore';
@@ -69,7 +69,11 @@ export function HomeScreen({ insets }: Props) {
       <View
         style={[
           styles.homeStatusBar,
-          { backgroundColor: theme.screenBackground, borderBottomColor: theme.border },
+          {
+            backgroundColor: theme.screenBackground,
+            borderBottomColor: theme.border,
+            paddingHorizontal: 24,
+          },
         ]}
       >
         <Text style={[styles.homeTitle, { color: theme.titleText }]}>{translate('app.title')}</Text>
@@ -78,7 +82,7 @@ export function HomeScreen({ insets }: Props) {
             onPress={cycleLanguage}
             style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
           >
-            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
+            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}>
               {LANGUAGE_BUTTON_LABELS[language]}
             </Text>
           </Pressable>
@@ -86,7 +90,7 @@ export function HomeScreen({ insets }: Props) {
             onPress={toggleHomeTheme}
             style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
           >
-            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
+            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}>
               {theme.name === 'dark' ? translate('home.lightMode') : translate('home.darkMode')}
             </Text>
           </Pressable>
@@ -94,13 +98,18 @@ export function HomeScreen({ insets }: Props) {
             onPress={goToHistory}
             style={[styles.homeThemeButton, { backgroundColor: theme.buttonChip }]}
           >
-            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}> 
+            <Text style={[styles.homeThemeButtonText, { color: theme.buttonChipText }]}>
               {translate('home.history')}
             </Text>
           </Pressable>
         </View>
       </View>
-      <View style={[styles.content, { backgroundColor: theme.screenBackground }]}> 
+      <ScrollView
+        style={{ flex: 1 }}
+        keyboardShouldPersistTaps="handled"
+        nestedScrollEnabled
+        contentContainerStyle={{ backgroundColor: theme.screenBackground, flexGrow: 1, padding: 24, gap: 16, justifyContent: 'center' }}
+      >
         <TextInput
           style={[
             styles.input,
@@ -134,7 +143,11 @@ export function HomeScreen({ insets }: Props) {
             <View style={[styles.fontSampleBubble, { backgroundColor: theme.buttonChip }]}> 
               <Text style={[styles.fontSampleText, { color: theme.buttonChipText }]}>Aa</Text>
             </View>
-            <Text style={[styles.colorButtonText, { color: theme.buttonText }]}> 
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={[styles.colorButtonText, styles.fontFamilyButtonText, { color: theme.buttonText }]}
+            >
               {translate('home.font')}
               {translate('home.labelSeparator')}
               {getFontDisplayName(outputFontFamily || defaultOutputFontFamily)}
@@ -210,7 +223,7 @@ export function HomeScreen({ insets }: Props) {
           </Pressable>
         </View>
         <Text style={[styles.exitHint, { color: theme.mutedText }]}>{translate('home.exitHint')}</Text>
-      </View>
+      </ScrollView>
       <ColorPickerModal
         visible={foregroundPickerVisible}
         title={translate('home.textColor')}
