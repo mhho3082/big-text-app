@@ -4,7 +4,7 @@ import { defaultOutputFontFamily } from '../fonts';
 import { AppLanguage, nextLanguage, setLanguage as setI18nLanguage } from '../i18n';
 import { HomeThemeName } from '../theme';
 import { recordDisplayOptions } from '../db/appOptions';
-import type { PersistedAppOptions } from './persistedOptions';
+import { DEFAULT_OUTPUT_EFFECT_INTERVAL, type PersistedAppOptions } from './persistedOptions';
 
 export type { PersistedAppOptions } from './persistedOptions';
 export type OutputFontSizeMode = PersistedAppOptions['outputFontSizeMode'];
@@ -27,6 +27,7 @@ type AppState = {
   outputFontSizeMode: OutputFontSizeMode;
   outputFontSize: number;
   outputDisplayStyle: OutputDisplayStyle;
+  outputEffectInterval: number;
   outputAlignment: OutputAlignment;
   toggleHomeTheme: () => void;
   setLanguage: (language: AppLanguage) => void;
@@ -38,6 +39,7 @@ type AppState = {
   setOutputFontSizeMode: (mode: OutputFontSizeMode) => void;
   setOutputFontSize: (size: number) => void;
   setOutputDisplayStyle: (style: OutputDisplayStyle) => void;
+  setOutputEffectInterval: (interval: number) => void;
   setOutputAlignment: (alignment: OutputAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
@@ -59,6 +61,7 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
     outputFontSizeMode: state.outputFontSizeMode,
     outputFontSize: state.outputFontSize,
     outputDisplayStyle: state.outputDisplayStyle,
+    outputEffectInterval: state.outputEffectInterval,
     outputAlignment: state.outputAlignment,
   };
 }
@@ -77,6 +80,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   outputFontSizeMode: 'automatic',
   outputFontSize: 120,
   outputDisplayStyle: 'static',
+  outputEffectInterval: DEFAULT_OUTPUT_EFFECT_INTERVAL,
   outputAlignment: 'center',
   toggleHomeTheme: () =>
     set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
@@ -98,6 +102,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setOutputFontSizeMode: outputFontSizeMode => set({ outputFontSizeMode }),
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
   setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
+  setOutputEffectInterval: outputEffectInterval => set({ outputEffectInterval }),
   setOutputAlignment: outputAlignment => set({ outputAlignment }),
   setPersistedOptions: options => set(options),
   goToOutput: () => {

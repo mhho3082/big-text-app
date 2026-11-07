@@ -3,9 +3,10 @@ import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
-import { OutputAlignment, OutputDisplayStyle, useAppStore } from '../state/useAppStore';
+import { OutputAlignment, useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
+import { EffectPickerModal } from '../ui/EffectPickerModal';
 import { FontPickerModal } from '../ui/FontPickerModal';
 import { FontSizeModal } from '../ui/FontSizeModal';
 import { getHomeTheme } from '../theme';
@@ -25,6 +26,7 @@ export function HomeScreen({ insets }: Props) {
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
+  const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
   const outputAlignment = useAppStore(state => state.outputAlignment);
   const setText = useAppStore(state => state.setText);
   const setForegroundColor = useAppStore(state => state.setForegroundColor);
@@ -33,6 +35,7 @@ export function HomeScreen({ insets }: Props) {
   const setOutputFontSizeMode = useAppStore(state => state.setOutputFontSizeMode);
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
   const setOutputDisplayStyle = useAppStore(state => state.setOutputDisplayStyle);
+  const setOutputEffectInterval = useAppStore(state => state.setOutputEffectInterval);
   const setOutputAlignment = useAppStore(state => state.setOutputAlignment);
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
@@ -43,6 +46,7 @@ export function HomeScreen({ insets }: Props) {
   const [backgroundPickerVisible, setBackgroundPickerVisible] = React.useState(false);
   const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
   const [fontSizePickerVisible, setFontSizePickerVisible] = React.useState(false);
+  const [effectPickerVisible, setEffectPickerVisible] = React.useState(false);
   const canShowText = text.trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
@@ -176,7 +180,7 @@ export function HomeScreen({ insets }: Props) {
         <View style={styles.toggleRow}>
           <Pressable
             onPress={() => {
-              cycleOption<OutputDisplayStyle>(outputDisplayStyle, ['static', 'strobe', 'pulse', 'crossStrobe', 'crossPulse'], setOutputDisplayStyle);
+              setEffectPickerVisible(true);
             }}
             style={({pressed}) => [
               styles.optionButton,
@@ -258,6 +262,15 @@ export function HomeScreen({ insets }: Props) {
         onClose={() => setFontSizePickerVisible(false)}
         onModeChange={mode => setOutputFontSizeMode(mode)}
         onFontSizeChange={size => setOutputFontSize(size)}
+        theme={theme}
+      />
+      <EffectPickerModal
+        visible={effectPickerVisible}
+        selectedStyle={outputDisplayStyle}
+        interval={outputEffectInterval}
+        onClose={() => setEffectPickerVisible(false)}
+        onStyleChange={style => setOutputDisplayStyle(style)}
+        onIntervalChange={interval => setOutputEffectInterval(interval)}
         theme={theme}
       />
     </View>

@@ -1,13 +1,14 @@
-export type AppLanguage = 'en' | 'zh-TW';
+export type AppLanguage = 'en' | 'zh-TW' | 'zh-CN';
 
 type Locale = Record<string, string>;
 
 export const LANGUAGE_BUTTON_LABELS: Record<AppLanguage, string> = {
   en: 'EN',
-  'zh-TW': '中',
+  'zh-TW': '繁',
+  'zh-CN': '简',
 };
 
-const LANGUAGE_ORDER: AppLanguage[] = ['en', 'zh-TW'];
+const LANGUAGE_ORDER: AppLanguage[] = ['en', 'zh-TW', 'zh-CN'];
 
 const locales: Record<AppLanguage, Locale> = {
   en: {
@@ -31,6 +32,9 @@ const locales: Record<AppLanguage, Locale> = {
     'home.displayStyle.pulse': 'Pulse',
     'home.displayStyle.crossStrobe': 'Cross Strobe',
     'home.displayStyle.crossPulse': 'Cross Pulse',
+    'effectPicker.title': 'Effect',
+    'effectPicker.interval': 'Interval',
+    'effectPicker.intervalNote': 'Seconds between each change.',
     'home.alignment.label': 'Align',
     'home.alignment.left': 'Left',
     'home.alignment.center': 'Center',
@@ -44,7 +48,8 @@ const locales: Record<AppLanguage, Locale> = {
     'history.delete': 'Delete',
     'history.reset': 'Delete all data',
     'history.resetTitle': 'Delete all data?',
-    'history.resetBody': 'This will delete all app data and history. This action is not reversible.',
+    'history.resetBody':
+      'This will delete all app data and history. This action is not reversible.',
     'history.resetConfirm': 'Reset',
     'history.resetCancel': 'Cancel',
     'fontPicker.title': 'Output font',
@@ -52,9 +57,11 @@ const locales: Record<AppLanguage, Locale> = {
     'fontCategory.traditionalChinese': 'Chinese',
     'fontSize.title': 'Font size',
     'fontSize.automatic': 'Automatic',
-    'fontSize.automaticNote': 'Some fonts do not fit well with automatic sizing. If the result looks off, switch to Custom.',
+    'fontSize.automaticNote':
+      'Some fonts do not fit well with automatic sizing. If the result looks off, switch to Custom.',
     'fontSize.custom': 'Custom',
-    'fontSize.customNote': 'In Custom, you can pan up or down on the output screen to adjust the size.',
+    'fontSize.customNote':
+      'In Custom, you can pan up or down on the output screen to adjust the size.',
     'fontSize.size': 'Size',
     'license.ofl11': 'SIL Open Font License 1.1',
     'license.apache20': 'Apache License 2.0',
@@ -80,6 +87,9 @@ const locales: Record<AppLanguage, Locale> = {
     'home.displayStyle.pulse': '脈衝',
     'home.displayStyle.crossStrobe': '交叉閃爍',
     'home.displayStyle.crossPulse': '交叉脈衝',
+    'effectPicker.title': '效果',
+    'effectPicker.interval': '間隔',
+    'effectPicker.intervalNote': '每次變化的間隔秒數。',
     'home.alignment.label': '對齊',
     'home.alignment.left': '靠左',
     'home.alignment.center': '置中',
@@ -101,12 +111,63 @@ const locales: Record<AppLanguage, Locale> = {
     'fontCategory.traditionalChinese': '中文',
     'fontSize.title': '字型大小',
     'fontSize.automatic': '自動',
-    'fontSize.automaticNote': '有些字型與自動調整不一定合拍。如果顯示效果不理想，請改用「自訂」。',
+    'fontSize.automaticNote':
+      '有些字型與自動調整不一定合拍。如果顯示效果不理想，請改用「自訂」。',
     'fontSize.custom': '自訂',
     'fontSize.customNote': '在自訂模式下，可在顯示畫面裡上下滑動來調整大小。',
     'fontSize.size': '大小',
     'license.ofl11': 'SIL 開源字型授權 1.1版',
     'license.apache20': 'Apache 授權 2.0',
+  },
+  'zh-CN': {
+    'app.title': '大字板',
+    'modal.close': '关闭',
+    'home.lightMode': '浅色模式',
+    'home.darkMode': '深色模式',
+    'home.history': '历史',
+    'home.textPlaceholder': '输入',
+    'home.textColor': '文字颜色',
+    'home.backgroundColor': '背景颜色',
+    'home.font': '字体',
+    'home.fontSize': '字体大小',
+    'home.labelSeparator': '：',
+    'home.auto': '自动',
+    'home.custom': '自定义',
+    'home.shareImage': '分享为图片',
+    'home.displayStyle.label': '效果',
+    'home.displayStyle.static': '静态',
+    'home.displayStyle.strobe': '闪烁',
+    'home.displayStyle.pulse': '脉冲',
+    'home.displayStyle.crossStrobe': '交叉闪烁',
+    'home.displayStyle.crossPulse': '交叉脉冲',
+    'home.alignment.label': '对齐',
+    'home.alignment.left': '靠左',
+    'home.alignment.center': '居中',
+    'home.alignment.right': '靠右',
+    'home.showText': '显示',
+    'home.exitHint': '注意：在显示画面上双击即可退出',
+    'history.empty': '暂无历史记录',
+    'history.apply': '应用',
+    'history.show': '显示',
+    'history.close': '关闭',
+    'history.delete': '删除',
+    'history.reset': '重建数据库',
+    'history.resetTitle': '重建数据库？',
+    'history.resetBody': '这会删除所有应用数据并从头重新建立数据表。',
+    'history.resetConfirm': '重建',
+    'history.resetCancel': '取消',
+    'fontPicker.title': '输出字体',
+    'fontCategory.english': '英文',
+    'fontCategory.traditionalChinese': '中文',
+    'fontSize.title': '字体大小',
+    'fontSize.automatic': '自动',
+    'fontSize.automaticNote':
+      '有些字体和自动调整不一定合拍。如果显示效果不理想，请改用「自定义」。',
+    'fontSize.custom': '自定义',
+    'fontSize.customNote': '在自定义模式下，可在显示画面里上下滑动来调整大小。',
+    'fontSize.size': '大小',
+    'license.ofl11': 'SIL 开源字体授权 1.1 版',
+    'license.apache20': 'Apache 许可证 2.0',
   },
 };
 

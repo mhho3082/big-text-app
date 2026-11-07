@@ -15,7 +15,10 @@ import { recordDisplayOptions } from '../db/appOptions';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
 import { getPersistedOptions, useAppStore } from '../state/useAppStore';
-import type { PersistedAppOptions } from '../state/persistedOptions';
+import {
+  DEFAULT_OUTPUT_EFFECT_INTERVAL,
+  type PersistedAppOptions,
+} from '../state/persistedOptions';
 
 const OUTPUT_WORD_BREAK = false;
 
@@ -24,7 +27,6 @@ const MAX_AUTOMATIC_OUTPUT_FONT_SIZE = 1032;
 const INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE = Math.floor(
   (MIN_AUTOMATIC_OUTPUT_FONT_SIZE + MAX_AUTOMATIC_OUTPUT_FONT_SIZE) / 2,
 );
-const OUTPUT_EFFECT_HALF_CYCLE_MS = 1200;
 const MIN_CUSTOM_OUTPUT_FONT_SIZE = 8;
 const MAX_CUSTOM_OUTPUT_FONT_SIZE = 480;
 const FONT_SIZE_PAN_STEP_PX = 18;
@@ -68,6 +70,7 @@ export type OutputScreenProps = Pick<
   | 'outputFontSizeMode'
   | 'outputFontSize'
   | 'outputDisplayStyle'
+  | 'outputEffectInterval'
   | 'outputAlignment'
 > & {
   insets: { top: number; right: number; bottom: number; left: number };
@@ -89,6 +92,7 @@ export function OutputScreen({
   outputFontSizeMode,
   outputFontSize,
   outputDisplayStyle,
+  outputEffectInterval,
   outputAlignment,
   shareRequestId,
 }: OutputScreenProps) {
@@ -123,6 +127,8 @@ export function OutputScreen({
     outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
   const isStrobeStyle = outputDisplayStyle === 'strobe' || outputDisplayStyle === 'crossStrobe';
   const isPulseStyle = outputDisplayStyle === 'pulse' || outputDisplayStyle === 'crossPulse';
+  const effectHalfCycleMs =
+    (outputEffectInterval || DEFAULT_OUTPUT_EFFECT_INTERVAL) * 1000;
   const visibleMixValue = isCrossDisplayStyle ? 0 : 1;
   const hiddenMixValue = isCrossDisplayStyle ? 1 : 0;
 
@@ -204,7 +210,7 @@ export function OutputScreen({
       const interval = setInterval(() => {
         visible = !visible;
         displayMix.setValue(visible ? visibleMixValue : hiddenMixValue);
-      }, OUTPUT_EFFECT_HALF_CYCLE_MS);
+      }, effectHalfCycleMs);
 
       return () => {
         clearInterval(interval);
@@ -219,13 +225,13 @@ export function OutputScreen({
         Animated.sequence([
           Animated.timing(displayMix, {
             toValue: visibleMixValue,
-            duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
+            duration: effectHalfCycleMs,
             easing: Easing.inOut(Easing.quad),
             useNativeDriver: false,
           }),
           Animated.timing(displayMix, {
             toValue: hiddenMixValue,
-            duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
+            duration: effectHalfCycleMs,
             easing: Easing.inOut(Easing.quad),
             useNativeDriver: false,
           }),
@@ -245,6 +251,7 @@ export function OutputScreen({
   }, [
     backgroundColor,
     displayMix,
+    effectHalfCycleMs,
     foregroundColor,
     hiddenMixValue,
     height,

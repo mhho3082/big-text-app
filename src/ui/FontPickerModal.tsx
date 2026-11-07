@@ -44,59 +44,65 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
     [fontCategories],
   );
 
-  const renderFontList = (options: ReturnType<typeof getFontOptionsByCategory>) => (
-    <FlatList
-      key={`font-grid-${fontColumns}`}
-      contentContainerStyle={styles.fontListContent}
-      data={options}
-      numColumns={fontColumns}
-      columnWrapperStyle={styles.fontChoiceColumnWrapper}
-      keyExtractor={option => option.displayName}
-      renderItem={({ item: option }) => {
-        const family = getFontFamily(option);
-        const selected = family === selectedFontFamily;
+  const renderFontList = (options: ReturnType<typeof getFontOptionsByCategory>) => {
+    const lastRowHasSingleItem = options.length % fontColumns === 1;
 
-        return (
-          <Pressable
-            onPress={() => onFontChange(family)}
-            style={({ pressed }) => [
-              styles.fontChoiceButton,
-              {
-                borderColor: theme.border,
-                backgroundColor: theme.surface,
-              },
-              selected && styles.fontChoiceButtonSelected,
-              selected && {
-                borderColor: theme.modalSelectedCardBorder,
-                backgroundColor: theme.modalSelectedCard,
-              },
-              pressed && styles.fontChoiceButtonPressed,
-            ]}
-          >
-            <Text
-              style={[
-                styles.fontChoicePreview,
+    return (
+      <FlatList
+        key={`font-grid-${fontColumns}`}
+        contentContainerStyle={styles.fontListContent}
+        data={options}
+        numColumns={fontColumns}
+        columnWrapperStyle={styles.fontChoiceColumnWrapper}
+        keyExtractor={option => option.displayName}
+        renderItem={({ item: option, index }) => {
+          const family = getFontFamily(option);
+          const selected = family === selectedFontFamily;
+          const isOddLastOption = lastRowHasSingleItem && index === options.length - 1;
+
+          return (
+            <Pressable
+              onPress={() => onFontChange(family)}
+              style={({ pressed }) => [
+                styles.fontChoiceButton,
+                isOddLastOption && styles.oddLastOption,
                 {
-                  fontFamily: family,
-                  fontWeight: option.fontWeight,
-                  color: theme.modalText,
+                  borderColor: theme.border,
+                  backgroundColor: theme.surface,
                 },
+                selected && styles.fontChoiceButtonSelected,
+                selected && {
+                  borderColor: theme.modalSelectedCardBorder,
+                  backgroundColor: theme.modalSelectedCard,
+                },
+                pressed && styles.fontChoiceButtonPressed,
               ]}
             >
-              {option.displayName}
-            </Text>
-            {option.credit ? (
-              <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
-            ) : null}
-            <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
-              {t(option.licenseKey, undefined, language)}
-            </Text>
-          </Pressable>
-        );
-      }}
-      showsVerticalScrollIndicator={false}
-    />
-  );
+              <Text
+                style={[
+                  styles.fontChoicePreview,
+                  {
+                    fontFamily: family,
+                    fontWeight: option.fontWeight,
+                    color: theme.modalText,
+                  },
+                ]}
+              >
+                {option.displayName}
+              </Text>
+              {option.credit ? (
+                <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
+              ) : null}
+              <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
+                {t(option.licenseKey, undefined, language)}
+              </Text>
+            </Pressable>
+          );
+        }}
+        showsVerticalScrollIndicator={false}
+      />
+    );
+  };
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>

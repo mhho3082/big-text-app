@@ -443,5 +443,35 @@ export const styles = StyleSheet.create({
   fontSizeSlider: {
     width: '100%',
   },
+  effectOptionList: {
+    gap: 8,
+  },
+  effectOptionRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  effectOptionButton: {
+    flex: 1,
+    borderRadius: 16,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  oddLastOption: {
+    flexGrow: 0,
+    flexBasis: '50%',
+    maxWidth: '50%',
+  },
+  effectOptionButtonSelected: {
+    borderColor: '#6750a4',
+  },
+  effectOptionButtonPressed: {
+    opacity: 0.8,
+  },
+  effectOptionButtonText: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
   colorTextInput: {},
 });

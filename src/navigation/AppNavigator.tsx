@@ -17,6 +17,7 @@ export function AppNavigator() {
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
+  const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
   const outputAlignment = useAppStore(state => state.outputAlignment);
   const outputReturnScreen = useAppStore(state => state.outputReturnScreen);
   const outputPreviewOptions = useAppStore(state => state.outputPreviewOptions);
@@ -33,6 +34,7 @@ export function AppNavigator() {
       outputFontSizeMode,
       outputFontSize,
       outputDisplayStyle,
+      outputEffectInterval,
       outputAlignment,
     };
 
@@ -51,6 +53,7 @@ export function AppNavigator() {
           outputFontSizeMode={options.outputFontSizeMode}
           outputFontSize={options.outputFontSize}
           outputDisplayStyle={options.outputDisplayStyle}
+          outputEffectInterval={options.outputEffectInterval}
           outputAlignment={options.outputAlignment}
           shareRequestId={shareRequestId}
         />
@@ -76,6 +79,9 @@ export function AppNavigator() {
           outputFontSizeMode={outputPreviewOptions?.outputFontSizeMode ?? outputFontSizeMode}
           outputFontSize={outputPreviewOptions?.outputFontSize ?? outputFontSize}
           outputDisplayStyle={outputPreviewOptions?.outputDisplayStyle ?? outputDisplayStyle}
+          outputEffectInterval={
+            outputPreviewOptions?.outputEffectInterval ?? outputEffectInterval
+          }
           outputAlignment={outputPreviewOptions?.outputAlignment ?? outputAlignment}
           shareRequestId={shareRequestId}
         />
