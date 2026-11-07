@@ -76,34 +76,39 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>DepartureMono-Regular.otf</string>
+		<string>GenRyuMin2TC-R.otf</string>
+		<string>GenSekiGothic2TC-R.otf</string>
+		<string>GenWanMin2TC-R.otf</string>
 		<string>DeliusUnicase-Regular.ttf</string>
-		<string>Oswald-Bold.ttf</string>
-		<string>PlaywriteUSTrad-Regular.ttf</string>
-		<string>Oswald-Regular.ttf</string>
-		<string>PlayfairDisplay-Regular.ttf</string>
-		<string>Roboto-Regular.ttf</string>
-		<string>PlaypenSans-Regular.ttf</string>
-		<string>PermanentMarker-Regular.ttf</string>
-		<string>Monoton-Regular.ttf</string>
-		<string>Orbitron-Regular.ttf</string>
 		<string>Doto-Black.ttf</string>
-		<string>Doto_Rounded-Black.ttf</string>
-		<string>CinzelDecorative-Regular.ttf</string>
 		<string>Silkscreen-Regular.ttf</string>
+		<string>Orbitron-Regular.ttf</string>
+		<string>Doto_Rounded-Black.ttf</string>
 		<string>DMSerifDisplay-Regular.ttf</string>
-		<string>Cinzel-Regular.ttf</string>
-		<string>AtkinsonHyperlegible-Regular.ttf</string>
-		<string>Lexend-Regular.ttf</string>
-		<string>Lora-Regular.ttf</string>
+		<string>PlayfairDisplay-Regular.ttf</string>
+		<string>CinzelDecorative-Regular.ttf</string>
+		<string>Oswald-Regular.ttf</string>
+		<string>Inter-Regular.ttf</string>
+		<string>JetBrainsMono-Regular.ttf</string>
+		<string>PermanentMarker-Regular.ttf</string>
+		<string>ThePeakFontBeta_V0_102.ttf</string>
 		<string>Anton-Regular.ttf</string>
-		<string>ChironSungHK-Regular.ttf</string>
+		<string>Lexend-Regular.ttf</string>
+		<string>PlaypenSans-Regular.ttf</string>
+		<string>Monoton-Regular.ttf</string>
+		<string>Urbanist-Regular.ttf</string>
+		<string>Cinzel-Regular.ttf</string>
+		<string>Lora-Regular.ttf</string>
+		<string>AtkinsonHyperlegible-Regular.ttf</string>
+		<string>PlaywriteUSTrad-Regular.ttf</string>
 		<string>ChironHeiHK-Regular.ttf</string>
+		<string>MantouSans-Regular.ttf</string>
+		<string>NaikaiFont-Regular.ttf</string>
+		<string>ChironSungHK-Regular.ttf</string>
+		<string>Iansui-Regular.ttf</string>
 		<string>ChironGoRoundTC-Regular.ttf</string>
 		<string>Cubic_11.ttf</string>
-		<string>NaikaiFont-Regular.ttf</string>
-		<string>MantouSans-Regular.ttf</string>
 		<string>MaokenAssortedSans-TC.ttf</string>
-		<string>ThePeakFontBeta_V0_102.ttf</string>
 	</array>
 </dict>
 </plist>

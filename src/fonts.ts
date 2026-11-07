@@ -1,5 +1,5 @@
-import {Platform} from 'react-native';
-import type {TextStyle} from 'react-native';
+import { Platform } from 'react-native';
+import type { TextStyle } from 'react-native';
 
 export type FontCategory = 'english' | 'traditionalChinese';
 
@@ -13,31 +13,28 @@ export type FontOption = {
   category: FontCategory;
   licenseKey: string;
   credit: string;
-  androidFamily?: string;
-  iosFamily?: string;
+  androidFamily?: string; // The filename
+  iosFamily?: string; // The PostScript name
   secondaryFamilies?: FontFamilyPair[];
-  sample: string;
   fontWeight?: TextStyle['fontWeight'];
 };
 
 export const fontOptions: FontOption[] = [
   {
-    displayName: 'Roboto',
+    displayName: 'Inter',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Roboto Project Authors',
-    androidFamily: 'Roboto-Regular',
-    iosFamily: 'Roboto',
-    sample: 'Aa',
+    credit: 'Rasmus Andersson',
+    androidFamily: 'Inter-Regular',
+    iosFamily: 'Inter',
   },
   {
     displayName: 'Oswald',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Oswald Project Authors',
+    credit: 'Vernon Adams, Kalapi Gajjar, Cyreal',
     androidFamily: 'Oswald-Regular',
     iosFamily: 'Oswald',
-    sample: 'Aa',
   },
   {
     displayName: 'Atkinson Hyperlegible',
@@ -46,43 +43,47 @@ export const fontOptions: FontOption[] = [
     credit: 'Braille Institute of America, Inc.',
     androidFamily: 'AtkinsonHyperlegible-Regular',
     iosFamily: 'Atkinson Hyperlegible',
-    sample: 'Aa',
+  },
+  {
+    displayName: 'Urbanist',
+    category: 'english',
+    licenseKey: 'license.ofl11',
+    credit: 'Corey Hu',
+    androidFamily: 'Urbanist-Regular',
+    iosFamily: 'Urbanist',
   },
   {
     displayName: 'Lexend',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Lexend Project Authors',
+    credit:
+      'Bonnie Shaver-Troup, Thomas Jockin, Santiago Orozco, Héctor Gómez, Superunion',
     androidFamily: 'Lexend-Regular',
     iosFamily: 'Lexend',
-    sample: 'Aa',
   },
   {
     displayName: 'Anton',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Anton Project Authors',
+    credit: 'Vernon Adams',
     androidFamily: 'Anton-Regular',
     iosFamily: 'Anton',
-    sample: 'Aa',
   },
   {
     displayName: 'Playfair Display',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Playfair Display Project Authors',
+    credit: 'Claus Eggers Sørensen',
     androidFamily: 'PlayfairDisplay-Regular',
     iosFamily: 'Playfair Display',
-    sample: 'Aa',
   },
   {
     displayName: 'Cinzel',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Cinzel Project Authors',
+    credit: 'Natanael Gama',
     androidFamily: 'Cinzel-Regular',
     iosFamily: 'Cinzel',
-    sample: 'Aa',
   },
   {
     displayName: 'Cinzel Decorative',
@@ -91,7 +92,6 @@ export const fontOptions: FontOption[] = [
     credit: 'Natanael Gama',
     androidFamily: 'CinzelDecorative-Regular',
     iosFamily: 'Cinzel Decorative',
-    sample: 'Aa',
   },
   {
     displayName: 'DM Serif Display',
@@ -100,16 +100,22 @@ export const fontOptions: FontOption[] = [
     credit: 'Adobe and Google LLC',
     androidFamily: 'DMSerifDisplay-Regular',
     iosFamily: 'DM Serif Display',
-    sample: 'Aa',
   },
   {
     displayName: 'Lora',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Lora Project Authors',
+    credit: 'Cyreal',
     androidFamily: 'Lora-Regular',
     iosFamily: 'Lora',
-    sample: 'Aa',
+  },
+  {
+    displayName: 'JetBrains Mono',
+    category: 'english',
+    licenseKey: 'license.ofl11',
+    credit: 'JetBrains, Philipp Nurullin, Konstantin Bulenkov',
+    androidFamily: 'JetBrainsMono-Regular',
+    iosFamily: 'JetBrains Mono',
   },
   {
     displayName: 'Permanent Marker',
@@ -118,7 +124,6 @@ export const fontOptions: FontOption[] = [
     credit: 'Font Diner',
     androidFamily: 'PermanentMarker-Regular',
     iosFamily: 'Permanent Marker',
-    sample: 'Aa',
   },
   {
     displayName: 'Delius Unicase',
@@ -127,34 +132,31 @@ export const fontOptions: FontOption[] = [
     credit: 'Natalia Raices and Igino Marini',
     androidFamily: 'DeliusUnicase-Regular',
     iosFamily: 'Delius Unicase',
-    sample: 'Aa',
   },
   {
     displayName: 'Playwrite',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Playwrite Project Authors',
+    credit: 'TypeTogether, Veronika Burian, José Scaglione',
     androidFamily: 'PlaywriteUSTrad-Regular',
     iosFamily: 'Playwrite US Trad',
-    sample: 'Aa',
   },
   {
     displayName: 'Playpen Sans',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Playpen Sans Project Authors',
+    credit:
+      'TypeTogether, Laura Meseguer, Veronika Burian, José Scaglione, Kostas Bartsokas, Vera Evstafieva, Tom Grace, Yorlmar Campos',
     androidFamily: 'PlaypenSans-Regular',
     iosFamily: 'Playpen Sans',
-    sample: 'Aa',
   },
   {
     displayName: 'Orbitron',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Orbitron Project Authors',
+    credit: 'Matt McInerney',
     androidFamily: 'Orbitron-Regular',
     iosFamily: 'Orbitron',
-    sample: 'Aa',
   },
   {
     displayName: 'Monoton',
@@ -163,25 +165,22 @@ export const fontOptions: FontOption[] = [
     credit: 'vernon adams',
     androidFamily: 'Monoton-Regular',
     iosFamily: 'Monoton',
-    sample: 'Aa',
   },
   {
     displayName: 'Doto',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Doto Project Authors',
+    credit: 'Óliver Lalan',
     androidFamily: 'Doto-Black',
     iosFamily: 'Doto Black',
-    sample: 'Aa',
   },
   {
     displayName: 'Doto Rounded',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Doto Project Authors',
+    credit: 'Óliver Lalan',
     androidFamily: 'Doto_Rounded-Black',
     iosFamily: 'Doto Rounded Black',
-    sample: 'Aa',
   },
   {
     displayName: 'Departure Mono',
@@ -190,16 +189,14 @@ export const fontOptions: FontOption[] = [
     credit: 'Helena Zhang',
     androidFamily: 'DepartureMono-Regular',
     iosFamily: 'Departure Mono',
-    sample: 'Aa',
   },
   {
     displayName: 'Silkscreen',
     category: 'english',
     licenseKey: 'license.ofl11',
-    credit: 'The Silkscreen Project Authors',
+    credit: 'Jason Kottke',
     androidFamily: 'Silkscreen-Regular',
     iosFamily: 'Silkscreen',
-    sample: 'Aa',
   },
   {
     displayName: '源流明體',
@@ -208,7 +205,6 @@ export const fontOptions: FontOption[] = [
     credit: 'But Ko',
     androidFamily: 'GenRyuMin2TC-R',
     iosFamily: 'GenRyuMin2 TC',
-    sample: '源流明體',
   },
   {
     displayName: '源雲明體',
@@ -217,7 +213,6 @@ export const fontOptions: FontOption[] = [
     credit: 'But Ko',
     androidFamily: 'GenWanMin2TC-R',
     iosFamily: 'GenWanMin2 TC',
-    sample: '源雲明體',
   },
   {
     displayName: '源石黑體',
@@ -226,16 +221,14 @@ export const fontOptions: FontOption[] = [
     credit: 'But Ko',
     androidFamily: 'GenSekiGothic2TC-R',
     iosFamily: 'GenSekiGothic2 TC',
-    sample: '源石黑體',
   },
   {
     displayName: '芫荽',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
-    credit: 'The Iansui Project Authors',
+    credit: 'But Ko',
     androidFamily: 'Iansui-Regular',
     iosFamily: 'Iansui',
-    sample: '芫荽',
   },
   {
     displayName: '饅頭黑體',
@@ -244,7 +237,6 @@ export const fontOptions: FontOption[] = [
     credit: 'Mant0u and The Dela Gothic Project Authors',
     androidFamily: 'MantouSans-Regular',
     iosFamily: 'Mantou Sans',
-    sample: '饅頭黑體',
   },
   {
     displayName: '貓啃什錦黑',
@@ -253,7 +245,6 @@ export const fontOptions: FontOption[] = [
     credit: 'Skr-ZERO',
     androidFamily: 'MaokenAssortedSans-TC',
     iosFamily: 'MaokenAssortedSans-TC',
-    sample: '貓啃什錦黑',
   },
   {
     displayName: '內海字體',
@@ -262,34 +253,30 @@ export const fontOptions: FontOption[] = [
     credit: 'max32002',
     androidFamily: 'NaikaiFont-Regular',
     iosFamily: 'NaikaiFont',
-    sample: '內海字體',
   },
   {
     displayName: '昭源宋體',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
-    credit: 'The Chiron Sung HK Project Authors',
+    credit: 'Tamcy',
     androidFamily: 'ChironSungHK-Regular',
     iosFamily: 'Chiron Sung HK',
-    sample: '昭源宋體',
   },
   {
     displayName: '昭源黑體',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
-    credit: 'The Chiron Hei HK Project Authors',
+    credit: 'Tamcy',
     androidFamily: 'ChironHeiHK-Regular',
     iosFamily: 'Chiron Hei HK',
-    sample: '昭源黑體',
   },
   {
     displayName: '昭源環方',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
-    credit: 'The Chiron GoRound TC Project Authors',
+    credit: 'Tamcy',
     androidFamily: 'ChironGoRoundTC-Regular',
     iosFamily: 'Chiron GoRound TC',
-    sample: '昭源環方',
   },
   {
     displayName: '隨峰體',
@@ -298,7 +285,6 @@ export const fontOptions: FontOption[] = [
     credit: '阿坤',
     androidFamily: 'ThePeakFontBeta_V0_102',
     iosFamily: 'The Peak Font 隨峰體 Beta',
-    sample: '隨峰體',
   },
   {
     displayName: '俐方體11號',
@@ -307,7 +293,6 @@ export const fontOptions: FontOption[] = [
     credit: 'M+ FONTS PROJECT',
     androidFamily: 'Cubic_11',
     iosFamily: 'Cubic 11',
-    sample: '俐方體11號',
   },
 ];
 

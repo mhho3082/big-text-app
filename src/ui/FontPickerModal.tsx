@@ -83,9 +83,8 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
                 },
               ]}
             >
-              {option.sample}
+              {option.displayName}
             </Text>
-            <Text style={[styles.fontChoiceLabel, { color: theme.modalText }]}>{option.displayName}</Text>
             {option.credit ? (
               <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
             ) : null}

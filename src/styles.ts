@@ -383,10 +383,6 @@ export const styles = StyleSheet.create({
   fontChoicePreview: {
     fontSize: 28,
     includeFontPadding: false,
-  },
-  fontChoiceLabel: {
-    fontSize: 13,
-    fontWeight: '600',
     marginBottom: 4,
   },
   fontChoiceCredit: {
