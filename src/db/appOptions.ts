@@ -179,7 +179,21 @@ export function recordDisplayOptions(options: PersistedAppOptions): Promise<void
   return enqueueWrite(async () => {
     const database = await ensureDb();
     const optionsJson = JSON.stringify(options);
-    await database.execute('DELETE FROM display_history WHERE options_json = ?', [optionsJson]);
+    const res = await database.execute('SELECT id, options_json FROM display_history');
+    const rows = (res.rows ?? []) as DisplayHistoryRow[];
+
+    for (const row of rows) {
+      if (!row.options_json) {
+        continue;
+      }
+
+      const parsed = parsePersistedOptionsJson(row.options_json);
+
+      if (parsed?.text === options.text) {
+        await database.execute('DELETE FROM display_history WHERE id = ?', [row.id]);
+      }
+    }
+
     await database.execute(
       'INSERT INTO display_history (created_at, options_json) VALUES (?, ?)',
       [Date.now(), optionsJson],
