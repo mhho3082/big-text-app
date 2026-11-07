@@ -170,7 +170,7 @@ export function HomeScreen({ insets }: Props) {
               pressed && styles.optionButtonPressed,
             ]}
           >
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
+            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>
               {translate('home.displayStyle.label')}
               {translate('home.labelSeparator')}
               {translate(`home.displayStyle.${outputDisplayStyle}`)}
@@ -186,7 +186,7 @@ export function HomeScreen({ insets }: Props) {
               pressed && styles.optionButtonPressed,
             ]}
           >
-            <Text style={[styles.optionButtonText, { color: theme.optionText }]}> 
+            <Text style={[styles.optionButtonText, { color: theme.optionText }]}>
               {translate('home.alignment.label')}
               {translate('home.labelSeparator')}
               {translate(`home.alignment.${outputAlignment}`)}

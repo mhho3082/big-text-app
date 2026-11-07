@@ -4,12 +4,9 @@ import { captureRef } from 'react-native-view-shot';
 import Share from 'react-native-share';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
-import type {
-  OutputAlignment,
-  OutputDisplayStyle,
-  OutputFontSizeMode,
-  PersistedAppOptions,
-} from '../state/persistedOptions';
+import type { PersistedAppOptions } from '../state/persistedOptions';
+
+const OUTPUT_WORD_BREAK = false;
 
 const MIN_AUTOMATIC_OUTPUT_FONT_SIZE = 8;
 const MAX_AUTOMATIC_OUTPUT_FONT_SIZE = 1032;
@@ -366,6 +363,8 @@ export function OutputScreen({
               <Animated.Text
                 key={outputKey}
                 ellipsizeMode="clip"
+                lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
+                textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
                 style={[
                   styles.outputText,
                   {
@@ -397,6 +396,8 @@ export function OutputScreen({
                   key={automaticSearchGeneration}
                   ellipsizeMode="clip"
                   onTextLayout={handleAutomaticTextLayout}
+                  lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
+                  textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
                   style={[
                     styles.outputText,
                     {
@@ -425,6 +426,8 @@ export function OutputScreen({
             <Animated.Text
               key={outputKey}
               ellipsizeMode="clip"
+              lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
+              textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
               style={[
                 styles.outputText,
                 {
@@ -456,6 +459,8 @@ export function OutputScreen({
                 key={automaticSearchGeneration}
                 ellipsizeMode="clip"
                 onTextLayout={handleAutomaticTextLayout}
+                lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
+                textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
                 style={[
                   styles.outputText,
                   {

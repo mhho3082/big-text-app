@@ -99,11 +99,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   setOutputAlignment: outputAlignment => set({ outputAlignment }),
   setPersistedOptions: options => set(options),
   goToOutput: () => {
-    void recordDisplayOptions(getPersistedOptions(get()));
+    recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
     set({ screen: 'output', outputReturnScreen: 'home', outputPreviewOptions: null });
   },
   goToShare: () => {
-    void recordDisplayOptions(getPersistedOptions(get()));
+    recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
     set({ screen: 'share', outputReturnScreen: 'home', outputPreviewOptions: null });
   },
   goToHistory: () => {
