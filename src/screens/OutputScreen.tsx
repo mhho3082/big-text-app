@@ -96,17 +96,27 @@ export function OutputScreen({
     high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
     low: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
   });
-  const opacity = React.useRef(new Animated.Value(0)).current;
-  const crossMix = React.useRef(new Animated.Value(0)).current;
+  const displayMix = React.useRef(new Animated.Value(0)).current;
 
-  const crossForegroundColor = crossMix.interpolate({
+  const isCrossDisplayStyle =
+    outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
+  const isStrobeStyle = outputDisplayStyle === 'strobe' || outputDisplayStyle === 'crossStrobe';
+  const isPulseStyle = outputDisplayStyle === 'pulse' || outputDisplayStyle === 'crossPulse';
+  const visibleMixValue = isCrossDisplayStyle ? 0 : 1;
+  const hiddenMixValue = isCrossDisplayStyle ? 1 : 0;
+
+  const animatedTextColor = displayMix.interpolate({
     inputRange: [0, 1],
-    outputRange: [foregroundColor, backgroundColor],
+    outputRange: isCrossDisplayStyle
+      ? [foregroundColor, backgroundColor]
+      : [backgroundColor, foregroundColor],
   });
-  const crossBackgroundColor = crossMix.interpolate({
-    inputRange: [0, 1],
-    outputRange: [backgroundColor, foregroundColor],
-  });
+  const animatedBackgroundColor = isCrossDisplayStyle
+    ? displayMix.interpolate({
+        inputRange: [0, 1],
+        outputRange: [backgroundColor, foregroundColor],
+      })
+    : backgroundColor;
 
   const restartAutomaticSearch = React.useCallback(() => {
     automaticSearchRef.current = {
@@ -154,98 +164,88 @@ export function OutputScreen({
   }, [headless]);
 
   React.useEffect(() => {
-    opacity.stopAnimation();
-    crossMix.stopAnimation();
+    displayMix.stopAnimation();
 
     if (mode === 'share') {
-      opacity.setValue(1);
-      crossMix.setValue(0);
+      displayMix.setValue(visibleMixValue);
       return;
     }
 
     if (outputDisplayStyle === 'static') {
-      opacity.setValue(1);
-      crossMix.setValue(0);
+      displayMix.setValue(visibleMixValue);
       return;
     }
 
-    if (outputDisplayStyle === 'strobe') {
-      let visible = true;
-      opacity.setValue(1);
-      crossMix.setValue(0);
+    if (isStrobeStyle) {
+      let visible = false;
+      displayMix.setValue(hiddenMixValue);
 
       const interval = setInterval(() => {
         visible = !visible;
-        opacity.setValue(visible ? 1 : 0);
+        displayMix.setValue(visible ? visibleMixValue : hiddenMixValue);
       }, OUTPUT_EFFECT_HALF_CYCLE_MS);
 
       return () => {
         clearInterval(interval);
-        opacity.setValue(1);
+        displayMix.setValue(hiddenMixValue);
       };
     }
 
-    if (outputDisplayStyle === 'crossStrobe') {
-      let swapped = false;
-      opacity.setValue(1);
-      crossMix.setValue(0);
+    if (isPulseStyle) {
+      displayMix.setValue(hiddenMixValue);
 
-      const interval = setInterval(() => {
-        swapped = !swapped;
-        crossMix.setValue(swapped ? 1 : 0);
-      }, OUTPUT_EFFECT_HALF_CYCLE_MS);
+      const loop = Animated.loop(
+        Animated.sequence([
+          Animated.timing(displayMix, {
+            toValue: visibleMixValue,
+            duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
+            easing: Easing.inOut(Easing.quad),
+            useNativeDriver: false,
+          }),
+          Animated.timing(displayMix, {
+            toValue: hiddenMixValue,
+            duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
+            easing: Easing.inOut(Easing.quad),
+            useNativeDriver: false,
+          }),
+        ]),
+        { iterations: -1, resetBeforeIteration: false },
+      );
+
+      loop.start();
 
       return () => {
-        clearInterval(interval);
-        crossMix.setValue(0);
+        loop.stop();
+        displayMix.setValue(hiddenMixValue);
       };
     }
 
-    if (outputDisplayStyle === 'crossPulse') {
-      opacity.setValue(1);
-    } else {
-      opacity.setValue(0);
-    }
-    crossMix.setValue(0);
-
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(crossMix, {
-          toValue: 1,
-          duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: false,
-        }),
-        Animated.timing(crossMix, {
-          toValue: 0,
-          duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: false,
-        }),
-      ]),
-      { iterations: -1, resetBeforeIteration: false },
-    );
-
-    loop.start();
-
-    return () => {
-      loop.stop();
-      opacity.setValue(0);
-      crossMix.setValue(0);
-    };
-  }, [backgroundColor, crossMix, foregroundColor, mode, opacity, outputDisplayStyle]);
+    return undefined;
+  }, [
+    backgroundColor,
+    displayMix,
+    foregroundColor,
+    hiddenMixValue,
+    height,
+    isPulseStyle,
+    isStrobeStyle,
+    mode,
+    outputDisplayStyle,
+    visibleMixValue,
+    width,
+  ]);
 
   const outputTextColor =
     outputFontSizeMode === 'automatic' && !automaticSearchComplete
       ? backgroundColor
-      : outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse'
-      ? crossForegroundColor
-      : foregroundColor;
+      : outputDisplayStyle === 'static'
+      ? foregroundColor
+      : animatedTextColor;
   const outputLayerBackgroundColor =
     outputFontSizeMode === 'automatic' && !automaticSearchComplete
       ? backgroundColor
-      : outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse'
-      ? crossBackgroundColor
+      : isCrossDisplayStyle
+      ? animatedBackgroundColor
       : backgroundColor;
 
   const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputAlignment}:${text.length}`;
@@ -424,12 +424,11 @@ export function OutputScreen({
                 lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
                 textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
                 style={[
-                  styles.outputText,
-                  {
-                    textAlign: outputAlignment,
-                    opacity,
-                    color: outputTextColor,
-                  },
+                styles.outputText,
+                {
+                  textAlign: outputAlignment,
+                  color: outputTextColor,
+                },
                   {
                     fontFamily: outputFontFamily,
                     fontSize:
@@ -490,7 +489,6 @@ export function OutputScreen({
                 styles.outputText,
                 {
                   textAlign: outputAlignment,
-                  opacity,
                   color: outputTextColor,
                 },
                 {
