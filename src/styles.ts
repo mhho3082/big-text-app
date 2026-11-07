@@ -238,6 +238,7 @@ export const styles = StyleSheet.create({
   },
   fontSampleText: {
     fontSize: 12,
+    includeFontPadding: false,
   },
   button: {
     backgroundColor: '#6750a4',
@@ -303,6 +304,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: 'left',
     overflow: 'visible',
+    includeFontPadding: false,
   },
   backdrop: {
     flex: 1,
