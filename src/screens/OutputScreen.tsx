@@ -14,6 +14,7 @@ import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { recordDisplayOptions } from '../db/appOptions';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
+import { setSensorRotationEnabled } from '../native/screenOrientation';
 import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import {
   DEFAULT_OUTPUT_EFFECT_INTERVAL,
@@ -192,9 +193,11 @@ export function OutputScreen({
     }
 
     setImmersiveMode(true);
+    setSensorRotationEnabled(true);
 
     return () => {
       setImmersiveMode(false);
+      setSensorRotationEnabled(false);
     };
   }, [headless]);
 
