@@ -39,7 +39,7 @@ export function ColorPickerModal({ visible, title, initialColor, onClose, onColo
               </Pressable>
             </View>
             <ScrollView
-              style={styles.fontPickerBody}
+              style={styles.colorPickerBody}
               contentContainerStyle={styles.picker}
               keyboardShouldPersistTaps="handled"
               nestedScrollEnabled

@@ -303,8 +303,10 @@ export const styles = StyleSheet.create({
     borderRadius: 24,
     padding: 20,
     gap: 16,
-    height: '85%',
     maxHeight: '85%',
+  },
+  sheetTall: {
+    height: '85%',
   },
   modalHeader: {
     flexDirection: 'row',
@@ -350,6 +352,9 @@ export const styles = StyleSheet.create({
   fontPickerBody: {
     flex: 1,
     minHeight: 0,
+  },
+  colorPickerBody: {
+    flexShrink: 1,
   },
   fontTabView: {
     flex: 1,

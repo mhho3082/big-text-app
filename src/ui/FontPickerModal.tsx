@@ -109,7 +109,7 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       {visible ? (
         <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
-          <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
+          <View style={[styles.sheet, styles.sheetTall, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontPicker.title', undefined, language)}</Text>
               <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
