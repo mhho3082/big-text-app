@@ -59,6 +59,7 @@ export type OutputScreenProps = Pick<
   mode: 'display' | 'share';
   headless?: boolean;
   onExit: () => void;
+  shareRequestId?: number;
 };
 
 export function OutputScreen({
@@ -74,6 +75,7 @@ export function OutputScreen({
   outputFontSize,
   outputDisplayStyle,
   outputAlignment,
+  shareRequestId,
 }: OutputScreenProps) {
   const { width, height } = useWindowDimensions();
   const [outputLayout, setOutputLayout] = React.useState({ width: 0, height: 0 });
@@ -88,7 +90,7 @@ export function OutputScreen({
   const [automaticSearchComplete, setAutomaticSearchComplete] = React.useState(false);
   const lastTapAt = React.useRef(0);
   const captureRefView = React.useRef<React.ElementRef<typeof View> | null>(null);
-  const shareRequestedRef = React.useRef(false);
+  const handledShareRequestIdRef = React.useRef<number | null>(null);
   const automaticSearchRef = React.useRef({
     best: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
     high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
@@ -344,7 +346,11 @@ export function OutputScreen({
   }, [onExit]);
 
   React.useEffect(() => {
-    if (mode !== 'share' || shareRequestedRef.current) {
+    if (mode !== 'share') {
+      return;
+    }
+
+    if (shareRequestId == null || handledShareRequestIdRef.current === shareRequestId) {
       return;
     }
 
@@ -353,7 +359,7 @@ export function OutputScreen({
     }
 
     let cancelled = false;
-    shareRequestedRef.current = true;
+    handledShareRequestIdRef.current = shareRequestId;
 
     const doShare = async () => {
       const node = captureRefView.current;
@@ -394,7 +400,7 @@ export function OutputScreen({
       cancelled = true;
       cancelAnimationFrame(frame);
     };
-  }, [automaticSearchComplete, mode, onExit, outputFontSizeMode]);
+  }, [automaticSearchComplete, mode, onExit, outputFontSizeMode, shareRequestId]);
 
   return (
     <View

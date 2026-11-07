@@ -20,6 +20,7 @@ export function AppNavigator() {
   const outputAlignment = useAppStore(state => state.outputAlignment);
   const outputReturnScreen = useAppStore(state => state.outputReturnScreen);
   const outputPreviewOptions = useAppStore(state => state.outputPreviewOptions);
+  const shareRequestId = useAppStore(state => state.shareRequestId);
   const goHome = useAppStore(state => state.goHome);
   const goToHistory = useAppStore(state => state.goToHistory);
 
@@ -51,6 +52,7 @@ export function AppNavigator() {
           outputFontSize={options.outputFontSize}
           outputDisplayStyle={options.outputDisplayStyle}
           outputAlignment={options.outputAlignment}
+          shareRequestId={shareRequestId}
         />
       </View>
     );
@@ -75,6 +77,7 @@ export function AppNavigator() {
           outputFontSize={outputPreviewOptions?.outputFontSize ?? outputFontSize}
           outputDisplayStyle={outputPreviewOptions?.outputDisplayStyle ?? outputDisplayStyle}
           outputAlignment={outputPreviewOptions?.outputAlignment ?? outputAlignment}
+          shareRequestId={shareRequestId}
         />
       )}
     </View>

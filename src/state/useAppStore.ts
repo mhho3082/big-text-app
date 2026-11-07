@@ -17,6 +17,7 @@ type AppState = {
   screen: Screen;
   outputReturnScreen: Exclude<Screen, 'output' | 'share'>;
   outputPreviewOptions: PersistedAppOptions | null;
+  shareRequestId: number;
   homeTheme: HomeThemeName;
   language: AppLanguage;
   text: string;
@@ -66,6 +67,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   screen: 'home',
   outputReturnScreen: 'home',
   outputPreviewOptions: null,
+  shareRequestId: 0,
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
   language: 'en',
   text: '',
@@ -104,7 +106,12 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   goToShare: () => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
-    set({ screen: 'share', outputReturnScreen: 'home', outputPreviewOptions: null });
+    set(state => ({
+      screen: 'share',
+      outputReturnScreen: 'home',
+      outputPreviewOptions: null,
+      shareRequestId: state.shareRequestId + 1,
+    }));
   },
   goToHistory: () => {
     set({ screen: 'history', outputPreviewOptions: null });
