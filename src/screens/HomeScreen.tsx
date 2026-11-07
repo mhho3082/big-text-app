@@ -1,5 +1,6 @@
 import React from 'react';
-import { Pressable, ScrollView, StatusBar, Text, TextInput, View } from 'react-native';
+import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
 import { OutputAlignment, OutputDisplayStyle, useAppStore } from '../state/useAppStore';

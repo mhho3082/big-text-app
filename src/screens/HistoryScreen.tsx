@@ -1,5 +1,6 @@
 import React from 'react';
-import { BackHandler, Modal, Pressable, ScrollView, StatusBar, Text, View } from 'react-native';
+import { BackHandler, Modal, Pressable, StatusBar, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { deleteDisplayHistoryEntry, loadDisplayHistory, resetDatabase } from '../db/appOptions';
 import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';

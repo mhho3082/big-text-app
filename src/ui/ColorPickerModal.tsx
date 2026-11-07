@@ -1,5 +1,6 @@
 import React from 'react';
-import { Modal, Pressable, ScrollView, Text as RNText, View } from 'react-native';
+import { Modal, Pressable, Text as RNText, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import ColorPicker, { HueSlider, Panel1, InputWidget, Preview, Swatches } from 'reanimated-color-picker';
 import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
