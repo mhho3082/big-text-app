@@ -95,6 +95,16 @@ export function OutputScreen({
     low: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
   });
   const opacity = React.useRef(new Animated.Value(0)).current;
+  const crossMix = React.useRef(new Animated.Value(0)).current;
+
+  const crossForegroundColor = crossMix.interpolate({
+    inputRange: [0, 1],
+    outputRange: [foregroundColor, backgroundColor],
+  });
+  const crossBackgroundColor = crossMix.interpolate({
+    inputRange: [0, 1],
+    outputRange: [backgroundColor, foregroundColor],
+  });
 
   const restartAutomaticSearch = React.useCallback(() => {
     automaticSearchRef.current = {
@@ -143,20 +153,24 @@ export function OutputScreen({
 
   React.useEffect(() => {
     opacity.stopAnimation();
+    crossMix.stopAnimation();
 
     if (mode === 'share') {
       opacity.setValue(1);
+      crossMix.setValue(0);
       return;
     }
 
     if (outputDisplayStyle === 'static') {
       opacity.setValue(1);
+      crossMix.setValue(0);
       return;
     }
 
     if (outputDisplayStyle === 'strobe') {
       let visible = true;
       opacity.setValue(1);
+      crossMix.setValue(0);
 
       const interval = setInterval(() => {
         visible = !visible;
@@ -169,21 +183,42 @@ export function OutputScreen({
       };
     }
 
-    opacity.setValue(0);
+    if (outputDisplayStyle === 'crossStrobe') {
+      let swapped = false;
+      opacity.setValue(1);
+      crossMix.setValue(0);
+
+      const interval = setInterval(() => {
+        swapped = !swapped;
+        crossMix.setValue(swapped ? 1 : 0);
+      }, OUTPUT_EFFECT_HALF_CYCLE_MS);
+
+      return () => {
+        clearInterval(interval);
+        crossMix.setValue(0);
+      };
+    }
+
+    if (outputDisplayStyle === 'crossPulse') {
+      opacity.setValue(1);
+    } else {
+      opacity.setValue(0);
+    }
+    crossMix.setValue(0);
 
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(opacity, {
+        Animated.timing(crossMix, {
           toValue: 1,
           duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
           easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
-        Animated.timing(opacity, {
+        Animated.timing(crossMix, {
           toValue: 0,
           duration: OUTPUT_EFFECT_HALF_CYCLE_MS,
           easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
       ]),
       { iterations: -1, resetBeforeIteration: false },
@@ -194,8 +229,22 @@ export function OutputScreen({
     return () => {
       loop.stop();
       opacity.setValue(0);
+      crossMix.setValue(0);
     };
-  }, [mode, opacity, outputDisplayStyle]);
+  }, [backgroundColor, crossMix, foregroundColor, mode, opacity, outputDisplayStyle]);
+
+  const outputTextColor =
+    outputFontSizeMode === 'automatic' && !automaticSearchComplete
+      ? backgroundColor
+      : outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse'
+      ? crossForegroundColor
+      : foregroundColor;
+  const outputLayerBackgroundColor =
+    outputFontSizeMode === 'automatic' && !automaticSearchComplete
+      ? backgroundColor
+      : outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse'
+      ? crossBackgroundColor
+      : backgroundColor;
 
   const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputAlignment}:${text.length}`;
 
@@ -355,10 +404,13 @@ export function OutputScreen({
       {!headless ? (
         <Pressable style={styles.outputScreenPressable} onPress={handlePress}>
           <View style={styles.outputFill} onLayout={handleOutputLayout}>
-            <View
+            <Animated.View
               ref={captureRefView}
               collapsable={false}
-              style={[styles.outputCaptureLayer, { padding: outputPadding, backgroundColor }]}
+              style={[
+                styles.outputCaptureLayer,
+                { padding: outputPadding, backgroundColor: outputLayerBackgroundColor },
+              ]}
             >
               <Animated.Text
                 key={outputKey}
@@ -370,10 +422,7 @@ export function OutputScreen({
                   {
                     textAlign: outputAlignment,
                     opacity,
-                    color:
-                      outputFontSizeMode === 'automatic' && !automaticSearchComplete
-                        ? backgroundColor
-                        : foregroundColor,
+                    color: outputTextColor,
                   },
                   {
                     fontFamily: outputFontFamily,
@@ -384,9 +433,9 @@ export function OutputScreen({
                   },
                 ]}
               >
-                {text || ' '}
+              {text || ' '}
               </Animated.Text>
-            </View>
+            </Animated.View>
             {outputFontSizeMode === 'automatic' ? (
               <View
                 pointerEvents="none"
@@ -418,10 +467,13 @@ export function OutputScreen({
         </Pressable>
       ) : (
         <View style={styles.outputFill} onLayout={handleOutputLayout}>
-          <View
+          <Animated.View
             ref={captureRefView}
             collapsable={false}
-            style={[styles.outputCaptureLayer, { padding: outputPadding, backgroundColor }]}
+            style={[
+              styles.outputCaptureLayer,
+              { padding: outputPadding, backgroundColor: outputLayerBackgroundColor },
+            ]}
           >
             <Animated.Text
               key={outputKey}
@@ -433,10 +485,7 @@ export function OutputScreen({
                 {
                   textAlign: outputAlignment,
                   opacity,
-                  color:
-                    outputFontSizeMode === 'automatic' && !automaticSearchComplete
-                      ? backgroundColor
-                      : foregroundColor,
+                  color: outputTextColor,
                 },
                 {
                   fontFamily: outputFontFamily,
@@ -449,7 +498,7 @@ export function OutputScreen({
             >
               {text || ' '}
             </Animated.Text>
-          </View>
+          </Animated.View>
           {outputFontSizeMode === 'automatic' ? (
             <View
               pointerEvents="none"

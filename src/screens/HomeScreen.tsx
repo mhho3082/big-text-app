@@ -175,7 +175,7 @@ export function HomeScreen({ insets }: Props) {
         <View style={styles.toggleRow}>
           <Pressable
             onPress={() => {
-              cycleOption<OutputDisplayStyle>(outputDisplayStyle, ['static', 'strobe', 'pulse'], setOutputDisplayStyle);
+              cycleOption<OutputDisplayStyle>(outputDisplayStyle, ['static', 'strobe', 'pulse', 'crossStrobe', 'crossPulse'], setOutputDisplayStyle);
             }}
             style={({pressed}) => [
               styles.optionButton,
