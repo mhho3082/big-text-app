@@ -134,6 +134,14 @@
       "sha1": "dd2f12aaf93d458f5231d91be9835bd3369fa1ea"
     },
     {
+      "path": "assets/fonts/tc/SweiGothicCJKtc-Regular.ttf",
+      "sha1": "4b639f2583b4d9336076ab0cd52a3367f2075ef1"
+    },
+    {
+      "path": "assets/fonts/tc/SweiSpringCJKtc-Regular.ttf",
+      "sha1": "3f104ee8f8c89a24e251d0c276610cfe900a63e3"
+    },
+    {
       "path": "assets/fonts/tc/ThePeakFontBeta_V0_102.ttf",
       "sha1": "23140747b2ba21d1aab574be467e209b6f3b1638"
     }

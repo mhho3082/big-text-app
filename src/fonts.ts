@@ -69,6 +69,22 @@ export const fontOptions: FontOption[] = [
     iosFamily: 'GenSekiGothic2 TC',
   },
   {
+    displayName: '獅尾四季春',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'max32002',
+    androidFamily: 'SweiSpringCJKtc-Regular',
+    iosFamily: 'Swei Spring CJK TC',
+  },
+  {
+    displayName: '獅尾圓體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'max32002',
+    androidFamily: 'SweiGothicCJKtc-Regular',
+    iosFamily: 'Swei Gothic CJK TC',
+  },
+  {
     displayName: '芫荽',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
