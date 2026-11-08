@@ -371,6 +371,9 @@ export const styles = StyleSheet.create({
   fontTabView: {
     flex: 1,
   },
+  fontTabScene: {
+    paddingHorizontal: 8,
+  },
   fontListContent: {
     gap: 12,
     paddingTop: 16,

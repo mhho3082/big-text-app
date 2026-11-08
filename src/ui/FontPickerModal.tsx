@@ -120,6 +120,7 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
               <TabView
                 style={styles.fontTabView}
                 navigationState={{ index: tabIndex, routes }}
+                commonOptions={{ sceneStyle: styles.fontTabScene }}
                 renderScene={({ route }) => {
                   return renderFontList(fontOptionsByCategory[route.key] ?? []);
                 }}
