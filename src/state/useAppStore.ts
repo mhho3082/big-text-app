@@ -79,7 +79,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   shareRequestId: 0,
   shareImageAspect: 'landscape',
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
-  language: 'en',
+  language: 'zh-TW',
   text: '',
   foregroundColor: '#ffffff',
   backgroundColor: '#000000',

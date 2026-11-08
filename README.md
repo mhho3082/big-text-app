@@ -1,97 +1,84 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Big Text
 
-# Getting Started
+Read this README in [Traditional Chinese](README-tc.md) or [Simplified Chinese](README-sc.md).
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Big Text is an Android app for turning short messages into bold, full-screen text that is easy to read at a glance.
+It is built for quick signs, event callouts,
+and anything else that needs to stand out from across the room.
 
-## Step 1: Start Metro
+## What It Does
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- 📱 Built for phones and tablets: Looks good on both smaller and larger screens
+- 📝 Fast message display: Type or paste text, then put it on screen in seconds
+- 🎨 Flexible colors: Tune the text and background to match the moment
+- 🔤 Font selection: Choose from a variety of bundled fonts
+- 🇭🇰🇹🇼 Chinese fonts: Pick from a range of fonts created by HK and TW designers
+- ↔️ Flexible alignment: Top left, bottom right, or anywhere in between
+- 📏 Font sizing: Use automatic sizing, or switch to custom sizing and adjust it with a simple swipe
+- ✨ Motion effects: Strobe, pulse, and cross variants for a little extra emphasis
+- 📤 Sharing: Share the message as an image in landscape, portrait, or square formats
+- 📨 Open from shared: Send text into the app for quick display
+- 🕘 History: Reuse recent display settings, or show them directly again
+- 🌐 Languages: Switch between English, Traditional Chinese, and Simplified Chinese
+- 🌙 Easy on the eyes: Toggle the home screen between light and dark mode
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Quick Start
+
+### Requirements
+
+- `Node.js` 22.11 or newer
+- Android development environment set up for React Native
+- An Android device or emulator
+- iOS support is not developed yet
+
+### Install Dependencies
 
 ```sh
-# Using npm
+npm install
+```
+
+### Start Metro
+
+```sh
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
+### Run on Android
 
 ```sh
-# Using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+If you are using a connected physical Android device, this repository also includes a helper script:
 
 ```sh
-bundle install
+npm run android:physical
 ```
 
-Then, and every time you update your native dependencies, run:
+### Useful Commands
 
 ```sh
-bundle exec pod install
+npm run lint
+npm test
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Notes
 
-```sh
-# Using npm
-npm run ios
+- The app is currently focused on Android behavior such as immersive display mode, keeping the screen awake, and sensor-based rotation while showing text.
+- Font assets are bundled with the app, so the available font list is ready to use after install.
 
-# OR using Yarn
-yarn ios
-```
+## Typical Workflow
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+1. Open the app.
+2. Enter text on the home screen.
+3. Choose colors, font, size, alignment, and effect.
+4. Tap Display to show the text full screen.
+5. Use History if you want to reuse or delete previous setups.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Project Scripts
 
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- `npm start` starts Metro.
+- `npm run android` builds and launches the app on Android.
+- `npm run android:physical` launches to a connected physical Android device.
+- `npm run lint` runs ESLint.
+- `npm test` runs Jest.
