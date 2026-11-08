@@ -23,6 +23,13 @@ class MainActivity : ReactActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    ShareTextModule.handleIntent(intent)
+  }
+
+  override fun onNewIntent(intent: android.content.Intent) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    ShareTextModule.handleIntent(intent)
   }
 
   override fun onWindowFocusChanged(hasFocus: Boolean) {
