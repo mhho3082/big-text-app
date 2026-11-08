@@ -19,6 +19,8 @@ render() {
     >/dev/null
 }
 
+render 1024 assets/app-icon.png
+
 render 48 android/app/src/main/res/mipmap-mdpi/ic_launcher.png
 render 72 android/app/src/main/res/mipmap-hdpi/ic_launcher.png
 render 96 android/app/src/main/res/mipmap-xhdpi/ic_launcher.png

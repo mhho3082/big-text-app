@@ -15,5 +15,8 @@
     font-size="390"
     font-weight="700"
     fill="#F4E7CF"
-  >大字</text>
+  >
+    <tspan x="512" dy="-0.38em">大字</tspan>
+    <tspan x="512" dy="1.05em">顯示</tspan>
+  </text>
 </svg>

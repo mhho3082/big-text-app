@@ -10,3 +10,4 @@
 - Run `npx react-native-asset` after changing bundled font assets so iOS and Android asset links stay in sync.
 - Prefer the smallest correct change.
 - Keep edits focused and avoid unnecessary abstractions.
+- The app icon is rendered with `./scripts/generate-app-icon.sh`.
