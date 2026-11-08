@@ -311,6 +311,18 @@ export const styles = StyleSheet.create({
     overflow: 'visible',
     includeFontPadding: false,
   },
+  qrScreen: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  qrScreenFill: {
+    flex: 1,
+  },
+  qrScreenCenter: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   backdrop: {
     flex: 1,
     justifyContent: 'center',
@@ -516,6 +528,9 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
   },
+  shareOptionList: {
+    gap: 8,
+  },
   shareOptionButton: {
     flexGrow: 1,
     flexBasis: '48%',
@@ -524,6 +539,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 12,
     alignItems: 'center',
+  },
+  shareOddLastOption: {
+    flexGrow: 0,
+    flexBasis: '50%',
+    maxWidth: '50%',
   },
   shareOptionButtonPressed: {
     opacity: 0.8,

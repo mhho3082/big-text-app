@@ -55,6 +55,7 @@ export function HomeScreen({ insets }: Props) {
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
   const goToHistory = useAppStore(state => state.goToHistory);
   const goToOutput = useAppStore(state => state.goToOutput);
+  const goToQr = useAppStore(state => state.goToQr);
   const goToShare = useAppStore(state => state.goToShare);
   const [foregroundPickerVisible, setForegroundPickerVisible] = React.useState(false);
   const [backgroundPickerVisible, setBackgroundPickerVisible] = React.useState(false);
@@ -98,6 +99,11 @@ export function HomeScreen({ insets }: Props) {
     setSharePickerVisible(false);
     shareAsText().catch(() => undefined);
   }, [shareAsText]);
+
+  const openShareQr = React.useCallback(() => {
+    setSharePickerVisible(false);
+    goToQr();
+  }, [goToQr]);
 
   return (
     <View
@@ -339,6 +345,7 @@ export function HomeScreen({ insets }: Props) {
         onShareAsImagePortrait={openShareImagePortrait}
         onShareAsImageSquare={openShareImageSquare}
         onShareAsText={openShareText}
+        onShareAsQr={openShareQr}
         theme={theme}
       />
     </View>

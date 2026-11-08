@@ -13,11 +13,11 @@ export type OutputHorizontalAlignment = PersistedAppOptions['outputHorizontalAli
 export type OutputVerticalAlignment = PersistedAppOptions['outputVerticalAlignment'];
 export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
 
-export type Screen = 'home' | 'output' | 'share' | 'history';
+export type Screen = 'home' | 'output' | 'share' | 'qr' | 'history';
 
 type AppState = {
   screen: Screen;
-  outputReturnScreen: Exclude<Screen, 'output' | 'share'>;
+  outputReturnScreen: Exclude<Screen, 'output' | 'share' | 'qr'>;
   outputPreviewOptions: PersistedAppOptions | null;
   shareRequestId: number;
   shareImageAspect: ShareImageAspect;
@@ -49,6 +49,7 @@ type AppState = {
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
   goToShare: (shareImageAspect?: ShareImageAspect) => void;
+  goToQr: () => void;
   goToHistory: () => void;
   showHistoryEntry: (options: PersistedAppOptions) => void;
   applyHistoryEntry: (options: PersistedAppOptions) => void;
@@ -127,6 +128,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       shareImageAspect,
       shareRequestId: state.shareRequestId + 1,
     }));
+  },
+  goToQr: () => {
+    set({ screen: 'qr', outputReturnScreen: 'home', outputPreviewOptions: null });
   },
   goToHistory: () => {
     set({ screen: 'history', outputPreviewOptions: null });

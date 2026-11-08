@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppStore } from '../state/useAppStore';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
+import { QrScreen } from '../screens/QrScreen';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { styles } from '../styles';
 
@@ -62,6 +63,14 @@ export function AppNavigator() {
           shareRequestId={shareRequestId}
           shareImageAspect={shareImageAspect}
         />
+      </View>
+    );
+  }
+
+  if (screen === 'qr') {
+    return (
+      <View style={styles.container}>
+        <QrScreen text={outputPreviewOptions?.text ?? text} onExit={goHome} />
       </View>
     );
   }

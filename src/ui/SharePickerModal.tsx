@@ -13,6 +13,7 @@ type Props = {
   onShareAsImagePortrait: () => void;
   onShareAsImageSquare: () => void;
   onShareAsText: () => void;
+  onShareAsQr: () => void;
   theme: HomeTheme;
 };
 
@@ -23,9 +24,29 @@ export function SharePickerModal({
   onShareAsImagePortrait,
   onShareAsImageSquare,
   onShareAsText,
+  onShareAsQr,
   theme,
 }: Props) {
   const language = useAppStore(state => state.language);
+  const options = React.useMemo(
+    () => [
+      { key: 'landscape', onPress: onShareAsImageLandscape, label: t('home.shareImageLandscape', undefined, language) },
+      { key: 'portrait', onPress: onShareAsImagePortrait, label: t('home.shareImagePortrait', undefined, language) },
+      { key: 'square', onPress: onShareAsImageSquare, label: t('home.shareImageSquare', undefined, language) },
+      { key: 'text', onPress: onShareAsText, label: t('home.shareText', undefined, language) },
+      { key: 'qr', onPress: onShareAsQr, label: t('home.shareQr', undefined, language) },
+    ],
+    [language, onShareAsImageLandscape, onShareAsImagePortrait, onShareAsImageSquare, onShareAsQr, onShareAsText],
+  );
+  const rows = React.useMemo(() => {
+    const result: Array<(typeof options)[number][]> = [];
+
+    for (let index = 0; index < options.length; index += 2) {
+      result.push(options.slice(index, index + 2));
+    }
+
+    return result;
+  }, [options]);
 
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
@@ -38,68 +59,38 @@ export function SharePickerModal({
                 <X color={theme.modalButton} />
               </Pressable>
             </View>
-            <View style={styles.shareOptionRow}>
-              <Pressable
-                onPress={onShareAsImageLandscape}
-                style={({ pressed }) => [
-                  styles.shareOptionButton,
-                  {
-                    borderColor: theme.border,
-                    backgroundColor: theme.surface,
-                  },
-                  pressed && styles.shareOptionButtonPressed,
-                ]}
-              >
-                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
-                  {t('home.shareImageLandscape', undefined, language)}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={onShareAsImagePortrait}
-                style={({ pressed }) => [
-                  styles.shareOptionButton,
-                  {
-                    borderColor: theme.border,
-                    backgroundColor: theme.surface,
-                  },
-                  pressed && styles.shareOptionButtonPressed,
-                ]}
-              >
-                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
-                  {t('home.shareImagePortrait', undefined, language)}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={onShareAsImageSquare}
-                style={({ pressed }) => [
-                  styles.shareOptionButton,
-                  {
-                    borderColor: theme.border,
-                    backgroundColor: theme.surface,
-                  },
-                  pressed && styles.shareOptionButtonPressed,
-                ]}
-              >
-                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
-                  {t('home.shareImageSquare', undefined, language)}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={onShareAsText}
-                style={({ pressed }) => [
-                  styles.shareOptionButton,
-                  {
-                    borderColor: theme.border,
-                    backgroundColor: theme.surface,
-                  },
-                  pressed && styles.shareOptionButtonPressed,
-                ]}
-              >
-                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}>
-                  {t('home.shareText', undefined, language)}
-                </Text>
-              </Pressable>
+            <View style={styles.shareOptionList}>
+              {rows.map((row, rowIndex) => (
+                <View key={`share-row-${rowIndex}`} style={styles.shareOptionRow}>
+                  {row.map(option => {
+                    const isOddLastOption = rows.length === rowIndex + 1 && row.length === 1;
+
+                    return (
+                      <Pressable
+                        key={option.key}
+                        onPress={option.onPress}
+                        style={({ pressed }) => [
+                          styles.shareOptionButton,
+                          isOddLastOption && styles.shareOddLastOption,
+                          {
+                            borderColor: theme.border,
+                            backgroundColor: theme.surface,
+                          },
+                          pressed && styles.shareOptionButtonPressed,
+                        ]}
+                      >
+                        <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
+                          {option.label}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              ))}
             </View>
+            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+              {t('home.shareNote', undefined, language)}
+            </Text>
           </Pressable>
         </Pressable>
       ) : null}
