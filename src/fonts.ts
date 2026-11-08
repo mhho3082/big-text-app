@@ -21,6 +21,102 @@ export type FontOption = {
 
 export const fontOptions: FontOption[] = [
   {
+    displayName: '昭源宋體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'Tamcy',
+    androidFamily: 'ChironSungHK-Regular',
+    iosFamily: 'Chiron Sung HK',
+  },
+  {
+    displayName: '昭源黑體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'Tamcy',
+    androidFamily: 'ChironHeiHK-Regular',
+    iosFamily: 'Chiron Hei HK',
+  },
+  {
+    displayName: '昭源環方',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'Tamcy',
+    androidFamily: 'ChironGoRoundTC-Regular',
+    iosFamily: 'Chiron GoRound TC',
+  },
+  {
+    displayName: '源流明體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'But Ko',
+    androidFamily: 'GenRyuMin2TC-R',
+    iosFamily: 'GenRyuMin2 TC',
+  },
+  {
+    displayName: '源雲明體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'But Ko',
+    androidFamily: 'GenWanMin2TC-R',
+    iosFamily: 'GenWanMin2 TC',
+  },
+  {
+    displayName: '源石黑體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'But Ko',
+    androidFamily: 'GenSekiGothic2TC-R',
+    iosFamily: 'GenSekiGothic2 TC',
+  },
+  {
+    displayName: '芫荽',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'But Ko',
+    androidFamily: 'Iansui-Regular',
+    iosFamily: 'Iansui',
+  },
+  {
+    displayName: '內海字體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'max32002',
+    androidFamily: 'NaikaiFont-Regular',
+    iosFamily: 'NaikaiFont',
+  },
+  {
+    displayName: '饅頭黑體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'Mant0u and The Dela Gothic Project Authors',
+    androidFamily: 'MantouSans-Regular',
+    iosFamily: 'Mantou Sans',
+  },
+  {
+    displayName: '貓啃什錦黑',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'Skr-ZERO',
+    androidFamily: 'MaokenAssortedSans-TC',
+    iosFamily: 'MaokenAssortedSans-TC',
+  },
+  {
+    displayName: '隨峰體',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: '阿坤',
+    androidFamily: 'ThePeakFontBeta_V0_102',
+    iosFamily: 'The Peak Font 隨峰體 Beta',
+  },
+  {
+    displayName: '俐方體11號',
+    category: 'traditionalChinese',
+    licenseKey: 'license.ofl11',
+    credit: 'M+ FONTS PROJECT',
+    androidFamily: 'Cubic_11',
+    iosFamily: 'Cubic 11',
+  },
+  {
     displayName: 'Inter',
     category: 'english',
     licenseKey: 'license.ofl11',
@@ -198,110 +294,27 @@ export const fontOptions: FontOption[] = [
     androidFamily: 'Silkscreen-Regular',
     iosFamily: 'Silkscreen',
   },
-  {
-    displayName: '源流明體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'But Ko',
-    androidFamily: 'GenRyuMin2TC-R',
-    iosFamily: 'GenRyuMin2 TC',
-  },
-  {
-    displayName: '源雲明體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'But Ko',
-    androidFamily: 'GenWanMin2TC-R',
-    iosFamily: 'GenWanMin2 TC',
-  },
-  {
-    displayName: '源石黑體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'But Ko',
-    androidFamily: 'GenSekiGothic2TC-R',
-    iosFamily: 'GenSekiGothic2 TC',
-  },
-  {
-    displayName: '芫荽',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'But Ko',
-    androidFamily: 'Iansui-Regular',
-    iosFamily: 'Iansui',
-  },
-  {
-    displayName: '饅頭黑體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'Mant0u and The Dela Gothic Project Authors',
-    androidFamily: 'MantouSans-Regular',
-    iosFamily: 'Mantou Sans',
-  },
-  {
-    displayName: '貓啃什錦黑',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'Skr-ZERO',
-    androidFamily: 'MaokenAssortedSans-TC',
-    iosFamily: 'MaokenAssortedSans-TC',
-  },
-  {
-    displayName: '內海字體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'max32002',
-    androidFamily: 'NaikaiFont-Regular',
-    iosFamily: 'NaikaiFont',
-  },
-  {
-    displayName: '昭源宋體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'Tamcy',
-    androidFamily: 'ChironSungHK-Regular',
-    iosFamily: 'Chiron Sung HK',
-  },
-  {
-    displayName: '昭源黑體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'Tamcy',
-    androidFamily: 'ChironHeiHK-Regular',
-    iosFamily: 'Chiron Hei HK',
-  },
-  {
-    displayName: '昭源環方',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'Tamcy',
-    androidFamily: 'ChironGoRoundTC-Regular',
-    iosFamily: 'Chiron GoRound TC',
-  },
-  {
-    displayName: '隨峰體',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: '阿坤',
-    androidFamily: 'ThePeakFontBeta_V0_102',
-    iosFamily: 'The Peak Font 隨峰體 Beta',
-  },
-  {
-    displayName: '俐方體11號',
-    category: 'traditionalChinese',
-    licenseKey: 'license.ofl11',
-    credit: 'M+ FONTS PROJECT',
-    androidFamily: 'Cubic_11',
-    iosFamily: 'Cubic 11',
-  },
 ];
 
+const FONT_CATEGORY_ORDER: FontCategory[] = ['traditionalChinese', 'english'];
+
+const CHIRON_FONT_NAMES = new Set(['昭源宋體', '昭源黑體', '昭源環方']);
+
 export function getFontOptionsByCategory(category: FontCategory) {
-  return fontOptions.filter(option => option.category === category);
+  const options = fontOptions.filter(option => option.category === category);
+
+  if (category !== 'traditionalChinese') {
+    return options;
+  }
+
+  const chironFonts = options.filter(option => CHIRON_FONT_NAMES.has(option.displayName));
+  const otherFonts = options.filter(option => !CHIRON_FONT_NAMES.has(option.displayName));
+
+  return [...chironFonts, ...otherFonts];
 }
 
 export function getFontCategories() {
-  return Array.from(new Set(fontOptions.map(option => option.category)));
+  return FONT_CATEGORY_ORDER.filter(category => fontOptions.some(option => option.category === category));
 }
 
 export function getFontCategory(fontFamily: string) {

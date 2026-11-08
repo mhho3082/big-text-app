@@ -8,7 +8,7 @@ export const LANGUAGE_BUTTON_LABELS: Record<AppLanguage, string> = {
   'zh-CN': '简',
 };
 
-const LANGUAGE_ORDER: AppLanguage[] = ['en', 'zh-TW', 'zh-CN'];
+const LANGUAGE_ORDER: AppLanguage[] = ['zh-TW', 'zh-CN', 'en'];
 
 const locales: Record<AppLanguage, Locale> = {
   en: {
