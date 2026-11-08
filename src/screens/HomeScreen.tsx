@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Share from 'react-native-share';
-import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
+import { defaultOutputFontFamily, getFontDisplayName, maokenSansFontFamily } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
 import { ColorButton } from '../ui/ColorButton';
@@ -125,7 +125,15 @@ export function HomeScreen({ insets }: Props) {
           },
         ]}
       >
-        <Text style={[styles.homeTitle, { color: theme.titleText }]}>{translate('app.title')}</Text>
+        <Text
+          style={[
+            styles.homeTitle,
+            styles.homeTitleMaoken,
+            { color: theme.titleText, fontFamily: maokenSansFontFamily },
+          ]}
+        >
+          {translate('app.title')}
+        </Text>
         <View style={styles.homeStatusBarActions}>
           <Pressable
             onPress={cycleLanguage}

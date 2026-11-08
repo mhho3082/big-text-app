@@ -2,6 +2,7 @@ import React from 'react';
 import { BackHandler, Modal, Pressable, StatusBar, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { deleteDisplayHistoryEntry, loadDisplayHistory, resetDatabase } from '../db/appOptions';
+import { maokenSansFontFamily } from '../fonts';
 import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
 import { getHomeTheme } from '../theme';
@@ -93,7 +94,15 @@ export function HistoryScreen({ insets }: Props) {
           { backgroundColor: theme.screenBackground, borderBottomColor: theme.border },
         ]}
       >
-        <Text style={[styles.homeTitle, { color: theme.titleText }]}>{translate('home.history')}</Text>
+        <Text
+          style={[
+            styles.homeTitle,
+            styles.homeTitleMaoken,
+            { color: theme.titleText, fontFamily: maokenSansFontFamily },
+          ]}
+        >
+          {translate('home.history')}
+        </Text>
         <View style={styles.homeStatusBarActions}>
           <Pressable
             onPress={() => setResetModalVisible(true)}

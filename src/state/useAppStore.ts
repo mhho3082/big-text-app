@@ -82,7 +82,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   language: 'en',
   text: '',
   foregroundColor: '#ffffff',
-  backgroundColor: '#111111',
+  backgroundColor: '#000000',
   outputFontFamily: defaultOutputFontFamily,
   outputFontSizeMode: 'automatic',
   outputFontSize: 120,

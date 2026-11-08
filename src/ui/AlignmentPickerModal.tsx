@@ -84,23 +84,23 @@ export function AlignmentPickerIcon({
   horizontal: OutputHorizontalAlignment;
   vertical: OutputVerticalAlignment;
 } & LucideProps) {
-  if (horizontal == 'left' && vertical == 'top') {
+  if (horizontal === 'left' && vertical === 'top') {
     return <ArrowUpLeft {...props} />;
-  } else if (horizontal == 'center' && vertical == 'top') {
+  } else if (horizontal === 'center' && vertical === 'top') {
     return <ArrowUp {...props} />;
-  } else if (horizontal == 'right' && vertical == 'top') {
+  } else if (horizontal === 'right' && vertical === 'top') {
     return <ArrowUpRight {...props} />;
-  } else if (horizontal == 'left' && vertical == 'center') {
+  } else if (horizontal === 'left' && vertical === 'center') {
     return <ArrowLeft {...props} />;
-  } else if (horizontal == 'center' && vertical == 'center') {
+  } else if (horizontal === 'center' && vertical === 'center') {
     return <Margin {...props} />;
-  } else if (horizontal == 'right' && vertical == 'center') {
+  } else if (horizontal === 'right' && vertical === 'center') {
     return <ArrowRight {...props} />;
-  } else if (horizontal == 'left' && vertical == 'bottom') {
+  } else if (horizontal === 'left' && vertical === 'bottom') {
     return <ArrowDownLeft {...props} />;
-  } else if (horizontal == 'center' && vertical == 'bottom') {
+  } else if (horizontal === 'center' && vertical === 'bottom') {
     return <ArrowDown {...props} />;
-  } else if (horizontal == 'right' && vertical == 'bottom') {
+  } else if (horizontal === 'right' && vertical === 'bottom') {
     return <ArrowDownRight {...props} />;
   }
 }

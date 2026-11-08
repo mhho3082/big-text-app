@@ -128,10 +128,12 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     fontSize: 22,
     lineHeight: 28,
-    fontWeight: '700',
     includeFontPadding: false,
     flexShrink: 1,
     minWidth: 0,
+  },
+  homeTitleMaoken: {
+    fontWeight: '400',
   },
   homeThemeButton: {
     borderRadius: 999,

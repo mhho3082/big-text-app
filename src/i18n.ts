@@ -119,7 +119,7 @@ const locales: Record<AppLanguage, Locale> = {
     'home.alignment.bottomRight': '右下',
     'home.showText': '顯示',
     'home.exitHint': '注意：在顯示畫面上雙擊即可退出',
-    'home.credits': '由 Max 製作。感謝 Lucide 提供圖標資源。',
+    'home.credits': '由 Max 製作。感謝 Lucide Icons 提供圖標資源。',
     'history.empty': '尚無歷史記錄',
     'history.apply': '套用',
     'history.show': '顯示',

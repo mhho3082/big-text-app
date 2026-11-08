@@ -296,6 +296,12 @@ export const fontOptions: FontOption[] = [
   },
 ];
 
+const maokenSansFontOption = fontOptions.find(option => option.displayName === '貓啃什錦黑');
+
+export const maokenSansFontFamily = Platform.OS === 'android'
+  ? maokenSansFontOption?.androidFamily ?? maokenSansFontOption?.iosFamily
+  : maokenSansFontOption?.iosFamily ?? maokenSansFontOption?.androidFamily;
+
 const FONT_CATEGORY_ORDER: FontCategory[] = ['traditionalChinese', 'english'];
 
 const CHIRON_FONT_NAMES = new Set(['昭源宋體', '昭源黑體', '昭源環方']);
