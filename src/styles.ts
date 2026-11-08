@@ -353,7 +353,6 @@ export const styles = StyleSheet.create({
   colorSwatches: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
     gap: 10,
     padding: 12,
     borderRadius: 18,
@@ -533,5 +532,10 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
-  colorTextInput: {},
+  colorTextInput: {
+    borderWidth: 0,
+  },
+  colorDivider: {
+    height: 1,
+  },
 });
