@@ -102,7 +102,6 @@ export function OutputScreen({
 }: OutputScreenProps) {
   const { width, height } = useWindowDimensions();
   const [outputLayout, setOutputLayout] = React.useState({ width: 0, height: 0 });
-  const [layoutTick, setLayoutTick] = React.useState(0);
   const [automaticSearchGeneration, setAutomaticSearchGeneration] = React.useState(0);
   const [automaticOutputFontSize, setAutomaticOutputFontSize] = React.useState(
     MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
@@ -125,7 +124,6 @@ export function OutputScreen({
     high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
     low: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
   });
-  const displayMix = React.useRef(new Animated.Value(0)).current;
 
   const isCrossDisplayStyle =
     outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
@@ -141,6 +139,8 @@ export function OutputScreen({
     (outputEffectInterval || DEFAULT_OUTPUT_EFFECT_INTERVAL) * 1000;
   const visibleMixValue = isCrossDisplayStyle ? 0 : 1;
   const hiddenMixValue = isCrossDisplayStyle ? 1 : 0;
+  const displayMix = React.useRef(new Animated.Value(visibleMixValue)).current;
+  const shouldDelayPulseStart = outputFontSizeMode === 'automatic';
 
   const animatedTextColor = displayMix.interpolate({
     inputRange: [0, 1],
@@ -218,8 +218,8 @@ export function OutputScreen({
     }
 
     if (isStrobeStyle) {
-      let visible = false;
-      displayMix.setValue(hiddenMixValue);
+      let visible = true;
+      displayMix.setValue(visibleMixValue);
 
       const interval = setInterval(() => {
         visible = !visible;
@@ -228,53 +228,64 @@ export function OutputScreen({
 
       return () => {
         clearInterval(interval);
-        displayMix.setValue(hiddenMixValue);
+        displayMix.setValue(visibleMixValue);
       };
     }
 
     if (isPulseStyle) {
-      displayMix.setValue(hiddenMixValue);
+      let cancelled = false;
+      let initialFrame = 0;
+      let secondFrame = 0;
 
-      const loop = Animated.loop(
-        Animated.sequence([
-          Animated.timing(displayMix, {
-            toValue: visibleMixValue,
-            duration: effectHalfCycleMs,
-            easing: Easing.inOut(Easing.quad),
-            useNativeDriver: false,
-          }),
-          Animated.timing(displayMix, {
-            toValue: hiddenMixValue,
-            duration: effectHalfCycleMs,
-            easing: Easing.inOut(Easing.quad),
-            useNativeDriver: false,
-          }),
-        ]),
-        { iterations: -1, resetBeforeIteration: false },
-      );
+      const runPulseCycle = (toValue: number) => {
+        Animated.timing(displayMix, {
+          toValue,
+          duration: effectHalfCycleMs,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: false,
+        }).start(() => {
+          if (cancelled) {
+            return;
+          }
 
-      loop.start();
+          runPulseCycle(toValue === visibleMixValue ? hiddenMixValue : visibleMixValue);
+        });
+      };
+
+      displayMix.setValue(visibleMixValue);
+
+      if (shouldDelayPulseStart) {
+        initialFrame = requestAnimationFrame(() => {
+          secondFrame = requestAnimationFrame(() => {
+            if (!cancelled) {
+              runPulseCycle(hiddenMixValue);
+            }
+          });
+        });
+      } else {
+        runPulseCycle(hiddenMixValue);
+      }
 
       return () => {
-        loop.stop();
-        displayMix.setValue(hiddenMixValue);
+        cancelled = true;
+        cancelAnimationFrame(initialFrame);
+        cancelAnimationFrame(secondFrame);
+        displayMix.stopAnimation();
+        displayMix.setValue(visibleMixValue);
       };
     }
 
     return undefined;
   }, [
-    backgroundColor,
     displayMix,
     effectHalfCycleMs,
-    foregroundColor,
     hiddenMixValue,
-    height,
     isPulseStyle,
     isStrobeStyle,
     mode,
     outputDisplayStyle,
+    shouldDelayPulseStart,
     visibleMixValue,
-    width,
   ]);
 
   const outputTextColor =
@@ -394,8 +405,6 @@ export function OutputScreen({
     [canAdjustFontSize, flushPendingHistoryUpdate, outputFontSize],
   );
 
-  const outputKey = `${width}x${height}:${layoutTick}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
-
   const outputPadding = Math.max(
     32,
     insets.top,
@@ -407,6 +416,7 @@ export function OutputScreen({
   const layoutHeight = outputLayout.height > 0 ? outputLayout.height : height;
   const availableWidth = Math.max(0, layoutWidth - outputPadding * 2);
   const availableHeight = Math.max(0, layoutHeight - outputPadding * 2);
+  const outputKey = `${width}x${height}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
 
   const handleOutputLayout = React.useCallback(
     (event: { nativeEvent: { layout: { width: number; height: number } } }) => {
@@ -429,7 +439,6 @@ export function OutputScreen({
       return;
     }
 
-    setLayoutTick(tick => tick + 1);
     if (outputFontSizeMode === 'automatic') {
       restartAutomaticSearch();
     }
