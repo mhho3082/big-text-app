@@ -11,6 +11,7 @@ export type OutputFontSizeMode = PersistedAppOptions['outputFontSizeMode'];
 export type OutputDisplayStyle = PersistedAppOptions['outputDisplayStyle'];
 export type OutputHorizontalAlignment = PersistedAppOptions['outputHorizontalAlignment'];
 export type OutputVerticalAlignment = PersistedAppOptions['outputVerticalAlignment'];
+export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
 
 export type Screen = 'home' | 'output' | 'share' | 'history';
 
@@ -19,6 +20,7 @@ type AppState = {
   outputReturnScreen: Exclude<Screen, 'output' | 'share'>;
   outputPreviewOptions: PersistedAppOptions | null;
   shareRequestId: number;
+  shareImageAspect: ShareImageAspect;
   homeTheme: HomeThemeName;
   language: AppLanguage;
   text: string;
@@ -46,7 +48,7 @@ type AppState = {
   setOutputVerticalAlignment: (alignment: OutputVerticalAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
-  goToShare: () => void;
+  goToShare: (shareImageAspect?: ShareImageAspect) => void;
   goToHistory: () => void;
   showHistoryEntry: (options: PersistedAppOptions) => void;
   applyHistoryEntry: (options: PersistedAppOptions) => void;
@@ -75,6 +77,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   outputReturnScreen: 'home',
   outputPreviewOptions: null,
   shareRequestId: 0,
+  shareImageAspect: 'landscape',
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
   language: 'en',
   text: '',
@@ -115,12 +118,13 @@ export const useAppStore = create<AppState>((set, get) => ({
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
     set({ screen: 'output', outputReturnScreen: 'home', outputPreviewOptions: null });
   },
-  goToShare: () => {
+  goToShare: (shareImageAspect = 'landscape') => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
     set(state => ({
       screen: 'share',
       outputReturnScreen: 'home',
       outputPreviewOptions: null,
+      shareImageAspect,
       shareRequestId: state.shareRequestId + 1,
     }));
   },

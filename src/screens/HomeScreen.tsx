@@ -63,7 +63,7 @@ export function HomeScreen({ insets }: Props) {
   const [effectPickerVisible, setEffectPickerVisible] = React.useState(false);
   const [alignmentPickerVisible, setAlignmentPickerVisible] = React.useState(false);
   const [sharePickerVisible, setSharePickerVisible] = React.useState(false);
-  const canShowText = text.trim().length > 0;
+  const canShowText = (text ?? '').trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
 
@@ -81,7 +81,17 @@ export function HomeScreen({ insets }: Props) {
 
   const openShareImage = React.useCallback(() => {
     setSharePickerVisible(false);
-    goToShare();
+    goToShare('landscape');
+  }, [goToShare]);
+
+  const openShareImagePortrait = React.useCallback(() => {
+    setSharePickerVisible(false);
+    goToShare('portrait');
+  }, [goToShare]);
+
+  const openShareImageSquare = React.useCallback(() => {
+    setSharePickerVisible(false);
+    goToShare('square');
   }, [goToShare]);
 
   const openShareText = React.useCallback(() => {
@@ -317,7 +327,9 @@ export function HomeScreen({ insets }: Props) {
       <SharePickerModal
         visible={sharePickerVisible}
         onClose={() => setSharePickerVisible(false)}
-        onShareAsImage={openShareImage}
+        onShareAsImageLandscape={openShareImage}
+        onShareAsImagePortrait={openShareImagePortrait}
+        onShareAsImageSquare={openShareImageSquare}
         onShareAsText={openShareText}
         theme={theme}
       />

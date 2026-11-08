@@ -23,6 +23,7 @@ export function AppNavigator() {
   const outputReturnScreen = useAppStore(state => state.outputReturnScreen);
   const outputPreviewOptions = useAppStore(state => state.outputPreviewOptions);
   const shareRequestId = useAppStore(state => state.shareRequestId);
+  const shareImageAspect = useAppStore(state => state.shareImageAspect);
   const goHome = useAppStore(state => state.goHome);
   const goToHistory = useAppStore(state => state.goToHistory);
 
@@ -59,6 +60,7 @@ export function AppNavigator() {
           outputHorizontalAlignment={options.outputHorizontalAlignment}
           outputVerticalAlignment={options.outputVerticalAlignment}
           shareRequestId={shareRequestId}
+          shareImageAspect={shareImageAspect}
         />
       </View>
     );
@@ -92,6 +94,7 @@ export function AppNavigator() {
             outputPreviewOptions?.outputVerticalAlignment ?? outputVerticalAlignment
           }
           shareRequestId={shareRequestId}
+          shareImageAspect={shareImageAspect}
         />
       )}
     </View>

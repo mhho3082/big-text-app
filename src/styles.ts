@@ -279,6 +279,9 @@ export const styles = StyleSheet.create({
   outputScreenPressable: {
     flex: 1,
   },
+  outputShareCanvas: {
+    flex: 0,
+  },
   outputFill: {
     flex: 1,
     overflow: 'hidden',
@@ -509,10 +512,12 @@ export const styles = StyleSheet.create({
   },
   shareOptionRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 8,
   },
   shareOptionButton: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: '48%',
     borderRadius: 16,
     borderWidth: 1,
     paddingHorizontal: 14,

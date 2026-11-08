@@ -9,12 +9,22 @@ import { X } from 'lucide-react-native';
 type Props = {
   visible: boolean;
   onClose: () => void;
-  onShareAsImage: () => void;
+  onShareAsImageLandscape: () => void;
+  onShareAsImagePortrait: () => void;
+  onShareAsImageSquare: () => void;
   onShareAsText: () => void;
   theme: HomeTheme;
 };
 
-export function SharePickerModal({ visible, onClose, onShareAsImage, onShareAsText, theme }: Props) {
+export function SharePickerModal({
+  visible,
+  onClose,
+  onShareAsImageLandscape,
+  onShareAsImagePortrait,
+  onShareAsImageSquare,
+  onShareAsText,
+  theme,
+}: Props) {
   const language = useAppStore(state => state.language);
 
   return (
@@ -30,7 +40,7 @@ export function SharePickerModal({ visible, onClose, onShareAsImage, onShareAsTe
             </View>
             <View style={styles.shareOptionRow}>
               <Pressable
-                onPress={onShareAsImage}
+                onPress={onShareAsImageLandscape}
                 style={({ pressed }) => [
                   styles.shareOptionButton,
                   {
@@ -40,8 +50,38 @@ export function SharePickerModal({ visible, onClose, onShareAsImage, onShareAsTe
                   pressed && styles.shareOptionButtonPressed,
                 ]}
               >
-                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}>
-                  {t('home.shareImage', undefined, language)}
+                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
+                  {t('home.shareImageLandscape', undefined, language)}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={onShareAsImagePortrait}
+                style={({ pressed }) => [
+                  styles.shareOptionButton,
+                  {
+                    borderColor: theme.border,
+                    backgroundColor: theme.surface,
+                  },
+                  pressed && styles.shareOptionButtonPressed,
+                ]}
+              >
+                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
+                  {t('home.shareImagePortrait', undefined, language)}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={onShareAsImageSquare}
+                style={({ pressed }) => [
+                  styles.shareOptionButton,
+                  {
+                    borderColor: theme.border,
+                    backgroundColor: theme.surface,
+                  },
+                  pressed && styles.shareOptionButtonPressed,
+                ]}
+              >
+                <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
+                  {t('home.shareImageSquare', undefined, language)}
                 </Text>
               </Pressable>
               <Pressable

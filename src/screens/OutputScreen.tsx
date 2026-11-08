@@ -16,7 +16,11 @@ import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
 import { setKeepScreenOn } from '../native/keepScreenOn';
 import { setSensorRotationEnabled } from '../native/screenOrientation';
-import { getPersistedOptions, useAppStore } from '../state/useAppStore';
+import {
+  getPersistedOptions,
+  type ShareImageAspect,
+  useAppStore,
+} from '../state/useAppStore';
 import {
   DEFAULT_OUTPUT_EFFECT_INTERVAL,
   type PersistedAppOptions,
@@ -81,6 +85,7 @@ export type OutputScreenProps = Pick<
   headless?: boolean;
   onExit: () => void;
   shareRequestId?: number;
+  shareImageAspect?: ShareImageAspect;
 };
 
 export function OutputScreen({
@@ -99,6 +104,7 @@ export function OutputScreen({
   outputHorizontalAlignment,
   outputVerticalAlignment,
   shareRequestId,
+  shareImageAspect = 'landscape',
 }: OutputScreenProps) {
   const { width, height } = useWindowDimensions();
   const [outputLayout, setOutputLayout] = React.useState({ width: 0, height: 0 });
@@ -154,6 +160,36 @@ export function OutputScreen({
         outputRange: [backgroundColor, foregroundColor],
       })
     : backgroundColor;
+
+  const shareCanvasWidth = React.useMemo(() => {
+    const longSide = Math.max(width, height);
+    const shortSide = Math.min(width, height);
+
+    if (shareImageAspect === 'portrait') {
+      return shortSide;
+    }
+
+    if (shareImageAspect === 'square') {
+      return longSide;
+    }
+
+    return longSide;
+  }, [height, shareImageAspect, width]);
+
+  const shareCanvasHeight = React.useMemo(() => {
+    const longSide = Math.max(width, height);
+    const shortSide = Math.min(width, height);
+
+    if (shareImageAspect === 'portrait') {
+      return longSide;
+    }
+
+    if (shareImageAspect === 'square') {
+      return longSide;
+    }
+
+    return shortSide;
+  }, [height, shareImageAspect, width]);
 
   const restartAutomaticSearch = React.useCallback(() => {
     automaticSearchRef.current = {
@@ -525,7 +561,12 @@ export function OutputScreen({
       }
 
       try {
-        const uri = await captureRef(node as never, { format: 'png', quality: 1 });
+        const uri = await captureRef(node as never, {
+          format: 'png',
+          quality: 1,
+          width: shareCanvasWidth,
+          height: shareCanvasHeight,
+        });
 
         if (cancelled) {
           return;
@@ -556,7 +597,15 @@ export function OutputScreen({
       cancelled = true;
       cancelAnimationFrame(frame);
     };
-  }, [automaticSearchComplete, mode, onExit, outputFontSizeMode, shareRequestId]);
+  }, [
+    automaticSearchComplete,
+    mode,
+    onExit,
+    outputFontSizeMode,
+    shareCanvasHeight,
+    shareCanvasWidth,
+    shareRequestId,
+  ]);
 
   return (
     <View
@@ -571,7 +620,16 @@ export function OutputScreen({
           onGestureEvent={handleFontSizePanGestureEvent}
           onHandlerStateChange={handleFontSizePanStateChange}
         >
-          <View style={styles.outputScreenPressable}>
+            <View
+              style={[
+                styles.outputScreenPressable,
+                mode === 'share' && styles.outputShareCanvas,
+                mode === 'share' && {
+                  width: shareCanvasWidth,
+                  height: shareCanvasHeight,
+                },
+              ]}
+            >
             <Pressable style={styles.outputFill} onPress={handlePress} onLayout={handleOutputLayout}>
               <Animated.View
                 ref={captureRefView}
@@ -637,7 +695,17 @@ export function OutputScreen({
           </View>
         </PanGestureHandler>
       ) : (
-        <View style={styles.outputFill} onLayout={handleOutputLayout}>
+        <View
+          style={[
+            styles.outputFill,
+            mode === 'share' && styles.outputShareCanvas,
+            mode === 'share' && {
+              width: shareCanvasWidth,
+              height: shareCanvasHeight,
+            },
+          ]}
+          onLayout={handleOutputLayout}
+        >
           <Animated.View
             ref={captureRefView}
             collapsable={false}

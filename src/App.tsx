@@ -67,7 +67,7 @@ function App() {
 
       useAppStore.setState({
         ...storedOptions,
-        text: currentText || storedOptions.text,
+        text: currentText || storedOptions.text || '',
       });
       lastSavedJson = JSON.stringify(getPersistedOptions(useAppStore.getState()));
       suppressSave = false;
