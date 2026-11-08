@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Share from 'react-native-share';
 import { defaultOutputFontFamily, getFontDisplayName } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
@@ -10,9 +11,18 @@ import { AlignmentPickerModal, getAlignmentLabelKey } from '../ui/AlignmentPicke
 import { EffectPickerModal } from '../ui/EffectPickerModal';
 import { FontPickerModal } from '../ui/FontPickerModal';
 import { FontSizeModal } from '../ui/FontSizeModal';
+import { SharePickerModal } from '../ui/SharePickerModal';
 import { getHomeTheme } from '../theme';
 import { styles } from '../styles';
-import { AArrowUp, Moon, RotateCcwClock, Sparkles, Sun, TrianglesCenterlineDashedVertical, Type } from 'lucide-react-native';
+import {
+  AArrowUp,
+  Moon,
+  RotateCcwClock,
+  Sparkles,
+  Sun,
+  TrianglesCenterlineDashedVertical,
+  Type,
+} from 'lucide-react-native';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
@@ -52,9 +62,32 @@ export function HomeScreen({ insets }: Props) {
   const [fontSizePickerVisible, setFontSizePickerVisible] = React.useState(false);
   const [effectPickerVisible, setEffectPickerVisible] = React.useState(false);
   const [alignmentPickerVisible, setAlignmentPickerVisible] = React.useState(false);
+  const [sharePickerVisible, setSharePickerVisible] = React.useState(false);
   const canShowText = text.trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
+
+  const shareAsText = React.useCallback(async () => {
+    try {
+      await Share.open({
+        title: 'Big Text',
+        message: text,
+        failOnCancel: false,
+      });
+    } catch {
+      // Ignore share failures and return to the caller.
+    }
+  }, [text]);
+
+  const openShareImage = React.useCallback(() => {
+    setSharePickerVisible(false);
+    goToShare();
+  }, [goToShare]);
+
+  const openShareText = React.useCallback(() => {
+    setSharePickerVisible(false);
+    shareAsText().catch(() => undefined);
+  }, [shareAsText]);
 
   return (
     <View
@@ -216,10 +249,10 @@ export function HomeScreen({ insets }: Props) {
             </Pressable>
             <Pressable
               disabled={!canShowText}
-              onPress={goToShare}
+              onPress={() => setSharePickerVisible(true)}
               style={[styles.button, styles.buttonHalf, !canShowText && styles.buttonDisabled]}
             >
-              <Text style={styles.buttonText}>{translate('home.shareImage')}</Text>
+              <Text style={styles.buttonText}>{translate('home.share')}</Text>
             </Pressable>
           </View>
           <Text style={[styles.exitHint, { color: theme.mutedText }]}>{translate('home.exitHint')}</Text>
@@ -279,6 +312,13 @@ export function HomeScreen({ insets }: Props) {
         onClose={() => setAlignmentPickerVisible(false)}
         onHorizontalAlignmentChange={alignment => setOutputHorizontalAlignment(alignment)}
         onVerticalAlignmentChange={alignment => setOutputVerticalAlignment(alignment)}
+        theme={theme}
+      />
+      <SharePickerModal
+        visible={sharePickerVisible}
+        onClose={() => setSharePickerVisible(false)}
+        onShareAsImage={openShareImage}
+        onShareAsText={openShareText}
         theme={theme}
       />
     </View>

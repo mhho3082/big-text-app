@@ -504,5 +504,24 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
+  shareOptionRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  shareOptionButton: {
+    flex: 1,
+    borderRadius: 16,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  shareOptionButtonPressed: {
+    opacity: 0.8,
+  },
+  shareOptionButtonText: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
   colorTextInput: {},
 });
