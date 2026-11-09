@@ -90,32 +90,32 @@
       "sha1": "d2e596224a2ea7c2c7eb9f6edbb79664d6f3c1da"
     },
     {
-      "path": "assets/fonts/tc/ChironGoRoundTC-Regular.ttf",
-      "sha1": "997424e7f1211605507c3ccce485e5153497f9ca"
+      "path": "assets/fonts/tc/ChildFunSansTC.ttf",
+      "sha1": "daba459015ac34b95fd96fb674e4352e6b203401"
     },
     {
-      "path": "assets/fonts/tc/ChironHeiHK-Regular.ttf",
-      "sha1": "be6aeaddf37ce3e5a7ea14f935ffd112d6515712"
+      "path": "assets/fonts/tc/ChironGoRoundTC-400R.otf",
+      "sha1": "f94eaa0daf68245d7fe98e8598d310ec8f747d14"
     },
     {
-      "path": "assets/fonts/tc/ChironSungHK-Regular.ttf",
-      "sha1": "ce5ea88abaad611cfd8ad24dbb9225981bb8ecfe"
+      "path": "assets/fonts/tc/ChironHeiHK-R.otf",
+      "sha1": "e2af469fc8415927b405b9fcba6fc6a13012e70d"
+    },
+    {
+      "path": "assets/fonts/tc/ChironSungHK-R.otf",
+      "sha1": "85ac221a5d39cec9fe2c1592c1ac40151d924053"
     },
     {
       "path": "assets/fonts/tc/Cubic_11.ttf",
       "sha1": "7165607a9ddcb9b0ebf339acd29a8daccadb1d04"
     },
     {
-      "path": "assets/fonts/tc/GenRyuMin2TC-R.otf",
-      "sha1": "51c27be96800ddbe84a99669b286c21f146424a6"
+      "path": "assets/fonts/tc/GenRyuMin2TC-H.otf",
+      "sha1": "0e6353972baedd55a12512f9e2b1e564484b888c"
     },
     {
-      "path": "assets/fonts/tc/GenSekiGothic2TC-R.otf",
-      "sha1": "48f9a761c881dbebab6dfc14552440a3c6289e92"
-    },
-    {
-      "path": "assets/fonts/tc/GenWanMin2TC-R.otf",
-      "sha1": "effecf203d0932659f72a2096f3f86db4fe6f551"
+      "path": "assets/fonts/tc/GenYoGothic2TC-H.otf",
+      "sha1": "3c156acadcbbda9c28ee15b275bbaa487f70d403"
     },
     {
       "path": "assets/fonts/tc/Iansui-Regular.ttf",
@@ -126,24 +126,28 @@
       "sha1": "0f82d2e9ecfc1a6d6e55b8746fa0f7488faecb36"
     },
     {
-      "path": "assets/fonts/tc/MaokenAssortedSans-TC.ttf",
-      "sha1": "ff3a2ce8f567e12ac7c8070bdc2a342f0268523a"
+      "path": "assets/fonts/tc/MaokenAssortedSans.otf",
+      "sha1": "2907027104622452308e396634bc00e893c97a95"
     },
     {
       "path": "assets/fonts/tc/NaikaiFont-Regular.ttf",
       "sha1": "dd2f12aaf93d458f5231d91be9835bd3369fa1ea"
     },
     {
-      "path": "assets/fonts/tc/SweiGothicCJKtc-Regular.ttf",
-      "sha1": "4b639f2583b4d9336076ab0cd52a3367f2075ef1"
+      "path": "assets/fonts/tc/PopGothicCjkTc-Regular.ttf",
+      "sha1": "997f51fad3f61067b5b20506bfc30d059eb2144e"
     },
     {
-      "path": "assets/fonts/tc/SweiSpringCJKtc-Regular.ttf",
-      "sha1": "3f104ee8f8c89a24e251d0c276610cfe900a63e3"
+      "path": "assets/fonts/tc/ThePeakFontPlus-Regular.ttf",
+      "sha1": "67e9e9fbed824675f8534a3fe5468436ba42399f"
     },
     {
-      "path": "assets/fonts/tc/ThePeakFontBeta_V0_102.ttf",
-      "sha1": "23140747b2ba21d1aab574be467e209b6f3b1638"
+      "path": "assets/fonts/tc/Tiejili-Regular.otf",
+      "sha1": "dba74ef82f06fc8aa8d64de0ab22012bec3731c5"
+    },
+    {
+      "path": "assets/fonts/tc/WD-XLLubrifontTC-Regular.otf",
+      "sha1": "1d0161c0a787e42cc813b2f22e2d916fbea367fd"
     }
   ]
 }

@@ -13,9 +13,6 @@
 		761780EF2CA45674006654EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EE2CA45674006654EF /* SceneDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8962CCA25D25422DBFF13AA3 /* DepartureMono-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5175E6E07DBC428E915E5138 /* DepartureMono-Regular.otf */; };
-		418BFB932BD5411799D3B6B1 /* GenRyuMin2TC-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA226FA56943427DA41E445B /* GenRyuMin2TC-R.otf */; };
-		956C84721AE64C02BC65DFC4 /* GenSekiGothic2TC-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = C3CF54E11F5D40838CEBA8D0 /* GenSekiGothic2TC-R.otf */; };
-		D7AB6E07190B468DB1ADFE0F /* GenWanMin2TC-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = 84931D557FA54CD195661CC5 /* GenWanMin2TC-R.otf */; };
 		2F60F03067194A7AB8ACAEAD /* DeliusUnicase-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3A40B3F14584292BB05D4F2 /* DeliusUnicase-Regular.ttf */; };
 		B32144251118443A9579C507 /* Doto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 620466C34B1A4410B60A07DB /* Doto-Black.ttf */; };
 		150C065B36B84FF5A609D4C4 /* Silkscreen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B608486490F42A7A9034B73 /* Silkscreen-Regular.ttf */; };
@@ -28,7 +25,6 @@
 		48845EAA70294546A45D3395 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F28621C974854FEBB1A70C39 /* Inter-Regular.ttf */; };
 		B3F43364CC61449E866D02B9 /* JetBrainsMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAFC75FF681D4911BFF7F3E7 /* JetBrainsMono-Regular.ttf */; };
 		A80923375125446788589EC9 /* PermanentMarker-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BDD84969A3C4CC1B4873875 /* PermanentMarker-Regular.ttf */; };
-		6E5C0447913040D69AFC6858 /* ThePeakFontBeta_V0_102.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22B10F2EB4F849C8AF665EA9 /* ThePeakFontBeta_V0_102.ttf */; };
 		6EE15C7B3FB74340913EB8C0 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C334D4B0711549F2961FAACE /* Anton-Regular.ttf */; };
 		9DA71DD8FAE34567858E30D9 /* Lexend-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41E6AD6472E443F597228357 /* Lexend-Regular.ttf */; };
 		3BFA1B24EEEC4DCC9F177694 /* PlaypenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 326566DC2B174A269FE07987 /* PlaypenSans-Regular.ttf */; };
@@ -38,16 +34,21 @@
 		D99C2FBFEEC3499EB2E3E115 /* Lora-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 893570273F0D41F097017AC8 /* Lora-Regular.ttf */; };
 		713CE07CD1834B1784AD1D11 /* AtkinsonHyperlegible-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F8389BF83274DFBB8668CDB /* AtkinsonHyperlegible-Regular.ttf */; };
 		FE15A706E9C5430AACB9B3F4 /* PlaywriteUSTrad-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D10AE05358E455CB9EC0A3D /* PlaywriteUSTrad-Regular.ttf */; };
-		BF29F66ECE044C2F977BC16B /* ChironHeiHK-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F38B3969FB8649F7844A0E53 /* ChironHeiHK-Regular.ttf */; };
-		FA79B5FE502C429A8A94B529 /* MantouSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9A90ADBCB5B4BAEB3C8A19E /* MantouSans-Regular.ttf */; };
-		2A19EC7852D44A0BB3B8342F /* NaikaiFont-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E93CFC7F02E499E945CC98A /* NaikaiFont-Regular.ttf */; };
-		DAF7974F0C8A4F6DA74229D7 /* ChironSungHK-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D62210E0DDF45FABFD40B98 /* ChironSungHK-Regular.ttf */; };
-		937C61D3294140B787EF651C /* Iansui-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B89C0DD4CE5A4B74812CEC6C /* Iansui-Regular.ttf */; };
-		6C61EFF057B649CCAE744343 /* ChironGoRoundTC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A64D0F69A6D64FD19503F0F9 /* ChironGoRoundTC-Regular.ttf */; };
-		CEFCA58471994F01B1B775B9 /* Cubic_11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63476881E0A2415C916B9E97 /* Cubic_11.ttf */; };
-		B666A54E995446B4ADDE073B /* MaokenAssortedSans-TC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0DB489DE3D445AFB19DBECA /* MaokenAssortedSans-TC.ttf */; };
-		B92A6C73055941EEBA1A7528 /* SweiSpringCJKtc-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E61F172DA8AB4A3B8BB3FBE8 /* SweiSpringCJKtc-Regular.ttf */; };
-		F911C216D65B4E87AD278C0E /* SweiGothicCJKtc-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8717ECEB1FC14E69BF60F444 /* SweiGothicCJKtc-Regular.ttf */; };
+		A02D862E8E8F4F9394AC53B6 /* ChironGoRoundTC-400R.otf in Resources */ = {isa = PBXBuildFile; fileRef = 265D6683FF7C49559FA042B5 /* ChironGoRoundTC-400R.otf */; };
+		50AF262734E947FBBE8310C1 /* MaokenAssortedSans.otf in Resources */ = {isa = PBXBuildFile; fileRef = B3600C47CE9241CFB36FBFAB /* MaokenAssortedSans.otf */; };
+		C59220FAA0E84C5196698D5A /* GenRyuMin2TC-H.otf in Resources */ = {isa = PBXBuildFile; fileRef = C573F6BA22D64D2E96A58EFF /* GenRyuMin2TC-H.otf */; };
+		16273E7D1D804C418DD92AA4 /* ChironHeiHK-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3D57138F175E4C8BBB819E45 /* ChironHeiHK-R.otf */; };
+		78CB7868BA574E1D903F43C4 /* ChironSungHK-R.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5AC951A7C443445AABAECFFA /* ChironSungHK-R.otf */; };
+		6AFF0AD4FCEA493EB7132C1A /* MantouSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E16F6F1F9284A70A66869AA /* MantouSans-Regular.ttf */; };
+		4DA525F0F3534568B9759765 /* NaikaiFont-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCBAA757165546918931798F /* NaikaiFont-Regular.ttf */; };
+		7171871645554677A0F64082 /* Iansui-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BBA2169533744A9A8B59510 /* Iansui-Regular.ttf */; };
+		48CC5032C366430FBED666C9 /* ChildFunSansTC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 262FB940AEAE44ABB4B47C2B /* ChildFunSansTC.ttf */; };
+		A6C9D89940204F33B170C58E /* Cubic_11.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F137EFE53B2A4337AD2A56F9 /* Cubic_11.ttf */; };
+		BFF0D06C16D64DCF89A4ADB7 /* ThePeakFontPlus-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 798B24CDBAF04FE586536BD7 /* ThePeakFontPlus-Regular.ttf */; };
+		DD7701F58DF94844A9482F22 /* PopGothicCjkTc-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE8BBE66616847AABD1907FC /* PopGothicCjkTc-Regular.ttf */; };
+		09DF3DFAF44344749107153C /* WD-XLLubrifontTC-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 296DA5A7C8184B60BA43EA7C /* WD-XLLubrifontTC-Regular.otf */; };
+		FFC665C7450644BFB392A001 /* Tiejili-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 57E87E10F6584D64810621E8 /* Tiejili-Regular.otf */; };
+		65634317C3B94D7B80BE30F5 /* GenYoGothic2TC-H.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8443E9C1C63D45BFA960C301 /* GenYoGothic2TC-H.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,9 +64,6 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BigText/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		5175E6E07DBC428E915E5138 /* DepartureMono-Regular.otf */ = {isa = PBXFileReference; name = "DepartureMono-Regular.otf"; path = "../assets/fonts/en/DepartureMono-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EA226FA56943427DA41E445B /* GenRyuMin2TC-R.otf */ = {isa = PBXFileReference; name = "GenRyuMin2TC-R.otf"; path = "../assets/fonts/tc/GenRyuMin2TC-R.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C3CF54E11F5D40838CEBA8D0 /* GenSekiGothic2TC-R.otf */ = {isa = PBXFileReference; name = "GenSekiGothic2TC-R.otf"; path = "../assets/fonts/tc/GenSekiGothic2TC-R.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		84931D557FA54CD195661CC5 /* GenWanMin2TC-R.otf */ = {isa = PBXFileReference; name = "GenWanMin2TC-R.otf"; path = "../assets/fonts/tc/GenWanMin2TC-R.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D3A40B3F14584292BB05D4F2 /* DeliusUnicase-Regular.ttf */ = {isa = PBXFileReference; name = "DeliusUnicase-Regular.ttf"; path = "../assets/fonts/en/DeliusUnicase-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		620466C34B1A4410B60A07DB /* Doto-Black.ttf */ = {isa = PBXFileReference; name = "Doto-Black.ttf"; path = "../assets/fonts/en/Doto-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		2B608486490F42A7A9034B73 /* Silkscreen-Regular.ttf */ = {isa = PBXFileReference; name = "Silkscreen-Regular.ttf"; path = "../assets/fonts/en/Silkscreen-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -78,7 +76,6 @@
 		F28621C974854FEBB1A70C39 /* Inter-Regular.ttf */ = {isa = PBXFileReference; name = "Inter-Regular.ttf"; path = "../assets/fonts/en/Inter-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		CAFC75FF681D4911BFF7F3E7 /* JetBrainsMono-Regular.ttf */ = {isa = PBXFileReference; name = "JetBrainsMono-Regular.ttf"; path = "../assets/fonts/en/JetBrainsMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		3BDD84969A3C4CC1B4873875 /* PermanentMarker-Regular.ttf */ = {isa = PBXFileReference; name = "PermanentMarker-Regular.ttf"; path = "../assets/fonts/en/PermanentMarker-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		22B10F2EB4F849C8AF665EA9 /* ThePeakFontBeta_V0_102.ttf */ = {isa = PBXFileReference; name = "ThePeakFontBeta_V0_102.ttf"; path = "../assets/fonts/tc/ThePeakFontBeta_V0_102.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C334D4B0711549F2961FAACE /* Anton-Regular.ttf */ = {isa = PBXFileReference; name = "Anton-Regular.ttf"; path = "../assets/fonts/en/Anton-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		41E6AD6472E443F597228357 /* Lexend-Regular.ttf */ = {isa = PBXFileReference; name = "Lexend-Regular.ttf"; path = "../assets/fonts/en/Lexend-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		326566DC2B174A269FE07987 /* PlaypenSans-Regular.ttf */ = {isa = PBXFileReference; name = "PlaypenSans-Regular.ttf"; path = "../assets/fonts/en/PlaypenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -88,16 +85,21 @@
 		893570273F0D41F097017AC8 /* Lora-Regular.ttf */ = {isa = PBXFileReference; name = "Lora-Regular.ttf"; path = "../assets/fonts/en/Lora-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0F8389BF83274DFBB8668CDB /* AtkinsonHyperlegible-Regular.ttf */ = {isa = PBXFileReference; name = "AtkinsonHyperlegible-Regular.ttf"; path = "../assets/fonts/en/AtkinsonHyperlegible-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		5D10AE05358E455CB9EC0A3D /* PlaywriteUSTrad-Regular.ttf */ = {isa = PBXFileReference; name = "PlaywriteUSTrad-Regular.ttf"; path = "../assets/fonts/en/PlaywriteUSTrad-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F38B3969FB8649F7844A0E53 /* ChironHeiHK-Regular.ttf */ = {isa = PBXFileReference; name = "ChironHeiHK-Regular.ttf"; path = "../assets/fonts/tc/ChironHeiHK-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D9A90ADBCB5B4BAEB3C8A19E /* MantouSans-Regular.ttf */ = {isa = PBXFileReference; name = "MantouSans-Regular.ttf"; path = "../assets/fonts/tc/MantouSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2E93CFC7F02E499E945CC98A /* NaikaiFont-Regular.ttf */ = {isa = PBXFileReference; name = "NaikaiFont-Regular.ttf"; path = "../assets/fonts/tc/NaikaiFont-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3D62210E0DDF45FABFD40B98 /* ChironSungHK-Regular.ttf */ = {isa = PBXFileReference; name = "ChironSungHK-Regular.ttf"; path = "../assets/fonts/tc/ChironSungHK-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B89C0DD4CE5A4B74812CEC6C /* Iansui-Regular.ttf */ = {isa = PBXFileReference; name = "Iansui-Regular.ttf"; path = "../assets/fonts/tc/Iansui-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A64D0F69A6D64FD19503F0F9 /* ChironGoRoundTC-Regular.ttf */ = {isa = PBXFileReference; name = "ChironGoRoundTC-Regular.ttf"; path = "../assets/fonts/tc/ChironGoRoundTC-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		63476881E0A2415C916B9E97 /* Cubic_11.ttf */ = {isa = PBXFileReference; name = "Cubic_11.ttf"; path = "../assets/fonts/tc/Cubic_11.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F0DB489DE3D445AFB19DBECA /* MaokenAssortedSans-TC.ttf */ = {isa = PBXFileReference; name = "MaokenAssortedSans-TC.ttf"; path = "../assets/fonts/tc/MaokenAssortedSans-TC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E61F172DA8AB4A3B8BB3FBE8 /* SweiSpringCJKtc-Regular.ttf */ = {isa = PBXFileReference; name = "SweiSpringCJKtc-Regular.ttf"; path = "../assets/fonts/tc/SweiSpringCJKtc-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8717ECEB1FC14E69BF60F444 /* SweiGothicCJKtc-Regular.ttf */ = {isa = PBXFileReference; name = "SweiGothicCJKtc-Regular.ttf"; path = "../assets/fonts/tc/SweiGothicCJKtc-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		265D6683FF7C49559FA042B5 /* ChironGoRoundTC-400R.otf */ = {isa = PBXFileReference; name = "ChironGoRoundTC-400R.otf"; path = "../assets/fonts/tc/ChironGoRoundTC-400R.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B3600C47CE9241CFB36FBFAB /* MaokenAssortedSans.otf */ = {isa = PBXFileReference; name = "MaokenAssortedSans.otf"; path = "../assets/fonts/tc/MaokenAssortedSans.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C573F6BA22D64D2E96A58EFF /* GenRyuMin2TC-H.otf */ = {isa = PBXFileReference; name = "GenRyuMin2TC-H.otf"; path = "../assets/fonts/tc/GenRyuMin2TC-H.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3D57138F175E4C8BBB819E45 /* ChironHeiHK-R.otf */ = {isa = PBXFileReference; name = "ChironHeiHK-R.otf"; path = "../assets/fonts/tc/ChironHeiHK-R.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5AC951A7C443445AABAECFFA /* ChironSungHK-R.otf */ = {isa = PBXFileReference; name = "ChironSungHK-R.otf"; path = "../assets/fonts/tc/ChironSungHK-R.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8E16F6F1F9284A70A66869AA /* MantouSans-Regular.ttf */ = {isa = PBXFileReference; name = "MantouSans-Regular.ttf"; path = "../assets/fonts/tc/MantouSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CCBAA757165546918931798F /* NaikaiFont-Regular.ttf */ = {isa = PBXFileReference; name = "NaikaiFont-Regular.ttf"; path = "../assets/fonts/tc/NaikaiFont-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0BBA2169533744A9A8B59510 /* Iansui-Regular.ttf */ = {isa = PBXFileReference; name = "Iansui-Regular.ttf"; path = "../assets/fonts/tc/Iansui-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		262FB940AEAE44ABB4B47C2B /* ChildFunSansTC.ttf */ = {isa = PBXFileReference; name = "ChildFunSansTC.ttf"; path = "../assets/fonts/tc/ChildFunSansTC.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F137EFE53B2A4337AD2A56F9 /* Cubic_11.ttf */ = {isa = PBXFileReference; name = "Cubic_11.ttf"; path = "../assets/fonts/tc/Cubic_11.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		798B24CDBAF04FE586536BD7 /* ThePeakFontPlus-Regular.ttf */ = {isa = PBXFileReference; name = "ThePeakFontPlus-Regular.ttf"; path = "../assets/fonts/tc/ThePeakFontPlus-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AE8BBE66616847AABD1907FC /* PopGothicCjkTc-Regular.ttf */ = {isa = PBXFileReference; name = "PopGothicCjkTc-Regular.ttf"; path = "../assets/fonts/tc/PopGothicCjkTc-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		296DA5A7C8184B60BA43EA7C /* WD-XLLubrifontTC-Regular.otf */ = {isa = PBXFileReference; name = "WD-XLLubrifontTC-Regular.otf"; path = "../assets/fonts/tc/WD-XLLubrifontTC-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		57E87E10F6584D64810621E8 /* Tiejili-Regular.otf */ = {isa = PBXFileReference; name = "Tiejili-Regular.otf"; path = "../assets/fonts/tc/Tiejili-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8443E9C1C63D45BFA960C301 /* GenYoGothic2TC-H.otf */ = {isa = PBXFileReference; name = "GenYoGothic2TC-H.otf"; path = "../assets/fonts/tc/GenYoGothic2TC-H.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,9 +179,6 @@
 			isa = "PBXGroup";
 			children = (
 				5175E6E07DBC428E915E5138 /* DepartureMono-Regular.otf */,
-				EA226FA56943427DA41E445B /* GenRyuMin2TC-R.otf */,
-				C3CF54E11F5D40838CEBA8D0 /* GenSekiGothic2TC-R.otf */,
-				84931D557FA54CD195661CC5 /* GenWanMin2TC-R.otf */,
 				D3A40B3F14584292BB05D4F2 /* DeliusUnicase-Regular.ttf */,
 				620466C34B1A4410B60A07DB /* Doto-Black.ttf */,
 				2B608486490F42A7A9034B73 /* Silkscreen-Regular.ttf */,
@@ -192,7 +191,6 @@
 				F28621C974854FEBB1A70C39 /* Inter-Regular.ttf */,
 				CAFC75FF681D4911BFF7F3E7 /* JetBrainsMono-Regular.ttf */,
 				3BDD84969A3C4CC1B4873875 /* PermanentMarker-Regular.ttf */,
-				22B10F2EB4F849C8AF665EA9 /* ThePeakFontBeta_V0_102.ttf */,
 				C334D4B0711549F2961FAACE /* Anton-Regular.ttf */,
 				41E6AD6472E443F597228357 /* Lexend-Regular.ttf */,
 				326566DC2B174A269FE07987 /* PlaypenSans-Regular.ttf */,
@@ -202,16 +200,21 @@
 				893570273F0D41F097017AC8 /* Lora-Regular.ttf */,
 				0F8389BF83274DFBB8668CDB /* AtkinsonHyperlegible-Regular.ttf */,
 				5D10AE05358E455CB9EC0A3D /* PlaywriteUSTrad-Regular.ttf */,
-				F38B3969FB8649F7844A0E53 /* ChironHeiHK-Regular.ttf */,
-				D9A90ADBCB5B4BAEB3C8A19E /* MantouSans-Regular.ttf */,
-				2E93CFC7F02E499E945CC98A /* NaikaiFont-Regular.ttf */,
-				3D62210E0DDF45FABFD40B98 /* ChironSungHK-Regular.ttf */,
-				B89C0DD4CE5A4B74812CEC6C /* Iansui-Regular.ttf */,
-				A64D0F69A6D64FD19503F0F9 /* ChironGoRoundTC-Regular.ttf */,
-				63476881E0A2415C916B9E97 /* Cubic_11.ttf */,
-				F0DB489DE3D445AFB19DBECA /* MaokenAssortedSans-TC.ttf */,
-				E61F172DA8AB4A3B8BB3FBE8 /* SweiSpringCJKtc-Regular.ttf */,
-				8717ECEB1FC14E69BF60F444 /* SweiGothicCJKtc-Regular.ttf */,
+				265D6683FF7C49559FA042B5 /* ChironGoRoundTC-400R.otf */,
+				B3600C47CE9241CFB36FBFAB /* MaokenAssortedSans.otf */,
+				C573F6BA22D64D2E96A58EFF /* GenRyuMin2TC-H.otf */,
+				3D57138F175E4C8BBB819E45 /* ChironHeiHK-R.otf */,
+				5AC951A7C443445AABAECFFA /* ChironSungHK-R.otf */,
+				8E16F6F1F9284A70A66869AA /* MantouSans-Regular.ttf */,
+				CCBAA757165546918931798F /* NaikaiFont-Regular.ttf */,
+				0BBA2169533744A9A8B59510 /* Iansui-Regular.ttf */,
+				262FB940AEAE44ABB4B47C2B /* ChildFunSansTC.ttf */,
+				F137EFE53B2A4337AD2A56F9 /* Cubic_11.ttf */,
+				798B24CDBAF04FE586536BD7 /* ThePeakFontPlus-Regular.ttf */,
+				AE8BBE66616847AABD1907FC /* PopGothicCjkTc-Regular.ttf */,
+				296DA5A7C8184B60BA43EA7C /* WD-XLLubrifontTC-Regular.otf */,
+				57E87E10F6584D64810621E8 /* Tiejili-Regular.otf */,
+				8443E9C1C63D45BFA960C301 /* GenYoGothic2TC-H.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -280,9 +283,6 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				8962CCA25D25422DBFF13AA3 /* DepartureMono-Regular.otf in Resources */,
-				418BFB932BD5411799D3B6B1 /* GenRyuMin2TC-R.otf in Resources */,
-				956C84721AE64C02BC65DFC4 /* GenSekiGothic2TC-R.otf in Resources */,
-				D7AB6E07190B468DB1ADFE0F /* GenWanMin2TC-R.otf in Resources */,
 				2F60F03067194A7AB8ACAEAD /* DeliusUnicase-Regular.ttf in Resources */,
 				B32144251118443A9579C507 /* Doto-Black.ttf in Resources */,
 				150C065B36B84FF5A609D4C4 /* Silkscreen-Regular.ttf in Resources */,
@@ -295,7 +295,6 @@
 				48845EAA70294546A45D3395 /* Inter-Regular.ttf in Resources */,
 				B3F43364CC61449E866D02B9 /* JetBrainsMono-Regular.ttf in Resources */,
 				A80923375125446788589EC9 /* PermanentMarker-Regular.ttf in Resources */,
-				6E5C0447913040D69AFC6858 /* ThePeakFontBeta_V0_102.ttf in Resources */,
 				6EE15C7B3FB74340913EB8C0 /* Anton-Regular.ttf in Resources */,
 				9DA71DD8FAE34567858E30D9 /* Lexend-Regular.ttf in Resources */,
 				3BFA1B24EEEC4DCC9F177694 /* PlaypenSans-Regular.ttf in Resources */,
@@ -305,16 +304,21 @@
 				D99C2FBFEEC3499EB2E3E115 /* Lora-Regular.ttf in Resources */,
 				713CE07CD1834B1784AD1D11 /* AtkinsonHyperlegible-Regular.ttf in Resources */,
 				FE15A706E9C5430AACB9B3F4 /* PlaywriteUSTrad-Regular.ttf in Resources */,
-				BF29F66ECE044C2F977BC16B /* ChironHeiHK-Regular.ttf in Resources */,
-				FA79B5FE502C429A8A94B529 /* MantouSans-Regular.ttf in Resources */,
-				2A19EC7852D44A0BB3B8342F /* NaikaiFont-Regular.ttf in Resources */,
-				DAF7974F0C8A4F6DA74229D7 /* ChironSungHK-Regular.ttf in Resources */,
-				937C61D3294140B787EF651C /* Iansui-Regular.ttf in Resources */,
-				6C61EFF057B649CCAE744343 /* ChironGoRoundTC-Regular.ttf in Resources */,
-				CEFCA58471994F01B1B775B9 /* Cubic_11.ttf in Resources */,
-				B666A54E995446B4ADDE073B /* MaokenAssortedSans-TC.ttf in Resources */,
-				B92A6C73055941EEBA1A7528 /* SweiSpringCJKtc-Regular.ttf in Resources */,
-				F911C216D65B4E87AD278C0E /* SweiGothicCJKtc-Regular.ttf in Resources */,
+				A02D862E8E8F4F9394AC53B6 /* ChironGoRoundTC-400R.otf in Resources */,
+				50AF262734E947FBBE8310C1 /* MaokenAssortedSans.otf in Resources */,
+				C59220FAA0E84C5196698D5A /* GenRyuMin2TC-H.otf in Resources */,
+				16273E7D1D804C418DD92AA4 /* ChironHeiHK-R.otf in Resources */,
+				78CB7868BA574E1D903F43C4 /* ChironSungHK-R.otf in Resources */,
+				6AFF0AD4FCEA493EB7132C1A /* MantouSans-Regular.ttf in Resources */,
+				4DA525F0F3534568B9759765 /* NaikaiFont-Regular.ttf in Resources */,
+				7171871645554677A0F64082 /* Iansui-Regular.ttf in Resources */,
+				48CC5032C366430FBED666C9 /* ChildFunSansTC.ttf in Resources */,
+				A6C9D89940204F33B170C58E /* Cubic_11.ttf in Resources */,
+				BFF0D06C16D64DCF89A4ADB7 /* ThePeakFontPlus-Regular.ttf in Resources */,
+				DD7701F58DF94844A9482F22 /* PopGothicCjkTc-Regular.ttf in Resources */,
+				09DF3DFAF44344749107153C /* WD-XLLubrifontTC-Regular.otf in Resources */,
+				FFC665C7450644BFB392A001 /* Tiejili-Regular.otf in Resources */,
+				65634317C3B94D7B80BE30F5 /* GenYoGothic2TC-H.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

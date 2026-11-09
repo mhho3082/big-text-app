@@ -11,8 +11,7 @@ and anything else that needs to stand out from across the room.
 - 📱 Built for phones and tablets: Looks good on both smaller and larger screens
 - 📝 Fast message display: Type or paste text, then put it on screen in seconds
 - 🎨 Flexible colors: Tune the text and background to match the moment
-- 🔤 Font selection: Choose from a variety of bundled fonts
-- 🇭🇰🇹🇼 Chinese fonts: Pick from a range of fonts created by HK and TW designers
+- 🔤 Font selection: Choose from a variety of bundled Chinese and English fonts
 - ↔️ Flexible alignment: Top left, bottom right, or anywhere in between
 - 📏 Font sizing: Use automatic sizing, or switch to custom sizing and adjust it with a simple swipe
 - ✨ Motion effects: Strobe, pulse, and cross variants for a little extra emphasis

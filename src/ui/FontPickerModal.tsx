@@ -51,7 +51,7 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
     return (
       <FlatList
         key={`font-grid-${fontColumns}`}
-        contentContainerStyle={styles.fontListContent}
+        contentContainerStyle={[styles.fontListContent, styles.fontListContentExpanded]}
         data={options}
         numColumns={fontColumns}
         columnWrapperStyle={styles.fontChoiceColumnWrapper}
@@ -98,8 +98,13 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
                 {t(option.licenseKey, undefined, language)}
               </Text>
             </Pressable>
-          );
-        }}
+            );
+          }}
+        ListFooterComponent={
+          <View style={styles.fontListFooter}>
+            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>{t('fontPicker.note', undefined, language)}</Text>
+          </View>
+        }
         showsVerticalScrollIndicator={false}
       />
     );

@@ -76,9 +76,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>DepartureMono-Regular.otf</string>
-		<string>GenRyuMin2TC-R.otf</string>
-		<string>GenSekiGothic2TC-R.otf</string>
-		<string>GenWanMin2TC-R.otf</string>
 		<string>DeliusUnicase-Regular.ttf</string>
 		<string>Doto-Black.ttf</string>
 		<string>Silkscreen-Regular.ttf</string>
@@ -91,7 +88,6 @@
 		<string>Inter-Regular.ttf</string>
 		<string>JetBrainsMono-Regular.ttf</string>
 		<string>PermanentMarker-Regular.ttf</string>
-		<string>ThePeakFontBeta_V0_102.ttf</string>
 		<string>Anton-Regular.ttf</string>
 		<string>Lexend-Regular.ttf</string>
 		<string>PlaypenSans-Regular.ttf</string>
@@ -101,16 +97,21 @@
 		<string>Lora-Regular.ttf</string>
 		<string>AtkinsonHyperlegible-Regular.ttf</string>
 		<string>PlaywriteUSTrad-Regular.ttf</string>
-		<string>ChironHeiHK-Regular.ttf</string>
+		<string>ChironGoRoundTC-400R.otf</string>
+		<string>MaokenAssortedSans.otf</string>
+		<string>GenRyuMin2TC-H.otf</string>
+		<string>ChironHeiHK-R.otf</string>
+		<string>ChironSungHK-R.otf</string>
 		<string>MantouSans-Regular.ttf</string>
 		<string>NaikaiFont-Regular.ttf</string>
-		<string>ChironSungHK-Regular.ttf</string>
 		<string>Iansui-Regular.ttf</string>
-		<string>ChironGoRoundTC-Regular.ttf</string>
+		<string>ChildFunSansTC.ttf</string>
 		<string>Cubic_11.ttf</string>
-		<string>MaokenAssortedSans-TC.ttf</string>
-		<string>SweiSpringCJKtc-Regular.ttf</string>
-		<string>SweiGothicCJKtc-Regular.ttf</string>
+		<string>ThePeakFontPlus-Regular.ttf</string>
+		<string>PopGothicCjkTc-Regular.ttf</string>
+		<string>WD-XLLubrifontTC-Regular.otf</string>
+		<string>Tiejili-Regular.otf</string>
+		<string>GenYoGothic2TC-H.otf</string>
 	</array>
 </dict>
 </plist>

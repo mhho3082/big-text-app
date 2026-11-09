@@ -395,6 +395,13 @@ export const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 8,
   },
+  fontListContentExpanded: {
+    flexGrow: 1,
+  },
+  fontListFooter: {
+    marginTop: 'auto',
+    paddingTop: 8,
+  },
   fontChoiceColumnWrapper: {
     gap: 12,
   },
