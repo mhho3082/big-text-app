@@ -13,6 +13,7 @@ export type FontOption = {
   category: FontCategory;
   licenseKey: string;
   credit: string;
+  remarkKey?: string;
   androidFamily?: string; // The filename
   iosFamily?: string; // The PostScript name
   secondaryFamilies?: FontFamilyPair[];
@@ -49,6 +50,7 @@ export const fontOptions: FontOption[] = [
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
     credit: 'But Ko',
+    remarkKey: 'fontRemark.heavy',
     androidFamily: 'GenRyuMin2TC-H',
     iosFamily: 'GenRyuMin2TC-H',
   },
@@ -57,14 +59,16 @@ export const fontOptions: FontOption[] = [
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
     credit: 'But Ko',
+    remarkKey: 'fontRemark.heavy',
     androidFamily: 'GenYoGothic2TC-H',
     iosFamily: 'GenYoGothic2TC-H',
   },
   {
-    displayName: '貓啃什錦黑TC',
+    displayName: '貓啃什錦黑',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
     credit: 'ZERO子',
+    remarkKey: 'fontRemark.tcVersion',
     androidFamily: 'MaokenAssortedSans',
     iosFamily: 'MaokenAssortedSans',
   },
@@ -117,10 +121,11 @@ export const fontOptions: FontOption[] = [
     iosFamily: 'MantouSans',
   },
   {
-    displayName: '遊趣體TC',
+    displayName: '遊趣體',
     category: 'traditionalChinese',
     licenseKey: 'license.ofl11',
     credit: '仲代骆驼',
+    remarkKey: 'fontRemark.tcVersion',
     androidFamily: 'ChildFunSansTC',
     iosFamily: 'ChildFunSans-TC',
   },
@@ -320,7 +325,7 @@ export const fontOptions: FontOption[] = [
   },
 ];
 
-const maokenSansFontOption = fontOptions.find(option => option.displayName === '貓啃什錦黑TC');
+const maokenSansFontOption = fontOptions.find(option => option.displayName === '貓啃什錦黑');
 
 export const maokenSansFontFamily = Platform.OS === 'android'
   ? maokenSansFontOption?.androidFamily ?? maokenSansFontOption?.iosFamily

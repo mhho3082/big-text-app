@@ -442,6 +442,9 @@ export const styles = StyleSheet.create({
     includeFontPadding: false,
     marginBottom: 4,
   },
+  fontChoiceMeta: {
+    gap: 2,
+  },
   fontChoiceCredit: {
     fontSize: 11,
     lineHeight: 14,

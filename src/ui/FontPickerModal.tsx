@@ -91,12 +91,27 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
               >
                 {option.displayName}
               </Text>
-              {option.credit ? (
-                <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
-              ) : null}
-              <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
-                {t(option.licenseKey, undefined, language)}
-              </Text>
+              <View style={styles.fontChoiceMeta}>
+                {option.remarkKey ? (
+                  <Text
+                    style={[
+                      styles.fontChoiceCredit,
+                      {
+                        color: theme.modalMutedText,
+                        fontWeight: '700',
+                      },
+                    ]}
+                  >
+                    {t(option.remarkKey, undefined, language)}
+                  </Text>
+                ) : null}
+                {option.credit ? (
+                  <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
+                ) : null}
+                <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
+                  {t(option.licenseKey, undefined, language)}
+                </Text>
+              </View>
             </Pressable>
             );
           }}
