@@ -3,6 +3,7 @@ import { Appearance } from 'react-native';
 import { defaultOutputFontFamily } from '../fonts';
 import {
   AppLanguage,
+  detectSystemLanguage,
   nextLanguage,
   setLanguage as setI18nLanguage,
 } from '../i18n';
@@ -95,7 +96,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   shareImageAspect: 'landscape',
   shareAction: 'share',
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
-  language: 'zh-TW',
+  language: detectSystemLanguage(),
   text: '',
   foregroundColor: '#ffffff',
   backgroundColor: '#000000',

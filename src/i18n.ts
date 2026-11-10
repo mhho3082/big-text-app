@@ -1,3 +1,5 @@
+import { I18nManager } from 'react-native';
+
 export type AppLanguage = 'en' | 'zh-TW' | 'zh-CN';
 
 type Locale = Record<string, string>;
@@ -9,6 +11,82 @@ export const LANGUAGE_BUTTON_LABELS: Record<AppLanguage, string> = {
 };
 
 const LANGUAGE_ORDER: AppLanguage[] = ['zh-TW', 'zh-CN', 'en'];
+
+function getLocaleParts(locale: string): {
+  language: string;
+  script?: string;
+  region?: string;
+} {
+  const parts = locale.replace(/_/g, '-').split('-');
+  const language = parts[0]?.toLowerCase() ?? '';
+  let script: string | undefined;
+  let region: string | undefined;
+
+  for (const part of parts.slice(1)) {
+    if (!script && /^[A-Za-z]{4}$/.test(part)) {
+      script = part.toLowerCase();
+      continue;
+    }
+
+    if (!region && (/^[A-Za-z]{2}$/.test(part) || /^\d{3}$/.test(part))) {
+      region = part.toUpperCase();
+    }
+  }
+
+  return { language, script, region };
+}
+
+function resolveLanguageFromLocale(
+  locale: string | null | undefined,
+): AppLanguage {
+  if (!locale) {
+    return 'en';
+  }
+
+  const { language, script, region } = getLocaleParts(locale);
+
+  if (language === 'en') {
+    return 'en';
+  }
+
+  if (language !== 'zh') {
+    return 'en';
+  }
+
+  if (script === 'hant') {
+    return 'zh-TW';
+  }
+
+  if (script === 'hans') {
+    return 'zh-CN';
+  }
+
+  if (region === 'TW' || region === 'HK' || region === 'MO') {
+    return 'zh-TW';
+  }
+
+  if (region === 'CN' || region === 'SG') {
+    return 'zh-CN';
+  }
+
+  return 'en';
+}
+
+function getDeviceLocale(): string | null {
+  const intlLocale = Intl.DateTimeFormat().resolvedOptions().locale;
+
+  if (intlLocale) {
+    return intlLocale;
+  }
+
+  const localeIdentifier = I18nManager.getConstants().localeIdentifier;
+
+  return localeIdentifier ?? null;
+}
+
+export function detectSystemLanguage(): AppLanguage {
+  return resolveLanguageFromLocale(getDeviceLocale());
+}
 
 const locales: Record<AppLanguage, Locale> = {
   en: {
@@ -237,7 +315,7 @@ const locales: Record<AppLanguage, Locale> = {
   },
 };
 
-let currentLanguage: AppLanguage = 'en';
+let currentLanguage: AppLanguage = detectSystemLanguage();
 
 export function setLanguage(language: AppLanguage): void {
   currentLanguage = language;
