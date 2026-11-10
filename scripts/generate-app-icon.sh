@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Run the script only in the project root.
-# inkscape relies on PWD to check the TTF font file location.
+# inkscape relies on PWD to check the font file location.
 
 set -euo pipefail
 
@@ -19,7 +19,9 @@ render() {
     >/dev/null
 }
 
-render 1024 assets/app-icon.png
+render 256 assets/app-icon-256.png
+render 512 assets/app-icon-512.png
+render 1024 assets/app-icon-1024.png
 
 render 48 android/app/src/main/res/mipmap-mdpi/ic_launcher.png
 render 72 android/app/src/main/res/mipmap-hdpi/ic_launcher.png

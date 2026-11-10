@@ -1,9 +1,15 @@
+<div align="center">
+
 # 大字显示
+
+![App Icon](./assets/app-icon-256.png)
 
 这份 README 另有 [English](README.md) 和 [繁體中文](README-tc.md) 版本。
 
 大字显示是一个 Android 应用程式，能把简短讯息变成粗体、占满整个萤幕的大字，让人一眼就看得清楚。
 不论是临时做一个指示牌、在活动现场做提示，还是任何想隔著一段距离都看得见的内容，都很合用。
+
+</div>
 
 ## 功能
 

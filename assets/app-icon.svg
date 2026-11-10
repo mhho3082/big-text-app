@@ -2,8 +2,8 @@
   <rect width="1024" height="1024" fill="#141A24"/>
   <style>
     @font-face {
-      font-family: 'MaokenAssortedSans-TC';
-      src: url('fonts/tc/MaokenAssortedSans-TC.ttf') format('truetype');
+      font-family: 'MaokenAssortedSans';
+      src: url('fonts/tc/MaokenAssortedSans.otf') format('opentype');
     }
   </style>
   <text
@@ -11,9 +11,9 @@
     y="512"
     text-anchor="middle"
     dominant-baseline="middle"
-    font-family="MaokenAssortedSans-TC"
+    font-family="MaokenAssortedSans"
     font-size="390"
-    font-weight="700"
+    font-weight="400"
     fill="#F4E7CF"
   >
     <tspan x="512" dy="-0.38em">大字</tspan>

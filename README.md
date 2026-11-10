@@ -1,10 +1,16 @@
+<div align="center">
+
 # Big Text
+
+![App Icon](./assets/app-icon-256.png)
 
 Read this README in [Traditional Chinese](README-tc.md) or [Simplified Chinese](README-sc.md).
 
 Big Text is an Android app for turning short messages into bold, full-screen text that is easy to read at a glance.
 It is built for quick signs, event callouts,
 and anything else that needs to stand out from across the room.
+
+</div>
 
 ## What It Does
 
