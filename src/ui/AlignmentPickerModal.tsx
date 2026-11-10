@@ -176,7 +176,7 @@ export function AlignmentPickerModal({
                 onPress={onClose}
                 aria-label={t('modal.close', undefined, language)}
               >
-                <X color={theme.modalButton} />
+                <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.effectOptionList}>

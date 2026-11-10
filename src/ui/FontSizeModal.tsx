@@ -4,7 +4,7 @@ import Slider from '@react-native-community/slider';
 import { t } from '../i18n';
 import { useAppStore, type OutputFontSizeMode } from '../state/useAppStore';
 import { styles } from '../styles';
-import { HomeTheme } from '../theme';
+import { BRAND_ACCENT, HomeTheme } from '../theme';
 import { X } from 'lucide-react-native';
 
 type Props = {
@@ -33,7 +33,7 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontSize.title', undefined, language)}</Text>
               <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
-                <X color={theme.modalButton} />
+                <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.fontSizeModeRow}>
@@ -90,7 +90,7 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
                   maximumValue={MAX_FONT_SIZE}
                   step={FONT_SIZE_STEP}
                   value={displaySize}
-                  minimumTrackTintColor="#6750a4"
+                  minimumTrackTintColor={BRAND_ACCENT}
                   maximumTrackTintColor={theme.modalSliderTrack}
                   thumbTintColor={theme.modalSliderThumb}
                   onValueChange={value => onFontSizeChange(Math.round(value))}

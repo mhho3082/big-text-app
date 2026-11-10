@@ -86,7 +86,7 @@ export function ColorPickerModal({
                 onPress={onClose}
                 aria-label={t('modal.close', undefined, language)}
               >
-                <X color={theme.modalButton} />
+                <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <ScrollView
@@ -110,9 +110,9 @@ export function ColorPickerModal({
                   ]}
                   inputTitleStyle={[
                     styles.colorTextInput,
-                    { color: theme.mutedText },
+                    { color: theme.placeholderText },
                   ]}
-                  iconColor={theme.colorPickerIcon}
+                  iconColor={theme.modalText}
                   disableAlphaChannel
                 />
                 <View

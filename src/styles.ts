@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { BRAND_ACCENT, QUATERNARY_TEXT, STATE_DANGER, STATE_SUCCESS, SURFACE_BLACK, SURFACE_WHITE } from './theme';
 
 export const styles = StyleSheet.create({
   root: {
@@ -195,13 +196,13 @@ export const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.18)',
+    borderColor: QUATERNARY_TEXT,
   },
   optionIndicatorOn: {
-    backgroundColor: '#2ecc71',
+    backgroundColor: STATE_SUCCESS,
   },
   optionIndicatorOff: {
-    backgroundColor: '#e74c3c',
+    backgroundColor: STATE_DANGER,
   },
   optionButtonText: {
     fontSize: 15,
@@ -243,7 +244,7 @@ export const styles = StyleSheet.create({
     includeFontPadding: false,
   },
   button: {
-    backgroundColor: '#6750a4',
+    backgroundColor: BRAND_ACCENT,
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 12,
@@ -253,7 +254,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#ffffff',
+    color: SURFACE_WHITE,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -313,7 +314,7 @@ export const styles = StyleSheet.create({
   },
   qrScreen: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: SURFACE_BLACK,
   },
   qrScreenFill: {
     flex: 1,
@@ -419,7 +420,7 @@ export const styles = StyleSheet.create({
     textTransform: 'none',
   },
   fontTabIndicator: {
-    backgroundColor: '#6750a4',
+    backgroundColor: BRAND_ACCENT,
     height: 3,
   },
   fontChoiceButton: {
@@ -432,7 +433,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   fontChoiceButtonSelected: {
-    borderColor: '#6750a4',
+    borderColor: BRAND_ACCENT,
   },
   fontChoiceButtonPressed: {
     opacity: 0.8,
@@ -448,6 +449,9 @@ export const styles = StyleSheet.create({
   fontChoiceCredit: {
     fontSize: 11,
     lineHeight: 14,
+  },
+  fontChoiceCreditEmphasis: {
+    fontWeight: '700',
   },
   preview: {
     height: 52,
@@ -475,7 +479,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fontSizeModeButtonSelected: {
-    borderColor: '#6750a4',
+    borderColor: BRAND_ACCENT,
   },
   fontSizeModeButtonPressed: {
     opacity: 0.8,
@@ -524,7 +528,7 @@ export const styles = StyleSheet.create({
     maxWidth: '50%',
   },
   effectOptionButtonSelected: {
-    borderColor: '#6750a4',
+    borderColor: BRAND_ACCENT,
   },
   effectOptionButtonPressed: {
     opacity: 0.8,

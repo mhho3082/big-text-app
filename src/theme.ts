@@ -1,3 +1,9 @@
+export const BRAND_ACCENT = '#6750a4';
+export const STATE_SUCCESS = '#2ecc71';
+export const STATE_DANGER = '#e74c3c';
+export const SURFACE_WHITE = '#ffffff';
+export const QUATERNARY_TEXT = 'rgba(255,255,255,0.18)';
+
 export type HomeThemeName = 'light' | 'dark';
 
 export type HomeTheme = {
@@ -8,7 +14,6 @@ export type HomeTheme = {
   titleText: string;
   mutedText: string;
   buttonText: string;
-  buttonIconText: string;
   buttonSurface: string;
   buttonBorder: string;
   buttonChip: string;
@@ -19,20 +24,15 @@ export type HomeTheme = {
   inputText: string;
   placeholderText: string;
   optionText: string;
-  optionTextMuted: string;
   optionOn: string;
   optionOff: string;
   optionBorder: string;
-  statusBarBg: string;
   modalBackdrop: string;
   modalSheet: string;
   modalText: string;
   modalMutedText: string;
-  modalButton: string;
-  modalButtonText: string;
+  modalCloseIcon: string;
   modalPanel: string;
-  modalPreview: string;
-  modalPreviewBorder: string;
   modalTabBar: string;
   modalTabActive: string;
   modalTabInactive: string;
@@ -40,8 +40,6 @@ export type HomeTheme = {
   modalSelectedCardBorder: string;
   modalSliderTrack: string;
   modalSliderThumb: string;
-  colorPickerIcon: string;
-  historyCardBackground: string;
   historyCardBorder: string;
   historyActionBackground: string;
   historyActionText: string;
@@ -51,58 +49,49 @@ export const homeThemes: Record<HomeThemeName, HomeTheme> = {
   light: {
     name: 'light',
     screenBackground: '#f5f2ec',
-    surface: '#ffffff',
+    surface: SURFACE_WHITE,
     border: '#d4c8b8',
     titleText: '#1e1a16',
     mutedText: '#6d6257',
     buttonText: '#1e1a16',
-    buttonIconText: '#1e1a16',
-    buttonSurface: '#ffffff',
+    buttonSurface: SURFACE_WHITE,
     buttonBorder: '#d4c8b8',
     buttonChip: '#1e1a16',
-    buttonChipText: '#ffffff',
+    buttonChipText: SURFACE_WHITE,
     swatchBorder: '#9f9487',
-    inputBackground: '#ffffff',
+    inputBackground: SURFACE_WHITE,
     inputBorder: '#d4c8b8',
     inputText: '#1e1a16',
     placeholderText: '#8a7d6f',
     optionText: '#1e1a16',
-    optionTextMuted: '#6d6257',
-    optionOn: '#2ecc71',
-    optionOff: '#e74c3c',
+    optionOn: STATE_SUCCESS,
+    optionOff: STATE_DANGER,
     optionBorder: '#d4c8b8',
-    statusBarBg: '#f5f2ec',
     modalBackdrop: 'rgba(0,0,0,0.24)',
     modalSheet: '#fffaf3',
     modalText: '#1e1a16',
     modalMutedText: '#6d6257',
-    modalButton: '#1e1a16',
-    modalButtonText: '#ffffff',
+    modalCloseIcon: '#1e1a16',
     modalPanel: '#ebe2d6',
-    modalPreview: '#ffffff',
-    modalPreviewBorder: '#d4c8b8',
     modalTabBar: '#fffaf3',
     modalTabActive: '#1e1a16',
     modalTabInactive: '#8a7d6f',
     modalSelectedCard: '#f3ebe0',
-    modalSelectedCardBorder: '#6750a4',
+    modalSelectedCardBorder: BRAND_ACCENT,
     modalSliderTrack: '#d4c8b8',
     modalSliderThumb: '#1e1a16',
-    colorPickerIcon: '#1e1a16',
-    historyCardBackground: '#f3ebe0',
     historyCardBorder: '#d4c8b8',
     historyActionBackground: '#1e1a16',
-    historyActionText: '#ffffff',
+    historyActionText: SURFACE_WHITE,
   },
   dark: {
     name: 'dark',
     screenBackground: '#111111',
     surface: '#1b1b1b',
     border: '#333333',
-    titleText: '#ffffff',
+    titleText: SURFACE_WHITE,
     mutedText: '#9a9a9a',
-    buttonText: '#ffffff',
-    buttonIconText: '#ffffff',
+    buttonText: SURFACE_WHITE,
     buttonSurface: '#1b1b1b',
     buttonBorder: '#333333',
     buttonChip: '#f5f2ec',
@@ -110,32 +99,25 @@ export const homeThemes: Record<HomeThemeName, HomeTheme> = {
     swatchBorder: '#555555',
     inputBackground: '#1b1b1b',
     inputBorder: '#333333',
-    inputText: '#ffffff',
-    placeholderText: '#777777',
-    optionText: '#ffffff',
-    optionTextMuted: '#9a9a9a',
-    optionOn: '#2ecc71',
-    optionOff: '#e74c3c',
+    inputText: SURFACE_WHITE,
+    placeholderText: '#848484',
+    optionText: SURFACE_WHITE,
+    optionOn: STATE_SUCCESS,
+    optionOff: STATE_DANGER,
     optionBorder: '#333333',
-    statusBarBg: '#111111',
     modalBackdrop: 'rgba(0,0,0,0.4)',
     modalSheet: '#111111',
-    modalText: '#ffffff',
+    modalText: SURFACE_WHITE,
     modalMutedText: '#8f8f8f',
-    modalButton: '#2b2b2b',
-    modalButtonText: '#ffffff',
+    modalCloseIcon: '#848484',
     modalPanel: '#1b1b1b',
-    modalPreview: '#ffffff',
-    modalPreviewBorder: '#ffffff',
     modalTabBar: '#111111',
-    modalTabActive: '#ffffff',
+    modalTabActive: SURFACE_WHITE,
     modalTabInactive: '#a7a7a7',
     modalSelectedCard: '#221b33',
-    modalSelectedCardBorder: '#6750a4',
+    modalSelectedCardBorder: '#8b73d8',
     modalSliderTrack: '#3a3a3a',
-    modalSliderThumb: '#ffffff',
-    colorPickerIcon: '#ffffff',
-    historyCardBackground: '#1f1f1f',
+    modalSliderThumb: SURFACE_WHITE,
     historyCardBorder: '#333333',
     historyActionBackground: '#f5f2ec',
     historyActionText: '#1e1a16',

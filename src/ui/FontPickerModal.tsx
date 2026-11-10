@@ -95,10 +95,10 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
                 {option.remarkKey ? (
                   <Text
                     style={[
-                      styles.fontChoiceCredit,
+                    styles.fontChoiceCredit,
+                      styles.fontChoiceCreditEmphasis,
                       {
                         color: theme.modalMutedText,
-                        fontWeight: '700',
                       },
                     ]}
                   >
@@ -133,7 +133,7 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontPicker.title', undefined, language)}</Text>
               <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
-                <X color={theme.modalButton} />
+                <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.fontPickerBody}>

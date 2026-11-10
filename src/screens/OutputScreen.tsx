@@ -613,6 +613,7 @@ export function OutputScreen({
     automaticSearchComplete,
     mode,
     onExit,
+    language,
     outputFontSizeMode,
     shareCanvasHeight,
     shareCanvasWidth,

@@ -4,6 +4,7 @@ import QRCode from 'react-native-qrcode-svg';
 import { setImmersiveMode } from '../native/immersiveMode';
 import { setKeepScreenOn } from '../native/keepScreenOn';
 import { styles } from '../styles';
+import { SURFACE_BLACK, SURFACE_WHITE } from '../theme';
 
 type Props = {
   text: string;
@@ -44,14 +45,14 @@ export function QrScreen({ text, onExit }: Props) {
   }, [onExit]);
 
   return (
-    <View style={[styles.qrScreen, styles.qrScreenCenter, { backgroundColor: '#000000' }]}>
+    <View style={[styles.qrScreen, styles.qrScreenCenter, { backgroundColor: SURFACE_BLACK }]}> 
       <Pressable style={styles.qrScreenFill} onPress={handlePress}>
         <View style={styles.qrScreenCenter}>
           <QRCode
             value={text || ' '}
             size={qrSize}
-            color="#ffffff"
-            backgroundColor="#000000"
+            color={SURFACE_WHITE}
+            backgroundColor={SURFACE_BLACK}
             quietZone={0}
           />
         </View>

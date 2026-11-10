@@ -5,7 +5,7 @@ import { t } from '../i18n';
 import { DEFAULT_OUTPUT_EFFECT_INTERVAL, type OutputDisplayStyle } from '../state/persistedOptions';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
-import { HomeTheme } from '../theme';
+import { BRAND_ACCENT, HomeTheme } from '../theme';
 import { X } from 'lucide-react-native';
 
 type Props = {
@@ -69,7 +69,7 @@ export function EffectPickerModal({
                 {t('effectPicker.title', undefined, language)}
               </Text>
               <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
-                <X color={theme.modalButton} />
+                <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.effectOptionList}>
@@ -123,7 +123,7 @@ export function EffectPickerModal({
                   maximumValue={MAX_EFFECT_INTERVAL}
                   step={EFFECT_INTERVAL_STEP}
                   value={displayInterval}
-                  minimumTrackTintColor="#6750a4"
+                  minimumTrackTintColor={BRAND_ACCENT}
                   maximumTrackTintColor={theme.modalSliderTrack}
                   thumbTintColor={theme.modalSliderThumb}
                   onValueChange={value => onIntervalChange(Math.round(value * 10) / 10)}

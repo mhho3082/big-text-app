@@ -67,7 +67,7 @@ export function SharePickerModal({
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('home.share', undefined, language)}</Text>
               <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
-                <X color={theme.modalButton} />
+                <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.shareOptionList}>
