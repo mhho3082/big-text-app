@@ -16,11 +16,15 @@ import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
 import { setKeepScreenOn } from '../native/keepScreenOn';
 import { setSensorRotationEnabled } from '../native/screenOrientation';
+import { showToast } from '../native/toast';
+import { setWallpaper } from '../native/wallpaper';
 import {
   getPersistedOptions,
   type ShareImageAspect,
+  type ShareAction,
   useAppStore,
 } from '../state/useAppStore';
+import { t } from '../i18n';
 import {
   DEFAULT_OUTPUT_EFFECT_INTERVAL,
   type PersistedAppOptions,
@@ -86,6 +90,7 @@ export type OutputScreenProps = Pick<
   onExit: () => void;
   shareRequestId?: number;
   shareImageAspect?: ShareImageAspect;
+  shareAction?: ShareAction;
 };
 
 export function OutputScreen({
@@ -105,7 +110,9 @@ export function OutputScreen({
   outputVerticalAlignment,
   shareRequestId,
   shareImageAspect = 'landscape',
+  shareAction = 'share',
 }: OutputScreenProps) {
+  const language = useAppStore(state => state.language);
   const { width, height } = useWindowDimensions();
   const [outputLayout, setOutputLayout] = React.useState({ width: 0, height: 0 });
   const [automaticSearchGeneration, setAutomaticSearchGeneration] = React.useState(0);
@@ -553,7 +560,7 @@ export function OutputScreen({
     let cancelled = false;
     handledShareRequestIdRef.current = shareRequestId;
 
-    const doShare = async () => {
+  const doShare = async () => {
       const node = captureRefView.current;
 
       if (!node) {
@@ -572,14 +579,19 @@ export function OutputScreen({
           return;
         }
 
-        await Share.open({
-          title: 'Big Text',
-          url: uri,
-          type: 'image/png',
-          failOnCancel: false,
-        });
+        if (shareAction === 'wallpaper') {
+          await setWallpaper(uri);
+          showToast(t('home.wallpaperSet', undefined, language));
+        } else {
+          await Share.open({
+            title: 'Big Text',
+            url: uri,
+            type: 'image/png',
+            failOnCancel: false,
+          });
+        }
       } catch {
-        // Ignore share failures and return to the caller.
+        // Ignore wallpaper/share failures and return to the caller.
       } finally {
         if (!cancelled) {
           onExit();
@@ -604,6 +616,7 @@ export function OutputScreen({
     outputFontSizeMode,
     shareCanvasHeight,
     shareCanvasWidth,
+    shareAction,
     shareRequestId,
   ]);
 

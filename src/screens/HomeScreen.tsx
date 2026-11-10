@@ -95,6 +95,11 @@ export function HomeScreen({ insets }: Props) {
     goToShare('square');
   }, [goToShare]);
 
+  const setAsWallpaper = React.useCallback(() => {
+    setSharePickerVisible(false);
+    goToShare('portrait', 'wallpaper');
+  }, [goToShare]);
+
   const openShareText = React.useCallback(() => {
     setSharePickerVisible(false);
     shareAsText().catch(() => undefined);
@@ -344,6 +349,7 @@ export function HomeScreen({ insets }: Props) {
         onShareAsImageLandscape={openShareImage}
         onShareAsImagePortrait={openShareImagePortrait}
         onShareAsImageSquare={openShareImageSquare}
+        onSetAsWallpaper={setAsWallpaper}
         onShareAsText={openShareText}
         onShareAsQr={openShareQr}
         theme={theme}

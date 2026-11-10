@@ -12,6 +12,7 @@ export type OutputDisplayStyle = PersistedAppOptions['outputDisplayStyle'];
 export type OutputHorizontalAlignment = PersistedAppOptions['outputHorizontalAlignment'];
 export type OutputVerticalAlignment = PersistedAppOptions['outputVerticalAlignment'];
 export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
+export type ShareAction = 'share' | 'wallpaper';
 
 export type Screen = 'home' | 'output' | 'share' | 'qr' | 'history';
 
@@ -21,6 +22,7 @@ type AppState = {
   outputPreviewOptions: PersistedAppOptions | null;
   shareRequestId: number;
   shareImageAspect: ShareImageAspect;
+  shareAction: ShareAction;
   homeTheme: HomeThemeName;
   language: AppLanguage;
   text: string;
@@ -48,7 +50,7 @@ type AppState = {
   setOutputVerticalAlignment: (alignment: OutputVerticalAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
-  goToShare: (shareImageAspect?: ShareImageAspect) => void;
+  goToShare: (shareImageAspect?: ShareImageAspect, shareAction?: ShareAction) => void;
   goToQr: () => void;
   goToHistory: () => void;
   showHistoryEntry: (options: PersistedAppOptions) => void;
@@ -79,6 +81,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   outputPreviewOptions: null,
   shareRequestId: 0,
   shareImageAspect: 'landscape',
+  shareAction: 'share',
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
   language: 'zh-TW',
   text: '',
@@ -117,26 +120,27 @@ export const useAppStore = create<AppState>((set, get) => ({
   setPersistedOptions: options => set(options),
   goToOutput: () => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
-    set({ screen: 'output', outputReturnScreen: 'home', outputPreviewOptions: null });
+    set({ screen: 'output', outputReturnScreen: 'home', outputPreviewOptions: null, shareAction: 'share' });
   },
-  goToShare: (shareImageAspect = 'landscape') => {
+  goToShare: (shareImageAspect = 'landscape', shareAction = 'share') => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
     set(state => ({
       screen: 'share',
       outputReturnScreen: 'home',
       outputPreviewOptions: null,
       shareImageAspect,
+      shareAction,
       shareRequestId: state.shareRequestId + 1,
     }));
   },
   goToQr: () => {
-    set({ screen: 'qr', outputReturnScreen: 'home', outputPreviewOptions: null });
+    set({ screen: 'qr', outputReturnScreen: 'home', outputPreviewOptions: null, shareAction: 'share' });
   },
   goToHistory: () => {
-    set({ screen: 'history', outputPreviewOptions: null });
+    set({ screen: 'history', outputPreviewOptions: null, shareAction: 'share' });
   },
   showHistoryEntry: options => {
-    set({ screen: 'output', outputReturnScreen: 'history', outputPreviewOptions: options });
+    set({ screen: 'output', outputReturnScreen: 'history', outputPreviewOptions: options, shareAction: 'share' });
   },
   applyHistoryEntry: options => {
     set({
@@ -144,7 +148,14 @@ export const useAppStore = create<AppState>((set, get) => ({
       screen: 'home',
       outputReturnScreen: 'home',
       outputPreviewOptions: null,
+      shareAction: 'share',
     });
   },
-  goHome: () => set({ screen: 'home', outputReturnScreen: 'home', outputPreviewOptions: null }),
+  goHome: () =>
+    set({
+      screen: 'home',
+      outputReturnScreen: 'home',
+      outputPreviewOptions: null,
+      shareAction: 'share',
+    }),
 }));

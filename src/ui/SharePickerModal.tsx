@@ -12,6 +12,7 @@ type Props = {
   onShareAsImageLandscape: () => void;
   onShareAsImagePortrait: () => void;
   onShareAsImageSquare: () => void;
+  onSetAsWallpaper: () => void;
   onShareAsText: () => void;
   onShareAsQr: () => void;
   theme: HomeTheme;
@@ -23,6 +24,7 @@ export function SharePickerModal({
   onShareAsImageLandscape,
   onShareAsImagePortrait,
   onShareAsImageSquare,
+  onSetAsWallpaper,
   onShareAsText,
   onShareAsQr,
   theme,
@@ -33,10 +35,19 @@ export function SharePickerModal({
       { key: 'landscape', onPress: onShareAsImageLandscape, label: t('home.shareImageLandscape', undefined, language) },
       { key: 'portrait', onPress: onShareAsImagePortrait, label: t('home.shareImagePortrait', undefined, language) },
       { key: 'square', onPress: onShareAsImageSquare, label: t('home.shareImageSquare', undefined, language) },
+      { key: 'wallpaper', onPress: onSetAsWallpaper, label: t('home.setAsWallpaper', undefined, language) },
       { key: 'text', onPress: onShareAsText, label: t('home.shareText', undefined, language) },
       { key: 'qr', onPress: onShareAsQr, label: t('home.shareQr', undefined, language) },
     ],
-    [language, onShareAsImageLandscape, onShareAsImagePortrait, onShareAsImageSquare, onShareAsQr, onShareAsText],
+    [
+      language,
+      onSetAsWallpaper,
+      onShareAsImageLandscape,
+      onShareAsImagePortrait,
+      onShareAsImageSquare,
+      onShareAsQr,
+      onShareAsText,
+    ],
   );
   const rows = React.useMemo(() => {
     const result: Array<(typeof options)[number][]> = [];

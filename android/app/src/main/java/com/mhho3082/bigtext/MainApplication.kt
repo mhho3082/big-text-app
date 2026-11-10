@@ -18,7 +18,9 @@ class MainApplication : Application(), ReactApplication {
           // add(MyReactNativePackage())
           add(ImmersiveModePackage())
           add(KeepScreenOnPackage())
+          add(ToastPackage())
           add(ShareTextPackage())
+          add(WallpaperPackage())
           add(ScreenOrientationPackage())
         },
     )
