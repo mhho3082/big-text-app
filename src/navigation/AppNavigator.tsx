@@ -19,8 +19,12 @@ export function AppNavigator() {
   const outputFontSize = useAppStore(state => state.outputFontSize);
   const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
   const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
-  const outputHorizontalAlignment = useAppStore(state => state.outputHorizontalAlignment);
-  const outputVerticalAlignment = useAppStore(state => state.outputVerticalAlignment);
+  const outputHorizontalAlignment = useAppStore(
+    state => state.outputHorizontalAlignment,
+  );
+  const outputVerticalAlignment = useAppStore(
+    state => state.outputVerticalAlignment,
+  );
   const outputReturnScreen = useAppStore(state => state.outputReturnScreen);
   const outputPreviewOptions = useAppStore(state => state.outputPreviewOptions);
   const shareRequestId = useAppStore(state => state.shareRequestId);
@@ -89,20 +93,34 @@ export function AppNavigator() {
           mode="display"
           onExit={outputReturnScreen === 'history' ? goToHistory : goHome}
           text={outputPreviewOptions?.text ?? text}
-          foregroundColor={outputPreviewOptions?.foregroundColor ?? foregroundColor}
-          backgroundColor={outputPreviewOptions?.backgroundColor ?? backgroundColor}
-          outputFontFamily={outputPreviewOptions?.outputFontFamily ?? outputFontFamily}
-          outputFontSizeMode={outputPreviewOptions?.outputFontSizeMode ?? outputFontSizeMode}
-          outputFontSize={outputPreviewOptions?.outputFontSize ?? outputFontSize}
-          outputDisplayStyle={outputPreviewOptions?.outputDisplayStyle ?? outputDisplayStyle}
+          foregroundColor={
+            outputPreviewOptions?.foregroundColor ?? foregroundColor
+          }
+          backgroundColor={
+            outputPreviewOptions?.backgroundColor ?? backgroundColor
+          }
+          outputFontFamily={
+            outputPreviewOptions?.outputFontFamily ?? outputFontFamily
+          }
+          outputFontSizeMode={
+            outputPreviewOptions?.outputFontSizeMode ?? outputFontSizeMode
+          }
+          outputFontSize={
+            outputPreviewOptions?.outputFontSize ?? outputFontSize
+          }
+          outputDisplayStyle={
+            outputPreviewOptions?.outputDisplayStyle ?? outputDisplayStyle
+          }
           outputEffectInterval={
             outputPreviewOptions?.outputEffectInterval ?? outputEffectInterval
           }
           outputHorizontalAlignment={
-            outputPreviewOptions?.outputHorizontalAlignment ?? outputHorizontalAlignment
+            outputPreviewOptions?.outputHorizontalAlignment ??
+            outputHorizontalAlignment
           }
           outputVerticalAlignment={
-            outputPreviewOptions?.outputVerticalAlignment ?? outputVerticalAlignment
+            outputPreviewOptions?.outputVerticalAlignment ??
+            outputVerticalAlignment
           }
           shareRequestId={shareRequestId}
           shareImageAspect={shareImageAspect}

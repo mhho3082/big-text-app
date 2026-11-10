@@ -1,16 +1,25 @@
 import { create } from 'zustand';
 import { Appearance } from 'react-native';
 import { defaultOutputFontFamily } from '../fonts';
-import { AppLanguage, nextLanguage, setLanguage as setI18nLanguage } from '../i18n';
+import {
+  AppLanguage,
+  nextLanguage,
+  setLanguage as setI18nLanguage,
+} from '../i18n';
 import { HomeThemeName } from '../theme';
 import { recordDisplayOptions } from '../db/appOptions';
-import { DEFAULT_OUTPUT_EFFECT_INTERVAL, type PersistedAppOptions } from './persistedOptions';
+import {
+  DEFAULT_OUTPUT_EFFECT_INTERVAL,
+  type PersistedAppOptions,
+} from './persistedOptions';
 
 export type { PersistedAppOptions } from './persistedOptions';
 export type OutputFontSizeMode = PersistedAppOptions['outputFontSizeMode'];
 export type OutputDisplayStyle = PersistedAppOptions['outputDisplayStyle'];
-export type OutputHorizontalAlignment = PersistedAppOptions['outputHorizontalAlignment'];
-export type OutputVerticalAlignment = PersistedAppOptions['outputVerticalAlignment'];
+export type OutputHorizontalAlignment =
+  PersistedAppOptions['outputHorizontalAlignment'];
+export type OutputVerticalAlignment =
+  PersistedAppOptions['outputVerticalAlignment'];
 export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
 export type ShareAction = 'share' | 'wallpaper';
 
@@ -50,7 +59,10 @@ type AppState = {
   setOutputVerticalAlignment: (alignment: OutputVerticalAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
-  goToShare: (shareImageAspect?: ShareImageAspect, shareAction?: ShareAction) => void;
+  goToShare: (
+    shareImageAspect?: ShareImageAspect,
+    shareAction?: ShareAction,
+  ) => void;
   goToQr: () => void;
   goToHistory: () => void;
   showHistoryEntry: (options: PersistedAppOptions) => void;
@@ -95,7 +107,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   outputHorizontalAlignment: 'center',
   outputVerticalAlignment: 'center',
   toggleHomeTheme: () =>
-    set(state => ({ homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark' })),
+    set(state => ({
+      homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark',
+    })),
   setLanguage: language =>
     set(() => {
       setI18nLanguage(language);
@@ -114,13 +128,21 @@ export const useAppStore = create<AppState>((set, get) => ({
   setOutputFontSizeMode: outputFontSizeMode => set({ outputFontSizeMode }),
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
   setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
-  setOutputEffectInterval: outputEffectInterval => set({ outputEffectInterval }),
-  setOutputHorizontalAlignment: outputHorizontalAlignment => set({ outputHorizontalAlignment }),
-  setOutputVerticalAlignment: outputVerticalAlignment => set({ outputVerticalAlignment }),
+  setOutputEffectInterval: outputEffectInterval =>
+    set({ outputEffectInterval }),
+  setOutputHorizontalAlignment: outputHorizontalAlignment =>
+    set({ outputHorizontalAlignment }),
+  setOutputVerticalAlignment: outputVerticalAlignment =>
+    set({ outputVerticalAlignment }),
   setPersistedOptions: options => set(options),
   goToOutput: () => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
-    set({ screen: 'output', outputReturnScreen: 'home', outputPreviewOptions: null, shareAction: 'share' });
+    set({
+      screen: 'output',
+      outputReturnScreen: 'home',
+      outputPreviewOptions: null,
+      shareAction: 'share',
+    });
   },
   goToShare: (shareImageAspect = 'landscape', shareAction = 'share') => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
@@ -134,13 +156,27 @@ export const useAppStore = create<AppState>((set, get) => ({
     }));
   },
   goToQr: () => {
-    set({ screen: 'qr', outputReturnScreen: 'home', outputPreviewOptions: null, shareAction: 'share' });
+    set({
+      screen: 'qr',
+      outputReturnScreen: 'home',
+      outputPreviewOptions: null,
+      shareAction: 'share',
+    });
   },
   goToHistory: () => {
-    set({ screen: 'history', outputPreviewOptions: null, shareAction: 'share' });
+    set({
+      screen: 'history',
+      outputPreviewOptions: null,
+      shareAction: 'share',
+    });
   },
   showHistoryEntry: options => {
-    set({ screen: 'output', outputReturnScreen: 'history', outputPreviewOptions: options, shareAction: 'share' });
+    set({
+      screen: 'output',
+      outputReturnScreen: 'history',
+      outputPreviewOptions: options,
+      shareAction: 'share',
+    });
   },
   applyHistoryEntry: options => {
     set({

@@ -2,7 +2,12 @@ import type { AppLanguage } from '../i18n';
 import type { HomeThemeName } from '../theme';
 
 export type OutputFontSizeMode = 'automatic' | 'custom';
-export type OutputDisplayStyle = 'static' | 'strobe' | 'pulse' | 'crossStrobe' | 'crossPulse';
+export type OutputDisplayStyle =
+  | 'static'
+  | 'strobe'
+  | 'pulse'
+  | 'crossStrobe'
+  | 'crossPulse';
 export type OutputHorizontalAlignment = 'left' | 'center' | 'right';
 export type OutputVerticalAlignment = 'top' | 'center' | 'bottom';
 

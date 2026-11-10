@@ -1,5 +1,8 @@
 import { open, type DB } from '@op-engineering/op-sqlite';
-import { persistedAppOptionKeys, type PersistedAppOptions } from '../state/persistedOptions';
+import {
+  persistedAppOptionKeys,
+  type PersistedAppOptions,
+} from '../state/persistedOptions';
 
 type StoredValueRow = {
   value: string | null;
@@ -47,7 +50,9 @@ function splitStatements(sql: string): string[] {
     .filter(statement => statement.length > 0);
 }
 
-function parsePersistedOptionsJson(value: string): Partial<PersistedAppOptions> | null {
+function parsePersistedOptionsJson(
+  value: string,
+): Partial<PersistedAppOptions> | null {
   try {
     const parsed = JSON.parse(value);
 
@@ -99,9 +104,13 @@ async function ensureDb(): Promise<DB> {
   return initPromise;
 }
 
-export async function loadPersistedAppOptions(): Promise<Partial<PersistedAppOptions>> {
+export async function loadPersistedAppOptions(): Promise<
+  Partial<PersistedAppOptions>
+> {
   const database = await ensureDb();
-  const res = await database.execute('SELECT value FROM app_options WHERE id = 1');
+  const res = await database.execute(
+    'SELECT value FROM app_options WHERE id = 1',
+  );
   const row = (res.rows ?? [])[0] as StoredValueRow | undefined;
 
   if (!row?.value) {
@@ -165,7 +174,9 @@ export function resetDatabase(): Promise<void> {
   });
 }
 
-export function savePersistedAppOptions(options: PersistedAppOptions): Promise<void> {
+export function savePersistedAppOptions(
+  options: PersistedAppOptions,
+): Promise<void> {
   return enqueueWrite(async () => {
     const database = await ensureDb();
     await database.execute(
@@ -175,11 +186,15 @@ export function savePersistedAppOptions(options: PersistedAppOptions): Promise<v
   });
 }
 
-export function recordDisplayOptions(options: PersistedAppOptions): Promise<void> {
+export function recordDisplayOptions(
+  options: PersistedAppOptions,
+): Promise<void> {
   return enqueueWrite(async () => {
     const database = await ensureDb();
     const optionsJson = JSON.stringify(options);
-    const res = await database.execute('SELECT id, options_json FROM display_history');
+    const res = await database.execute(
+      'SELECT id, options_json FROM display_history',
+    );
     const rows = (res.rows ?? []) as DisplayHistoryRow[];
 
     for (const row of rows) {
@@ -190,7 +205,9 @@ export function recordDisplayOptions(options: PersistedAppOptions): Promise<void
       const parsed = parsePersistedOptionsJson(row.options_json);
 
       if (parsed?.text === options.text) {
-        await database.execute('DELETE FROM display_history WHERE id = ?', [row.id]);
+        await database.execute('DELETE FROM display_history WHERE id = ?', [
+          row.id,
+        ]);
       }
     }
 

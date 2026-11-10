@@ -1,7 +1,18 @@
 import React from 'react';
-import { BackHandler, Modal, Pressable, StatusBar, Text, View } from 'react-native';
+import {
+  BackHandler,
+  Modal,
+  Pressable,
+  StatusBar,
+  Text,
+  View,
+} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { deleteDisplayHistoryEntry, loadDisplayHistory, resetDatabase } from '../db/appOptions';
+import {
+  deleteDisplayHistoryEntry,
+  loadDisplayHistory,
+  resetDatabase,
+} from '../db/appOptions';
 import { maokenSansFontFamily } from '../fonts';
 import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
@@ -19,12 +30,16 @@ export function HistoryScreen({ insets }: Props) {
   const goHome = useAppStore(state => state.goHome);
   const showHistoryEntry = useAppStore(state => state.showHistoryEntry);
   const applyHistoryEntry = useAppStore(state => state.applyHistoryEntry);
-  const [entries, setEntries] = React.useState([] as Awaited<ReturnType<typeof loadDisplayHistory>>);
+  const [entries, setEntries] = React.useState(
+    [] as Awaited<ReturnType<typeof loadDisplayHistory>>,
+  );
   const [resetModalVisible, setResetModalVisible] = React.useState(false);
   const theme = getHomeTheme(homeThemeName);
-  const statusBarStyle = theme.name === 'dark' ? 'light-content' : 'dark-content';
+  const statusBarStyle =
+    theme.name === 'dark' ? 'light-content' : 'dark-content';
 
-  const translate = (key: string, params?: Record<string, string | number>) => t(key, params, language);
+  const translate = (key: string, params?: Record<string, string | number>) =>
+    t(key, params, language);
 
   const refreshHistory = React.useCallback(async () => {
     const nextEntries = await loadDisplayHistory();
@@ -62,15 +77,18 @@ export function HistoryScreen({ insets }: Props) {
   }, []);
 
   React.useEffect(() => {
-    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (resetModalVisible) {
-        setResetModalVisible(false);
-        return true;
-      }
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        if (resetModalVisible) {
+          setResetModalVisible(false);
+          return true;
+        }
 
-      goHome();
-      return true;
-    });
+        goHome();
+        return true;
+      },
+    );
 
     return () => subscription.remove();
   }, [goHome, resetModalVisible]);
@@ -91,7 +109,10 @@ export function HistoryScreen({ insets }: Props) {
       <View
         style={[
           styles.homeStatusBar,
-          { backgroundColor: theme.screenBackground, borderBottomColor: theme.border },
+          {
+            backgroundColor: theme.screenBackground,
+            borderBottomColor: theme.border,
+          },
         ]}
       >
         <Text
@@ -115,12 +136,17 @@ export function HistoryScreen({ insets }: Props) {
           </Pressable>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.historyList}> 
+      <ScrollView contentContainerStyle={styles.historyList}>
         {entries.length === 0 ? (
-          <Text style={[styles.historyEmptyText, { color: theme.mutedText }]}>{translate('history.empty')}</Text>
+          <Text style={[styles.historyEmptyText, { color: theme.mutedText }]}>
+            {translate('history.empty')}
+          </Text>
         ) : null}
         {entries.map(entry => {
-          const previewText = entry.options.text.length > 40 ? `${entry.options.text.slice(0, 40).trimEnd()}…` : entry.options.text;
+          const previewText =
+            entry.options.text.length > 40
+              ? `${entry.options.text.slice(0, 40).trimEnd()}…`
+              : entry.options.text;
 
           return (
             <View
@@ -162,7 +188,12 @@ export function HistoryScreen({ insets }: Props) {
                     { backgroundColor: theme.historyActionBackground },
                   ]}
                 >
-                  <Text style={[styles.historyActionText, { color: theme.historyActionText }]}>
+                  <Text
+                    style={[
+                      styles.historyActionText,
+                      { color: theme.historyActionText },
+                    ]}
+                  >
                     {translate('history.apply')}
                   </Text>
                 </Pressable>
@@ -173,7 +204,12 @@ export function HistoryScreen({ insets }: Props) {
                     { backgroundColor: theme.historyActionBackground },
                   ]}
                 >
-                  <Text style={[styles.historyActionText, { color: theme.historyActionText }]}>
+                  <Text
+                    style={[
+                      styles.historyActionText,
+                      { color: theme.historyActionText },
+                    ]}
+                  >
                     {translate('history.show')}
                   </Text>
                 </Pressable>
@@ -186,7 +222,12 @@ export function HistoryScreen({ insets }: Props) {
                     { backgroundColor: theme.historyActionBackground },
                   ]}
                 >
-                  <Text style={[styles.historyActionText, { color: theme.historyActionText }]}>
+                  <Text
+                    style={[
+                      styles.historyActionText,
+                      { color: theme.historyActionText },
+                    ]}
+                  >
                     {translate('history.delete')}
                   </Text>
                 </Pressable>
@@ -196,18 +237,34 @@ export function HistoryScreen({ insets }: Props) {
         })}
       </ScrollView>
       <StatusBar barStyle={statusBarStyle} />
-      <Modal transparent visible={resetModalVisible} animationType="fade" onRequestClose={() => setResetModalVisible(false)}>
+      <Modal
+        transparent
+        visible={resetModalVisible}
+        animationType="fade"
+        onRequestClose={() => setResetModalVisible(false)}
+      >
         <Pressable
           style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}
           onPress={() => setResetModalVisible(false)}
         >
-          <Pressable style={[styles.sheet, { backgroundColor: theme.modalSheet }]} onPress={() => {}}>
-            <Text style={[styles.modalTitle, { color: theme.modalText }]}>{translate('history.resetTitle')}</Text>
-            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>{translate('history.resetBody')}</Text>
+          <Pressable
+            style={[styles.sheet, { backgroundColor: theme.modalSheet }]}
+            onPress={() => {}}
+          >
+            <Text style={[styles.modalTitle, { color: theme.modalText }]}>
+              {translate('history.resetTitle')}
+            </Text>
+            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+              {translate('history.resetBody')}
+            </Text>
             <View style={styles.buttonRow}>
               <Pressable
                 onPress={() => setResetModalVisible(false)}
-                style={[styles.button, styles.flexOne, { backgroundColor: theme.buttonSurface }]}
+                style={[
+                  styles.button,
+                  styles.flexOne,
+                  { backgroundColor: theme.buttonSurface },
+                ]}
               >
                 <Text style={[styles.buttonText, { color: theme.buttonText }]}>
                   {translate('history.resetCancel')}
@@ -217,9 +274,15 @@ export function HistoryScreen({ insets }: Props) {
                 onPress={() => {
                   handleResetDatabase();
                 }}
-                style={[styles.button, styles.flexOne, { backgroundColor: theme.buttonChip }]}
+                style={[
+                  styles.button,
+                  styles.flexOne,
+                  { backgroundColor: theme.buttonChip },
+                ]}
               >
-                <Text style={[styles.buttonText, { color: theme.buttonChipText }]}>
+                <Text
+                  style={[styles.buttonText, { color: theme.buttonChipText }]}
+                >
                   {translate('history.resetConfirm')}
                 </Text>
               </Pressable>

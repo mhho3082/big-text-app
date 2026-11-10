@@ -68,7 +68,9 @@ function doesAutomaticFontSizeFit(
     widestLine = Math.max(widestLine, line.width);
   }
 
-  return widestLine <= availableWidth + 0.5 && usedHeight <= availableHeight + 0.5;
+  return (
+    widestLine <= availableWidth + 0.5 && usedHeight <= availableHeight + 0.5
+  );
 }
 
 export type OutputScreenProps = Pick<
@@ -114,24 +116,34 @@ export function OutputScreen({
 }: OutputScreenProps) {
   const language = useAppStore(state => state.language);
   const { width, height } = useWindowDimensions();
-  const [outputLayout, setOutputLayout] = React.useState({ width: 0, height: 0 });
-  const [automaticSearchGeneration, setAutomaticSearchGeneration] = React.useState(0);
+  const [outputLayout, setOutputLayout] = React.useState({
+    width: 0,
+    height: 0,
+  });
+  const [automaticSearchGeneration, setAutomaticSearchGeneration] =
+    React.useState(0);
   const [automaticOutputFontSize, setAutomaticOutputFontSize] = React.useState(
     MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
   );
   const [automaticProbeFontSize, setAutomaticProbeFontSize] = React.useState(
     INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE,
   );
-  const [automaticSearchComplete, setAutomaticSearchComplete] = React.useState(false);
+  const [automaticSearchComplete, setAutomaticSearchComplete] =
+    React.useState(false);
   const lastTapAt = React.useRef(0);
-  const captureRefView = React.useRef<React.ElementRef<typeof View> | null>(null);
+  const captureRefView = React.useRef<React.ElementRef<typeof View> | null>(
+    null,
+  );
   const handledShareRequestIdRef = React.useRef<number | null>(null);
-  const historyUpdateTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const historyUpdateTimeoutRef = React.useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const historyUpdatePendingRef = React.useRef(false);
   const panStartFontSizeRef = React.useRef(outputFontSize);
   const panLastAppliedFontSizeRef = React.useRef(outputFontSize);
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
-  const canAdjustFontSize = mode === 'display' && outputFontSizeMode === 'custom';
+  const canAdjustFontSize =
+    mode === 'display' && outputFontSizeMode === 'custom';
   const automaticSearchRef = React.useRef({
     best: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
     high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
@@ -140,8 +152,10 @@ export function OutputScreen({
 
   const isCrossDisplayStyle =
     outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
-  const isStrobeStyle = outputDisplayStyle === 'strobe' || outputDisplayStyle === 'crossStrobe';
-  const isPulseStyle = outputDisplayStyle === 'pulse' || outputDisplayStyle === 'crossPulse';
+  const isStrobeStyle =
+    outputDisplayStyle === 'strobe' || outputDisplayStyle === 'crossStrobe';
+  const isPulseStyle =
+    outputDisplayStyle === 'pulse' || outputDisplayStyle === 'crossPulse';
   const outputVerticalJustifyContent =
     outputVerticalAlignment === 'top'
       ? 'flex-start'
@@ -215,10 +229,13 @@ export function OutputScreen({
       return;
     }
 
-    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      onExit();
-      return true;
-    });
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        onExit();
+        return true;
+      },
+    );
 
     return () => {
       subscription.remove();
@@ -291,7 +308,9 @@ export function OutputScreen({
             return;
           }
 
-          runPulseCycle(toValue === visibleMixValue ? hiddenMixValue : visibleMixValue);
+          runPulseCycle(
+            toValue === visibleMixValue ? hiddenMixValue : visibleMixValue,
+          );
         });
       };
 
@@ -356,7 +375,9 @@ export function OutputScreen({
       historyUpdateTimeoutRef.current = null;
     }
 
-    recordDisplayOptions(getPersistedOptions(useAppStore.getState())).catch(() => undefined);
+    recordDisplayOptions(getPersistedOptions(useAppStore.getState())).catch(
+      () => undefined,
+    );
   }, []);
 
   const queueHistoryUpdate = React.useCallback(() => {
@@ -405,12 +426,16 @@ export function OutputScreen({
   );
 
   const handleFontSizePanGestureEvent = React.useCallback(
-    (event: { nativeEvent: { translationX: number; translationY: number } }) => {
+    (event: {
+      nativeEvent: { translationX: number; translationY: number };
+    }) => {
       if (!canAdjustFontSize) {
         return;
       }
 
-      const totalSteps = Math.trunc(-event.nativeEvent.translationY / FONT_SIZE_PAN_STEP_PX);
+      const totalSteps = Math.trunc(
+        -event.nativeEvent.translationY / FONT_SIZE_PAN_STEP_PX,
+      );
       const nextFontSize = panStartFontSizeRef.current + totalSteps * 2;
 
       if (nextFontSize === panLastAppliedFontSizeRef.current) {
@@ -425,7 +450,11 @@ export function OutputScreen({
 
   const handleFontSizePanStateChange = React.useCallback(
     (event: {
-      nativeEvent: { state: number; translationX: number; translationY: number };
+      nativeEvent: {
+        state: number;
+        translationX: number;
+        translationY: number;
+      };
     }) => {
       if (!canAdjustFontSize) {
         return;
@@ -485,7 +514,12 @@ export function OutputScreen({
     if (outputFontSizeMode === 'automatic') {
       restartAutomaticSearch();
     }
-  }, [outputFontSizeMode, outputLayout.height, outputLayout.width, restartAutomaticSearch]);
+  }, [
+    outputFontSizeMode,
+    outputLayout.height,
+    outputLayout.width,
+    restartAutomaticSearch,
+  ]);
 
   React.useEffect(() => {
     if (outputFontSizeMode !== 'automatic') {
@@ -512,7 +546,11 @@ export function OutputScreen({
 
       const search = automaticSearchRef.current;
       const currentProbeFontSize = automaticProbeFontSize;
-      const fits = doesAutomaticFontSizeFit(event.nativeEvent.lines, availableWidth, availableHeight);
+      const fits = doesAutomaticFontSizeFit(
+        event.nativeEvent.lines,
+        availableWidth,
+        availableHeight,
+      );
 
       if (fits) {
         search.best = currentProbeFontSize;
@@ -529,7 +567,12 @@ export function OutputScreen({
       setAutomaticOutputFontSize(search.best);
       setAutomaticSearchComplete(true);
     },
-    [availableHeight, availableWidth, automaticProbeFontSize, outputFontSizeMode],
+    [
+      availableHeight,
+      availableWidth,
+      automaticProbeFontSize,
+      outputFontSizeMode,
+    ],
   );
 
   const handlePress = React.useCallback(() => {
@@ -549,7 +592,10 @@ export function OutputScreen({
       return;
     }
 
-    if (shareRequestId == null || handledShareRequestIdRef.current === shareRequestId) {
+    if (
+      shareRequestId == null ||
+      handledShareRequestIdRef.current === shareRequestId
+    ) {
       return;
     }
 
@@ -560,7 +606,7 @@ export function OutputScreen({
     let cancelled = false;
     handledShareRequestIdRef.current = shareRequestId;
 
-  const doShare = async () => {
+    const doShare = async () => {
       const node = captureRefView.current;
 
       if (!node) {
@@ -624,7 +670,11 @@ export function OutputScreen({
   return (
     <View
       pointerEvents={headless ? 'none' : 'auto'}
-      style={[styles.outputScreen, headless && styles.outputHeadlessScreen, { backgroundColor }]}
+      style={[
+        styles.outputScreen,
+        headless && styles.outputHeadlessScreen,
+        { backgroundColor },
+      ]}
     >
       {!headless ? (
         <PanGestureHandler
@@ -634,17 +684,21 @@ export function OutputScreen({
           onGestureEvent={handleFontSizePanGestureEvent}
           onHandlerStateChange={handleFontSizePanStateChange}
         >
-            <View
-              style={[
-                styles.outputScreenPressable,
-                mode === 'share' && styles.outputShareCanvas,
-                mode === 'share' && {
-                  width: shareCanvasWidth,
-                  height: shareCanvasHeight,
-                },
-              ]}
+          <View
+            style={[
+              styles.outputScreenPressable,
+              mode === 'share' && styles.outputShareCanvas,
+              mode === 'share' && {
+                width: shareCanvasWidth,
+                height: shareCanvasHeight,
+              },
+            ]}
+          >
+            <Pressable
+              style={styles.outputFill}
+              onPress={handlePress}
+              onLayout={handleOutputLayout}
             >
-            <Pressable style={styles.outputFill} onPress={handlePress} onLayout={handleOutputLayout}>
               <Animated.View
                 ref={captureRefView}
                 collapsable={false}
@@ -661,7 +715,9 @@ export function OutputScreen({
                   key={outputKey}
                   ellipsizeMode="clip"
                   lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
-                  textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
+                  textBreakStrategy={
+                    OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'
+                  }
                   style={[
                     styles.outputText,
                     {
@@ -671,7 +727,9 @@ export function OutputScreen({
                     {
                       fontFamily: outputFontFamily,
                       fontSize:
-                        outputFontSizeMode === 'automatic' ? automaticOutputFontSize : outputFontSize,
+                        outputFontSizeMode === 'automatic'
+                          ? automaticOutputFontSize
+                          : outputFontSize,
                     },
                   ]}
                 >
@@ -681,14 +739,21 @@ export function OutputScreen({
               {outputFontSizeMode === 'automatic' ? (
                 <View
                   pointerEvents="none"
-                  style={[styles.outputHiddenMeasurementLayer, { padding: outputPadding }]}
+                  style={[
+                    styles.outputHiddenMeasurementLayer,
+                    { padding: outputPadding },
+                  ]}
                 >
                   <Text
                     key={automaticSearchGeneration}
                     ellipsizeMode="clip"
                     onTextLayout={handleAutomaticTextLayout}
-                    lineBreakStrategyIOS={OUTPUT_WORD_BREAK ? 'standard' : 'none'}
-                    textBreakStrategy={OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'}
+                    lineBreakStrategyIOS={
+                      OUTPUT_WORD_BREAK ? 'standard' : 'none'
+                    }
+                    textBreakStrategy={
+                      OUTPUT_WORD_BREAK ? 'highQuality' : 'simple'
+                    }
                     style={[
                       styles.outputText,
                       {
@@ -758,7 +823,10 @@ export function OutputScreen({
           {outputFontSizeMode === 'automatic' ? (
             <View
               pointerEvents="none"
-              style={[styles.outputHiddenMeasurementLayer, { padding: outputPadding }]}
+              style={[
+                styles.outputHiddenMeasurementLayer,
+                { padding: outputPadding },
+              ]}
             >
               <Text
                 key={automaticSearchGeneration}

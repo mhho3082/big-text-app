@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Pressable,
-  Text as RNText,
-  View,
-} from 'react-native';
+import { Pressable, Text as RNText, View } from 'react-native';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
 
@@ -35,7 +31,9 @@ export function ColorButton({ label, color, onPress, theme }: Props) {
           },
         ]}
       />
-      <RNText style={[styles.colorButtonText, { color: theme.buttonText }]}>{label}</RNText>
+      <RNText style={[styles.colorButtonText, { color: theme.buttonText }]}>
+        {label}
+      </RNText>
     </Pressable>
   );
 }

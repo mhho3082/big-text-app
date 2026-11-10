@@ -325,11 +325,14 @@ export const fontOptions: FontOption[] = [
   },
 ];
 
-const maokenSansFontOption = fontOptions.find(option => option.displayName === '貓啃什錦黑');
+const maokenSansFontOption = fontOptions.find(
+  option => option.displayName === '貓啃什錦黑',
+);
 
-export const maokenSansFontFamily = Platform.OS === 'android'
-  ? maokenSansFontOption?.androidFamily ?? maokenSansFontOption?.iosFamily
-  : maokenSansFontOption?.iosFamily ?? maokenSansFontOption?.androidFamily;
+export const maokenSansFontFamily =
+  Platform.OS === 'android'
+    ? maokenSansFontOption?.androidFamily ?? maokenSansFontOption?.iosFamily
+    : maokenSansFontOption?.iosFamily ?? maokenSansFontOption?.androidFamily;
 
 const FONT_CATEGORY_ORDER: FontCategory[] = ['traditionalChinese', 'english'];
 
@@ -342,14 +345,20 @@ export function getFontOptionsByCategory(category: FontCategory) {
     return options;
   }
 
-  const chironFonts = options.filter(option => CHIRON_FONT_NAMES.has(option.displayName));
-  const otherFonts = options.filter(option => !CHIRON_FONT_NAMES.has(option.displayName));
+  const chironFonts = options.filter(option =>
+    CHIRON_FONT_NAMES.has(option.displayName),
+  );
+  const otherFonts = options.filter(
+    option => !CHIRON_FONT_NAMES.has(option.displayName),
+  );
 
   return [...chironFonts, ...otherFonts];
 }
 
 export function getFontCategories() {
-  return FONT_CATEGORY_ORDER.filter(category => fontOptions.some(option => option.category === category));
+  return FONT_CATEGORY_ORDER.filter(category =>
+    fontOptions.some(option => option.category === category),
+  );
 }
 
 export function getFontCategory(fontFamily: string) {

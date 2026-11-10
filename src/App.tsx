@@ -4,7 +4,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './navigation/AppNavigator';
 import { styles } from './styles';
-import { loadPersistedAppOptions, savePersistedAppOptions } from './db/appOptions';
+import {
+  loadPersistedAppOptions,
+  savePersistedAppOptions,
+} from './db/appOptions';
 import { getPersistedOptions, useAppStore } from './state/useAppStore';
 
 function App() {
@@ -25,7 +28,9 @@ function App() {
       useAppStore.setState({ text, screen: 'home' });
     };
 
-    ShareText.getInitialText().then(applySharedText).catch(() => undefined);
+    ShareText.getInitialText()
+      .then(applySharedText)
+      .catch(() => undefined);
 
     const subscription = emitter.addListener('shareTextReceived', text => {
       applySharedText(text as string | null | undefined);
@@ -69,7 +74,9 @@ function App() {
         ...storedOptions,
         text: currentText || storedOptions.text || '',
       });
-      lastSavedJson = JSON.stringify(getPersistedOptions(useAppStore.getState()));
+      lastSavedJson = JSON.stringify(
+        getPersistedOptions(useAppStore.getState()),
+      );
       suppressSave = false;
       savePersistedAppOptions(getPersistedOptions(useAppStore.getState()));
     })();

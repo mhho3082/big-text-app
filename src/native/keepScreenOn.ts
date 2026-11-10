@@ -4,7 +4,9 @@ type KeepScreenOnModule = {
   setEnabled(enabled: boolean): void;
 };
 
-const nativeModule = NativeModules.KeepScreenOn as KeepScreenOnModule | undefined;
+const nativeModule = NativeModules.KeepScreenOn as
+  | KeepScreenOnModule
+  | undefined;
 
 export function setKeepScreenOn(enabled: boolean) {
   if (Platform.OS !== 'android' || nativeModule == null) {

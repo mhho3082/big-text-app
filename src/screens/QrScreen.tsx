@@ -1,5 +1,10 @@
 import React from 'react';
-import { BackHandler, Pressable, useWindowDimensions, View } from 'react-native';
+import {
+  BackHandler,
+  Pressable,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { setImmersiveMode } from '../native/immersiveMode';
 import { setKeepScreenOn } from '../native/keepScreenOn';
@@ -17,10 +22,13 @@ export function QrScreen({ text, onExit }: Props) {
   const qrSize = Math.max(1, Math.floor(Math.min(width, height) * 0.86));
 
   React.useEffect(() => {
-    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      onExit();
-      return true;
-    });
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        onExit();
+        return true;
+      },
+    );
 
     setImmersiveMode(true);
     setKeepScreenOn(true);
@@ -45,7 +53,13 @@ export function QrScreen({ text, onExit }: Props) {
   }, [onExit]);
 
   return (
-    <View style={[styles.qrScreen, styles.qrScreenCenter, { backgroundColor: SURFACE_BLACK }]}> 
+    <View
+      style={[
+        styles.qrScreen,
+        styles.qrScreenCenter,
+        { backgroundColor: SURFACE_BLACK },
+      ]}
+    >
       <Pressable style={styles.qrScreenFill} onPress={handlePress}>
         <View style={styles.qrScreenCenter}>
           <QRCode

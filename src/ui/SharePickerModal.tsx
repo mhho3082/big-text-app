@@ -32,12 +32,36 @@ export function SharePickerModal({
   const language = useAppStore(state => state.language);
   const options = React.useMemo(
     () => [
-      { key: 'landscape', onPress: onShareAsImageLandscape, label: t('home.shareImageLandscape', undefined, language) },
-      { key: 'portrait', onPress: onShareAsImagePortrait, label: t('home.shareImagePortrait', undefined, language) },
-      { key: 'square', onPress: onShareAsImageSquare, label: t('home.shareImageSquare', undefined, language) },
-      { key: 'wallpaper', onPress: onSetAsWallpaper, label: t('home.setAsWallpaper', undefined, language) },
-      { key: 'text', onPress: onShareAsText, label: t('home.shareText', undefined, language) },
-      { key: 'qr', onPress: onShareAsQr, label: t('home.shareQr', undefined, language) },
+      {
+        key: 'landscape',
+        onPress: onShareAsImageLandscape,
+        label: t('home.shareImageLandscape', undefined, language),
+      },
+      {
+        key: 'portrait',
+        onPress: onShareAsImagePortrait,
+        label: t('home.shareImagePortrait', undefined, language),
+      },
+      {
+        key: 'square',
+        onPress: onShareAsImageSquare,
+        label: t('home.shareImageSquare', undefined, language),
+      },
+      {
+        key: 'wallpaper',
+        onPress: onSetAsWallpaper,
+        label: t('home.setAsWallpaper', undefined, language),
+      },
+      {
+        key: 'text',
+        onPress: onShareAsText,
+        label: t('home.shareText', undefined, language),
+      },
+      {
+        key: 'qr',
+        onPress: onShareAsQr,
+        label: t('home.shareQr', undefined, language),
+      },
     ],
     [
       language,
@@ -60,21 +84,41 @@ export function SharePickerModal({
   }, [options]);
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
       {visible ? (
-        <Pressable style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]} onPress={onClose}>
-          <Pressable style={[styles.sheet, { backgroundColor: theme.modalSheet }]} onPress={() => {}}>
+        <Pressable
+          style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}
+          onPress={onClose}
+        >
+          <Pressable
+            style={[styles.sheet, { backgroundColor: theme.modalSheet }]}
+            onPress={() => {}}
+          >
             <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('home.share', undefined, language)}</Text>
-              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
+              <Text style={[styles.modalTitle, { color: theme.modalText }]}>
+                {t('home.share', undefined, language)}
+              </Text>
+              <Pressable
+                onPress={onClose}
+                aria-label={t('modal.close', undefined, language)}
+              >
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.shareOptionList}>
               {rows.map((row, rowIndex) => (
-                <View key={`share-row-${rowIndex}`} style={styles.shareOptionRow}>
+                <View
+                  key={`share-row-${rowIndex}`}
+                  style={styles.shareOptionRow}
+                >
                   {row.map(option => {
-                    const isOddLastOption = rows.length === rowIndex + 1 && row.length === 1;
+                    const isOddLastOption =
+                      rows.length === rowIndex + 1 && row.length === 1;
 
                     return (
                       <Pressable
@@ -90,7 +134,12 @@ export function SharePickerModal({
                           pressed && styles.shareOptionButtonPressed,
                         ]}
                       >
-                        <Text style={[styles.shareOptionButtonText, { color: theme.modalText }]}> 
+                        <Text
+                          style={[
+                            styles.shareOptionButtonText,
+                            { color: theme.modalText },
+                          ]}
+                        >
                           {option.label}
                         </Text>
                       </Pressable>

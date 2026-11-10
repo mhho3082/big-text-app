@@ -1,8 +1,19 @@
 import React from 'react';
-import { FlatList, Modal, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import {
+  FlatList,
+  Modal,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import { t } from '../i18n';
-import { getFontCategories, getFontOptionsByCategory, getFontFamily } from '../fonts';
+import {
+  getFontCategories,
+  getFontOptionsByCategory,
+  getFontFamily,
+} from '../fonts';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
@@ -16,7 +27,13 @@ type Props = {
   theme: HomeTheme;
 };
 
-export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontChange, theme }: Props) {
+export function FontPickerModal({
+  visible,
+  selectedFontFamily,
+  onClose,
+  onFontChange,
+  theme,
+}: Props) {
   const language = useAppStore(state => state.language);
   const layout = useWindowDimensions();
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -38,20 +55,27 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
 
   const fontOptionsByCategory = React.useMemo(
     () =>
-      Object.fromEntries(fontCategories.map(category => [category, getFontOptionsByCategory(category)])) as Record<
-        string,
-        ReturnType<typeof getFontOptionsByCategory>
-      >,
+      Object.fromEntries(
+        fontCategories.map(category => [
+          category,
+          getFontOptionsByCategory(category),
+        ]),
+      ) as Record<string, ReturnType<typeof getFontOptionsByCategory>>,
     [fontCategories],
   );
 
-  const renderFontList = (options: ReturnType<typeof getFontOptionsByCategory>) => {
+  const renderFontList = (
+    options: ReturnType<typeof getFontOptionsByCategory>,
+  ) => {
     const lastRowHasSingleItem = options.length % fontColumns === 1;
 
     return (
       <FlatList
         key={`font-grid-${fontColumns}`}
-        contentContainerStyle={[styles.fontListContent, styles.fontListContentExpanded]}
+        contentContainerStyle={[
+          styles.fontListContent,
+          styles.fontListContentExpanded,
+        ]}
         data={options}
         numColumns={fontColumns}
         columnWrapperStyle={styles.fontChoiceColumnWrapper}
@@ -59,7 +83,8 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
         renderItem={({ item: option, index }) => {
           const family = getFontFamily(option);
           const selected = family === selectedFontFamily;
-          const isOddLastOption = lastRowHasSingleItem && index === options.length - 1;
+          const isOddLastOption =
+            lastRowHasSingleItem && index === options.length - 1;
 
           return (
             <Pressable
@@ -95,7 +120,7 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
                 {option.remarkKey ? (
                   <Text
                     style={[
-                    styles.fontChoiceCredit,
+                      styles.fontChoiceCredit,
                       styles.fontChoiceCreditEmphasis,
                       {
                         color: theme.modalMutedText,
@@ -106,18 +131,32 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
                   </Text>
                 ) : null}
                 {option.credit ? (
-                  <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>{option.credit}</Text>
+                  <Text
+                    style={[
+                      styles.fontChoiceCredit,
+                      { color: theme.modalMutedText },
+                    ]}
+                  >
+                    {option.credit}
+                  </Text>
                 ) : null}
-                <Text style={[styles.fontChoiceCredit, { color: theme.modalMutedText }]}>
+                <Text
+                  style={[
+                    styles.fontChoiceCredit,
+                    { color: theme.modalMutedText },
+                  ]}
+                >
                   {t(option.licenseKey, undefined, language)}
                 </Text>
               </View>
             </Pressable>
-            );
-          }}
+          );
+        }}
         ListFooterComponent={
           <View style={styles.fontListFooter}>
-            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>{t('fontPicker.note', undefined, language)}</Text>
+            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+              {t('fontPicker.note', undefined, language)}
+            </Text>
           </View>
         }
         showsVerticalScrollIndicator={false}
@@ -126,13 +165,31 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
   };
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
       {visible ? (
-        <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
-          <View style={[styles.sheet, styles.sheetTall, { backgroundColor: theme.modalSheet }]}>
+        <View
+          style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}
+        >
+          <View
+            style={[
+              styles.sheet,
+              styles.sheetTall,
+              { backgroundColor: theme.modalSheet },
+            ]}
+          >
             <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontPicker.title', undefined, language)}</Text>
-              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
+              <Text style={[styles.modalTitle, { color: theme.modalText }]}>
+                {t('fontPicker.title', undefined, language)}
+              </Text>
+              <Pressable
+                onPress={onClose}
+                aria-label={t('modal.close', undefined, language)}
+              >
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
@@ -149,7 +206,10 @@ export function FontPickerModal({ visible, selectedFontFamily, onClose, onFontCh
                 renderTabBar={props => (
                   <TabBar
                     {...props}
-                    indicatorStyle={[styles.fontTabIndicator, { backgroundColor: theme.modalSelectedCardBorder }]}
+                    indicatorStyle={[
+                      styles.fontTabIndicator,
+                      { backgroundColor: theme.modalSelectedCardBorder },
+                    ]}
                     style={[
                       styles.fontTabBar,
                       {

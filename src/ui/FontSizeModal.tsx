@@ -21,18 +21,41 @@ const MIN_FONT_SIZE = 8;
 const MAX_FONT_SIZE = 1024;
 const FONT_SIZE_STEP = 2;
 
-export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, onFontSizeChange, theme }: Props) {
+export function FontSizeModal({
+  visible,
+  mode,
+  fontSize,
+  onClose,
+  onModeChange,
+  onFontSizeChange,
+  theme,
+}: Props) {
   const language = useAppStore(state => state.language);
-  const displaySize = Math.min(MAX_FONT_SIZE, Math.max(MIN_FONT_SIZE, fontSize));
+  const displaySize = Math.min(
+    MAX_FONT_SIZE,
+    Math.max(MIN_FONT_SIZE, fontSize),
+  );
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
       {visible ? (
-        <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
+        <View
+          style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}
+        >
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: theme.modalText }]}>{t('fontSize.title', undefined, language)}</Text>
-              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
+              <Text style={[styles.modalTitle, { color: theme.modalText }]}>
+                {t('fontSize.title', undefined, language)}
+              </Text>
+              <Pressable
+                onPress={onClose}
+                aria-label={t('modal.close', undefined, language)}
+              >
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
@@ -53,7 +76,14 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
                   pressed && styles.fontSizeModeButtonPressed,
                 ]}
               >
-                <Text style={[styles.fontSizeModeButtonText, { color: theme.modalText }]}>{t('fontSize.automatic', undefined, language)}</Text>
+                <Text
+                  style={[
+                    styles.fontSizeModeButtonText,
+                    { color: theme.modalText },
+                  ]}
+                >
+                  {t('fontSize.automatic', undefined, language)}
+                </Text>
               </Pressable>
               <Pressable
                 onPress={() => onModeChange('custom')}
@@ -71,7 +101,14 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
                   pressed && styles.fontSizeModeButtonPressed,
                 ]}
               >
-                <Text style={[styles.fontSizeModeButtonText, { color: theme.modalText }]}>{t('fontSize.custom', undefined, language)}</Text>
+                <Text
+                  style={[
+                    styles.fontSizeModeButtonText,
+                    { color: theme.modalText },
+                  ]}
+                >
+                  {t('fontSize.custom', undefined, language)}
+                </Text>
               </Pressable>
             </View>
             {mode === 'automatic' ? (
@@ -82,8 +119,16 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
             {mode === 'custom' ? (
               <View style={styles.fontSizeSliderBlock}>
                 <View style={styles.fontSizeValueRow}>
-                  <Text style={[styles.fontSizeLabel, { color: theme.modalText }]}>{t('fontSize.size', undefined, language)}</Text>
-                  <Text style={[styles.fontSizeValue, { color: theme.modalText }]}>{displaySize}</Text>
+                  <Text
+                    style={[styles.fontSizeLabel, { color: theme.modalText }]}
+                  >
+                    {t('fontSize.size', undefined, language)}
+                  </Text>
+                  <Text
+                    style={[styles.fontSizeValue, { color: theme.modalText }]}
+                  >
+                    {displaySize}
+                  </Text>
                 </View>
                 <Slider
                   minimumValue={MIN_FONT_SIZE}
@@ -96,7 +141,9 @@ export function FontSizeModal({ visible, mode, fontSize, onClose, onModeChange, 
                   onValueChange={value => onFontSizeChange(Math.round(value))}
                   style={styles.fontSizeSlider}
                 />
-                <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+                <Text
+                  style={[styles.modalBody, { color: theme.modalMutedText }]}
+                >
                   {t('fontSize.customNote', undefined, language)}
                 </Text>
               </View>

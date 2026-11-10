@@ -34,7 +34,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.wallpaperSet': 'Wallpaper set',
     'home.shareText': 'Share as text',
     'home.shareQr': 'Share as QR code',
-    'home.shareNote': 'If the system share prompt does not appear after you tap Share, tap Display and try again.',
+    'home.shareNote':
+      'If the system share prompt does not appear after you tap Share, tap Display and try again.',
     'home.displayStyle.label': 'Effect',
     'home.displayStyle.static': 'Static',
     'home.displayStyle.strobe': 'Strobe',
@@ -56,7 +57,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.alignment.bottomRight': 'Bottom right',
     'home.showText': 'Display',
     'home.exitHint': 'Notes: double-tap to exit the display screen',
-    'home.credits': 'Made by Max Ho (mhho3082). Thanks to Lucide Icons for icon assets.',
+    'home.credits':
+      'Made by Max Ho (mhho3082). Thanks to Lucide Icons for icon assets.',
     'history.empty': 'No history yet',
     'history.apply': 'Apply',
     'history.show': 'Show',
@@ -69,7 +71,8 @@ const locales: Record<AppLanguage, Locale> = {
     'history.resetConfirm': 'Reset',
     'history.resetCancel': 'Cancel',
     'fontPicker.title': 'Output font',
-    'fontPicker.note': 'If a character does not render in one font, especially a rare Chinese character, please try other fonts as well.',
+    'fontPicker.note':
+      'If a character does not render in one font, especially a rare Chinese character, please try other fonts as well.',
     'fontRemark.heavy': 'Heavy',
     'fontRemark.tcVersion': 'TC Version',
     'fontCategory.english': 'English',
@@ -108,7 +111,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.wallpaperSet': '桌布已設定',
     'home.shareText': '分享為文字',
     'home.shareQr': '分享為 QR code',
-    'home.shareNote': '如果點選分享後沒有跳出系統分享視窗，請點選「顯示」後再試一次。',
+    'home.shareNote':
+      '如果點選分享後沒有跳出系統分享視窗，請點選「顯示」後再試一次。',
     'home.displayStyle.label': '效果',
     'home.displayStyle.static': '靜態',
     'home.displayStyle.strobe': '閃爍',
@@ -130,7 +134,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.alignment.bottomRight': '右下',
     'home.showText': '顯示',
     'home.exitHint': '注意：在顯示畫面上雙擊即可退出',
-    'home.credits': '由 Max Ho（mhho3082）製作。感謝 Lucide Icons 提供圖標資源。',
+    'home.credits':
+      '由 Max Ho（mhho3082）製作。感謝 Lucide Icons 提供圖標資源。',
     'history.empty': '尚無歷史記錄',
     'history.apply': '套用',
     'history.show': '顯示',
@@ -142,7 +147,8 @@ const locales: Record<AppLanguage, Locale> = {
     'history.resetConfirm': '刪除',
     'history.resetCancel': '取消',
     'fontPicker.title': '輸出字體',
-    'fontPicker.note': '若某個字型無法顯示某些字元，尤其是生僻字，建議亦可再試用其他字型。',
+    'fontPicker.note':
+      '若某個字型無法顯示某些字元，尤其是生僻字，建議亦可再試用其他字型。',
     'fontRemark.heavy': '粗體',
     'fontRemark.tcVersion': '繁體中文版',
     'fontCategory.english': '英文',
@@ -180,7 +186,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.wallpaperSet': '壁纸已设置',
     'home.shareText': '分享为文字',
     'home.shareQr': '分享为二维码',
-    'home.shareNote': '如果点击分享后没有弹出系统分享窗口，请点「显示」后再试一次。',
+    'home.shareNote':
+      '如果点击分享后没有弹出系统分享窗口，请点「显示」后再试一次。',
     'home.displayStyle.label': '效果',
     'home.displayStyle.static': '静态',
     'home.displayStyle.strobe': '闪烁',
@@ -199,7 +206,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.alignment.bottomRight': '右下',
     'home.showText': '显示',
     'home.exitHint': '注意：在显示画面上双击即可退出',
-    'home.credits': '由 Max Ho（mhho3082）制作。感谢 Lucide Icons 提供图标资源。',
+    'home.credits':
+      '由 Max Ho（mhho3082）制作。感谢 Lucide Icons 提供图标资源。',
     'history.empty': '暂无历史记录',
     'history.apply': '应用',
     'history.show': '显示',
@@ -211,7 +219,8 @@ const locales: Record<AppLanguage, Locale> = {
     'history.resetConfirm': '删除',
     'history.resetCancel': '取消',
     'fontPicker.title': '输出字体',
-    'fontPicker.note': '如某个字体无法显示某些字符，尤其是生僻字，建议也试试其他字体。',
+    'fontPicker.note':
+      '如某个字体无法显示某些字符，尤其是生僻字，建议也试试其他字体。',
     'fontRemark.heavy': '粗体',
     'fontRemark.tcVersion': '繁体中文版',
     'fontCategory.english': '英文',

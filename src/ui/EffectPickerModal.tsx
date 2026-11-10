@@ -1,8 +1,17 @@
 import React from 'react';
-import { Modal, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import {
+  Modal,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import Slider from '@react-native-community/slider';
 import { t } from '../i18n';
-import { DEFAULT_OUTPUT_EFFECT_INTERVAL, type OutputDisplayStyle } from '../state/persistedOptions';
+import {
+  DEFAULT_OUTPUT_EFFECT_INTERVAL,
+  type OutputDisplayStyle,
+} from '../state/persistedOptions';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { BRAND_ACCENT, HomeTheme } from '../theme';
@@ -60,21 +69,34 @@ export function EffectPickerModal({
   }, [effectColumns]);
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
       {visible ? (
-        <View style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}>
+        <View
+          style={[styles.backdrop, { backgroundColor: theme.modalBackdrop }]}
+        >
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>
                 {t('effectPicker.title', undefined, language)}
               </Text>
-              <Pressable onPress={onClose} aria-label={t('modal.close', undefined, language)}>
+              <Pressable
+                onPress={onClose}
+                aria-label={t('modal.close', undefined, language)}
+              >
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
             <View style={styles.effectOptionList}>
               {effectRows.map((row, rowIndex) => (
-                <View key={`effect-row-${rowIndex}`} style={styles.effectOptionRow}>
+                <View
+                  key={`effect-row-${rowIndex}`}
+                  style={styles.effectOptionRow}
+                >
                   {row.map(style => {
                     const selected = style === selectedStyle;
                     const isOddLastOption =
@@ -99,7 +121,12 @@ export function EffectPickerModal({
                           pressed && styles.effectOptionButtonPressed,
                         ]}
                       >
-                        <Text style={[styles.effectOptionButtonText, { color: theme.modalText }]}>
+                        <Text
+                          style={[
+                            styles.effectOptionButtonText,
+                            { color: theme.modalText },
+                          ]}
+                        >
                           {t(`home.displayStyle.${style}`, undefined, language)}
                         </Text>
                       </Pressable>
@@ -111,10 +138,14 @@ export function EffectPickerModal({
             {selectedStyle !== 'static' ? (
               <View style={styles.fontSizeSliderBlock}>
                 <View style={styles.fontSizeValueRow}>
-                  <Text style={[styles.fontSizeLabel, { color: theme.modalText }]}>
+                  <Text
+                    style={[styles.fontSizeLabel, { color: theme.modalText }]}
+                  >
                     {t('effectPicker.interval', undefined, language)}
                   </Text>
-                  <Text style={[styles.fontSizeValue, { color: theme.modalText }]}>
+                  <Text
+                    style={[styles.fontSizeValue, { color: theme.modalText }]}
+                  >
                     {displayInterval.toFixed(1)}s
                   </Text>
                 </View>
@@ -126,10 +157,14 @@ export function EffectPickerModal({
                   minimumTrackTintColor={BRAND_ACCENT}
                   maximumTrackTintColor={theme.modalSliderTrack}
                   thumbTintColor={theme.modalSliderThumb}
-                  onValueChange={value => onIntervalChange(Math.round(value * 10) / 10)}
+                  onValueChange={value =>
+                    onIntervalChange(Math.round(value * 10) / 10)
+                  }
                   style={styles.fontSizeSlider}
                 />
-                <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
+                <Text
+                  style={[styles.modalBody, { color: theme.modalMutedText }]}
+                >
                   {t('effectPicker.intervalNote', undefined, language)}
                 </Text>
               </View>

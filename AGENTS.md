@@ -2,6 +2,7 @@
 
 - Prefer the smallest correct change, unless the user asks for refactoring or restructuring.
 - Keep edits focused and avoid unnecessary abstractions.
+- Run `npm run lint` for linting, and `npm run format` for formatting.
 - Use bare `react-native` primitives, instead of Expo ones.
 - There are shared components and styles. Search for and prefer them if they exist, over creating your own, unless necessary.
 - Do not run Android Studio or its emulator/simulator.

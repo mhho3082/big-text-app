@@ -84,5 +84,3 @@ npm test
 - `npm start`：啟動 Metro。
 - `npm run android`：建置後在 Android 開啟應用程式。
 - `npm run android:physical`：安裝到已接駁的實體 Android 裝置。
-- `npm run lint`：執行 ESLint。
-- `npm test`：執行 Jest。

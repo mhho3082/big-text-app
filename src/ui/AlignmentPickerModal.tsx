@@ -8,7 +8,19 @@ import {
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
-import { ArrowDown, ArrowDownLeft, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUp, ArrowUpLeft, ArrowUpRight, LucideProps, Margin, X } from 'lucide-react-native';
+import {
+  ArrowDown,
+  ArrowDownLeft,
+  ArrowDownRight,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  ArrowUpLeft,
+  ArrowUpRight,
+  LucideProps,
+  Margin,
+  X,
+} from 'lucide-react-native';
 
 type Props = {
   visible: boolean;
@@ -152,7 +164,11 @@ export function AlignmentPickerModal({
       ]}
       aria-label={t(labelKey, undefined, language)}
     >
-      <AlignmentPickerIcon horizontal={horizontal} vertical={vertical} color={theme.modalText} />
+      <AlignmentPickerIcon
+        horizontal={horizontal}
+        vertical={vertical}
+        color={theme.modalText}
+      />
     </Pressable>
   );
 

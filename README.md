@@ -85,5 +85,3 @@ npm test
 - `npm start` starts Metro.
 - `npm run android` builds and launches the app on Android.
 - `npm run android:physical` launches to a connected physical Android device.
-- `npm run lint` runs ESLint.
-- `npm test` runs Jest.

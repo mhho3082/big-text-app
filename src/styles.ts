@@ -1,5 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { BRAND_ACCENT, QUATERNARY_TEXT, STATE_DANGER, STATE_SUCCESS, SURFACE_BLACK, SURFACE_WHITE } from './theme';
+import {
+  BRAND_ACCENT,
+  QUATERNARY_TEXT,
+  STATE_DANGER,
+  STATE_SUCCESS,
+  SURFACE_BLACK,
+  SURFACE_WHITE,
+} from './theme';
 
 export const styles = StyleSheet.create({
   root: {
