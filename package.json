@@ -6,9 +6,9 @@
     "android": "react-native run-android",
     "android:physical": "node run-android-physical-only.js",
     "ios": "react-native run-ios",
-    "lint": "eslint .",
+    "lint": "eslint . && echo Lint done.",
     "start": "react-native start",
-    "format": "prettier --write ."
+    "format": "prettier --write . >/dev/null && echo Format done."
   },
   "dependencies": {
     "@op-engineering/op-sqlite": "^19.0.4",

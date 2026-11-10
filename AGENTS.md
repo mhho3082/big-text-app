@@ -11,4 +11,5 @@
 - Some features are Android-only as iOS support is yet to be developed.
 - Run `npx react-native-asset` after changing bundled font assets so iOS and Android asset links stay in sync.
 - The user might use TC to mean Traditional Chinese, and SC to mean Simplified Chinese. This is a custom in Hong Kong English, and carries no specific meaning.
+- When doing translations, be careful to write each language's version as if written by native speakers of that language, eg nuance, sentence structure, and vocabulary, instead of clearly translated from English.
 - The app icon is rendered with `./scripts/generate-app-icon.sh`.

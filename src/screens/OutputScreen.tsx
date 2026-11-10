@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import Share from 'react-native-share';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
 import { recordDisplayOptions } from '../db/appOptions';
 import { styles } from '../styles';
 import { setImmersiveMode } from '../native/immersiveMode';
@@ -132,7 +132,7 @@ export function OutputScreen({
   const [automaticSearchComplete, setAutomaticSearchComplete] =
     React.useState(false);
   const lastTapAt = React.useRef(0);
-  const captureRefView = React.useRef<React.ElementRef<typeof View> | null>(
+  const captureRefView = React.useRef<React.ComponentRef<typeof View> | null>(
     null,
   );
   const handledShareRequestIdRef = React.useRef<number | null>(null);
@@ -436,16 +436,26 @@ export function OutputScreen({
     [canAdjustFontSize, outputFontSize, queueHistoryUpdate, setOutputFontSize],
   );
 
-  const handleFontSizePanGestureEvent = React.useCallback(
-    (event: {
-      nativeEvent: { translationX: number; translationY: number };
-    }) => {
+  const fontSizePanGesture = usePanGesture({
+    runOnJS: true,
+    enabled: canAdjustFontSize,
+    activeOffsetX: [-12, 12],
+    activeOffsetY: [-12, 12],
+    onBegin: () => {
+      if (!canAdjustFontSize) {
+        return;
+      }
+
+      panStartFontSizeRef.current = outputFontSize;
+      panLastAppliedFontSizeRef.current = outputFontSize;
+    },
+    onUpdate: event => {
       if (!canAdjustFontSize) {
         return;
       }
 
       const totalSteps = Math.trunc(
-        -event.nativeEvent.translationY / FONT_SIZE_PAN_STEP_PX,
+        -event.translationY / FONT_SIZE_PAN_STEP_PX,
       );
       const nextFontSize = panStartFontSizeRef.current + totalSteps * 2;
 
@@ -456,37 +466,14 @@ export function OutputScreen({
       panLastAppliedFontSizeRef.current = nextFontSize;
       applyCustomFontSize(nextFontSize);
     },
-    [applyCustomFontSize, canAdjustFontSize],
-  );
-
-  const handleFontSizePanStateChange = React.useCallback(
-    (event: {
-      nativeEvent: {
-        state: number;
-        translationX: number;
-        translationY: number;
-      };
-    }) => {
+    onFinalize: () => {
       if (!canAdjustFontSize) {
         return;
       }
 
-      if (event.nativeEvent.state === State.BEGAN) {
-        panStartFontSizeRef.current = outputFontSize;
-        panLastAppliedFontSizeRef.current = outputFontSize;
-        return;
-      }
-
-      if (
-        event.nativeEvent.state === State.END ||
-        event.nativeEvent.state === State.CANCELLED ||
-        event.nativeEvent.state === State.FAILED
-      ) {
-        flushPendingHistoryUpdate();
-      }
+      flushPendingHistoryUpdate();
     },
-    [canAdjustFontSize, flushPendingHistoryUpdate, outputFontSize],
-  );
+  });
 
   const outputPadding = Math.max(
     32,
@@ -690,13 +677,7 @@ export function OutputScreen({
       ]}
     >
       {!headless ? (
-        <PanGestureHandler
-          enabled={canAdjustFontSize}
-          activeOffsetX={[-12, 12]}
-          activeOffsetY={[-12, 12]}
-          onGestureEvent={handleFontSizePanGestureEvent}
-          onHandlerStateChange={handleFontSizePanStateChange}
-        >
+        <GestureDetector gesture={fontSizePanGesture}>
           <View
             style={[
               styles.outputScreenPressable,
@@ -785,7 +766,7 @@ export function OutputScreen({
               ) : null}
             </Pressable>
           </View>
-        </PanGestureHandler>
+        </GestureDetector>
       ) : (
         <View
           style={[

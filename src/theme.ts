@@ -2,6 +2,7 @@ export const BRAND_ACCENT = '#6750a4';
 export const STATE_SUCCESS = '#2ecc71';
 export const STATE_DANGER = '#e74c3c';
 export const SURFACE_WHITE = '#ffffff';
+export const SURFACE_BLACK = '#000000';
 export const QUATERNARY_TEXT = 'rgba(255,255,255,0.18)';
 
 export type HomeThemeName = 'light' | 'dark';
