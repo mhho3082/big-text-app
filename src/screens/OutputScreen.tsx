@@ -3,6 +3,7 @@ import {
   Animated,
   BackHandler,
   Easing,
+  PixelRatio,
   Pressable,
   Text,
   useWindowDimensions,
@@ -211,6 +212,16 @@ export function OutputScreen({
 
     return shortSide;
   }, [height, shareImageAspect, width]);
+
+  const shareCaptureWidth = React.useMemo(
+    () => Math.round(shareCanvasWidth * PixelRatio.get()),
+    [shareCanvasWidth],
+  );
+
+  const shareCaptureHeight = React.useMemo(
+    () => Math.round(shareCanvasHeight * PixelRatio.get()),
+    [shareCanvasHeight],
+  );
 
   const restartAutomaticSearch = React.useCallback(() => {
     automaticSearchRef.current = {
@@ -617,8 +628,8 @@ export function OutputScreen({
         const uri = await captureRef(node as never, {
           format: 'png',
           quality: 1,
-          width: shareCanvasWidth,
-          height: shareCanvasHeight,
+          width: shareCaptureWidth,
+          height: shareCaptureHeight,
         });
 
         if (cancelled) {
@@ -663,6 +674,8 @@ export function OutputScreen({
     outputFontSizeMode,
     shareCanvasHeight,
     shareCanvasWidth,
+    shareCaptureHeight,
+    shareCaptureWidth,
     shareAction,
     shareRequestId,
   ]);
