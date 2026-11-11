@@ -290,8 +290,8 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     left: -10000,
     top: 0,
-    width: 1,
-    height: 1,
+    width: '100%',
+    height: '100%',
     opacity: 0,
   },
   outputScreenPressable: {

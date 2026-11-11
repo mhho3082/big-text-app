@@ -148,9 +148,6 @@ export function SharePickerModal({
                 </View>
               ))}
             </View>
-            <Text style={[styles.modalBody, { color: theme.modalMutedText }]}>
-              {t('home.shareNote', undefined, language)}
-            </Text>
           </Pressable>
         </Pressable>
       ) : null}

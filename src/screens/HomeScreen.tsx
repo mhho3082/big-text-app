@@ -467,6 +467,7 @@ export function HomeScreen({
       />
       <View pointerEvents="none" style={styles.hiddenShareHost}>
         <OutputScreen
+          key={shareRequestId ?? 'idle'}
           insets={{ top: 0, right: 0, bottom: 0, left: 0 }}
           mode="share"
           headless

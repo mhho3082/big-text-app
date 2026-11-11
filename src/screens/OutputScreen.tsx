@@ -601,6 +601,19 @@ export function OutputScreen({
     let cancelled = false;
     handledShareRequestIdRef.current = shareRequestId;
 
+    const waitForReady = () => {
+      if (cancelled) {
+        return;
+      }
+
+      if (outputFontSizeMode === 'automatic' && !automaticSearchComplete) {
+        requestAnimationFrame(waitForReady);
+        return;
+      }
+
+      doShare().catch(() => undefined);
+    };
+
     const doShare = async () => {
       const node = captureRefView.current;
 
@@ -641,9 +654,7 @@ export function OutputScreen({
     };
 
     const frame = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        doShare().catch(() => undefined);
-      });
+      requestAnimationFrame(waitForReady);
     });
 
     return () => {
