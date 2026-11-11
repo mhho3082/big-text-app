@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Big Text</string>
+    <string name="widget_label">Display</string>
 </resources>

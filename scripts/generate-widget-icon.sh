@@ -11,6 +11,8 @@ render() {
   local size="$1"
   local output="$2"
 
+  mkdir -p "$(dirname "$output")"
+
   inkscape "$input_svg" \
     --export-type=png \
     --export-width="$size" \
@@ -20,5 +22,5 @@ render() {
 }
 
 render 256 assets/widget-icon-256.png
-render 512 assets/widget-icon-512.png
-render 1024 assets/widget-icon-1024.png
+render 512 android/app/src/main/res/drawable-nodpi/widget_icon_512.png
+render 1024 android/app/src/main/res/drawable-nodpi/widget_icon_1024.png
