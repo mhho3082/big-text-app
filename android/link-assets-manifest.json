@@ -94,28 +94,32 @@
       "sha1": "daba459015ac34b95fd96fb674e4352e6b203401"
     },
     {
-      "path": "assets/fonts/tc/ChironGoRoundTC-400R.otf",
-      "sha1": "f94eaa0daf68245d7fe98e8598d310ec8f747d14"
-    },
-    {
-      "path": "assets/fonts/tc/ChironHeiHK-R.otf",
-      "sha1": "e2af469fc8415927b405b9fcba6fc6a13012e70d"
-    },
-    {
-      "path": "assets/fonts/tc/ChironSungHK-R.otf",
-      "sha1": "85ac221a5d39cec9fe2c1592c1ac40151d924053"
-    },
-    {
       "path": "assets/fonts/tc/Cubic_11.ttf",
       "sha1": "7165607a9ddcb9b0ebf339acd29a8daccadb1d04"
     },
     {
-      "path": "assets/fonts/tc/GenRyuMin2TC-H.otf",
-      "sha1": "0e6353972baedd55a12512f9e2b1e564484b888c"
+      "path": "assets/fonts/tc/GenKiGothic2TW-H.otf",
+      "sha1": "f993845a50989c5782af841ef7e46970b8527739"
     },
     {
-      "path": "assets/fonts/tc/GenYoGothic2TC-H.otf",
-      "sha1": "3c156acadcbbda9c28ee15b275bbaa487f70d403"
+      "path": "assets/fonts/tc/GenKiGothic2TW-R.otf",
+      "sha1": "3ece6fa9e10e36195df7e463970babde93a3a13c"
+    },
+    {
+      "path": "assets/fonts/tc/GenKiMin2TW-H.otf",
+      "sha1": "e3de54b6c2cbde92551ffde7e56fdbeca6f570fa"
+    },
+    {
+      "path": "assets/fonts/tc/GenKiMin2TW-R.otf",
+      "sha1": "51a3c8f7bf1c03d3a3eee7d490109be352bc0265"
+    },
+    {
+      "path": "assets/fonts/tc/GenSenRounded2TW-H.otf",
+      "sha1": "6723d7002ff795c0fd8ec5cf6cce3bd99e973d96"
+    },
+    {
+      "path": "assets/fonts/tc/GenSenRounded2TW-R.otf",
+      "sha1": "4652ec38021c4482efc438bc4763d5b0693d2c17"
     },
     {
       "path": "assets/fonts/tc/Iansui-Regular.ttf",
@@ -128,10 +132,6 @@
     {
       "path": "assets/fonts/tc/MaokenAssortedSans.otf",
       "sha1": "2907027104622452308e396634bc00e893c97a95"
-    },
-    {
-      "path": "assets/fonts/tc/NaikaiFont-Regular.ttf",
-      "sha1": "dd2f12aaf93d458f5231d91be9835bd3369fa1ea"
     },
     {
       "path": "assets/fonts/tc/PopGothicCjkTc-Regular.ttf",

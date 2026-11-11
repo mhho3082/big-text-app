@@ -97,13 +97,8 @@
 		<string>Lora-Regular.ttf</string>
 		<string>AtkinsonHyperlegible-Regular.ttf</string>
 		<string>PlaywriteUSTrad-Regular.ttf</string>
-		<string>ChironGoRoundTC-400R.otf</string>
 		<string>MaokenAssortedSans.otf</string>
-		<string>GenRyuMin2TC-H.otf</string>
-		<string>ChironHeiHK-R.otf</string>
-		<string>ChironSungHK-R.otf</string>
 		<string>MantouSans-Regular.ttf</string>
-		<string>NaikaiFont-Regular.ttf</string>
 		<string>Iansui-Regular.ttf</string>
 		<string>ChildFunSansTC.ttf</string>
 		<string>Cubic_11.ttf</string>
@@ -111,7 +106,12 @@
 		<string>PopGothicCjkTc-Regular.ttf</string>
 		<string>WD-XLLubrifontTC-Regular.otf</string>
 		<string>Tiejili-Regular.otf</string>
-		<string>GenYoGothic2TC-H.otf</string>
+		<string>GenKiMin2TW-R.otf</string>
+		<string>GenKiMin2TW-H.otf</string>
+		<string>GenSenRounded2TW-H.otf</string>
+		<string>GenSenRounded2TW-R.otf</string>
+		<string>GenKiGothic2TW-H.otf</string>
+		<string>GenKiGothic2TW-R.otf</string>
 	</array>
 </dict>
 </plist>

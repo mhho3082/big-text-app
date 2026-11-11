@@ -186,7 +186,7 @@ const locales: Record<AppLanguage, Locale> = {
     'home.shareImagePortrait': '分享為直向',
     'home.shareImageSquare': '分享為正方形',
     'home.setAsWallpaper': '設為桌布',
-    'home.wallpaperSet': '桌布已設定',
+    'home.wallpaperSet': '桌布設定好了',
     'home.shareText': '分享為純文字',
     'home.shareQr': '顯示為 QR code',
     'home.shareNote':
@@ -261,7 +261,7 @@ const locales: Record<AppLanguage, Locale> = {
     'home.shareImagePortrait': '分享为竖向',
     'home.shareImageSquare': '分享为正方形',
     'home.setAsWallpaper': '设为壁纸',
-    'home.wallpaperSet': '壁纸已设置',
+    'home.wallpaperSet': '壁纸设置好了',
     'home.shareText': '分享为纯文字',
     'home.shareQr': '显示为二维码',
     'home.shareNote':
