@@ -11,6 +11,6 @@
         android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:scaleType="centerInside"
-        android:src="@drawable/widget_icon" />
+        android:src="@drawable/widget_icon_512" />
 
 </FrameLayout>

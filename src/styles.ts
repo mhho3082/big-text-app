@@ -286,6 +286,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  hiddenShareHost: {
+    position: 'absolute',
+    left: -10000,
+    top: 0,
+    width: 1,
+    height: 1,
+    opacity: 0,
+  },
   outputScreenPressable: {
     flex: 1,
   },

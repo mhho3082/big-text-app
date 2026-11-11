@@ -19,17 +19,14 @@ import { setKeepScreenOn } from '../native/keepScreenOn';
 import { setSensorRotationEnabled } from '../native/screenOrientation';
 import { showToast } from '../native/toast';
 import { setWallpaper } from '../native/wallpaper';
-import {
-  getPersistedOptions,
-  type ShareImageAspect,
-  type ShareAction,
-  useAppStore,
-} from '../state/useAppStore';
+import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import { t } from '../i18n';
-import {
-  DEFAULT_OUTPUT_EFFECT_INTERVAL,
-  type PersistedAppOptions,
+import type {
+  PersistedAppOptions,
+  ShareImageAspect,
+  ShareAction,
 } from '../state/persistedOptions';
+import { DEFAULT_OUTPUT_EFFECT_INTERVAL } from '../state/persistedOptions';
 
 const OUTPUT_WORD_BREAK = false;
 

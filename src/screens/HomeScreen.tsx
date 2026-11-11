@@ -9,6 +9,7 @@ import {
 } from '../fonts';
 import { LANGUAGE_BUTTON_LABELS, t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
+import { OutputScreen } from './OutputScreen';
 import { ColorButton } from '../ui/ColorButton';
 import { ColorPickerModal } from '../ui/ColorPickerModal';
 import {
@@ -30,12 +31,26 @@ import {
   TrianglesCenterlineDashedVertical,
   Type,
 } from 'lucide-react-native';
+import type { ShareAction } from '../state/persistedOptions';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
+  onOpenHistory: () => void;
+  onOpenOutput: () => void;
+  onOpenQr: () => void;
+  onOpenShare: (
+    shareImageAspect: 'landscape' | 'portrait' | 'square',
+    shareAction?: ShareAction,
+  ) => void;
 };
 
-export function HomeScreen({ insets }: Props) {
+export function HomeScreen({
+  insets,
+  onOpenHistory,
+  onOpenOutput,
+  onOpenQr,
+  onOpenShare,
+}: Props) {
   const homeThemeName = useAppStore(state => state.homeTheme);
   const language = useAppStore(state => state.language);
   const text = useAppStore(state => state.text);
@@ -74,10 +89,9 @@ export function HomeScreen({ insets }: Props) {
   );
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
-  const goToHistory = useAppStore(state => state.goToHistory);
-  const goToOutput = useAppStore(state => state.goToOutput);
-  const goToQr = useAppStore(state => state.goToQr);
-  const goToShare = useAppStore(state => state.goToShare);
+  const shareRequestId = useAppStore(state => state.shareRequestId);
+  const shareImageAspect = useAppStore(state => state.shareImageAspect);
+  const shareAction = useAppStore(state => state.shareAction);
   const [foregroundPickerVisible, setForegroundPickerVisible] =
     React.useState(false);
   const [backgroundPickerVisible, setBackgroundPickerVisible] =
@@ -108,23 +122,23 @@ export function HomeScreen({ insets }: Props) {
 
   const openShareImage = React.useCallback(() => {
     setSharePickerVisible(false);
-    goToShare('landscape');
-  }, [goToShare]);
+    onOpenShare('landscape');
+  }, [onOpenShare]);
 
   const openShareImagePortrait = React.useCallback(() => {
     setSharePickerVisible(false);
-    goToShare('portrait');
-  }, [goToShare]);
+    onOpenShare('portrait');
+  }, [onOpenShare]);
 
   const openShareImageSquare = React.useCallback(() => {
     setSharePickerVisible(false);
-    goToShare('square');
-  }, [goToShare]);
+    onOpenShare('square');
+  }, [onOpenShare]);
 
   const setAsWallpaper = React.useCallback(() => {
     setSharePickerVisible(false);
-    goToShare('portrait', 'wallpaper');
-  }, [goToShare]);
+    onOpenShare('portrait', 'wallpaper');
+  }, [onOpenShare]);
 
   const openShareText = React.useCallback(() => {
     setSharePickerVisible(false);
@@ -133,8 +147,8 @@ export function HomeScreen({ insets }: Props) {
 
   const openShareQr = React.useCallback(() => {
     setSharePickerVisible(false);
-    goToQr();
-  }, [goToQr]);
+    onOpenQr();
+  }, [onOpenQr]);
 
   return (
     <View
@@ -203,7 +217,7 @@ export function HomeScreen({ insets }: Props) {
             )}
           </Pressable>
           <Pressable
-            onPress={goToHistory}
+            onPress={onOpenHistory}
             aria-label={translate('home.history')}
           >
             <RotateCcwClock color={theme.buttonText} />
@@ -352,7 +366,7 @@ export function HomeScreen({ insets }: Props) {
           <View style={styles.buttonRow}>
             <Pressable
               disabled={!canShowText}
-              onPress={goToOutput}
+              onPress={onOpenOutput}
               style={[
                 styles.button,
                 styles.buttonHalf,
@@ -451,6 +465,27 @@ export function HomeScreen({ insets }: Props) {
         onShareAsQr={openShareQr}
         theme={theme}
       />
+      <View pointerEvents="none" style={styles.hiddenShareHost}>
+        <OutputScreen
+          insets={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          mode="share"
+          headless
+          onExit={() => undefined}
+          text={text}
+          foregroundColor={foregroundColor}
+          backgroundColor={backgroundColor}
+          outputFontFamily={outputFontFamily}
+          outputFontSizeMode={outputFontSizeMode}
+          outputFontSize={outputFontSize}
+          outputDisplayStyle={outputDisplayStyle}
+          outputEffectInterval={outputEffectInterval}
+          outputHorizontalAlignment={outputHorizontalAlignment}
+          outputVerticalAlignment={outputVerticalAlignment}
+          shareRequestId={shareRequestId}
+          shareImageAspect={shareImageAspect}
+          shareAction={shareAction}
+        />
+      </View>
     </View>
   );
 }

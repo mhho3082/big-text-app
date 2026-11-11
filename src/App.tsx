@@ -1,5 +1,6 @@
 import React from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
+import { enableScreens } from 'react-native-screens';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppNavigator } from './navigation/AppNavigator';
@@ -9,6 +10,16 @@ import {
   savePersistedAppOptions,
 } from './db/appOptions';
 import { getPersistedOptions, useAppStore } from './state/useAppStore';
+
+enableScreens();
+
+function applyIncomingText(text: string | null | undefined) {
+  if (typeof text !== 'string' || text.length === 0) {
+    return;
+  }
+
+  useAppStore.setState({ text });
+}
 
 function App() {
   React.useEffect(() => {
@@ -20,20 +31,12 @@ function App() {
 
     const emitter = new NativeEventEmitter(ShareText);
 
-    const applySharedText = (text: string | null | undefined) => {
-      if (typeof text !== 'string' || text.length === 0) {
-        return;
-      }
-
-      useAppStore.setState({ text, screen: 'home' });
-    };
-
     ShareText.getInitialText()
-      .then(applySharedText)
+      .then(applyIncomingText)
       .catch(() => undefined);
 
     const subscription = emitter.addListener('shareTextReceived', text => {
-      applySharedText(text as string | null | undefined);
+      applyIncomingText(text as string | null | undefined);
     });
 
     return () => {

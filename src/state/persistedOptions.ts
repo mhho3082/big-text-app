@@ -10,6 +10,8 @@ export type OutputDisplayStyle =
   | 'crossPulse';
 export type OutputHorizontalAlignment = 'left' | 'center' | 'right';
 export type OutputVerticalAlignment = 'top' | 'center' | 'bottom';
+export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
+export type ShareAction = 'share' | 'wallpaper';
 
 export const DEFAULT_OUTPUT_EFFECT_INTERVAL = 1;
 

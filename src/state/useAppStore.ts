@@ -23,14 +23,13 @@ export type OutputVerticalAlignment =
   PersistedAppOptions['outputVerticalAlignment'];
 export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
 export type ShareAction = 'share' | 'wallpaper';
-
 export type Screen = 'home' | 'output' | 'share' | 'qr' | 'history';
 
 type AppState = {
   screen: Screen;
   outputReturnScreen: Exclude<Screen, 'output' | 'share' | 'qr'>;
   outputPreviewOptions: PersistedAppOptions | null;
-  shareRequestId: number;
+  shareRequestId: number | null;
   shareImageAspect: ShareImageAspect;
   shareAction: ShareAction;
   homeTheme: HomeThemeName;
@@ -92,7 +91,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   screen: 'home',
   outputReturnScreen: 'home',
   outputPreviewOptions: null,
-  shareRequestId: 0,
+  shareRequestId: null,
   shareImageAspect: 'landscape',
   shareAction: 'share',
   homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
@@ -153,7 +152,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       outputPreviewOptions: null,
       shareImageAspect,
       shareAction,
-      shareRequestId: state.shareRequestId + 1,
+      shareRequestId:
+        state.shareRequestId == null ? 1 : state.shareRequestId + 1,
     }));
   },
   goToQr: () => {

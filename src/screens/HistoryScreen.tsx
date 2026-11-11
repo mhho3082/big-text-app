@@ -22,14 +22,23 @@ import { TrashOff, X } from 'lucide-react-native';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
+  onClose: () => void;
+  onShowEntry: (
+    options: Awaited<ReturnType<typeof loadDisplayHistory>>[number]['options'],
+  ) => void;
+  onApplyEntry: (
+    options: Awaited<ReturnType<typeof loadDisplayHistory>>[number]['options'],
+  ) => void;
 };
 
-export function HistoryScreen({ insets }: Props) {
+export function HistoryScreen({
+  insets,
+  onClose,
+  onShowEntry,
+  onApplyEntry,
+}: Props) {
   const homeThemeName = useAppStore(state => state.homeTheme);
   const language = useAppStore(state => state.language);
-  const goHome = useAppStore(state => state.goHome);
-  const showHistoryEntry = useAppStore(state => state.showHistoryEntry);
-  const applyHistoryEntry = useAppStore(state => state.applyHistoryEntry);
   const [entries, setEntries] = React.useState(
     [] as Awaited<ReturnType<typeof loadDisplayHistory>>,
   );
@@ -85,13 +94,13 @@ export function HistoryScreen({ insets }: Props) {
           return true;
         }
 
-        goHome();
+        onClose();
         return true;
       },
     );
 
     return () => subscription.remove();
-  }, [goHome, resetModalVisible]);
+  }, [onClose, resetModalVisible]);
 
   return (
     <View
@@ -131,7 +140,7 @@ export function HistoryScreen({ insets }: Props) {
           >
             <TrashOff color={theme.buttonChip} />
           </Pressable>
-          <Pressable onPress={goHome} aria-label={translate('history.close')}>
+          <Pressable onPress={onClose} aria-label={translate('history.close')}>
             <X color={theme.buttonChip} />
           </Pressable>
         </View>
@@ -182,7 +191,7 @@ export function HistoryScreen({ insets }: Props) {
               </View>
               <View style={styles.historyActions}>
                 <Pressable
-                  onPress={() => applyHistoryEntry(entry.options)}
+                  onPress={() => onApplyEntry(entry.options)}
                   style={[
                     styles.historyActionButton,
                     { backgroundColor: theme.historyActionBackground },
@@ -198,7 +207,7 @@ export function HistoryScreen({ insets }: Props) {
                   </Text>
                 </Pressable>
                 <Pressable
-                  onPress={() => showHistoryEntry(entry.options)}
+                  onPress={() => onShowEntry(entry.options)}
                   style={[
                     styles.historyActionButton,
                     { backgroundColor: theme.historyActionBackground },

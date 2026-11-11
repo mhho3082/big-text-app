@@ -1,16 +1,87 @@
 import React from 'react';
 import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  type NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppStore } from '../state/useAppStore';
+import type {
+  PersistedAppOptions,
+  ShareAction,
+} from '../state/persistedOptions';
+import { HistoryScreen } from '../screens/HistoryScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
 import { QrScreen } from '../screens/QrScreen';
-import { HistoryScreen } from '../screens/HistoryScreen';
 import { styles } from '../styles';
 
-export function AppNavigator() {
-  const safeAreaInsets = useSafeAreaInsets();
-  const screen = useAppStore(state => state.screen);
+type RootStackParamList = {
+  Home: undefined;
+  History: undefined;
+  Output:
+    | {
+        options?: PersistedAppOptions;
+        returnTo?: 'home' | 'history';
+      }
+    | undefined;
+  Qr:
+    | {
+        text?: string;
+        returnTo?: 'home' | 'history';
+      }
+    | undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function HomeRoute({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'Home'>) {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <HomeScreen
+      insets={insets}
+      onOpenHistory={() => navigation.navigate('History')}
+      onOpenOutput={() => navigation.navigate('Output')}
+      onOpenQr={() => navigation.navigate('Qr')}
+      onOpenShare={(
+        shareImageAspect: 'landscape' | 'portrait' | 'square',
+        shareAction?: ShareAction,
+      ) => {
+        useAppStore.getState().goToShare(shareImageAspect, shareAction);
+      }}
+    />
+  );
+}
+
+function HistoryRoute({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'History'>) {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <HistoryScreen
+      insets={insets}
+      onClose={() => navigation.goBack()}
+      onShowEntry={options =>
+        navigation.navigate('Output', { options, returnTo: 'history' })
+      }
+      onApplyEntry={options => {
+        useAppStore.getState().applyHistoryEntry(options);
+        navigation.navigate('Home');
+      }}
+    />
+  );
+}
+
+function OutputRoute({
+  navigation,
+  route,
+}: NativeStackScreenProps<RootStackParamList, 'Output'>) {
+  const insets = useSafeAreaInsets();
   const text = useAppStore(state => state.text);
   const foregroundColor = useAppStore(state => state.foregroundColor);
   const backgroundColor = useAppStore(state => state.backgroundColor);
@@ -25,108 +96,82 @@ export function AppNavigator() {
   const outputVerticalAlignment = useAppStore(
     state => state.outputVerticalAlignment,
   );
-  const outputReturnScreen = useAppStore(state => state.outputReturnScreen);
-  const outputPreviewOptions = useAppStore(state => state.outputPreviewOptions);
-  const shareRequestId = useAppStore(state => state.shareRequestId);
-  const shareImageAspect = useAppStore(state => state.shareImageAspect);
-  const shareAction = useAppStore(state => state.shareAction);
-  const goHome = useAppStore(state => state.goHome);
-  const goToHistory = useAppStore(state => state.goToHistory);
-
-  if (screen === 'share') {
-    const options = outputPreviewOptions ?? {
-      text,
-      foregroundColor,
-      backgroundColor,
-      outputFontFamily,
-      outputFontSizeMode,
-      outputFontSize,
-      outputDisplayStyle,
-      outputEffectInterval,
-      outputHorizontalAlignment,
-      outputVerticalAlignment,
-    };
-
-    return (
-      <View style={styles.container}>
-        <HomeScreen insets={safeAreaInsets} />
-        <OutputScreen
-          insets={safeAreaInsets}
-          mode="share"
-          headless
-          onExit={goHome}
-          text={options.text}
-          foregroundColor={options.foregroundColor}
-          backgroundColor={options.backgroundColor}
-          outputFontFamily={options.outputFontFamily}
-          outputFontSizeMode={options.outputFontSizeMode}
-          outputFontSize={options.outputFontSize}
-          outputDisplayStyle={options.outputDisplayStyle}
-          outputEffectInterval={options.outputEffectInterval}
-          outputHorizontalAlignment={options.outputHorizontalAlignment}
-          outputVerticalAlignment={options.outputVerticalAlignment}
-          shareRequestId={shareRequestId}
-          shareImageAspect={shareImageAspect}
-          shareAction={shareAction}
-        />
-      </View>
-    );
-  }
-
-  if (screen === 'qr') {
-    return (
-      <View style={styles.container}>
-        <QrScreen text={outputPreviewOptions?.text ?? text} onExit={goHome} />
-      </View>
-    );
-  }
+  const options = route.params?.options ?? {
+    text,
+    foregroundColor,
+    backgroundColor,
+    outputFontFamily,
+    outputFontSizeMode,
+    outputFontSize,
+    outputDisplayStyle,
+    outputEffectInterval,
+    outputHorizontalAlignment,
+    outputVerticalAlignment,
+  };
+  const returnTo = route.params?.returnTo ?? 'home';
 
   return (
     <View style={styles.container}>
-      {screen === 'home' ? (
-        <HomeScreen insets={safeAreaInsets} />
-      ) : screen === 'history' ? (
-        <HistoryScreen insets={safeAreaInsets} />
-      ) : (
-        <OutputScreen
-          insets={safeAreaInsets}
-          mode="display"
-          onExit={outputReturnScreen === 'history' ? goToHistory : goHome}
-          text={outputPreviewOptions?.text ?? text}
-          foregroundColor={
-            outputPreviewOptions?.foregroundColor ?? foregroundColor
+      <OutputScreen
+        insets={insets}
+        mode="display"
+        onExit={() => {
+          if (returnTo === 'history') {
+            navigation.goBack();
+            return;
           }
-          backgroundColor={
-            outputPreviewOptions?.backgroundColor ?? backgroundColor
-          }
-          outputFontFamily={
-            outputPreviewOptions?.outputFontFamily ?? outputFontFamily
-          }
-          outputFontSizeMode={
-            outputPreviewOptions?.outputFontSizeMode ?? outputFontSizeMode
-          }
-          outputFontSize={
-            outputPreviewOptions?.outputFontSize ?? outputFontSize
-          }
-          outputDisplayStyle={
-            outputPreviewOptions?.outputDisplayStyle ?? outputDisplayStyle
-          }
-          outputEffectInterval={
-            outputPreviewOptions?.outputEffectInterval ?? outputEffectInterval
-          }
-          outputHorizontalAlignment={
-            outputPreviewOptions?.outputHorizontalAlignment ??
-            outputHorizontalAlignment
-          }
-          outputVerticalAlignment={
-            outputPreviewOptions?.outputVerticalAlignment ??
-            outputVerticalAlignment
-          }
-          shareRequestId={shareRequestId}
-          shareImageAspect={shareImageAspect}
-          shareAction={shareAction}
-        />
-      )}
+
+          navigation.popToTop();
+        }}
+        text={options.text}
+        foregroundColor={options.foregroundColor}
+        backgroundColor={options.backgroundColor}
+        outputFontFamily={options.outputFontFamily}
+        outputFontSizeMode={options.outputFontSizeMode}
+        outputFontSize={options.outputFontSize}
+        outputDisplayStyle={options.outputDisplayStyle}
+        outputEffectInterval={options.outputEffectInterval}
+        outputHorizontalAlignment={options.outputHorizontalAlignment}
+        outputVerticalAlignment={options.outputVerticalAlignment}
+      />
     </View>
+  );
+}
+
+function QrRoute({
+  navigation,
+  route,
+}: NativeStackScreenProps<RootStackParamList, 'Qr'>) {
+  const storedText = useAppStore(state => state.text);
+  const text = route.params?.text ?? storedText;
+  const returnTo = route.params?.returnTo ?? 'home';
+
+  return (
+    <View style={styles.container}>
+      <QrScreen
+        text={text}
+        onExit={() => {
+          if (returnTo === 'history') {
+            navigation.goBack();
+            return;
+          }
+
+          navigation.popToTop();
+        }}
+      />
+    </View>
+  );
+}
+
+export function AppNavigator() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={HomeRoute} />
+        <Stack.Screen name="History" component={HistoryRoute} />
+        <Stack.Screen name="Output" component={OutputRoute} />
+        <Stack.Screen name="Qr" component={QrRoute} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
