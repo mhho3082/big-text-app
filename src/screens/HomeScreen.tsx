@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ShareAction } from '../types/output';
+import { t } from '../i18n';
 import { WidgetSettingsScreen } from './WidgetSettingsScreen';
 import { useAppStore } from '../state/useAppStore';
 
@@ -47,7 +48,7 @@ export function HomeScreen({
     <WidgetSettingsScreen
       homeMode
       insets={insets}
-      title="Big Text"
+      title={t('app.title', undefined, language)}
       options={{
         homeTheme,
         language,

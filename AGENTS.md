@@ -19,3 +19,5 @@
   - SC, 简体, 简: Simplified Chinese
 - When doing translations, be careful to write each language's version as if written by native speakers of that language, eg nuance, sentence structure, and vocabulary. Avoid making text feel clearly translated from English.
 - The app and widget icons are both generated from SVGs, and the generation scripts are at `./scripts`.
+- Keep `specs.md` updated when behavior changes in a way that affects what the app should do.
+- Before or alongside future feature or behavior changes, update `specs.md` if the intended user-facing behavior changes or needs clarification.

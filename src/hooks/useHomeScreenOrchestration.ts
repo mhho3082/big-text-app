@@ -14,6 +14,7 @@ type ActivePicker =
 
 type UseHomeScreenOrchestrationParams = {
   text: string;
+  shareTitle: string;
   onOpenQr: () => void;
   onOpenShare: (
     shareImageAspect: 'landscape' | 'portrait' | 'square',
@@ -23,6 +24,7 @@ type UseHomeScreenOrchestrationParams = {
 
 export function useHomeScreenOrchestration({
   text,
+  shareTitle,
   onOpenQr,
   onOpenShare,
 }: UseHomeScreenOrchestrationParams) {
@@ -35,14 +37,14 @@ export function useHomeScreenOrchestration({
   const shareAsText = React.useCallback(async () => {
     try {
       await Share.open({
-        title: 'Big Text',
+        title: shareTitle,
         message: text,
         failOnCancel: false,
       });
     } catch {
       // Ignore share failures and return to the caller.
     }
-  }, [text]);
+  }, [shareTitle, text]);
 
   const openShareImage = React.useCallback(() => {
     closePicker();

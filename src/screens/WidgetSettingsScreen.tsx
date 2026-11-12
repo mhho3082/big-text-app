@@ -185,6 +185,7 @@ export function WidgetSettingsScreen({
     setAsWallpaper,
   } = useHomeScreenOrchestration({
     text,
+    shareTitle: translate('app.title'),
     onOpenQr: openQr,
     onOpenShare: openShare,
   });

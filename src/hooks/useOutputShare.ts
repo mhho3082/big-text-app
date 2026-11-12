@@ -106,7 +106,7 @@ export function useOutputShare({
           showToast(t('home.wallpaperSet', undefined, language));
         } else {
           await Share.open({
-            title: 'Big Text',
+            title: t('app.title', undefined, language),
             url: uri,
             type: 'image/png',
             failOnCancel: false,

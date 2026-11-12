@@ -102,6 +102,7 @@ function HomeRoute({
       />
       {shareRequestId != null ? (
         <OutputScreen
+          key={shareRequestId}
           insets={insets}
           mode="share"
           headless
