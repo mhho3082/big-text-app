@@ -1,28 +1,30 @@
 import { create } from 'zustand';
 import { Appearance } from 'react-native';
 import { defaultOutputFontFamily } from '../fonts';
-import {
-  AppLanguage,
-  detectSystemLanguage,
-  nextLanguage,
-  setLanguage as setI18nLanguage,
-} from '../i18n';
+import { AppLanguage, detectSystemLanguage, nextLanguage } from '../i18n';
 import { HomeThemeName } from '../theme';
-import { recordDisplayOptions } from '../db/appOptions';
 import {
   DEFAULT_OUTPUT_EFFECT_INTERVAL,
   type PersistedAppOptions,
 } from './persistedOptions';
+import type {
+  OutputDisplayStyle,
+  OutputFontSizeMode,
+  OutputHorizontalAlignment,
+  OutputVerticalAlignment,
+  ShareAction,
+  ShareImageAspect,
+} from '../types/output';
 
 export type { PersistedAppOptions } from './persistedOptions';
-export type OutputFontSizeMode = PersistedAppOptions['outputFontSizeMode'];
-export type OutputDisplayStyle = PersistedAppOptions['outputDisplayStyle'];
-export type OutputHorizontalAlignment =
-  PersistedAppOptions['outputHorizontalAlignment'];
-export type OutputVerticalAlignment =
-  PersistedAppOptions['outputVerticalAlignment'];
-export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
-export type ShareAction = 'share' | 'wallpaper';
+export type {
+  OutputDisplayStyle,
+  OutputFontSizeMode,
+  OutputHorizontalAlignment,
+  OutputVerticalAlignment,
+  ShareAction,
+  ShareImageAspect,
+} from '../types/output';
 
 type AppState = {
   shareRequestId: number | null;
@@ -84,7 +86,7 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
   };
 }
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>(set => ({
   shareRequestId: null,
   shareImageAspect: 'landscape',
   shareAction: 'share',
@@ -104,17 +106,9 @@ export const useAppStore = create<AppState>((set, get) => ({
     set(state => ({
       homeTheme: state.homeTheme === 'dark' ? 'light' : 'dark',
     })),
-  setLanguage: language =>
-    set(() => {
-      setI18nLanguage(language);
-      return { language };
-    }),
+  setLanguage: language => set({ language }),
   cycleLanguage: () =>
-    set(state => {
-      const language = nextLanguage(state.language);
-      setI18nLanguage(language);
-      return { language };
-    }),
+    set(state => ({ language: nextLanguage(state.language) })),
   setText: text => set({ text }),
   setForegroundColor: foregroundColor => set({ foregroundColor }),
   setBackgroundColor: backgroundColor => set({ backgroundColor }),
@@ -129,10 +123,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setOutputVerticalAlignment: outputVerticalAlignment =>
     set({ outputVerticalAlignment }),
   setPersistedOptions: options => set(options),
-  goToOutput: () => {
-    recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
-    set({ shareRequestId: null, shareAction: 'share' });
-  },
+  goToOutput: () => set({ shareRequestId: null, shareAction: 'share' }),
   goToShare: (shareImageAspect = 'landscape', shareAction = 'share') => {
     set(state => ({
       shareImageAspect,

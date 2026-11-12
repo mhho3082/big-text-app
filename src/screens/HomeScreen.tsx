@@ -1,7 +1,6 @@
 import React from 'react';
 import { Pressable, StatusBar, Text, TextInput, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Share from 'react-native-share';
 import {
   defaultOutputFontFamily,
   getFontDisplayName,
@@ -31,17 +30,8 @@ import {
   TrianglesCenterlineDashedVertical,
   Type,
 } from 'lucide-react-native';
-import type { ShareAction } from '../state/persistedOptions';
-
-type ActivePicker =
-  | 'foreground'
-  | 'background'
-  | 'font'
-  | 'fontSize'
-  | 'effect'
-  | 'alignment'
-  | 'share'
-  | null;
+import type { ShareAction } from '../types/output';
+import { useHomeScreenOrchestration } from '../hooks/useHomeScreenOrchestration';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
@@ -102,57 +92,21 @@ export function HomeScreen({
   const shareRequestId = useAppStore(state => state.shareRequestId);
   const shareImageAspect = useAppStore(state => state.shareImageAspect);
   const shareAction = useAppStore(state => state.shareAction);
-  const [activePicker, setActivePicker] = React.useState<ActivePicker>(null);
   const canShowText = (text ?? '').trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) =>
     t(key, params, language);
-
-  const closePicker = React.useCallback(() => {
-    setActivePicker(null);
-  }, []);
-
-  const shareAsText = React.useCallback(async () => {
-    try {
-      await Share.open({
-        title: 'Big Text',
-        message: text,
-        failOnCancel: false,
-      });
-    } catch {
-      // Ignore share failures and return to the caller.
-    }
-  }, [text]);
-
-  const openShareImage = React.useCallback(() => {
-    closePicker();
-    onOpenShare('landscape');
-  }, [closePicker, onOpenShare]);
-
-  const openShareImagePortrait = React.useCallback(() => {
-    closePicker();
-    onOpenShare('portrait');
-  }, [closePicker, onOpenShare]);
-
-  const openShareImageSquare = React.useCallback(() => {
-    closePicker();
-    onOpenShare('square');
-  }, [closePicker, onOpenShare]);
-
-  const setAsWallpaper = React.useCallback(() => {
-    closePicker();
-    onOpenShare('portrait', 'wallpaper');
-  }, [closePicker, onOpenShare]);
-
-  const openShareText = React.useCallback(() => {
-    closePicker();
-    shareAsText().catch(() => undefined);
-  }, [closePicker, shareAsText]);
-
-  const openShareQr = React.useCallback(() => {
-    closePicker();
-    onOpenQr();
-  }, [closePicker, onOpenQr]);
+  const {
+    activePicker,
+    closePicker,
+    openShareImage,
+    openShareImagePortrait,
+    openShareImageSquare,
+    openShareQr,
+    openShareText,
+    setActivePicker,
+    setAsWallpaper,
+  } = useHomeScreenOrchestration({ text, onOpenQr, onOpenShare });
 
   return (
     <View

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Animated,
-  BackHandler,
   Easing,
   PixelRatio,
   Pressable,
@@ -9,45 +8,22 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { captureRef } from 'react-native-view-shot';
-import Share from 'react-native-share';
 import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
-import { recordDisplayOptions } from '../db/appOptions';
 import { styles } from '../styles';
-import { setImmersiveMode } from '../native/immersiveMode';
-import { setKeepScreenOn } from '../native/keepScreenOn';
-import { setSensorRotationEnabled } from '../native/screenOrientation';
-import { showToast } from '../native/toast';
-import { setWallpaper } from '../native/wallpaper';
-import { getPersistedOptions, useAppStore } from '../state/useAppStore';
-import { t } from '../i18n';
-import type {
-  PersistedAppOptions,
-  ShareImageAspect,
-  ShareAction,
-} from '../state/persistedOptions';
+import { useAppStore } from '../state/useAppStore';
+import type { PersistedAppOptions } from '../state/persistedOptions';
+import type { ShareImageAspect, ShareAction } from '../types/output';
 import { DEFAULT_OUTPUT_EFFECT_INTERVAL } from '../state/persistedOptions';
-import { useAutomaticFontSizeSearch } from './useAutomaticFontSizeSearch';
+import { useAutomaticFontSizeSearch } from '../hooks/useAutomaticFontSizeSearch';
+import { useOutputHistoryRecording } from '../hooks/useOutputHistoryRecording';
+import { useOutputLifecycle } from '../hooks/useOutputLifecycle';
+import { useOutputShare } from '../hooks/useOutputShare';
 
 const OUTPUT_WORD_BREAK = false;
 
 const MIN_CUSTOM_OUTPUT_FONT_SIZE = 8;
 const MAX_CUSTOM_OUTPUT_FONT_SIZE = 1024;
 const FONT_SIZE_PAN_STEP_PX = 18;
-const FONT_SIZE_HISTORY_DEBOUNCE_MS = 300;
-
-function formatShareCaptureFileName(date: Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
-
-  return `big-text-share-${year}-${month}-${day}-${hours}-${minutes}-${seconds}-${milliseconds}`;
-}
-
 type TextLayoutLine = {
   height: number;
   width: number;
@@ -130,11 +106,6 @@ export function OutputScreen({
   const captureRefView = React.useRef<React.ComponentRef<typeof View> | null>(
     null,
   );
-  const handledShareRequestIdRef = React.useRef<number | null>(null);
-  const historyUpdateTimeoutRef = React.useRef<ReturnType<
-    typeof setTimeout
-  > | null>(null);
-  const historyUpdatePendingRef = React.useRef(false);
   const panStartFontSizeRef = React.useRef(outputFontSize);
   const panLastAppliedFontSizeRef = React.useRef(outputFontSize);
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
@@ -222,45 +193,12 @@ export function OutputScreen({
     [shareCanvasHeight],
   );
 
-  React.useEffect(() => {
-    if (headless) {
-      return;
-    }
-
-    const subscription = BackHandler.addEventListener(
-      'hardwareBackPress',
-      () => {
-        onExit();
-        return true;
-      },
-    );
-
-    return () => {
-      subscription.remove();
-    };
-  }, [headless, onExit]);
-
-  React.useEffect(() => {
-    if (outputFontSizeMode === 'automatic') {
-      restartAutomaticSearch();
-    }
-  }, [outputFontSizeMode, restartAutomaticSearch]);
-
-  React.useEffect(() => {
-    if (headless) {
-      return;
-    }
-
-    setImmersiveMode(true);
-    setKeepScreenOn(true);
-    setSensorRotationEnabled(true);
-
-    return () => {
-      setImmersiveMode(false);
-      setKeepScreenOn(false);
-      setSensorRotationEnabled(false);
-    };
-  }, [headless]);
+  useOutputLifecycle({
+    headless,
+    onExit,
+    outputFontSizeMode,
+    restartAutomaticSearch,
+  });
 
   React.useEffect(() => {
     displayMix.stopAnimation();
@@ -361,45 +299,8 @@ export function OutputScreen({
       ? animatedBackgroundColor
       : backgroundColor;
 
-  const flushPendingHistoryUpdate = React.useCallback(() => {
-    if (!historyUpdatePendingRef.current) {
-      return;
-    }
-
-    historyUpdatePendingRef.current = false;
-
-    if (historyUpdateTimeoutRef.current != null) {
-      clearTimeout(historyUpdateTimeoutRef.current);
-      historyUpdateTimeoutRef.current = null;
-    }
-
-    recordDisplayOptions(getPersistedOptions(useAppStore.getState())).catch(
-      () => undefined,
-    );
-  }, []);
-
-  const queueHistoryUpdate = React.useCallback(() => {
-    if (!canAdjustFontSize) {
-      return;
-    }
-
-    historyUpdatePendingRef.current = true;
-
-    if (historyUpdateTimeoutRef.current != null) {
-      clearTimeout(historyUpdateTimeoutRef.current);
-    }
-
-    historyUpdateTimeoutRef.current = setTimeout(() => {
-      historyUpdateTimeoutRef.current = null;
-      flushPendingHistoryUpdate();
-    }, FONT_SIZE_HISTORY_DEBOUNCE_MS);
-  }, [canAdjustFontSize, flushPendingHistoryUpdate]);
-
-  React.useEffect(() => {
-    return () => {
-      flushPendingHistoryUpdate();
-    };
-  }, [flushPendingHistoryUpdate]);
+  const { flushPendingHistoryUpdate, queueHistoryUpdate } =
+    useOutputHistoryRecording({ enabled: canAdjustFontSize });
 
   const applyCustomFontSize = React.useCallback(
     (nextFontSize: number) => {
@@ -559,101 +460,19 @@ export function OutputScreen({
     lastTapAt.current = now;
   }, [onExit]);
 
-  React.useEffect(() => {
-    if (mode !== 'share') {
-      return;
-    }
-
-    if (
-      shareRequestId == null ||
-      handledShareRequestIdRef.current === shareRequestId
-    ) {
-      return;
-    }
-
-    if (outputFontSizeMode === 'automatic' && !automaticSearchComplete) {
-      return;
-    }
-
-    let cancelled = false;
-    handledShareRequestIdRef.current = shareRequestId;
-
-    const waitForReady = () => {
-      if (cancelled) {
-        return;
-      }
-
-      if (outputFontSizeMode === 'automatic' && !automaticSearchComplete) {
-        requestAnimationFrame(waitForReady);
-        return;
-      }
-
-      doShare().catch(() => undefined);
-    };
-
-    const doShare = async () => {
-      const node = captureRefView.current;
-
-      if (!node) {
-        return;
-      }
-
-      try {
-        const uri = await captureRef(node as never, {
-          format: 'png',
-          quality: 1,
-          width: shareCaptureWidth,
-          height: shareCaptureHeight,
-          fileName: formatShareCaptureFileName(new Date()),
-        });
-
-        if (cancelled) {
-          return;
-        }
-
-        if (shareAction === 'wallpaper') {
-          await setWallpaper(uri);
-          showToast(t('home.wallpaperSet', undefined, language));
-        } else {
-          await Share.open({
-            title: 'Big Text',
-            url: uri,
-            type: 'image/png',
-            failOnCancel: false,
-          });
-        }
-      } catch {
-        // Ignore wallpaper/share failures and return to the caller.
-      } finally {
-        if (!cancelled) {
-          onExit();
-          clearShareRequest();
-        }
-      }
-    };
-
-    const frame = requestAnimationFrame(() => {
-      requestAnimationFrame(waitForReady);
-    });
-
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(frame);
-    };
-  }, [
+  useOutputShare({
     automaticSearchComplete,
+    captureRefView,
+    clearShareRequest,
+    language,
     mode,
     onExit,
-    language,
     outputFontSizeMode,
-    shareCanvasHeight,
-    shareCanvasWidth,
+    shareAction,
     shareCaptureHeight,
     shareCaptureWidth,
-    shareAction,
     shareRequestId,
-    clearShareRequest,
-  ]);
+  });
 
   return (
     <View

@@ -1,8 +1,8 @@
-import { open, type DB } from '@op-engineering/op-sqlite';
 import {
   persistedAppOptionKeys,
   type PersistedAppOptions,
 } from '../state/persistedOptions';
+import { createQueuedDatabase } from './internal/sqlite';
 
 type StoredValueRow = {
   value: string | null;
@@ -19,8 +19,6 @@ export type DisplayHistoryEntry = {
   createdAt: number;
   options: PersistedAppOptions;
 };
-
-const DB_NAME = 'big-text-app.db';
 
 const INIT_SQL = `
 PRAGMA journal_mode = WAL;
@@ -39,16 +37,10 @@ CREATE TABLE IF NOT EXISTS display_history (
 );
 `;
 
-let db: DB | null = null;
-let initPromise: Promise<DB> | null = null;
-let writeQueue: Promise<void> = Promise.resolve();
-
-function splitStatements(sql: string): string[] {
-  return sql
-    .split(';')
-    .map(statement => statement.trim())
-    .filter(statement => statement.length > 0);
-}
+const { ensureDb, enqueueWrite } = createQueuedDatabase(
+  'big-text-app.db',
+  INIT_SQL,
+);
 
 function parsePersistedOptionsJson(
   value: string,
@@ -74,34 +66,6 @@ function parsePersistedOptionsJson(
   }
 
   return null;
-}
-
-function enqueueWrite<T>(fn: () => Promise<T>): Promise<T> {
-  const result = writeQueue.then(fn);
-  writeQueue = result.then(
-    () => {},
-    () => {},
-  );
-  return result;
-}
-
-async function ensureDb(): Promise<DB> {
-  if (db) {
-    return db;
-  }
-
-  if (!initPromise) {
-    initPromise = (async () => {
-      const database = open({ name: DB_NAME });
-      for (const statement of splitStatements(INIT_SQL)) {
-        await database.execute(statement);
-      }
-      db = database;
-      return database;
-    })();
-  }
-
-  return initPromise;
 }
 
 export async function loadPersistedAppOptions(): Promise<
@@ -155,21 +119,20 @@ export async function loadDisplayHistory(): Promise<DisplayHistoryEntry[]> {
 }
 
 export function deleteDisplayHistoryEntry(id: number): Promise<void> {
-  return enqueueWrite(async () => {
-    const database = await ensureDb();
+  return enqueueWrite(async database => {
     await database.execute('DELETE FROM display_history WHERE id = ?', [id]);
   });
 }
 
 export function resetDatabase(): Promise<void> {
-  return enqueueWrite(async () => {
-    const database = await ensureDb();
-
+  return enqueueWrite(async database => {
     await database.execute('DROP TABLE IF EXISTS display_history');
     await database.execute('DROP TABLE IF EXISTS app_options');
 
-    for (const statement of splitStatements(INIT_SQL)) {
-      await database.execute(statement);
+    for (const initStatement of INIT_SQL.split(';')
+      .map(statement => statement.trim())
+      .filter(statement => statement.length > 0)) {
+      await database.execute(initStatement);
     }
   });
 }
@@ -177,8 +140,7 @@ export function resetDatabase(): Promise<void> {
 export function savePersistedAppOptions(
   options: PersistedAppOptions,
 ): Promise<void> {
-  return enqueueWrite(async () => {
-    const database = await ensureDb();
+  return enqueueWrite(async database => {
     await database.execute(
       'INSERT INTO app_options (id, value, updated_at) VALUES (1, ?, ?) ON CONFLICT(id) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at',
       [JSON.stringify(options), Date.now()],
@@ -189,8 +151,7 @@ export function savePersistedAppOptions(
 export function recordDisplayOptions(
   options: PersistedAppOptions,
 ): Promise<void> {
-  return enqueueWrite(async () => {
-    const database = await ensureDb();
+  return enqueueWrite(async database => {
     const optionsJson = JSON.stringify(options);
     const res = await database.execute(
       'SELECT id, options_json FROM display_history',

@@ -8,27 +8,22 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  deleteDisplayHistoryEntry,
-  loadDisplayHistory,
-  resetDatabase,
-} from '../db/appOptions';
 import { maokenSansFontFamily } from '../fonts';
 import { t } from '../i18n';
 import { useAppStore } from '../state/useAppStore';
 import { getHomeTheme } from '../theme';
 import { styles } from '../styles';
 import { TrashOff, X } from 'lucide-react-native';
+import {
+  type HistoryEntry,
+  useHistoryEntries,
+} from '../hooks/useHistoryEntries';
 
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
   onClose: () => void;
-  onShowEntry: (
-    options: Awaited<ReturnType<typeof loadDisplayHistory>>[number]['options'],
-  ) => void;
-  onApplyEntry: (
-    options: Awaited<ReturnType<typeof loadDisplayHistory>>[number]['options'],
-  ) => void;
+  onShowEntry: (options: HistoryEntry['options']) => void;
+  onApplyEntry: (options: HistoryEntry['options']) => void;
 };
 
 export function HistoryScreen({
@@ -39,10 +34,8 @@ export function HistoryScreen({
 }: Props) {
   const homeThemeName = useAppStore(state => state.homeTheme);
   const language = useAppStore(state => state.language);
-  const [entries, setEntries] = React.useState(
-    [] as Awaited<ReturnType<typeof loadDisplayHistory>>,
-  );
   const [resetModalVisible, setResetModalVisible] = React.useState(false);
+  const { deleteEntry, entries, resetHistory } = useHistoryEntries();
   const theme = getHomeTheme(homeThemeName);
   const statusBarStyle =
     theme.name === 'dark' ? 'light-content' : 'dark-content';
@@ -50,40 +43,10 @@ export function HistoryScreen({
   const translate = (key: string, params?: Record<string, string | number>) =>
     t(key, params, language);
 
-  const refreshHistory = React.useCallback(async () => {
-    const nextEntries = await loadDisplayHistory();
-    setEntries(nextEntries);
-  }, []);
-
-  const handleDeleteEntry = React.useCallback(
-    async (id: number) => {
-      await deleteDisplayHistoryEntry(id);
-      await refreshHistory();
-    },
-    [refreshHistory],
-  );
-
   const handleResetDatabase = React.useCallback(async () => {
     setResetModalVisible(false);
-    await resetDatabase();
-    await refreshHistory();
-  }, [refreshHistory]);
-
-  React.useEffect(() => {
-    let active = true;
-
-    (async () => {
-      const nextEntries = await loadDisplayHistory();
-
-      if (active) {
-        setEntries(nextEntries);
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, []);
+    await resetHistory();
+  }, [resetHistory]);
 
   React.useEffect(() => {
     const subscription = BackHandler.addEventListener(
@@ -224,7 +187,7 @@ export function HistoryScreen({
                 </Pressable>
                 <Pressable
                   onPress={() => {
-                    handleDeleteEntry(entry.id);
+                    deleteEntry(entry.id);
                   }}
                   style={[
                     styles.historyActionButton,

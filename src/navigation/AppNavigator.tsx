@@ -6,11 +6,10 @@ import {
   type NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useAppStore } from '../state/useAppStore';
-import type {
-  PersistedAppOptions,
-  ShareAction,
-} from '../state/persistedOptions';
+import { recordDisplayOptions } from '../db/appOptions';
+import { getPersistedOptions, useAppStore } from '../state/useAppStore';
+import type { PersistedAppOptions } from '../state/persistedOptions';
+import type { ShareAction } from '../types/output';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
@@ -47,6 +46,9 @@ function HomeRoute({
       insets={insets}
       onOpenHistory={() => navigation.navigate('History')}
       onOpenOutput={() => {
+        recordDisplayOptions(getPersistedOptions(useAppStore.getState())).catch(
+          () => undefined,
+        );
         goToOutput();
         navigation.navigate('Output');
       }}
