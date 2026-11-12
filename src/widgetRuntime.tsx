@@ -16,6 +16,23 @@ import { NativeModules } from 'react-native';
 
 const WIDGET_NAME = 'WidgetProvider';
 
+const DEFAULT_WIDGET_OPTIONS = {
+  homeTheme: 'light' as const,
+  language: 'en' as const,
+  text: '',
+  widgetName: '',
+  foregroundColor: '#ffffff',
+  backgroundColor: '#000000',
+  outputFontFamily: '',
+  outputFontSizeMode: 'automatic' as const,
+  outputFontSize: 120,
+  outputScreenOrientation: 'automatic' as const,
+  outputAnimationStyle: 'static' as const,
+  outputAnimationInterval: 1,
+  outputHorizontalAlignment: 'center' as const,
+  outputVerticalAlignment: 'center' as const,
+};
+
 function requestWidgetOutput(widgetId: number) {
   NativeModules.AppLaunch?.requestWidgetOutput?.(widgetId);
 }
@@ -70,8 +87,7 @@ function WidgetConfigController({
   renderWidget,
   setResult,
 }: WidgetConfigurationScreenProps) {
-  const [options, setOptions] =
-    React.useState<Awaited<ReturnType<typeof loadWidgetOptions>>>(null);
+  const [options, setOptions] = React.useState(DEFAULT_WIDGET_OPTIONS);
 
   React.useEffect(() => {
     let active = true;
@@ -79,7 +95,7 @@ function WidgetConfigController({
     loadWidgetOptions(widgetInfo.widgetId)
       .then(nextOptions => {
         if (active) {
-          setOptions(nextOptions);
+          setOptions(current => nextOptions ?? current);
         }
       })
       .catch(() => undefined);
@@ -90,10 +106,6 @@ function WidgetConfigController({
   }, [widgetInfo.widgetId]);
 
   React.useEffect(() => {
-    if (!options) {
-      return;
-    }
-
     renderWidget(
       <WidgetPreview
         widgetName={options.widgetName}
@@ -105,24 +117,7 @@ function WidgetConfigController({
   return (
     <WidgetConfigScreen
       insets={{ top: 0, right: 0, bottom: 0, left: 0 }}
-      options={
-        options ?? {
-          homeTheme: 'light',
-          language: 'en',
-          text: '',
-          widgetName: '',
-          foregroundColor: '#ffffff',
-          backgroundColor: '#000000',
-          outputFontFamily: '',
-          outputFontSizeMode: 'automatic',
-          outputFontSize: 120,
-          outputScreenOrientation: 'automatic',
-          outputAnimationStyle: 'static',
-          outputAnimationInterval: 1,
-          outputHorizontalAlignment: 'center',
-          outputVerticalAlignment: 'center',
-        }
-      }
+      options={options}
       onWidgetNameChange={name => {
         setOptions(current =>
           current == null ? current : { ...current, widgetName: name },

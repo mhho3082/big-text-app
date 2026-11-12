@@ -68,6 +68,35 @@ export function WidgetSettingsScreen({
 }: Props) {
   const homeThemeName = useAppStore(state => state.homeTheme);
   const language = useAppStore(state => state.language);
+  const setStoreText = useAppStore(state => state.setText);
+  const setStoreForegroundColor = useAppStore(
+    state => state.setForegroundColor,
+  );
+  const setStoreBackgroundColor = useAppStore(
+    state => state.setBackgroundColor,
+  );
+  const setStoreOutputFontFamily = useAppStore(
+    state => state.setOutputFontFamily,
+  );
+  const setStoreOutputFontSizeMode = useAppStore(
+    state => state.setOutputFontSizeMode,
+  );
+  const setStoreOutputFontSize = useAppStore(state => state.setOutputFontSize);
+  const setStoreOutputScreenOrientation = useAppStore(
+    state => state.setOutputScreenOrientation,
+  );
+  const setStoreOutputAnimationStyle = useAppStore(
+    state => state.setOutputAnimationStyle,
+  );
+  const setStoreOutputAnimationInterval = useAppStore(
+    state => state.setOutputAnimationInterval,
+  );
+  const setStoreOutputHorizontalAlignment = useAppStore(
+    state => state.setOutputHorizontalAlignment,
+  );
+  const setStoreOutputVerticalAlignment = useAppStore(
+    state => state.setOutputVerticalAlignment,
+  );
   const toggleHomeTheme = useAppStore(state => state.toggleHomeTheme);
   const cycleLanguage = useAppStore(state => state.cycleLanguage);
   const theme = getHomeTheme(homeThemeName);
@@ -300,7 +329,12 @@ export function WidgetSettingsScreen({
               },
             ]}
             value={text}
-            onChangeText={setText}
+            onChangeText={nextText => {
+              setText(nextText);
+              if (homeMode) {
+                setStoreText(nextText);
+              }
+            }}
             placeholder={translate('home.textPlaceholder')}
             placeholderTextColor={theme.placeholderText}
             multiline
@@ -461,7 +495,12 @@ export function WidgetSettingsScreen({
         title={translate('home.textColor')}
         initialColor={foregroundColor}
         onClose={closePicker}
-        onColorChange={setForegroundColor}
+        onColorChange={nextColor => {
+          setForegroundColor(nextColor);
+          if (homeMode) {
+            setStoreForegroundColor(nextColor);
+          }
+        }}
         theme={theme}
       />
       <ColorPickerModal
@@ -469,7 +508,12 @@ export function WidgetSettingsScreen({
         title={translate('home.backgroundColor')}
         initialColor={backgroundColor}
         onClose={closePicker}
-        onColorChange={setBackgroundColor}
+        onColorChange={nextColor => {
+          setBackgroundColor(nextColor);
+          if (homeMode) {
+            setStoreBackgroundColor(nextColor);
+          }
+        }}
         theme={theme}
       />
       <FontPickerModal
@@ -478,6 +522,9 @@ export function WidgetSettingsScreen({
         onClose={closePicker}
         onFontChange={family => {
           setOutputFontFamily(family);
+          if (homeMode) {
+            setStoreOutputFontFamily(family);
+          }
           closePicker();
         }}
         theme={theme}
@@ -487,8 +534,18 @@ export function WidgetSettingsScreen({
         mode={outputFontSizeMode}
         fontSize={outputFontSize}
         onClose={closePicker}
-        onModeChange={mode => setOutputFontSizeMode(mode)}
-        onFontSizeChange={size => setOutputFontSize(size)}
+        onModeChange={mode => {
+          setOutputFontSizeMode(mode);
+          if (homeMode) {
+            setStoreOutputFontSizeMode(mode);
+          }
+        }}
+        onFontSizeChange={size => {
+          setOutputFontSize(size);
+          if (homeMode) {
+            setStoreOutputFontSize(size);
+          }
+        }}
         theme={theme}
       />
       <AnimationPickerModal
@@ -496,8 +553,18 @@ export function WidgetSettingsScreen({
         selectedStyle={outputAnimationStyle}
         interval={outputAnimationInterval}
         onClose={closePicker}
-        onStyleChange={style => setOutputAnimationStyle(style)}
-        onIntervalChange={interval => setOutputAnimationInterval(interval)}
+        onStyleChange={style => {
+          setOutputAnimationStyle(style);
+          if (homeMode) {
+            setStoreOutputAnimationStyle(style);
+          }
+        }}
+        onIntervalChange={interval => {
+          setOutputAnimationInterval(interval);
+          if (homeMode) {
+            setStoreOutputAnimationInterval(interval);
+          }
+        }}
         theme={theme}
       />
       <AlignmentPickerModal
@@ -506,15 +573,24 @@ export function WidgetSettingsScreen({
         verticalAlignment={outputVerticalAlignment}
         screenOrientation={outputScreenOrientation}
         onClose={closePicker}
-        onHorizontalAlignmentChange={alignment =>
-          setOutputHorizontalAlignment(alignment)
-        }
-        onVerticalAlignmentChange={alignment =>
-          setOutputVerticalAlignment(alignment)
-        }
-        onScreenOrientationChange={orientation =>
-          setOutputScreenOrientation(orientation)
-        }
+        onHorizontalAlignmentChange={alignment => {
+          setOutputHorizontalAlignment(alignment);
+          if (homeMode) {
+            setStoreOutputHorizontalAlignment(alignment);
+          }
+        }}
+        onVerticalAlignmentChange={alignment => {
+          setOutputVerticalAlignment(alignment);
+          if (homeMode) {
+            setStoreOutputVerticalAlignment(alignment);
+          }
+        }}
+        onScreenOrientationChange={orientation => {
+          setOutputScreenOrientation(orientation);
+          if (homeMode) {
+            setStoreOutputScreenOrientation(orientation);
+          }
+        }}
         theme={theme}
       />
       {homeMode ? (

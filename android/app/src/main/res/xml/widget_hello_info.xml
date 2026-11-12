@@ -10,4 +10,4 @@
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen"
     android:configure="com.mhho3082.bigtext.WidgetConfigurationActivity"
-    android:widgetFeatures="reconfigurable|configuration_optional" />
+    android:widgetFeatures="reconfigurable" />
