@@ -42,6 +42,13 @@ type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const navigationRef = createNavigationContainerRef<RootStackParamList>();
+const appFlowRouteNames: Array<keyof RootStackParamList> = [
+  'Home',
+  'History',
+  'Output',
+  'Qr',
+];
+const widgetFlowRouteNames: Array<keyof RootStackParamList> = ['WidgetOutput'];
 
 function HomeRoute({
   navigation,
@@ -382,6 +389,20 @@ export function AppNavigator() {
     }
 
     lastHandledLaunchRequestIdRef.current = launchRequestId;
+
+    const currentRouteName = navigationRef.getCurrentRoute()?.name;
+
+    if (
+      (launchTarget === 'widgetOutput' &&
+        currentRouteName != null &&
+        widgetFlowRouteNames.includes(currentRouteName)) ||
+      (launchTarget === 'home' &&
+        currentRouteName != null &&
+        appFlowRouteNames.includes(currentRouteName))
+    ) {
+      clearLaunchRequest();
+      return;
+    }
 
     if (launchTarget === 'widgetOutput') {
       const widgetId = useAppStore.getState().widgetOutputWidgetId;
