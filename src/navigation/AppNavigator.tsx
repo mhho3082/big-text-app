@@ -13,6 +13,8 @@ import { recordDisplayOptions } from '../db/appOptions';
 import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
 import type { ShareAction } from '../types/output';
+import { showToast } from '../native/toast';
+import { t } from '../i18n';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
@@ -210,11 +212,14 @@ function WidgetOutputRoute({
   route,
 }: NativeStackScreenProps<RootStackParamList, 'WidgetOutput'>) {
   const insets = useSafeAreaInsets();
+  const language = useAppStore(state => state.language);
   const clearLaunchRequest = useAppStore(state => state.clearLaunchRequest);
   const widgetOutputWidgetId = useAppStore(state => state.widgetOutputWidgetId);
-  const [options, setOptions] = React.useState<PersistedAppOptions | null>(
-    null,
-  );
+  const goToOutput = useAppStore(state => state.goToOutput);
+  const goHome = useAppStore(state => state.goHome);
+  const [options, setOptions] = React.useState<
+    PersistedAppOptions | null | undefined
+  >(undefined);
   const widgetId = route.params?.widgetId ?? widgetOutputWidgetId;
 
   React.useEffect(() => {
@@ -240,6 +245,21 @@ function WidgetOutputRoute({
     };
   }, [widgetId]);
 
+  React.useEffect(() => {
+    if (widgetId == null || options !== null) {
+      return;
+    }
+
+    showToast(
+      widgetId == null
+        ? t('widgetOutput.missingWidgetId', undefined, language)
+        : t('widgetOutput.noSavedOptions', { widgetId }, language),
+    );
+    clearLaunchRequest();
+    goHome();
+    goToOutput();
+  }, [clearLaunchRequest, goHome, goToOutput, language, options, widgetId]);
+
   return (
     <View style={styles.container}>
       {options ? (
@@ -263,7 +283,7 @@ function WidgetOutputRoute({
           outputHorizontalAlignment={options.outputHorizontalAlignment}
           outputVerticalAlignment={options.outputVerticalAlignment}
         />
-      ) : (
+      ) : options === null ? (
         <View
           style={{
             flex: 1,
@@ -274,11 +294,11 @@ function WidgetOutputRoute({
         >
           <Text style={{ color: '#ffffff', textAlign: 'center' }}>
             {widgetId == null
-              ? 'Missing widget ID.'
-              : `No saved widget options for widget ${widgetId}.`}
+              ? t('widgetOutput.missingWidgetId', undefined, language)
+              : t('widgetOutput.noSavedOptions', { widgetId }, language)}
           </Text>
         </View>
-      )}
+      ) : null}
     </View>
   );
 }

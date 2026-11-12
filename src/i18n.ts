@@ -143,6 +143,9 @@ const locales: Record<AppLanguage, Locale> = {
     'home.exitHint': 'Notes: double-tap to exit the display screen',
     'home.credits':
       'Made by Max Ho (mhho3082). Thanks to Lucide Icons for icon assets.',
+    'widgetOutput.missingWidgetId': 'Missing widget ID.',
+    'widgetOutput.noSavedOptions':
+      'No saved widget options for widget {widgetId}.',
     'history.empty': 'No history yet',
     'history.apply': 'Apply',
     'history.show': 'Show',
@@ -229,6 +232,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.exitHint': '提示：在顯示畫面上雙擊即可退出',
     'home.credits':
       '由 Max Ho（mhho3082）製作。感謝 Lucide Icons 提供圖標資源。',
+    'widgetOutput.missingWidgetId': '缺少小工具 ID。',
+    'widgetOutput.noSavedOptions': '找不到小工具 {widgetId} 的已儲存設定。',
     'history.empty': '尚無歷史記錄',
     'history.apply': '套用',
     'history.show': '顯示',
@@ -313,6 +318,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.exitHint': '提示：在显示画面上双击即可退出',
     'home.credits':
       '由 Max Ho（mhho3082）制作。感谢 Lucide Icons 提供图标资源。',
+    'widgetOutput.missingWidgetId': '缺少小组件 ID。',
+    'widgetOutput.noSavedOptions': '找不到小组件 {widgetId} 的已保存设置。',
     'history.empty': '暂无历史记录',
     'history.apply': '应用',
     'history.show': '显示',
