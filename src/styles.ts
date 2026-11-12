@@ -552,6 +552,26 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
+  orientationOptionList: {
+    gap: 8,
+  },
+  orientationOptionButton: {
+    borderRadius: 16,
+    borderWidth: 1,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  orientationOptionButtonSelected: {
+    borderColor: BRAND_ACCENT,
+  },
+  orientationOptionButtonPressed: {
+    opacity: 0.8,
+  },
+  orientationOptionButtonText: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
   shareOptionRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -586,5 +606,9 @@ export const styles = StyleSheet.create({
   },
   colorDivider: {
     height: 1,
+  },
+  colorDividerSpacing: {
+    marginTop: 4,
+    marginBottom: 4,
   },
 });

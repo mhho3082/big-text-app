@@ -63,6 +63,7 @@ export type OutputScreenProps = Pick<
   | 'outputFontFamily'
   | 'outputFontSizeMode'
   | 'outputFontSize'
+  | 'outputScreenOrientation'
   | 'outputAnimationStyle'
   | 'outputAnimationInterval'
   | 'outputHorizontalAlignment'
@@ -88,6 +89,7 @@ export function OutputScreen({
   outputFontFamily,
   outputFontSizeMode,
   outputFontSize,
+  outputScreenOrientation,
   outputAnimationStyle,
   outputAnimationInterval,
   outputHorizontalAlignment,
@@ -198,6 +200,8 @@ export function OutputScreen({
     headless,
     onExit,
     outputFontSizeMode,
+    screenOrientation:
+      mode === 'display' ? outputScreenOrientation : 'automatic',
     restartAutomaticSearch,
   });
 
@@ -375,7 +379,7 @@ export function OutputScreen({
   const layoutHeight = outputLayout.height > 0 ? outputLayout.height : height;
   const availableWidth = Math.max(0, layoutWidth - outputPadding * 2);
   const availableHeight = Math.max(0, layoutHeight - outputPadding * 2);
-  const outputKey = `${width}x${height}:${outputFontSizeMode}:${outputFontSize}:${outputAnimationStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
+  const outputKey = `${width}x${height}:${outputFontSizeMode}:${outputFontSize}:${outputScreenOrientation}:${outputAnimationStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
 
   const handleOutputLayout = React.useCallback(
     (event: { nativeEvent: { layout: { width: number; height: number } } }) => {

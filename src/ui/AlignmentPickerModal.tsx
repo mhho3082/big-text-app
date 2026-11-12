@@ -1,10 +1,11 @@
 import React from 'react';
-import { Modal, Pressable, Text, View } from 'react-native';
+import { Modal, Platform, Pressable, Text, View } from 'react-native';
 import { t } from '../i18n';
-import {
-  type OutputHorizontalAlignment,
-  type OutputVerticalAlignment,
-} from '../state/persistedOptions';
+import type {
+  OutputHorizontalAlignment,
+  OutputScreenOrientation,
+  OutputVerticalAlignment,
+} from '../types/output';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
@@ -26,9 +27,11 @@ type Props = {
   visible: boolean;
   horizontalAlignment: OutputHorizontalAlignment;
   verticalAlignment: OutputVerticalAlignment;
+  screenOrientation: OutputScreenOrientation;
   onClose: () => void;
   onHorizontalAlignmentChange: (alignment: OutputHorizontalAlignment) => void;
   onVerticalAlignmentChange: (alignment: OutputVerticalAlignment) => void;
+  onScreenOrientationChange: (orientation: OutputScreenOrientation) => void;
   theme: HomeTheme;
 };
 
@@ -37,6 +40,13 @@ type AlignmentOption = {
   vertical: OutputVerticalAlignment;
   labelKey: string;
 };
+
+type OrientationOption = {
+  orientation: OutputScreenOrientation;
+  labelKey: string;
+};
+
+type OrientationRow = OrientationOption[];
 
 const ALIGNMENT_ROWS: AlignmentOption[][] = [
   [
@@ -88,6 +98,22 @@ const ALIGNMENT_ROWS: AlignmentOption[][] = [
   ],
 ];
 
+const ORIENTATION_OPTIONS: OrientationOption[] = [
+  { orientation: 'automatic', labelKey: 'home.orientation.automatic' },
+  { orientation: 'portrait', labelKey: 'home.orientation.portrait' },
+  {
+    orientation: 'landscapeLeft',
+    labelKey: 'home.orientation.landscapeLeft',
+  },
+  {
+    orientation: 'landscapeRight',
+    labelKey: 'home.orientation.landscapeRight',
+  },
+  { orientation: 'upsideDown', labelKey: 'home.orientation.upsideDown' },
+];
+
+const ORIENTATION_COLUMNS = 2;
+
 export function AlignmentPickerIcon({
   horizontal,
   vertical,
@@ -132,12 +158,28 @@ export function AlignmentPickerModal({
   visible,
   horizontalAlignment,
   verticalAlignment,
+  screenOrientation,
   onClose,
   onHorizontalAlignmentChange,
   onVerticalAlignmentChange,
+  onScreenOrientationChange,
   theme,
 }: Props) {
   const language = useAppStore(state => state.language);
+  const isIos = Platform.OS === 'ios';
+  const orientationRows = React.useMemo(() => {
+    const rows: OrientationRow[] = [];
+
+    for (
+      let index = 0;
+      index < ORIENTATION_OPTIONS.length;
+      index += ORIENTATION_COLUMNS
+    ) {
+      rows.push(ORIENTATION_OPTIONS.slice(index, index + ORIENTATION_COLUMNS));
+    }
+
+    return rows;
+  }, []);
 
   const renderOption = (
     horizontal: OutputHorizontalAlignment,
@@ -169,6 +211,44 @@ export function AlignmentPickerModal({
         vertical={vertical}
         color={theme.modalText}
       />
+    </Pressable>
+  );
+
+  const renderOrientationOption = (
+    orientation: OutputScreenOrientation,
+    labelKey: string,
+    selected: boolean,
+    disabled: boolean,
+    oddLastOption: boolean,
+    onPress: () => void,
+  ) => (
+    <Pressable
+      key={orientation}
+      onPress={onPress}
+      disabled={disabled}
+      style={({ pressed }) => [
+        styles.animationOptionButton,
+        oddLastOption && styles.oddLastOption,
+        {
+          borderColor: theme.border,
+          backgroundColor: theme.surface,
+        },
+        selected && styles.animationOptionButtonSelected,
+        selected && {
+          borderColor: theme.modalSelectedCardBorder,
+          backgroundColor: theme.modalSelectedCard,
+        },
+        pressed && !disabled && styles.animationOptionButtonPressed,
+        disabled && styles.buttonDisabled,
+      ]}
+      aria-label={t(labelKey, undefined, language)}
+      aria-disabled={disabled}
+    >
+      <Text
+        style={[styles.animationOptionButtonText, { color: theme.modalText }]}
+      >
+        {t(labelKey, undefined, language)}
+      </Text>
     </Pressable>
   );
 
@@ -214,6 +294,38 @@ export function AlignmentPickerModal({
                       },
                     ),
                   )}
+                </View>
+              ))}
+            </View>
+            <View
+              style={[
+                styles.colorDivider,
+                styles.colorDividerSpacing,
+                { backgroundColor: theme.border },
+              ]}
+            />
+            <View style={styles.animationOptionList}>
+              {orientationRows.map((row, rowIndex) => (
+                <View
+                  key={`orientation-row-${rowIndex}`}
+                  style={styles.animationOptionRow}
+                >
+                  {row.map(option => {
+                    const disabled =
+                      isIos && option.orientation === 'upsideDown';
+                    const isOddLastOption =
+                      rowIndex === orientationRows.length - 1 &&
+                      row.length === 1;
+
+                    return renderOrientationOption(
+                      option.orientation,
+                      option.labelKey,
+                      option.orientation === screenOrientation,
+                      disabled,
+                      isOddLastOption,
+                      () => onScreenOrientationChange(option.orientation),
+                    );
+                  })}
                 </View>
               ))}
             </View>

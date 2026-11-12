@@ -1,4 +1,10 @@
 export type OutputFontSizeMode = 'automatic' | 'custom';
+export type OutputScreenOrientation =
+  | 'automatic'
+  | 'portrait'
+  | 'landscapeLeft'
+  | 'landscapeRight'
+  | 'upsideDown';
 export type OutputAnimationStyle =
   | 'static'
   | 'blink'

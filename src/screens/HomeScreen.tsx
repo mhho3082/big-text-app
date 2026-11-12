@@ -59,6 +59,9 @@ export function HomeScreen({
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
+  const outputScreenOrientation = useAppStore(
+    state => state.outputScreenOrientation,
+  );
   const outputAnimationStyle = useAppStore(state => state.outputAnimationStyle);
   const outputAnimationInterval = useAppStore(
     state => state.outputAnimationInterval,
@@ -77,6 +80,9 @@ export function HomeScreen({
     state => state.setOutputFontSizeMode,
   );
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
+  const setOutputScreenOrientation = useAppStore(
+    state => state.setOutputScreenOrientation,
+  );
   const setOutputAnimationStyle = useAppStore(
     state => state.setOutputAnimationStyle,
   );
@@ -98,6 +104,18 @@ export function HomeScreen({
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) =>
     t(key, params, language);
+  const alignmentLabel = translate(
+    getAlignmentLabelKey(outputHorizontalAlignment, outputVerticalAlignment),
+  );
+  const orientationLabel =
+    outputScreenOrientation === 'automatic'
+      ? ''
+      : translate(`home.orientation.${outputScreenOrientation}`);
+  const alignmentButtonLabel = orientationLabel
+    ? `${alignmentLabel}${translate(
+        'home.alignmentOrientationSeparator',
+      )}${orientationLabel}`
+    : alignmentLabel;
   const {
     activePicker,
     closePicker,
@@ -314,12 +332,7 @@ export function HomeScreen({
               <Text
                 style={[styles.optionButtonText, { color: theme.optionText }]}
               >
-                {translate(
-                  getAlignmentLabelKey(
-                    outputHorizontalAlignment,
-                    outputVerticalAlignment,
-                  ),
-                )}
+                {alignmentButtonLabel}
               </Text>
             </Pressable>
           </View>
@@ -405,12 +418,16 @@ export function HomeScreen({
         visible={activePicker === 'alignment'}
         horizontalAlignment={outputHorizontalAlignment}
         verticalAlignment={outputVerticalAlignment}
+        screenOrientation={outputScreenOrientation}
         onClose={closePicker}
         onHorizontalAlignmentChange={alignment =>
           setOutputHorizontalAlignment(alignment)
         }
         onVerticalAlignmentChange={alignment =>
           setOutputVerticalAlignment(alignment)
+        }
+        onScreenOrientationChange={orientation =>
+          setOutputScreenOrientation(orientation)
         }
         theme={theme}
       />
@@ -438,6 +455,7 @@ export function HomeScreen({
           outputFontFamily={outputFontFamily}
           outputFontSizeMode={outputFontSizeMode}
           outputFontSize={outputFontSize}
+          outputScreenOrientation={outputScreenOrientation}
           outputAnimationStyle={outputAnimationStyle}
           outputAnimationInterval={outputAnimationInterval}
           outputHorizontalAlignment={outputHorizontalAlignment}

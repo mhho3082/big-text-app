@@ -1,17 +1,18 @@
 import { NativeModules, Platform } from 'react-native';
+import type { OutputScreenOrientation } from '../types/output';
 
 type ScreenOrientationModule = {
-  setSensorRotationEnabled(enabled: boolean): void;
+  setScreenOrientation(orientation: OutputScreenOrientation): void;
 };
 
 const nativeModule = NativeModules.ScreenOrientation as
   | ScreenOrientationModule
   | undefined;
 
-export function setSensorRotationEnabled(enabled: boolean) {
+export function setScreenOrientation(orientation: OutputScreenOrientation) {
   if (Platform.OS !== 'android' || nativeModule == null) {
     return;
   }
 
-  nativeModule.setSensorRotationEnabled(enabled);
+  nativeModule.setScreenOrientation(orientation);
 }

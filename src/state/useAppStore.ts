@@ -11,6 +11,7 @@ import type {
   OutputAnimationStyle,
   OutputFontSizeMode,
   OutputHorizontalAlignment,
+  OutputScreenOrientation,
   OutputVerticalAlignment,
   ShareAction,
   ShareImageAspect,
@@ -21,6 +22,7 @@ export type {
   OutputAnimationStyle,
   OutputFontSizeMode,
   OutputHorizontalAlignment,
+  OutputScreenOrientation,
   OutputVerticalAlignment,
   ShareAction,
   ShareImageAspect,
@@ -38,6 +40,7 @@ type AppState = {
   outputFontFamily: string;
   outputFontSizeMode: OutputFontSizeMode;
   outputFontSize: number;
+  outputScreenOrientation: OutputScreenOrientation;
   outputAnimationStyle: OutputAnimationStyle;
   outputAnimationInterval: number;
   outputHorizontalAlignment: OutputHorizontalAlignment;
@@ -51,6 +54,7 @@ type AppState = {
   setOutputFontFamily: (family: string) => void;
   setOutputFontSizeMode: (mode: OutputFontSizeMode) => void;
   setOutputFontSize: (size: number) => void;
+  setOutputScreenOrientation: (orientation: OutputScreenOrientation) => void;
   setOutputAnimationStyle: (style: OutputAnimationStyle) => void;
   setOutputAnimationInterval: (interval: number) => void;
   setOutputHorizontalAlignment: (alignment: OutputHorizontalAlignment) => void;
@@ -79,6 +83,7 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
     outputFontFamily: state.outputFontFamily,
     outputFontSizeMode: state.outputFontSizeMode,
     outputFontSize: state.outputFontSize,
+    outputScreenOrientation: state.outputScreenOrientation,
     outputAnimationStyle: state.outputAnimationStyle,
     outputAnimationInterval: state.outputAnimationInterval,
     outputHorizontalAlignment: state.outputHorizontalAlignment,
@@ -98,6 +103,7 @@ export const useAppStore = create<AppState>(set => ({
   outputFontFamily: defaultOutputFontFamily,
   outputFontSizeMode: 'automatic',
   outputFontSize: 120,
+  outputScreenOrientation: 'automatic',
   outputAnimationStyle: 'static',
   outputAnimationInterval: DEFAULT_OUTPUT_ANIMATION_INTERVAL,
   outputHorizontalAlignment: 'center',
@@ -115,6 +121,8 @@ export const useAppStore = create<AppState>(set => ({
   setOutputFontFamily: outputFontFamily => set({ outputFontFamily }),
   setOutputFontSizeMode: outputFontSizeMode => set({ outputFontSizeMode }),
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
+  setOutputScreenOrientation: outputScreenOrientation =>
+    set({ outputScreenOrientation }),
   setOutputAnimationStyle: outputAnimationStyle =>
     set({ outputAnimationStyle }),
   setOutputAnimationInterval: outputAnimationInterval =>

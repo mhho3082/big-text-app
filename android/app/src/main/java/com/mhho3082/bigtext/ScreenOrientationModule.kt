@@ -10,27 +10,32 @@ class ScreenOrientationModule(private val reactContext: ReactApplicationContext)
   override fun getName(): String = "ScreenOrientation"
 
   @ReactMethod
-  fun setSensorRotationEnabled(enabled: Boolean) {
-    isSensorRotationEnabled = enabled
-    setSensorRotation(reactContext.currentActivity, enabled)
+  fun setScreenOrientation(orientation: String) {
+    screenOrientation = orientation
+    applyScreenOrientation(reactContext.currentActivity, orientation)
   }
 
   companion object {
     @Volatile
-    var isSensorRotationEnabled: Boolean = false
+    var screenOrientation: String = "automatic"
 
-    fun setSensorRotation(activity: Activity?, enabled: Boolean) {
+    fun applyScreenOrientation(activity: Activity?, orientation: String) {
       if (activity == null) {
         return
       }
 
       activity.runOnUiThread {
-        activity.requestedOrientation =
-          if (enabled) {
-            ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-          } else {
-            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        if (orientation == "automatic") {
+          activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        } else {
+          activity.requestedOrientation = when (orientation) {
+            "portrait" -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            "landscapeLeft" -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            "landscapeRight" -> ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+            "upsideDown" -> ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+            else -> ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
           }
+        }
       }
     }
   }

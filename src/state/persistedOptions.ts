@@ -4,6 +4,7 @@ import type {
   OutputAnimationStyle,
   OutputFontSizeMode,
   OutputHorizontalAlignment,
+  OutputScreenOrientation,
   OutputVerticalAlignment,
 } from '../types/output';
 
@@ -18,6 +19,7 @@ export type PersistedAppOptions = {
   outputFontFamily: string;
   outputFontSizeMode: OutputFontSizeMode;
   outputFontSize: number;
+  outputScreenOrientation: OutputScreenOrientation;
   outputAnimationStyle: OutputAnimationStyle;
   outputAnimationInterval: number;
   outputHorizontalAlignment: OutputHorizontalAlignment;
@@ -33,6 +35,7 @@ export const persistedAppOptionKeys = [
   'outputFontFamily',
   'outputFontSizeMode',
   'outputFontSize',
+  'outputScreenOrientation',
   'outputAnimationStyle',
   'outputAnimationInterval',
   'outputHorizontalAlignment',
