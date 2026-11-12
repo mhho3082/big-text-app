@@ -15,7 +15,7 @@ import {
   AlignmentPickerModal,
   getAlignmentLabelKey,
 } from '../ui/AlignmentPickerModal';
-import { EffectPickerModal } from '../ui/EffectPickerModal';
+import { AnimationPickerModal } from '../ui/AnimationPickerModal';
 import { FontPickerModal } from '../ui/FontPickerModal';
 import { FontSizeModal } from '../ui/FontSizeModal';
 import { SharePickerModal } from '../ui/SharePickerModal';
@@ -59,8 +59,10 @@ export function HomeScreen({
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
-  const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
-  const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
+  const outputAnimationStyle = useAppStore(state => state.outputAnimationStyle);
+  const outputAnimationInterval = useAppStore(
+    state => state.outputAnimationInterval,
+  );
   const outputHorizontalAlignment = useAppStore(
     state => state.outputHorizontalAlignment,
   );
@@ -75,11 +77,11 @@ export function HomeScreen({
     state => state.setOutputFontSizeMode,
   );
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
-  const setOutputDisplayStyle = useAppStore(
-    state => state.setOutputDisplayStyle,
+  const setOutputAnimationStyle = useAppStore(
+    state => state.setOutputAnimationStyle,
   );
-  const setOutputEffectInterval = useAppStore(
-    state => state.setOutputEffectInterval,
+  const setOutputAnimationInterval = useAppStore(
+    state => state.setOutputAnimationInterval,
   );
   const setOutputHorizontalAlignment = useAppStore(
     state => state.setOutputHorizontalAlignment,
@@ -275,7 +277,7 @@ export function HomeScreen({
           <View style={styles.toggleRow}>
             <Pressable
               onPress={() => {
-                setActivePicker('effect');
+                setActivePicker('animation');
               }}
               style={[
                 styles.optionButton,
@@ -289,7 +291,7 @@ export function HomeScreen({
               <Text
                 style={[styles.optionButtonText, { color: theme.optionText }]}
               >
-                {translate(`home.displayStyle.${outputDisplayStyle}`)}
+                {translate(`home.animationStyle.${outputAnimationStyle}`)}
               </Text>
             </Pressable>
             <Pressable
@@ -390,13 +392,13 @@ export function HomeScreen({
         onFontSizeChange={size => setOutputFontSize(size)}
         theme={theme}
       />
-      <EffectPickerModal
-        visible={activePicker === 'effect'}
-        selectedStyle={outputDisplayStyle}
-        interval={outputEffectInterval}
+      <AnimationPickerModal
+        visible={activePicker === 'animation'}
+        selectedStyle={outputAnimationStyle}
+        interval={outputAnimationInterval}
         onClose={closePicker}
-        onStyleChange={style => setOutputDisplayStyle(style)}
-        onIntervalChange={interval => setOutputEffectInterval(interval)}
+        onStyleChange={style => setOutputAnimationStyle(style)}
+        onIntervalChange={interval => setOutputAnimationInterval(interval)}
         theme={theme}
       />
       <AlignmentPickerModal
@@ -436,8 +438,8 @@ export function HomeScreen({
           outputFontFamily={outputFontFamily}
           outputFontSizeMode={outputFontSizeMode}
           outputFontSize={outputFontSize}
-          outputDisplayStyle={outputDisplayStyle}
-          outputEffectInterval={outputEffectInterval}
+          outputAnimationStyle={outputAnimationStyle}
+          outputAnimationInterval={outputAnimationInterval}
           outputHorizontalAlignment={outputHorizontalAlignment}
           outputVerticalAlignment={outputVerticalAlignment}
           shareRequestId={shareRequestId}

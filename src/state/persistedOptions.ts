@@ -1,13 +1,13 @@
 import type { AppLanguage } from '../i18n';
 import type { HomeThemeName } from '../theme';
 import type {
-  OutputDisplayStyle,
+  OutputAnimationStyle,
   OutputFontSizeMode,
   OutputHorizontalAlignment,
   OutputVerticalAlignment,
 } from '../types/output';
 
-export const DEFAULT_OUTPUT_EFFECT_INTERVAL = 1;
+export const DEFAULT_OUTPUT_ANIMATION_INTERVAL = 1;
 
 export type PersistedAppOptions = {
   homeTheme: HomeThemeName;
@@ -18,8 +18,8 @@ export type PersistedAppOptions = {
   outputFontFamily: string;
   outputFontSizeMode: OutputFontSizeMode;
   outputFontSize: number;
-  outputDisplayStyle: OutputDisplayStyle;
-  outputEffectInterval: number;
+  outputAnimationStyle: OutputAnimationStyle;
+  outputAnimationInterval: number;
   outputHorizontalAlignment: OutputHorizontalAlignment;
   outputVerticalAlignment: OutputVerticalAlignment;
 };
@@ -33,8 +33,8 @@ export const persistedAppOptionKeys = [
   'outputFontFamily',
   'outputFontSizeMode',
   'outputFontSize',
-  'outputDisplayStyle',
-  'outputEffectInterval',
+  'outputAnimationStyle',
+  'outputAnimationInterval',
   'outputHorizontalAlignment',
   'outputVerticalAlignment',
 ] as const;

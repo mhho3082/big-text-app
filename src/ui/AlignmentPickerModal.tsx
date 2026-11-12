@@ -150,17 +150,17 @@ export function AlignmentPickerModal({
       key={`${horizontal}-${vertical}`}
       onPress={onPress}
       style={({ pressed }) => [
-        styles.effectOptionButton,
+        styles.animationOptionButton,
         {
           borderColor: theme.border,
           backgroundColor: theme.surface,
         },
-        selected && styles.effectOptionButtonSelected,
+        selected && styles.animationOptionButtonSelected,
         selected && {
           borderColor: theme.modalSelectedCardBorder,
           backgroundColor: theme.modalSelectedCard,
         },
-        pressed && styles.effectOptionButtonPressed,
+        pressed && styles.animationOptionButtonPressed,
       ]}
       aria-label={t(labelKey, undefined, language)}
     >
@@ -195,11 +195,11 @@ export function AlignmentPickerModal({
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
-            <View style={styles.effectOptionList}>
+            <View style={styles.animationOptionList}>
               {ALIGNMENT_ROWS.map((row, rowIndex) => (
                 <View
                   key={`alignment-row-${rowIndex}`}
-                  style={styles.effectOptionRow}
+                  style={styles.animationOptionRow}
                 >
                   {row.map(option =>
                     renderOption(

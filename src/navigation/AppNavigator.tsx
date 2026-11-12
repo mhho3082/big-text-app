@@ -94,8 +94,10 @@ function OutputRoute({
   const outputFontFamily = useAppStore(state => state.outputFontFamily);
   const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
   const outputFontSize = useAppStore(state => state.outputFontSize);
-  const outputDisplayStyle = useAppStore(state => state.outputDisplayStyle);
-  const outputEffectInterval = useAppStore(state => state.outputEffectInterval);
+  const outputAnimationStyle = useAppStore(state => state.outputAnimationStyle);
+  const outputAnimationInterval = useAppStore(
+    state => state.outputAnimationInterval,
+  );
   const outputHorizontalAlignment = useAppStore(
     state => state.outputHorizontalAlignment,
   );
@@ -109,8 +111,8 @@ function OutputRoute({
     outputFontFamily,
     outputFontSizeMode,
     outputFontSize,
-    outputDisplayStyle,
-    outputEffectInterval,
+    outputAnimationStyle,
+    outputAnimationInterval,
     outputHorizontalAlignment,
     outputVerticalAlignment,
   };
@@ -135,8 +137,8 @@ function OutputRoute({
         outputFontFamily={options.outputFontFamily}
         outputFontSizeMode={options.outputFontSizeMode}
         outputFontSize={options.outputFontSize}
-        outputDisplayStyle={options.outputDisplayStyle}
-        outputEffectInterval={options.outputEffectInterval}
+        outputAnimationStyle={options.outputAnimationStyle}
+        outputAnimationInterval={options.outputAnimationInterval}
         outputHorizontalAlignment={options.outputHorizontalAlignment}
         outputVerticalAlignment={options.outputVerticalAlignment}
       />

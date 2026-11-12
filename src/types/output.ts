@@ -1,9 +1,9 @@
 export type OutputFontSizeMode = 'automatic' | 'custom';
-export type OutputDisplayStyle =
+export type OutputAnimationStyle =
   | 'static'
-  | 'strobe'
+  | 'blink'
   | 'pulse'
-  | 'crossStrobe'
+  | 'crossBlink'
   | 'crossPulse';
 export type OutputHorizontalAlignment = 'left' | 'center' | 'right';
 export type OutputVerticalAlignment = 'top' | 'center' | 'bottom';

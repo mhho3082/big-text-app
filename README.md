@@ -20,7 +20,7 @@ and anything else that needs to stand out from across the room.
 - 🔤 Font selection: Choose from a variety of bundled Chinese and English fonts
 - ↔️ Flexible alignment: Top left, bottom right, or anywhere in between
 - 📏 Font sizing: Use automatic sizing, or switch to custom sizing and adjust it with a simple swipe
-- ✨ Motion effects: Strobe, pulse, and cross variants for a little extra emphasis
+- ✨ Motion animations: Blink, pulse, and cross variants for a little extra emphasis
 - 📤 Sharing: Share the message as an image in landscape, portrait, or square formats
 - 📨 Open from shared: Send text into the app for quick display
 - 🕘 History: Reuse recent display settings, or show them directly again
@@ -76,7 +76,7 @@ npm test
 
 1. Open the app.
 2. Enter text on the home screen.
-3. Choose colors, font, size, alignment, and effect.
+3. Choose colors, font, size, alignment, and animation.
 4. Tap Display to show the text full screen.
 5. Use History if you want to reuse or delete previous setups.
 

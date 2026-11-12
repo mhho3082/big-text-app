@@ -4,11 +4,11 @@ import { defaultOutputFontFamily } from '../fonts';
 import { AppLanguage, detectSystemLanguage, nextLanguage } from '../i18n';
 import { HomeThemeName } from '../theme';
 import {
-  DEFAULT_OUTPUT_EFFECT_INTERVAL,
+  DEFAULT_OUTPUT_ANIMATION_INTERVAL,
   type PersistedAppOptions,
 } from './persistedOptions';
 import type {
-  OutputDisplayStyle,
+  OutputAnimationStyle,
   OutputFontSizeMode,
   OutputHorizontalAlignment,
   OutputVerticalAlignment,
@@ -18,7 +18,7 @@ import type {
 
 export type { PersistedAppOptions } from './persistedOptions';
 export type {
-  OutputDisplayStyle,
+  OutputAnimationStyle,
   OutputFontSizeMode,
   OutputHorizontalAlignment,
   OutputVerticalAlignment,
@@ -38,8 +38,8 @@ type AppState = {
   outputFontFamily: string;
   outputFontSizeMode: OutputFontSizeMode;
   outputFontSize: number;
-  outputDisplayStyle: OutputDisplayStyle;
-  outputEffectInterval: number;
+  outputAnimationStyle: OutputAnimationStyle;
+  outputAnimationInterval: number;
   outputHorizontalAlignment: OutputHorizontalAlignment;
   outputVerticalAlignment: OutputVerticalAlignment;
   toggleHomeTheme: () => void;
@@ -51,8 +51,8 @@ type AppState = {
   setOutputFontFamily: (family: string) => void;
   setOutputFontSizeMode: (mode: OutputFontSizeMode) => void;
   setOutputFontSize: (size: number) => void;
-  setOutputDisplayStyle: (style: OutputDisplayStyle) => void;
-  setOutputEffectInterval: (interval: number) => void;
+  setOutputAnimationStyle: (style: OutputAnimationStyle) => void;
+  setOutputAnimationInterval: (interval: number) => void;
   setOutputHorizontalAlignment: (alignment: OutputHorizontalAlignment) => void;
   setOutputVerticalAlignment: (alignment: OutputVerticalAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
@@ -79,8 +79,8 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
     outputFontFamily: state.outputFontFamily,
     outputFontSizeMode: state.outputFontSizeMode,
     outputFontSize: state.outputFontSize,
-    outputDisplayStyle: state.outputDisplayStyle,
-    outputEffectInterval: state.outputEffectInterval,
+    outputAnimationStyle: state.outputAnimationStyle,
+    outputAnimationInterval: state.outputAnimationInterval,
     outputHorizontalAlignment: state.outputHorizontalAlignment,
     outputVerticalAlignment: state.outputVerticalAlignment,
   };
@@ -98,8 +98,8 @@ export const useAppStore = create<AppState>(set => ({
   outputFontFamily: defaultOutputFontFamily,
   outputFontSizeMode: 'automatic',
   outputFontSize: 120,
-  outputDisplayStyle: 'static',
-  outputEffectInterval: DEFAULT_OUTPUT_EFFECT_INTERVAL,
+  outputAnimationStyle: 'static',
+  outputAnimationInterval: DEFAULT_OUTPUT_ANIMATION_INTERVAL,
   outputHorizontalAlignment: 'center',
   outputVerticalAlignment: 'center',
   toggleHomeTheme: () =>
@@ -115,9 +115,10 @@ export const useAppStore = create<AppState>(set => ({
   setOutputFontFamily: outputFontFamily => set({ outputFontFamily }),
   setOutputFontSizeMode: outputFontSizeMode => set({ outputFontSizeMode }),
   setOutputFontSize: outputFontSize => set({ outputFontSize }),
-  setOutputDisplayStyle: outputDisplayStyle => set({ outputDisplayStyle }),
-  setOutputEffectInterval: outputEffectInterval =>
-    set({ outputEffectInterval }),
+  setOutputAnimationStyle: outputAnimationStyle =>
+    set({ outputAnimationStyle }),
+  setOutputAnimationInterval: outputAnimationInterval =>
+    set({ outputAnimationInterval }),
   setOutputHorizontalAlignment: outputHorizontalAlignment =>
     set({ outputHorizontalAlignment }),
   setOutputVerticalAlignment: outputVerticalAlignment =>

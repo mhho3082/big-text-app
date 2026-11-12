@@ -9,8 +9,8 @@ import {
 import Slider from '@react-native-community/slider';
 import { t } from '../i18n';
 import {
-  DEFAULT_OUTPUT_EFFECT_INTERVAL,
-  type OutputDisplayStyle,
+  DEFAULT_OUTPUT_ANIMATION_INTERVAL,
+  type OutputAnimationStyle,
 } from '../state/persistedOptions';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
@@ -19,27 +19,27 @@ import { X } from 'lucide-react-native';
 
 type Props = {
   visible: boolean;
-  selectedStyle: OutputDisplayStyle;
+  selectedStyle: OutputAnimationStyle;
   interval: number;
   onClose: () => void;
-  onStyleChange: (style: OutputDisplayStyle) => void;
+  onStyleChange: (style: OutputAnimationStyle) => void;
   onIntervalChange: (interval: number) => void;
   theme: HomeTheme;
 };
 
-const DISPLAY_STYLES: OutputDisplayStyle[] = [
+const DISPLAY_STYLES: OutputAnimationStyle[] = [
   'static',
-  'strobe',
+  'blink',
   'pulse',
-  'crossStrobe',
+  'crossBlink',
   'crossPulse',
 ];
 
-const MIN_EFFECT_INTERVAL = 0.1;
-const MAX_EFFECT_INTERVAL = 10;
-const EFFECT_INTERVAL_STEP = 0.1;
+const MIN_ANIMATION_INTERVAL = 0.1;
+const MAX_ANIMATION_INTERVAL = 10;
+const ANIMATION_INTERVAL_STEP = 0.1;
 
-export function EffectPickerModal({
+export function AnimationPickerModal({
   visible,
   selectedStyle,
   interval,
@@ -51,22 +51,29 @@ export function EffectPickerModal({
   const language = useAppStore(state => state.language);
   const layout = useWindowDimensions();
   const displayInterval = Math.min(
-    MAX_EFFECT_INTERVAL,
-    Math.max(MIN_EFFECT_INTERVAL, interval || DEFAULT_OUTPUT_EFFECT_INTERVAL),
+    MAX_ANIMATION_INTERVAL,
+    Math.max(
+      MIN_ANIMATION_INTERVAL,
+      interval || DEFAULT_OUTPUT_ANIMATION_INTERVAL,
+    ),
   );
-  const effectColumns = React.useMemo(() => {
+  const animationColumns = React.useMemo(() => {
     const usableWidth = Math.max(layout.width - 64, 320);
     return Math.max(2, Math.floor(usableWidth / 180));
   }, [layout.width]);
-  const effectRows = React.useMemo(() => {
-    const rows: OutputDisplayStyle[][] = [];
+  const animationRows = React.useMemo(() => {
+    const rows: OutputAnimationStyle[][] = [];
 
-    for (let index = 0; index < DISPLAY_STYLES.length; index += effectColumns) {
-      rows.push(DISPLAY_STYLES.slice(index, index + effectColumns));
+    for (
+      let index = 0;
+      index < DISPLAY_STYLES.length;
+      index += animationColumns
+    ) {
+      rows.push(DISPLAY_STYLES.slice(index, index + animationColumns));
     }
 
     return rows;
-  }, [effectColumns]);
+  }, [animationColumns]);
 
   return (
     <Modal
@@ -82,7 +89,7 @@ export function EffectPickerModal({
           <View style={[styles.sheet, { backgroundColor: theme.modalSheet }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>
-                {t('effectPicker.title', undefined, language)}
+                {t('animationPicker.title', undefined, language)}
               </Text>
               <Pressable
                 onPress={onClose}
@@ -91,43 +98,47 @@ export function EffectPickerModal({
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
-            <View style={styles.effectOptionList}>
-              {effectRows.map((row, rowIndex) => (
+            <View style={styles.animationOptionList}>
+              {animationRows.map((row, rowIndex) => (
                 <View
-                  key={`effect-row-${rowIndex}`}
-                  style={styles.effectOptionRow}
+                  key={`animation-row-${rowIndex}`}
+                  style={styles.animationOptionRow}
                 >
                   {row.map(style => {
                     const selected = style === selectedStyle;
                     const isOddLastOption =
-                      rowIndex === effectRows.length - 1 && row.length === 1;
+                      rowIndex === animationRows.length - 1 && row.length === 1;
 
                     return (
                       <Pressable
                         key={style}
                         onPress={() => onStyleChange(style)}
                         style={({ pressed }) => [
-                          styles.effectOptionButton,
+                          styles.animationOptionButton,
                           isOddLastOption && styles.oddLastOption,
                           {
                             borderColor: theme.border,
                             backgroundColor: theme.surface,
                           },
-                          selected && styles.effectOptionButtonSelected,
+                          selected && styles.animationOptionButtonSelected,
                           selected && {
                             borderColor: theme.modalSelectedCardBorder,
                             backgroundColor: theme.modalSelectedCard,
                           },
-                          pressed && styles.effectOptionButtonPressed,
+                          pressed && styles.animationOptionButtonPressed,
                         ]}
                       >
                         <Text
                           style={[
-                            styles.effectOptionButtonText,
+                            styles.animationOptionButtonText,
                             { color: theme.modalText },
                           ]}
                         >
-                          {t(`home.displayStyle.${style}`, undefined, language)}
+                          {t(
+                            `home.animationStyle.${style}`,
+                            undefined,
+                            language,
+                          )}
                         </Text>
                       </Pressable>
                     );
@@ -141,7 +152,7 @@ export function EffectPickerModal({
                   <Text
                     style={[styles.fontSizeLabel, { color: theme.modalText }]}
                   >
-                    {t('effectPicker.interval', undefined, language)}
+                    {t('animationPicker.interval', undefined, language)}
                   </Text>
                   <Text
                     style={[styles.fontSizeValue, { color: theme.modalText }]}
@@ -150,9 +161,9 @@ export function EffectPickerModal({
                   </Text>
                 </View>
                 <Slider
-                  minimumValue={MIN_EFFECT_INTERVAL}
-                  maximumValue={MAX_EFFECT_INTERVAL}
-                  step={EFFECT_INTERVAL_STEP}
+                  minimumValue={MIN_ANIMATION_INTERVAL}
+                  maximumValue={MAX_ANIMATION_INTERVAL}
+                  step={ANIMATION_INTERVAL_STEP}
                   value={displayInterval}
                   minimumTrackTintColor={BRAND_ACCENT}
                   maximumTrackTintColor={theme.modalSliderTrack}
@@ -165,7 +176,7 @@ export function EffectPickerModal({
                 <Text
                   style={[styles.modalBody, { color: theme.modalMutedText }]}
                 >
-                  {t('effectPicker.intervalNote', undefined, language)}
+                  {t('animationPicker.intervalNote', undefined, language)}
                 </Text>
               </View>
             ) : null}

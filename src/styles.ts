@@ -522,14 +522,14 @@ export const styles = StyleSheet.create({
   fontSizeSlider: {
     width: '100%',
   },
-  effectOptionList: {
+  animationOptionList: {
     gap: 8,
   },
-  effectOptionRow: {
+  animationOptionRow: {
     flexDirection: 'row',
     gap: 8,
   },
-  effectOptionButton: {
+  animationOptionButton: {
     flex: 1,
     borderRadius: 16,
     borderWidth: 1,
@@ -542,13 +542,13 @@ export const styles = StyleSheet.create({
     flexBasis: '50%',
     maxWidth: '50%',
   },
-  effectOptionButtonSelected: {
+  animationOptionButtonSelected: {
     borderColor: BRAND_ACCENT,
   },
-  effectOptionButtonPressed: {
+  animationOptionButtonPressed: {
     opacity: 0.8,
   },
-  effectOptionButtonText: {
+  animationOptionButtonText: {
     fontSize: 15,
     fontWeight: '600',
   },

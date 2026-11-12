@@ -13,7 +13,7 @@ import { styles } from '../styles';
 import { useAppStore } from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
 import type { ShareImageAspect, ShareAction } from '../types/output';
-import { DEFAULT_OUTPUT_EFFECT_INTERVAL } from '../state/persistedOptions';
+import { DEFAULT_OUTPUT_ANIMATION_INTERVAL } from '../state/persistedOptions';
 import { useAutomaticFontSizeSearch } from '../hooks/useAutomaticFontSizeSearch';
 import { useOutputHistoryRecording } from '../hooks/useOutputHistoryRecording';
 import { useOutputLifecycle } from '../hooks/useOutputLifecycle';
@@ -63,8 +63,8 @@ export type OutputScreenProps = Pick<
   | 'outputFontFamily'
   | 'outputFontSizeMode'
   | 'outputFontSize'
-  | 'outputDisplayStyle'
-  | 'outputEffectInterval'
+  | 'outputAnimationStyle'
+  | 'outputAnimationInterval'
   | 'outputHorizontalAlignment'
   | 'outputVerticalAlignment'
 > & {
@@ -88,8 +88,8 @@ export function OutputScreen({
   outputFontFamily,
   outputFontSizeMode,
   outputFontSize,
-  outputDisplayStyle,
-  outputEffectInterval,
+  outputAnimationStyle,
+  outputAnimationInterval,
   outputHorizontalAlignment,
   outputVerticalAlignment,
   shareRequestId,
@@ -122,19 +122,20 @@ export function OutputScreen({
     mode === 'display' && outputFontSizeMode === 'custom';
 
   const isCrossDisplayStyle =
-    outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
-  const isStrobeStyle =
-    outputDisplayStyle === 'strobe' || outputDisplayStyle === 'crossStrobe';
+    outputAnimationStyle === 'crossBlink' ||
+    outputAnimationStyle === 'crossPulse';
+  const isBlinkStyle =
+    outputAnimationStyle === 'blink' || outputAnimationStyle === 'crossBlink';
   const isPulseStyle =
-    outputDisplayStyle === 'pulse' || outputDisplayStyle === 'crossPulse';
+    outputAnimationStyle === 'pulse' || outputAnimationStyle === 'crossPulse';
   const outputVerticalJustifyContent =
     outputVerticalAlignment === 'top'
       ? 'flex-start'
       : outputVerticalAlignment === 'bottom'
       ? 'flex-end'
       : 'center';
-  const effectHalfCycleMs =
-    (outputEffectInterval || DEFAULT_OUTPUT_EFFECT_INTERVAL) * 1000;
+  const animationHalfCycleMs =
+    (outputAnimationInterval || DEFAULT_OUTPUT_ANIMATION_INTERVAL) * 1000;
   const visibleMixValue = isCrossDisplayStyle ? 0 : 1;
   const hiddenMixValue = isCrossDisplayStyle ? 1 : 0;
   const displayMix = React.useRef(new Animated.Value(visibleMixValue)).current;
@@ -208,19 +209,19 @@ export function OutputScreen({
       return;
     }
 
-    if (outputDisplayStyle === 'static') {
+    if (outputAnimationStyle === 'static') {
       displayMix.setValue(visibleMixValue);
       return;
     }
 
-    if (isStrobeStyle) {
+    if (isBlinkStyle) {
       let visible = true;
       displayMix.setValue(visibleMixValue);
 
       const interval = setInterval(() => {
         visible = !visible;
         displayMix.setValue(visible ? visibleMixValue : hiddenMixValue);
-      }, effectHalfCycleMs);
+      }, animationHalfCycleMs);
 
       return () => {
         clearInterval(interval);
@@ -236,7 +237,7 @@ export function OutputScreen({
       const runPulseCycle = (toValue: number) => {
         Animated.timing(displayMix, {
           toValue,
-          duration: effectHalfCycleMs,
+          duration: animationHalfCycleMs,
           easing: Easing.inOut(Easing.quad),
           useNativeDriver: false,
         }).start(() => {
@@ -276,12 +277,12 @@ export function OutputScreen({
     return undefined;
   }, [
     displayMix,
-    effectHalfCycleMs,
+    animationHalfCycleMs,
     hiddenMixValue,
     isPulseStyle,
-    isStrobeStyle,
+    isBlinkStyle,
     mode,
-    outputDisplayStyle,
+    outputAnimationStyle,
     shouldDelayPulseStart,
     visibleMixValue,
   ]);
@@ -289,7 +290,7 @@ export function OutputScreen({
   const outputTextColor =
     outputFontSizeMode === 'automatic' && !automaticSearchComplete
       ? backgroundColor
-      : outputDisplayStyle === 'static'
+      : outputAnimationStyle === 'static'
       ? foregroundColor
       : animatedTextColor;
   const outputLayerBackgroundColor =
@@ -374,7 +375,7 @@ export function OutputScreen({
   const layoutHeight = outputLayout.height > 0 ? outputLayout.height : height;
   const availableWidth = Math.max(0, layoutWidth - outputPadding * 2);
   const availableHeight = Math.max(0, layoutHeight - outputPadding * 2);
-  const outputKey = `${width}x${height}:${outputFontSizeMode}:${outputFontSize}:${outputDisplayStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
+  const outputKey = `${width}x${height}:${outputFontSizeMode}:${outputFontSize}:${outputAnimationStyle}:${outputHorizontalAlignment}:${outputVerticalAlignment}:${text.length}`;
 
   const handleOutputLayout = React.useCallback(
     (event: { nativeEvent: { layout: { width: number; height: number } } }) => {

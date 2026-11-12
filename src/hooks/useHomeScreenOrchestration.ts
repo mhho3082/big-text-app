@@ -7,7 +7,7 @@ type ActivePicker =
   | 'background'
   | 'font'
   | 'fontSize'
-  | 'effect'
+  | 'animation'
   | 'alignment'
   | 'share'
   | null;
