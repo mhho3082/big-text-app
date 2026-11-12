@@ -40,12 +40,16 @@ function HomeRoute({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Home'>) {
   const insets = useSafeAreaInsets();
+  const goToOutput = useAppStore(state => state.goToOutput);
 
   return (
     <HomeScreen
       insets={insets}
       onOpenHistory={() => navigation.navigate('History')}
-      onOpenOutput={() => navigation.navigate('Output')}
+      onOpenOutput={() => {
+        goToOutput();
+        navigation.navigate('Output');
+      }}
       onOpenQr={() => navigation.navigate('Qr')}
       onOpenShare={(
         shareImageAspect: 'landscape' | 'portrait' | 'square',

@@ -23,12 +23,8 @@ export type OutputVerticalAlignment =
   PersistedAppOptions['outputVerticalAlignment'];
 export type ShareImageAspect = 'landscape' | 'portrait' | 'square';
 export type ShareAction = 'share' | 'wallpaper';
-export type Screen = 'home' | 'output' | 'share' | 'qr' | 'history';
 
 type AppState = {
-  screen: Screen;
-  outputReturnScreen: Exclude<Screen, 'output' | 'share' | 'qr'>;
-  outputPreviewOptions: PersistedAppOptions | null;
   shareRequestId: number | null;
   shareImageAspect: ShareImageAspect;
   shareAction: ShareAction;
@@ -63,6 +59,7 @@ type AppState = {
     shareImageAspect?: ShareImageAspect,
     shareAction?: ShareAction,
   ) => void;
+  clearShareRequest: () => void;
   goToQr: () => void;
   goToHistory: () => void;
   showHistoryEntry: (options: PersistedAppOptions) => void;
@@ -88,9 +85,6 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  screen: 'home',
-  outputReturnScreen: 'home',
-  outputPreviewOptions: null,
   shareRequestId: null,
   shareImageAspect: 'landscape',
   shareAction: 'share',
@@ -137,62 +131,34 @@ export const useAppStore = create<AppState>((set, get) => ({
   setPersistedOptions: options => set(options),
   goToOutput: () => {
     recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
-    set({
-      screen: 'output',
-      outputReturnScreen: 'home',
-      outputPreviewOptions: null,
-      shareAction: 'share',
-    });
+    set({ shareRequestId: null, shareAction: 'share' });
   },
   goToShare: (shareImageAspect = 'landscape', shareAction = 'share') => {
-    recordDisplayOptions(getPersistedOptions(get())).catch(() => undefined);
     set(state => ({
-      screen: 'share',
-      outputReturnScreen: 'home',
-      outputPreviewOptions: null,
       shareImageAspect,
       shareAction,
       shareRequestId:
         state.shareRequestId == null ? 1 : state.shareRequestId + 1,
     }));
   },
+  clearShareRequest: () => {
+    set({ shareRequestId: null });
+  },
   goToQr: () => {
-    set({
-      screen: 'qr',
-      outputReturnScreen: 'home',
-      outputPreviewOptions: null,
-      shareAction: 'share',
-    });
+    set({ shareRequestId: null, shareAction: 'share' });
   },
   goToHistory: () => {
-    set({
-      screen: 'history',
-      outputPreviewOptions: null,
-      shareAction: 'share',
-    });
+    set({ shareRequestId: null, shareAction: 'share' });
   },
   showHistoryEntry: options => {
-    set({
-      screen: 'output',
-      outputReturnScreen: 'history',
-      outputPreviewOptions: options,
-      shareAction: 'share',
-    });
+    set({ ...options, shareRequestId: null, shareAction: 'share' });
   },
   applyHistoryEntry: options => {
     set({
       ...options,
-      screen: 'home',
-      outputReturnScreen: 'home',
-      outputPreviewOptions: null,
+      shareRequestId: null,
       shareAction: 'share',
     });
   },
-  goHome: () =>
-    set({
-      screen: 'home',
-      outputReturnScreen: 'home',
-      outputPreviewOptions: null,
-      shareAction: 'share',
-    }),
+  goHome: () => set({ shareRequestId: null, shareAction: 'share' }),
 }));

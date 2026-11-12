@@ -120,7 +120,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.displayStyle.crossPulse': 'Cross Pulse',
     'effectPicker.title': 'Effect',
     'effectPicker.interval': 'Interval',
-    'effectPicker.intervalNote': 'Seconds between each change.',
+    'effectPicker.intervalNote':
+      'Seconds between each change. For target audiences with ADHD, ASD, seizure/photosensitivity risk, or older adults, avoid very short intervals; keep it at least about 0.5s between changes or longer.',
     'home.alignment.label': 'Align',
     'home.alignment.center': 'Center',
     'home.alignment.topLeft': 'Top left',
@@ -195,7 +196,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.displayStyle.crossPulse': '交叉脈衝',
     'effectPicker.title': '效果',
     'effectPicker.interval': '間隔',
-    'effectPicker.intervalNote': '每次變化的間隔秒數。',
+    'effectPicker.intervalNote':
+      '每次變化之間的間隔秒數。若目標受眾包含過動症、自閉症、癲癇／光敏風險者或年長者，請避免間隔過短，建議至少約 0.5 秒或更長。',
     'home.alignment.label': '對齊',
     'home.alignment.center': '置中',
     'home.alignment.topLeft': '左上',
@@ -268,7 +270,8 @@ const locales: Record<AppLanguage, Locale> = {
     'home.displayStyle.crossPulse': '交叉脉冲',
     'effectPicker.title': '效果',
     'effectPicker.interval': '间隔',
-    'effectPicker.intervalNote': '每次变化之间的间隔秒数。',
+    'effectPicker.intervalNote':
+      '每次变化之间的间隔秒数。如果目标受众包含过动症、自闭症、癫痫／光敏感风险人群或老年人，请避免间隔过短，建议至少约 0.5 秒或更长。',
     'home.alignment.label': '对齐',
     'home.alignment.center': '居中',
     'home.alignment.topLeft': '左上',

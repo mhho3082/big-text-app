@@ -27,14 +27,10 @@ import type {
   ShareAction,
 } from '../state/persistedOptions';
 import { DEFAULT_OUTPUT_EFFECT_INTERVAL } from '../state/persistedOptions';
+import { useAutomaticFontSizeSearch } from './useAutomaticFontSizeSearch';
 
 const OUTPUT_WORD_BREAK = false;
 
-const MIN_AUTOMATIC_OUTPUT_FONT_SIZE = 8;
-const MAX_AUTOMATIC_OUTPUT_FONT_SIZE = 1032;
-const INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE = Math.floor(
-  (MIN_AUTOMATIC_OUTPUT_FONT_SIZE + MAX_AUTOMATIC_OUTPUT_FONT_SIZE) / 2,
-);
 const MIN_CUSTOM_OUTPUT_FONT_SIZE = 8;
 const MAX_CUSTOM_OUTPUT_FONT_SIZE = 1024;
 const FONT_SIZE_PAN_STEP_PX = 18;
@@ -130,16 +126,6 @@ export function OutputScreen({
     width: 0,
     height: 0,
   });
-  const [automaticSearchGeneration, setAutomaticSearchGeneration] =
-    React.useState(0);
-  const [automaticOutputFontSize, setAutomaticOutputFontSize] = React.useState(
-    MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
-  );
-  const [automaticProbeFontSize, setAutomaticProbeFontSize] = React.useState(
-    INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE,
-  );
-  const [automaticSearchComplete, setAutomaticSearchComplete] =
-    React.useState(false);
   const lastTapAt = React.useRef(0);
   const captureRefView = React.useRef<React.ComponentRef<typeof View> | null>(
     null,
@@ -152,13 +138,17 @@ export function OutputScreen({
   const panStartFontSizeRef = React.useRef(outputFontSize);
   const panLastAppliedFontSizeRef = React.useRef(outputFontSize);
   const setOutputFontSize = useAppStore(state => state.setOutputFontSize);
+  const clearShareRequest = useAppStore(state => state.clearShareRequest);
+  const {
+    automaticSearchGeneration,
+    automaticOutputFontSize,
+    automaticProbeFontSize,
+    automaticSearchComplete,
+    restartAutomaticSearch,
+    submitAutomaticProbeResult,
+  } = useAutomaticFontSizeSearch();
   const canAdjustFontSize =
     mode === 'display' && outputFontSizeMode === 'custom';
-  const automaticSearchRef = React.useRef({
-    best: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
-    high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
-    low: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
-  });
 
   const isCrossDisplayStyle =
     outputDisplayStyle === 'crossStrobe' || outputDisplayStyle === 'crossPulse';
@@ -231,18 +221,6 @@ export function OutputScreen({
     () => Math.round(shareCanvasHeight * PixelRatio.get()),
     [shareCanvasHeight],
   );
-
-  const restartAutomaticSearch = React.useCallback(() => {
-    automaticSearchRef.current = {
-      best: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
-      high: MAX_AUTOMATIC_OUTPUT_FONT_SIZE,
-      low: MIN_AUTOMATIC_OUTPUT_FONT_SIZE,
-    };
-    setAutomaticSearchGeneration(generation => generation + 1);
-    setAutomaticOutputFontSize(MIN_AUTOMATIC_OUTPUT_FONT_SIZE);
-    setAutomaticProbeFontSize(INITIAL_AUTOMATIC_OUTPUT_FONT_SIZE);
-    setAutomaticSearchComplete(false);
-  }, []);
 
   React.useEffect(() => {
     if (headless) {
@@ -551,7 +529,6 @@ export function OutputScreen({
         return;
       }
 
-      const search = automaticSearchRef.current;
       const currentProbeFontSize = automaticProbeFontSize;
       const fits = doesAutomaticFontSizeFit(
         event.nativeEvent.lines,
@@ -559,26 +536,14 @@ export function OutputScreen({
         availableHeight,
       );
 
-      if (fits) {
-        search.best = currentProbeFontSize;
-        search.low = currentProbeFontSize + 1;
-      } else {
-        search.high = currentProbeFontSize - 1;
-      }
-
-      if (search.low <= search.high) {
-        setAutomaticProbeFontSize(Math.floor((search.low + search.high) / 2));
-        return;
-      }
-
-      setAutomaticOutputFontSize(search.best);
-      setAutomaticSearchComplete(true);
+      submitAutomaticProbeResult(currentProbeFontSize, fits);
     },
     [
       availableHeight,
       availableWidth,
       automaticProbeFontSize,
       outputFontSizeMode,
+      submitAutomaticProbeResult,
     ],
   );
 
@@ -662,6 +627,7 @@ export function OutputScreen({
       } finally {
         if (!cancelled) {
           onExit();
+          clearShareRequest();
         }
       }
     };
@@ -686,6 +652,7 @@ export function OutputScreen({
     shareCaptureWidth,
     shareAction,
     shareRequestId,
+    clearShareRequest,
   ]);
 
   return (

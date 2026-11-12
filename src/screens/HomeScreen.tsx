@@ -33,6 +33,16 @@ import {
 } from 'lucide-react-native';
 import type { ShareAction } from '../state/persistedOptions';
 
+type ActivePicker =
+  | 'foreground'
+  | 'background'
+  | 'font'
+  | 'fontSize'
+  | 'effect'
+  | 'alignment'
+  | 'share'
+  | null;
+
 type Props = {
   insets: { top: number; right: number; bottom: number; left: number };
   onOpenHistory: () => void;
@@ -92,21 +102,15 @@ export function HomeScreen({
   const shareRequestId = useAppStore(state => state.shareRequestId);
   const shareImageAspect = useAppStore(state => state.shareImageAspect);
   const shareAction = useAppStore(state => state.shareAction);
-  const [foregroundPickerVisible, setForegroundPickerVisible] =
-    React.useState(false);
-  const [backgroundPickerVisible, setBackgroundPickerVisible] =
-    React.useState(false);
-  const [fontPickerVisible, setFontPickerVisible] = React.useState(false);
-  const [fontSizePickerVisible, setFontSizePickerVisible] =
-    React.useState(false);
-  const [effectPickerVisible, setEffectPickerVisible] = React.useState(false);
-  const [alignmentPickerVisible, setAlignmentPickerVisible] =
-    React.useState(false);
-  const [sharePickerVisible, setSharePickerVisible] = React.useState(false);
+  const [activePicker, setActivePicker] = React.useState<ActivePicker>(null);
   const canShowText = (text ?? '').trim().length > 0;
   const theme = getHomeTheme(homeThemeName);
   const translate = (key: string, params?: Record<string, string | number>) =>
     t(key, params, language);
+
+  const closePicker = React.useCallback(() => {
+    setActivePicker(null);
+  }, []);
 
   const shareAsText = React.useCallback(async () => {
     try {
@@ -121,34 +125,34 @@ export function HomeScreen({
   }, [text]);
 
   const openShareImage = React.useCallback(() => {
-    setSharePickerVisible(false);
+    closePicker();
     onOpenShare('landscape');
-  }, [onOpenShare]);
+  }, [closePicker, onOpenShare]);
 
   const openShareImagePortrait = React.useCallback(() => {
-    setSharePickerVisible(false);
+    closePicker();
     onOpenShare('portrait');
-  }, [onOpenShare]);
+  }, [closePicker, onOpenShare]);
 
   const openShareImageSquare = React.useCallback(() => {
-    setSharePickerVisible(false);
+    closePicker();
     onOpenShare('square');
-  }, [onOpenShare]);
+  }, [closePicker, onOpenShare]);
 
   const setAsWallpaper = React.useCallback(() => {
-    setSharePickerVisible(false);
+    closePicker();
     onOpenShare('portrait', 'wallpaper');
-  }, [onOpenShare]);
+  }, [closePicker, onOpenShare]);
 
   const openShareText = React.useCallback(() => {
-    setSharePickerVisible(false);
+    closePicker();
     shareAsText().catch(() => undefined);
-  }, [shareAsText]);
+  }, [closePicker, shareAsText]);
 
   const openShareQr = React.useCallback(() => {
-    setSharePickerVisible(false);
+    closePicker();
     onOpenQr();
-  }, [onOpenQr]);
+  }, [closePicker, onOpenQr]);
 
   return (
     <View
@@ -254,20 +258,20 @@ export function HomeScreen({
             <ColorButton
               label={translate('home.textColor')}
               color={foregroundColor}
-              onPress={() => setForegroundPickerVisible(true)}
+              onPress={() => setActivePicker('foreground')}
               theme={theme}
             />
             <ColorButton
               label={translate('home.backgroundColor')}
               color={backgroundColor}
-              onPress={() => setBackgroundPickerVisible(true)}
+              onPress={() => setActivePicker('background')}
               theme={theme}
             />
           </View>
           <View style={styles.buttonRow}>
             <Pressable
               onPress={() => {
-                setFontPickerVisible(true);
+                setActivePicker('font');
               }}
               style={[
                 styles.colorButton,
@@ -294,7 +298,7 @@ export function HomeScreen({
             </Pressable>
             <Pressable
               onPress={() => {
-                setFontSizePickerVisible(true);
+                setActivePicker('fontSize');
               }}
               style={[
                 styles.colorButton,
@@ -317,7 +321,7 @@ export function HomeScreen({
           <View style={styles.toggleRow}>
             <Pressable
               onPress={() => {
-                setEffectPickerVisible(true);
+                setActivePicker('effect');
               }}
               style={[
                 styles.optionButton,
@@ -336,7 +340,7 @@ export function HomeScreen({
             </Pressable>
             <Pressable
               onPress={() => {
-                setAlignmentPickerVisible(true);
+                setActivePicker('alignment');
               }}
               style={({ pressed }) => [
                 styles.optionButton,
@@ -379,7 +383,7 @@ export function HomeScreen({
             </Pressable>
             <Pressable
               disabled={!canShowText}
-              onPress={() => setSharePickerVisible(true)}
+              onPress={() => setActivePicker('share')}
               style={[
                 styles.button,
                 styles.buttonHalf,
@@ -398,54 +402,54 @@ export function HomeScreen({
         </Text>
       </ScrollView>
       <ColorPickerModal
-        visible={foregroundPickerVisible}
+        visible={activePicker === 'foreground'}
         title={translate('home.textColor')}
         initialColor={foregroundColor}
-        onClose={() => setForegroundPickerVisible(false)}
+        onClose={closePicker}
         onColorChange={setForegroundColor}
         theme={theme}
       />
       <ColorPickerModal
-        visible={backgroundPickerVisible}
+        visible={activePicker === 'background'}
         title={translate('home.backgroundColor')}
         initialColor={backgroundColor}
-        onClose={() => setBackgroundPickerVisible(false)}
+        onClose={closePicker}
         onColorChange={setBackgroundColor}
         theme={theme}
       />
       <FontPickerModal
-        visible={fontPickerVisible}
+        visible={activePicker === 'font'}
         selectedFontFamily={outputFontFamily || defaultOutputFontFamily}
-        onClose={() => setFontPickerVisible(false)}
+        onClose={closePicker}
         onFontChange={family => {
           setOutputFontFamily(family);
-          setFontPickerVisible(false);
+          closePicker();
         }}
         theme={theme}
       />
       <FontSizeModal
-        visible={fontSizePickerVisible}
+        visible={activePicker === 'fontSize'}
         mode={outputFontSizeMode}
         fontSize={outputFontSize}
-        onClose={() => setFontSizePickerVisible(false)}
+        onClose={closePicker}
         onModeChange={mode => setOutputFontSizeMode(mode)}
         onFontSizeChange={size => setOutputFontSize(size)}
         theme={theme}
       />
       <EffectPickerModal
-        visible={effectPickerVisible}
+        visible={activePicker === 'effect'}
         selectedStyle={outputDisplayStyle}
         interval={outputEffectInterval}
-        onClose={() => setEffectPickerVisible(false)}
+        onClose={closePicker}
         onStyleChange={style => setOutputDisplayStyle(style)}
         onIntervalChange={interval => setOutputEffectInterval(interval)}
         theme={theme}
       />
       <AlignmentPickerModal
-        visible={alignmentPickerVisible}
+        visible={activePicker === 'alignment'}
         horizontalAlignment={outputHorizontalAlignment}
         verticalAlignment={outputVerticalAlignment}
-        onClose={() => setAlignmentPickerVisible(false)}
+        onClose={closePicker}
         onHorizontalAlignmentChange={alignment =>
           setOutputHorizontalAlignment(alignment)
         }
@@ -455,8 +459,8 @@ export function HomeScreen({
         theme={theme}
       />
       <SharePickerModal
-        visible={sharePickerVisible}
-        onClose={() => setSharePickerVisible(false)}
+        visible={activePicker === 'share'}
+        onClose={closePicker}
         onShareAsImageLandscape={openShareImage}
         onShareAsImagePortrait={openShareImagePortrait}
         onShareAsImageSquare={openShareImageSquare}
