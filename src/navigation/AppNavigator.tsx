@@ -46,26 +46,75 @@ function HomeRoute({
 }: NativeStackScreenProps<RootStackParamList, 'Home'>) {
   const insets = useSafeAreaInsets();
   const goToOutput = useAppStore(state => state.goToOutput);
+  const shareRequestId = useAppStore(state => state.shareRequestId);
+  const shareImageAspect = useAppStore(state => state.shareImageAspect);
+  const shareAction = useAppStore(state => state.shareAction);
+  const text = useAppStore(state => state.text);
+  const foregroundColor = useAppStore(state => state.foregroundColor);
+  const backgroundColor = useAppStore(state => state.backgroundColor);
+  const outputFontFamily = useAppStore(state => state.outputFontFamily);
+  const outputFontSizeMode = useAppStore(state => state.outputFontSizeMode);
+  const outputFontSize = useAppStore(state => state.outputFontSize);
+  const outputScreenOrientation = useAppStore(
+    state => state.outputScreenOrientation,
+  );
+  const outputAnimationStyle = useAppStore(state => state.outputAnimationStyle);
+  const outputAnimationInterval = useAppStore(
+    state => state.outputAnimationInterval,
+  );
+  const outputHorizontalAlignment = useAppStore(
+    state => state.outputHorizontalAlignment,
+  );
+  const outputVerticalAlignment = useAppStore(
+    state => state.outputVerticalAlignment,
+  );
 
   return (
-    <HomeScreen
-      insets={insets}
-      onOpenHistory={() => navigation.navigate('History')}
-      onOpenOutput={() => {
-        recordDisplayOptions(getPersistedOptions(useAppStore.getState())).catch(
-          () => undefined,
-        );
-        goToOutput();
-        navigation.navigate('Output');
-      }}
-      onOpenQr={() => navigation.navigate('Qr')}
-      onOpenShare={(
-        shareImageAspect: 'landscape' | 'portrait' | 'square',
-        shareAction?: ShareAction,
-      ) => {
-        useAppStore.getState().goToShare(shareImageAspect, shareAction);
-      }}
-    />
+    <>
+      <HomeScreen
+        insets={insets}
+        onOpenHistory={() => navigation.navigate('History')}
+        onOpenOutput={() => {
+          recordDisplayOptions(
+            getPersistedOptions(useAppStore.getState()),
+          ).catch(() => undefined);
+          goToOutput();
+          navigation.navigate('Output');
+        }}
+        onOpenQr={() => navigation.navigate('Qr')}
+        onOpenShare={(
+          nextShareImageAspect: 'landscape' | 'portrait' | 'square',
+          nextShareAction?: ShareAction,
+        ) => {
+          useAppStore
+            .getState()
+            .goToShare(nextShareImageAspect, nextShareAction);
+        }}
+      />
+      {shareRequestId != null ? (
+        <OutputScreen
+          insets={insets}
+          mode="share"
+          headless
+          onExit={() => undefined}
+          recordHistory={false}
+          shareRequestId={shareRequestId}
+          shareImageAspect={shareImageAspect}
+          shareAction={shareAction}
+          text={text}
+          foregroundColor={foregroundColor}
+          backgroundColor={backgroundColor}
+          outputFontFamily={outputFontFamily}
+          outputFontSizeMode={outputFontSizeMode}
+          outputFontSize={outputFontSize}
+          outputScreenOrientation={outputScreenOrientation}
+          outputAnimationStyle={outputAnimationStyle}
+          outputAnimationInterval={outputAnimationInterval}
+          outputHorizontalAlignment={outputHorizontalAlignment}
+          outputVerticalAlignment={outputVerticalAlignment}
+        />
+      ) : null}
+    </>
   );
 }
 
