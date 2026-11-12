@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { BackHandler, Text, View } from 'react-native';
 import {
   createNavigationContainerRef,
   NavigationContainer,
@@ -9,13 +9,8 @@ import {
   type NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { departureMonoFontFamily } from '../fonts';
 import { recordDisplayOptions } from '../db/appOptions';
-import {
-  getDefaultPersistedOptions,
-  getPersistedOptions,
-  useAppStore,
-} from '../state/useAppStore';
+import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
 import type { ShareAction } from '../types/output';
 import { HistoryScreen } from '../screens/HistoryScreen';
@@ -23,11 +18,12 @@ import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
 import { QrScreen } from '../screens/QrScreen';
 import { styles } from '../styles';
+import { loadWidgetOptions } from '../state/widgetOptions';
 
 type RootStackParamList = {
   Home: undefined;
   History: undefined;
-  WidgetOutput: undefined;
+  WidgetOutput: { widgetId: number } | undefined;
   Output:
     | {
         options?: PersistedAppOptions;
@@ -162,41 +158,78 @@ function OutputRoute({
 }
 
 function WidgetOutputRoute({
-  navigation,
+  route,
 }: NativeStackScreenProps<RootStackParamList, 'WidgetOutput'>) {
   const insets = useSafeAreaInsets();
   const clearLaunchRequest = useAppStore(state => state.clearLaunchRequest);
-  const options = React.useMemo(
-    () => ({
-      ...getDefaultPersistedOptions(),
-      text: 'Hello There',
-      outputFontFamily: departureMonoFontFamily,
-    }),
-    [],
+  const widgetOutputWidgetId = useAppStore(state => state.widgetOutputWidgetId);
+  const [options, setOptions] = React.useState<PersistedAppOptions | null>(
+    null,
   );
+  const widgetId = route.params?.widgetId ?? widgetOutputWidgetId;
+
+  React.useEffect(() => {
+    let active = true;
+
+    if (widgetId == null) {
+      setOptions(null);
+      return;
+    }
+
+    loadWidgetOptions(widgetId)
+      .then(nextOptions => {
+        if (!active) {
+          return;
+        }
+
+        setOptions(nextOptions);
+      })
+      .catch(() => undefined);
+
+    return () => {
+      active = false;
+    };
+  }, [widgetId]);
 
   return (
     <View style={styles.container}>
-      <OutputScreen
-        insets={insets}
-        mode="display"
-        recordHistory={false}
-        onExit={() => {
-          clearLaunchRequest();
-          navigation.popToTop();
-        }}
-        text={options.text}
-        foregroundColor={options.foregroundColor}
-        backgroundColor={options.backgroundColor}
-        outputFontFamily={options.outputFontFamily}
-        outputFontSizeMode={options.outputFontSizeMode}
-        outputFontSize={options.outputFontSize}
-        outputScreenOrientation={options.outputScreenOrientation}
-        outputAnimationStyle={options.outputAnimationStyle}
-        outputAnimationInterval={options.outputAnimationInterval}
-        outputHorizontalAlignment={options.outputHorizontalAlignment}
-        outputVerticalAlignment={options.outputVerticalAlignment}
-      />
+      {options ? (
+        <OutputScreen
+          insets={insets}
+          mode="display"
+          recordHistory={false}
+          onExit={() => {
+            clearLaunchRequest();
+            BackHandler.exitApp();
+          }}
+          text={options.text}
+          foregroundColor={options.foregroundColor}
+          backgroundColor={options.backgroundColor}
+          outputFontFamily={options.outputFontFamily}
+          outputFontSizeMode={options.outputFontSizeMode}
+          outputFontSize={options.outputFontSize}
+          outputScreenOrientation={options.outputScreenOrientation}
+          outputAnimationStyle={options.outputAnimationStyle}
+          outputAnimationInterval={options.outputAnimationInterval}
+          outputHorizontalAlignment={options.outputHorizontalAlignment}
+          outputVerticalAlignment={options.outputVerticalAlignment}
+        />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 24,
+          }}
+        >
+          <Text style={{ color: '#ffffff', textAlign: 'center' }}>
+            {widgetId == null
+              ? 'Missing widget ID.'
+              : `No saved widget options for widget ${widgetId}.`}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -227,11 +260,40 @@ function QrRoute({
 }
 
 export function AppNavigator() {
+  const initialLaunchTarget = useAppStore(state => state.launchTarget);
+  const initialWidgetOutputWidgetId = useAppStore(
+    state => state.widgetOutputWidgetId,
+  );
   const launchRequestId = useAppStore(state => state.launchRequestId);
   const launchTarget = useAppStore(state => state.launchTarget);
   const clearLaunchRequest = useAppStore(state => state.clearLaunchRequest);
   const [navigationReady, setNavigationReady] = React.useState(false);
   const lastHandledLaunchRequestIdRef = React.useRef<number | null>(null);
+  const initialLaunchRequestIdRef = React.useRef<number | null>(
+    launchRequestId,
+  );
+
+  const initialState = React.useMemo(() => {
+    if (
+      initialLaunchTarget === 'widgetOutput' &&
+      initialWidgetOutputWidgetId != null
+    ) {
+      return {
+        index: 0,
+        routes: [
+          {
+            name: 'WidgetOutput',
+            params: { widgetId: initialWidgetOutputWidgetId },
+          },
+        ],
+      };
+    }
+
+    return {
+      index: 0,
+      routes: [{ name: 'Home' }],
+    };
+  }, [initialLaunchTarget, initialWidgetOutputWidgetId]);
 
   React.useEffect(() => {
     if (launchRequestId == null) {
@@ -246,12 +308,27 @@ export function AppNavigator() {
       return;
     }
 
+    if (launchRequestId === initialLaunchRequestIdRef.current) {
+      return;
+    }
+
     lastHandledLaunchRequestIdRef.current = launchRequestId;
 
     if (launchTarget === 'widgetOutput') {
+      const widgetId = useAppStore.getState().widgetOutputWidgetId;
+
+      if (widgetId == null) {
+        return;
+      }
+
       navigationRef.resetRoot({
-        index: 1,
-        routes: [{ name: 'Home' }, { name: 'WidgetOutput' }],
+        index: 0,
+        routes: [
+          {
+            name: 'WidgetOutput',
+            params: { widgetId },
+          },
+        ],
       });
     } else if (launchTarget === 'home') {
       navigationRef.resetRoot({
@@ -266,6 +343,7 @@ export function AppNavigator() {
   return (
     <NavigationContainer
       ref={navigationRef}
+      initialState={initialState}
       onReady={() => setNavigationReady(true)}
     >
       <Stack.Navigator screenOptions={{ headerShown: false }}>

@@ -26,14 +26,14 @@ class MainActivity : ReactActivity() {
     super.onCreate(savedInstanceState)
     ShareTextModule.handleIntent(intent)
     AppLaunchModule.handleIntent(intent)
-    setIntent(sanitizeIntent(intent))
+    setIntent(intent)
   }
 
   override fun onNewIntent(intent: android.content.Intent) {
     super.onNewIntent(intent)
     ShareTextModule.handleIntent(intent)
     AppLaunchModule.handleIntent(intent)
-    setIntent(sanitizeIntent(intent))
+    setIntent(intent)
   }
 
   override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -45,11 +45,4 @@ class MainActivity : ReactActivity() {
     }
   }
 
-  private fun sanitizeIntent(intent: Intent): Intent {
-    return Intent(intent).apply {
-      if (getBooleanExtra(WidgetProvider.EXTRA_OPEN_WIDGET_OUTPUT, false)) {
-        removeExtra(WidgetProvider.EXTRA_OPEN_WIDGET_OUTPUT)
-      }
-    }
-  }
 }

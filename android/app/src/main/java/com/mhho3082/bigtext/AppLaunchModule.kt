@@ -26,6 +26,17 @@ class AppLaunchModule(private val reactContext: ReactApplicationContext) : React
   }
 
   @ReactMethod
+  fun requestWidgetOutput(widgetId: Int) {
+    val launchIntent = Intent(Intent.ACTION_VIEW).apply {
+      data = android.net.Uri.parse("bigtext://widget-output?widgetId=$widgetId")
+      addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+      setPackage(reactContext.packageName)
+    }
+
+    reactContext.startActivity(launchIntent)
+  }
+
+  @ReactMethod
   fun addListener(eventName: String) {
     // Required by NativeEventEmitter on Android.
   }
@@ -82,12 +93,14 @@ class AppLaunchModule(private val reactContext: ReactApplicationContext) : React
 
     private fun extractLaunchTarget(intent: Intent?): String? {
       return when (intent?.action) {
-        WidgetProvider.ACTION_OPEN_WIDGET_OUTPUT -> {
-          if (intent.getBooleanExtra(WidgetProvider.EXTRA_OPEN_WIDGET_OUTPUT, false)) {
-            "widgetOutput"
-          } else {
-            null
+        Intent.ACTION_VIEW -> {
+          val data = intent.data ?: return null
+          if (data.scheme != "bigtext" || data.host != "widget-output") {
+            return null
           }
+
+          val widgetId = data.getQueryParameter("widgetId")?.toIntOrNull() ?: return null
+          "widgetOutput:$widgetId"
         }
         Intent.ACTION_MAIN -> "home"
         else -> null

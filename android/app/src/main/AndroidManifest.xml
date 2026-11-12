@@ -28,6 +28,20 @@
             <category android:name="android.intent.category.DEFAULT" />
             <data android:mimeType="text/plain" />
         </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="bigtext" android:host="widget-output" />
+        </intent-filter>
+      </activity>
+      <activity
+        android:name=".WidgetConfigurationActivity"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <intent-filter>
+          <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+        </intent-filter>
       </activity>
       <receiver
         android:name=".WidgetProvider"

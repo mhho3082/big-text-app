@@ -335,17 +335,6 @@ export const maokenSansFontFamily =
     ? maokenSansFontOption?.androidFamily ?? maokenSansFontOption?.iosFamily
     : maokenSansFontOption?.iosFamily ?? maokenSansFontOption?.androidFamily;
 
-const departureMonoFontOption = fontOptions.find(
-  option => option.displayName === 'Departure Mono',
-);
-
-export const departureMonoFontFamily =
-  Platform.OS === 'android'
-    ? departureMonoFontOption?.androidFamily ??
-      departureMonoFontOption?.iosFamily
-    : departureMonoFontOption?.iosFamily ??
-      departureMonoFontOption?.androidFamily;
-
 const FONT_CATEGORY_ORDER: FontCategory[] = ['traditionalChinese', 'english'];
 
 const CHIRON_FONT_NAMES = new Set(['昭源宋體', '昭源黑體', '昭源環方']);

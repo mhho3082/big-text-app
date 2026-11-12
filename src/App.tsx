@@ -12,13 +12,13 @@ enableScreens();
 
 function App() {
   useIncomingSharedText();
-  useIncomingLaunchTarget();
+  const launchTargetReady = useIncomingLaunchTarget();
   usePersistedAppOptionsSync();
 
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={styles.root}>
-        <AppNavigator />
+        {launchTargetReady ? <AppNavigator /> : null}
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );

@@ -31,6 +31,7 @@ export type {
 type AppState = {
   launchRequestId: number | null;
   launchTarget: 'home' | 'widgetOutput' | null;
+  widgetOutputWidgetId: number | null;
   shareRequestId: number | null;
   shareImageAspect: ShareImageAspect;
   shareAction: ShareAction;
@@ -117,6 +118,7 @@ export function getDefaultPersistedOptions(): PersistedAppOptions {
 export const useAppStore = create<AppState>(set => ({
   launchRequestId: null,
   launchTarget: null,
+  widgetOutputWidgetId: null,
   shareRequestId: null,
   shareImageAspect: 'landscape',
   shareAction: 'share',
@@ -182,7 +184,11 @@ export const useAppStore = create<AppState>(set => ({
     set({ shareRequestId: null });
   },
   clearLaunchRequest: () => {
-    set({ launchRequestId: null, launchTarget: null });
+    set({
+      launchRequestId: null,
+      launchTarget: null,
+      widgetOutputWidgetId: null,
+    });
   },
   goToQr: () => {
     set({ shareRequestId: null, shareAction: 'share' });

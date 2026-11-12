@@ -139,6 +139,7 @@ const locales: Record<AppLanguage, Locale> = {
     'home.orientation.landscapeRight': 'Landscape right',
     'home.orientation.upsideDown': 'Upside down',
     'home.showText': 'Display',
+    'home.confirm': 'Confirm',
     'home.exitHint': 'Notes: double-tap to exit the display screen',
     'home.credits':
       'Made by Max Ho (mhho3082). Thanks to Lucide Icons for icon assets.',
@@ -168,6 +169,9 @@ const locales: Record<AppLanguage, Locale> = {
     'fontSize.customNote':
       'In Custom, you can pan up or down on the output screen to adjust the size.',
     'fontSize.size': 'Size',
+    'widgetConfig.title': 'Configure Widget',
+    'widgetConfig.confirm': 'Confirm',
+    'widgetConfig.name': 'Widget name',
     'license.ofl11': 'SIL Open Font License 1.1',
     'license.apache20': 'Apache License 2.0',
   },
@@ -221,6 +225,7 @@ const locales: Record<AppLanguage, Locale> = {
     'home.orientation.landscapeRight': '橫向（右）',
     'home.orientation.upsideDown': '倒轉',
     'home.showText': '顯示',
+    'home.confirm': '確認',
     'home.exitHint': '提示：在顯示畫面上雙擊即可退出',
     'home.credits':
       '由 Max Ho（mhho3082）製作。感謝 Lucide Icons 提供圖標資源。',
@@ -248,6 +253,9 @@ const locales: Record<AppLanguage, Locale> = {
     'fontSize.custom': '自訂',
     'fontSize.customNote': '在自訂模式下，可在顯示畫面裡上下滑動來調整大小。',
     'fontSize.size': '大小',
+    'widgetConfig.title': '設定小工具',
+    'widgetConfig.confirm': '確認',
+    'widgetConfig.name': '小工具名稱',
     'license.ofl11': 'SIL 開源字體授權 1.1版',
     'license.apache20': 'Apache 授權 2.0',
   },
@@ -301,6 +309,7 @@ const locales: Record<AppLanguage, Locale> = {
     'home.orientation.landscapeRight': '横向（右）',
     'home.orientation.upsideDown': '倒转',
     'home.showText': '显示',
+    'home.confirm': '确认',
     'home.exitHint': '提示：在显示画面上双击即可退出',
     'home.credits':
       '由 Max Ho（mhho3082）制作。感谢 Lucide Icons 提供图标资源。',
@@ -328,6 +337,9 @@ const locales: Record<AppLanguage, Locale> = {
     'fontSize.custom': '自定义',
     'fontSize.customNote': '在自定义模式下，可在显示画面里上下滑动来调整大小。',
     'fontSize.size': '大小',
+    'widgetConfig.title': '设置小组件',
+    'widgetConfig.confirm': '确认',
+    'widgetConfig.name': '小组件名称',
     'license.ofl11': 'SIL 开源字体授权 1.1 版',
     'license.apache20': 'Apache 许可证 2.0',
   },

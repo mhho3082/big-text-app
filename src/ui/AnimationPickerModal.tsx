@@ -8,14 +8,12 @@ import {
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { t } from '../i18n';
-import {
-  DEFAULT_OUTPUT_ANIMATION_INTERVAL,
-  type OutputAnimationStyle,
-} from '../state/persistedOptions';
+import { DEFAULT_OUTPUT_ANIMATION_INTERVAL } from '../state/persistedOptions';
 import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { BRAND_ACCENT, HomeTheme } from '../theme';
 import { X } from 'lucide-react-native';
+import type { OutputAnimationStyle } from '../types/output';
 
 type Props = {
   visible: boolean;

@@ -143,6 +143,12 @@ export const styles = StyleSheet.create({
   homeTitleMaoken: {
     fontWeight: '400',
   },
+  widgetFieldLabel: {
+    fontSize: 14,
+  },
+  widgetNameInput: {
+    minHeight: 52,
+  },
   homeThemeButton: {
     borderRadius: 999,
     paddingHorizontal: 8,

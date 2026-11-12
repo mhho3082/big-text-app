@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/widget_hello"
+    android:initialLayout="@layout/rn_widget"
     android:minWidth="48dp"
     android:minHeight="48dp"
     android:previewImage="@drawable/widget_icon_1024"
@@ -8,4 +8,6 @@
     android:targetCellWidth="1"
     android:targetCellHeight="1"
     android:updatePeriodMillis="0"
-    android:widgetCategory="home_screen" />
+    android:widgetCategory="home_screen"
+    android:configure="com.mhho3082.bigtext.WidgetConfigurationActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional" />

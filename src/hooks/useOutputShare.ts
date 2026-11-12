@@ -2,14 +2,14 @@ import React from 'react';
 import type { View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import Share from 'react-native-share';
-import { t } from '../i18n';
+import { t, type AppLanguage } from '../i18n';
 import { showToast } from '../native/toast';
 import { setWallpaper } from '../native/wallpaper';
 
 type UseOutputShareParams = {
   automaticSearchComplete: boolean;
   clearShareRequest: () => void;
-  language: string;
+  language: AppLanguage;
   mode: 'display' | 'share';
   onExit: () => void;
   outputFontSizeMode: 'automatic' | 'custom';

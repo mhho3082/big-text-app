@@ -26,6 +26,10 @@ export type PersistedAppOptions = {
   outputVerticalAlignment: OutputVerticalAlignment;
 };
 
+export type WidgetOptions = PersistedAppOptions & {
+  widgetName: string;
+};
+
 export const persistedAppOptionKeys = [
   'homeTheme',
   'language',
