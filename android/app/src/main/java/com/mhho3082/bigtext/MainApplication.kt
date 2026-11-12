@@ -20,6 +20,7 @@ class MainApplication : Application(), ReactApplication {
           add(KeepScreenOnPackage())
           add(ToastPackage())
           add(ShareTextPackage())
+          add(AppLaunchPackage())
           add(WallpaperPackage())
           add(ScreenOrientationPackage())
         },

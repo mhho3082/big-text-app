@@ -73,6 +73,7 @@ export type OutputScreenProps = Pick<
   mode: 'display' | 'share';
   headless?: boolean;
   onExit: () => void;
+  recordHistory?: boolean;
   shareRequestId?: number;
   shareImageAspect?: ShareImageAspect;
   shareAction?: ShareAction;
@@ -83,6 +84,7 @@ export function OutputScreen({
   mode,
   headless = false,
   onExit,
+  recordHistory = true,
   text,
   foregroundColor,
   backgroundColor,
@@ -305,7 +307,7 @@ export function OutputScreen({
       : backgroundColor;
 
   const { flushPendingHistoryUpdate, queueHistoryUpdate } =
-    useOutputHistoryRecording({ enabled: canAdjustFontSize });
+    useOutputHistoryRecording({ enabled: canAdjustFontSize && recordHistory });
 
   const applyCustomFontSize = React.useCallback(
     (nextFontSize: number) => {

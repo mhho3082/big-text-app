@@ -29,6 +29,8 @@ export type {
 } from '../types/output';
 
 type AppState = {
+  launchRequestId: number | null;
+  launchTarget: 'home' | 'widgetOutput' | null;
   shareRequestId: number | null;
   shareImageAspect: ShareImageAspect;
   shareAction: ShareAction;
@@ -61,10 +63,13 @@ type AppState = {
   setOutputVerticalAlignment: (alignment: OutputVerticalAlignment) => void;
   setPersistedOptions: (options: Partial<PersistedAppOptions>) => void;
   goToOutput: () => void;
+  requestWidgetOutput: () => void;
+  requestHomeScreen: () => void;
   goToShare: (
     shareImageAspect?: ShareImageAspect,
     shareAction?: ShareAction,
   ) => void;
+  clearLaunchRequest: () => void;
   clearShareRequest: () => void;
   goToQr: () => void;
   goToHistory: () => void;
@@ -91,7 +96,27 @@ export function getPersistedOptions(state: AppState): PersistedAppOptions {
   };
 }
 
+export function getDefaultPersistedOptions(): PersistedAppOptions {
+  return {
+    homeTheme: Appearance.getColorScheme() === 'dark' ? 'dark' : 'light',
+    language: detectSystemLanguage(),
+    text: '',
+    foregroundColor: '#ffffff',
+    backgroundColor: '#000000',
+    outputFontFamily: defaultOutputFontFamily,
+    outputFontSizeMode: 'automatic',
+    outputFontSize: 120,
+    outputScreenOrientation: 'automatic',
+    outputAnimationStyle: 'static',
+    outputAnimationInterval: DEFAULT_OUTPUT_ANIMATION_INTERVAL,
+    outputHorizontalAlignment: 'center',
+    outputVerticalAlignment: 'center',
+  };
+}
+
 export const useAppStore = create<AppState>(set => ({
+  launchRequestId: null,
+  launchTarget: null,
   shareRequestId: null,
   shareImageAspect: 'landscape',
   shareAction: 'share',
@@ -133,6 +158,18 @@ export const useAppStore = create<AppState>(set => ({
     set({ outputVerticalAlignment }),
   setPersistedOptions: options => set(options),
   goToOutput: () => set({ shareRequestId: null, shareAction: 'share' }),
+  requestWidgetOutput: () =>
+    set(state => ({
+      launchTarget: 'widgetOutput',
+      launchRequestId:
+        state.launchRequestId == null ? 1 : state.launchRequestId + 1,
+    })),
+  requestHomeScreen: () =>
+    set(state => ({
+      launchTarget: 'home',
+      launchRequestId:
+        state.launchRequestId == null ? 1 : state.launchRequestId + 1,
+    })),
   goToShare: (shareImageAspect = 'landscape', shareAction = 'share') => {
     set(state => ({
       shareImageAspect,
@@ -143,6 +180,9 @@ export const useAppStore = create<AppState>(set => ({
   },
   clearShareRequest: () => {
     set({ shareRequestId: null });
+  },
+  clearLaunchRequest: () => {
+    set({ launchRequestId: null, launchTarget: null });
   },
   goToQr: () => {
     set({ shareRequestId: null, shareAction: 'share' });

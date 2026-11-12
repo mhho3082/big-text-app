@@ -1,13 +1,21 @@
 import React from 'react';
 import { View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  createNavigationContainerRef,
+  NavigationContainer,
+} from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   type NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { departureMonoFontFamily } from '../fonts';
 import { recordDisplayOptions } from '../db/appOptions';
-import { getPersistedOptions, useAppStore } from '../state/useAppStore';
+import {
+  getDefaultPersistedOptions,
+  getPersistedOptions,
+  useAppStore,
+} from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
 import type { ShareAction } from '../types/output';
 import { HistoryScreen } from '../screens/HistoryScreen';
@@ -19,6 +27,7 @@ import { styles } from '../styles';
 type RootStackParamList = {
   Home: undefined;
   History: undefined;
+  WidgetOutput: undefined;
   Output:
     | {
         options?: PersistedAppOptions;
@@ -34,6 +43,7 @@ type RootStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
 function HomeRoute({
   navigation,
@@ -151,6 +161,46 @@ function OutputRoute({
   );
 }
 
+function WidgetOutputRoute({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'WidgetOutput'>) {
+  const insets = useSafeAreaInsets();
+  const clearLaunchRequest = useAppStore(state => state.clearLaunchRequest);
+  const options = React.useMemo(
+    () => ({
+      ...getDefaultPersistedOptions(),
+      text: 'Hello There',
+      outputFontFamily: departureMonoFontFamily,
+    }),
+    [],
+  );
+
+  return (
+    <View style={styles.container}>
+      <OutputScreen
+        insets={insets}
+        mode="display"
+        recordHistory={false}
+        onExit={() => {
+          clearLaunchRequest();
+          navigation.popToTop();
+        }}
+        text={options.text}
+        foregroundColor={options.foregroundColor}
+        backgroundColor={options.backgroundColor}
+        outputFontFamily={options.outputFontFamily}
+        outputFontSizeMode={options.outputFontSizeMode}
+        outputFontSize={options.outputFontSize}
+        outputScreenOrientation={options.outputScreenOrientation}
+        outputAnimationStyle={options.outputAnimationStyle}
+        outputAnimationInterval={options.outputAnimationInterval}
+        outputHorizontalAlignment={options.outputHorizontalAlignment}
+        outputVerticalAlignment={options.outputVerticalAlignment}
+      />
+    </View>
+  );
+}
+
 function QrRoute({
   navigation,
   route,
@@ -177,11 +227,51 @@ function QrRoute({
 }
 
 export function AppNavigator() {
+  const launchRequestId = useAppStore(state => state.launchRequestId);
+  const launchTarget = useAppStore(state => state.launchTarget);
+  const clearLaunchRequest = useAppStore(state => state.clearLaunchRequest);
+  const [navigationReady, setNavigationReady] = React.useState(false);
+  const lastHandledLaunchRequestIdRef = React.useRef<number | null>(null);
+
+  React.useEffect(() => {
+    if (launchRequestId == null) {
+      return;
+    }
+
+    if (!navigationReady) {
+      return;
+    }
+
+    if (lastHandledLaunchRequestIdRef.current === launchRequestId) {
+      return;
+    }
+
+    lastHandledLaunchRequestIdRef.current = launchRequestId;
+
+    if (launchTarget === 'widgetOutput') {
+      navigationRef.resetRoot({
+        index: 1,
+        routes: [{ name: 'Home' }, { name: 'WidgetOutput' }],
+      });
+    } else if (launchTarget === 'home') {
+      navigationRef.resetRoot({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }
+
+    clearLaunchRequest();
+  }, [clearLaunchRequest, launchRequestId, launchTarget, navigationReady]);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => setNavigationReady(true)}
+    >
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeRoute} />
         <Stack.Screen name="History" component={HistoryRoute} />
+        <Stack.Screen name="WidgetOutput" component={WidgetOutputRoute} />
         <Stack.Screen name="Output" component={OutputRoute} />
         <Stack.Screen name="Qr" component={QrRoute} />
       </Stack.Navigator>

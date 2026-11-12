@@ -1,6 +1,7 @@
 package com.mhho3082.bigtext
 
 import android.os.Bundle
+import android.content.Intent
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -24,12 +25,15 @@ class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     ShareTextModule.handleIntent(intent)
+    AppLaunchModule.handleIntent(intent)
+    setIntent(sanitizeIntent(intent))
   }
 
   override fun onNewIntent(intent: android.content.Intent) {
     super.onNewIntent(intent)
-    setIntent(intent)
     ShareTextModule.handleIntent(intent)
+    AppLaunchModule.handleIntent(intent)
+    setIntent(sanitizeIntent(intent))
   }
 
   override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -38,6 +42,14 @@ class MainActivity : ReactActivity() {
     if (hasFocus) {
       ImmersiveModeModule.setImmersiveMode(this, ImmersiveModeModule.isEnabled)
       KeepScreenOnModule.setKeepScreenOn(this, KeepScreenOnModule.isEnabled)
+    }
+  }
+
+  private fun sanitizeIntent(intent: Intent): Intent {
+    return Intent(intent).apply {
+      if (getBooleanExtra(WidgetProvider.EXTRA_OPEN_WIDGET_OUTPUT, false)) {
+        removeExtra(WidgetProvider.EXTRA_OPEN_WIDGET_OUTPUT)
+      }
     }
   }
 }
