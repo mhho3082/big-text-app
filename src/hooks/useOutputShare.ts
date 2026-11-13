@@ -1,7 +1,6 @@
 import React from 'react';
 import type { View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
-import Share from 'react-native-share';
 import { t, type AppLanguage } from '../i18n';
 import { showToast } from '../native/toast';
 import { setWallpaper } from '../native/wallpaper';
@@ -12,6 +11,7 @@ type UseOutputShareParams = {
   language: AppLanguage;
   mode: 'display' | 'share';
   onExit: () => void;
+  onShareCapture?: (uri: string) => Promise<void> | void;
   outputFontSizeMode: 'automatic' | 'custom';
   shareAction: 'share' | 'wallpaper';
   shareCaptureHeight: number;
@@ -39,6 +39,7 @@ export function useOutputShare({
   language,
   mode,
   onExit,
+  onShareCapture,
   outputFontSizeMode,
   shareAction,
   shareCaptureHeight,
@@ -105,12 +106,7 @@ export function useOutputShare({
           await setWallpaper(uri);
           showToast(t('home.wallpaperSet', undefined, language));
         } else {
-          await Share.open({
-            title: t('app.title', undefined, language),
-            url: uri,
-            type: 'image/png',
-            failOnCancel: false,
-          });
+          await onShareCapture?.(uri);
         }
       } catch {
         // Ignore wallpaper/share failures and return to the caller.
@@ -137,6 +133,7 @@ export function useOutputShare({
     language,
     mode,
     onExit,
+    onShareCapture,
     outputFontSizeMode,
     shareAction,
     shareCaptureHeight,

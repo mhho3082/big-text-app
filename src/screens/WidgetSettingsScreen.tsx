@@ -456,9 +456,6 @@ export function WidgetSettingsScreen({
             </Pressable>
           ) : (
             <>
-              <Text style={[styles.exitHint, { color: theme.mutedText }]}>
-                {translate('home.exitHint')}
-              </Text>
               <View style={styles.buttonRow}>
                 <Pressable
                   disabled={!(text ?? '').trim().length}
@@ -487,6 +484,9 @@ export function WidgetSettingsScreen({
                   </Text>
                 </Pressable>
               </View>
+              <Text style={[styles.exitHint, { color: theme.mutedText }]}>
+                {translate('home.exitHint')}
+              </Text>
             </>
           )}
         </View>

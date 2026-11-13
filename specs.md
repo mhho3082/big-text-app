@@ -43,6 +43,11 @@
 
 - The app can share the current message as an image.
 - The app can share the current message as an image in landscape, portrait, or square format.
+- Sharing as a landscape, portrait, or square image opens a preview modal instead of the system share prompt.
+- The image preview modal opens immediately and shows a loading indicator until the image is ready.
+- The image preview is fitted inside the preview window without resizing the image itself.
+- The user can save the previewed image to the camera roll, share it through the system share prompt, or cancel to close the preview.
+- Saving the previewed image closes the preview and confirms when the image has been saved.
 - The app can share the current message as plain text.
 - The app can set the current message image as wallpaper.
 - The app can show the current message as a QR code.

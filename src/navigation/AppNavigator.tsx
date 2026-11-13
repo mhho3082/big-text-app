@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackHandler, Text, View } from 'react-native';
+import Share from 'react-native-share';
 import {
   createNavigationContainerRef,
   NavigationContainer,
@@ -12,15 +13,18 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { recordDisplayOptions } from '../db/appOptions';
 import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
-import type { ShareAction } from '../types/output';
+import type { ShareAction, ShareImageAspect } from '../types/output';
 import { showToast } from '../native/toast';
+import { saveImageToCameraRoll } from '../native/cameraRoll';
 import { t } from '../i18n';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
 import { QrScreen } from '../screens/QrScreen';
+import { ImagePreviewModal } from '../ui/ImagePreviewModal';
 import { styles } from '../styles';
 import { loadWidgetOptions, saveWidgetOptions } from '../state/widgetOptions';
+import { getHomeTheme } from '../theme';
 
 type RootStackParamList = {
   Home: undefined;
@@ -49,6 +53,11 @@ const appFlowRouteNames: Array<keyof RootStackParamList> = [
   'Qr',
 ];
 const widgetFlowRouteNames: Array<keyof RootStackParamList> = ['WidgetOutput'];
+const sharePreviewTitleKeys: Record<ShareImageAspect, string> = {
+  landscape: 'home.shareImageLandscape',
+  portrait: 'home.shareImagePortrait',
+  square: 'home.shareImageSquare',
+};
 
 function HomeRoute({
   navigation,
@@ -77,6 +86,78 @@ function HomeRoute({
   const outputVerticalAlignment = useAppStore(
     state => state.outputVerticalAlignment,
   );
+  const homeThemeName = useAppStore(state => state.homeTheme);
+  const [sharePreview, setSharePreview] = React.useState<{
+    uri?: string;
+    aspect: ShareImageAspect;
+  } | null>(null);
+  const sharePreviewOpenRef = React.useRef(false);
+  const homeTheme = getHomeTheme(homeThemeName);
+
+  const handleShareCapture = React.useCallback((uri: string) => {
+    if (!sharePreviewOpenRef.current) {
+      return;
+    }
+
+    setSharePreview(currentPreview => ({
+      aspect: currentPreview?.aspect ?? useAppStore.getState().shareImageAspect,
+      uri,
+    }));
+  }, []);
+
+  const openShare = React.useCallback(
+    (aspect: ShareImageAspect, action?: ShareAction) => {
+      if (action == null || action === 'share') {
+        sharePreviewOpenRef.current = true;
+        setSharePreview({ aspect });
+      }
+
+      useAppStore.getState().goToShare(aspect, action);
+    },
+    [],
+  );
+
+  const closeSharePreview = React.useCallback(() => {
+    sharePreviewOpenRef.current = false;
+    setSharePreview(null);
+  }, []);
+
+  const confirmSharePreview = React.useCallback(() => {
+    if (sharePreview?.uri == null) {
+      return;
+    }
+
+    const { uri } = sharePreview;
+    sharePreviewOpenRef.current = false;
+    setSharePreview(null);
+
+    Share.open({
+      title: t('app.title', undefined, useAppStore.getState().language),
+      url: uri,
+      type: 'image/png',
+      failOnCancel: false,
+    }).catch(() => undefined);
+  }, [sharePreview]);
+
+  const saveSharePreview = React.useCallback(() => {
+    if (sharePreview?.uri == null) {
+      return;
+    }
+
+    saveImageToCameraRoll(sharePreview.uri)
+      .then(() => {
+        sharePreviewOpenRef.current = false;
+        setSharePreview(null);
+        showToast(
+          t('home.imageSaved', undefined, useAppStore.getState().language),
+        );
+      })
+      .catch(() => {
+        showToast(
+          t('home.imageSaveFailed', undefined, useAppStore.getState().language),
+        );
+      });
+  }, [sharePreview]);
 
   return (
     <>
@@ -91,14 +172,7 @@ function HomeRoute({
           navigation.navigate('Output');
         }}
         onOpenQr={() => navigation.navigate('Qr')}
-        onOpenShare={(
-          nextShareImageAspect: 'landscape' | 'portrait' | 'square',
-          nextShareAction?: ShareAction,
-        ) => {
-          useAppStore
-            .getState()
-            .goToShare(nextShareImageAspect, nextShareAction);
-        }}
+        onOpenShare={openShare}
       />
       {shareRequestId != null ? (
         <OutputScreen
@@ -111,6 +185,7 @@ function HomeRoute({
           shareRequestId={shareRequestId}
           shareImageAspect={shareImageAspect}
           shareAction={shareAction}
+          onShareCapture={handleShareCapture}
           text={text}
           foregroundColor={foregroundColor}
           backgroundColor={backgroundColor}
@@ -124,6 +199,21 @@ function HomeRoute({
           outputVerticalAlignment={outputVerticalAlignment}
         />
       ) : null}
+      <ImagePreviewModal
+        visible={sharePreview != null}
+        titleKey={
+          sharePreview == null
+            ? 'home.shareImage'
+            : sharePreviewTitleKeys[sharePreview.aspect]
+        }
+        imageUris={sharePreview == null ? [] : [sharePreview.uri]}
+        onClose={closeSharePreview}
+        onConfirm={confirmSharePreview}
+        confirmLabelKey="imagePreview.share"
+        onSave={saveSharePreview}
+        saveLabelKey="home.save"
+        theme={homeTheme}
+      />
     </>
   );
 }

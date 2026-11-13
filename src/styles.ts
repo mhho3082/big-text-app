@@ -8,6 +8,62 @@ import {
   SURFACE_WHITE,
 } from './theme';
 
+const buttonPressableBase = {
+  alignItems: 'center' as const,
+  justifyContent: 'center' as const,
+};
+
+const buttonPressablePrimary = {
+  ...buttonPressableBase,
+  borderRadius: 20,
+  paddingHorizontal: 20,
+  paddingVertical: 12,
+};
+
+const buttonPressableRounded = {
+  ...buttonPressableBase,
+  borderRadius: 16,
+  paddingHorizontal: 14,
+  paddingVertical: 12,
+};
+
+const buttonPressablePill = {
+  ...buttonPressableBase,
+  borderRadius: 999,
+  paddingHorizontal: 8,
+  paddingVertical: 8,
+};
+
+const buttonTextBase = {
+  includeFontPadding: false,
+  textAlign: 'center' as const,
+};
+
+const buttonTextLarge = {
+  ...buttonTextBase,
+  fontSize: 16,
+  lineHeight: 20,
+  fontWeight: '600' as const,
+};
+
+const buttonTextMedium = {
+  ...buttonTextBase,
+  fontSize: 15,
+  lineHeight: 19,
+  fontWeight: '600' as const,
+};
+
+const buttonTextSmall = {
+  ...buttonTextBase,
+  fontSize: 14,
+  lineHeight: 18,
+  fontWeight: '700' as const,
+};
+
+const buttonPressed = {
+  opacity: 0.8,
+};
+
 export const styles = StyleSheet.create({
   root: {
     flex: 1,
@@ -101,36 +157,25 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   historyActionButton: {
-    borderRadius: 12,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...buttonPressablePill,
     minWidth: 58,
   },
   historyActionText: {
+    ...buttonTextBase,
     fontSize: 12,
+    lineHeight: 16,
     fontWeight: '700',
-    textAlign: 'center',
   },
   historyEmptyText: {
     fontSize: 14,
   },
   statusBarButton: {
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...buttonPressablePill,
     flexShrink: 0,
   },
   statusBarButtonText: {
-    fontSize: 14,
-    lineHeight: 18,
+    ...buttonTextSmall,
     paddingHorizontal: 4,
-    fontWeight: '700',
-    includeFontPadding: false,
-    textAlign: 'center',
   },
   homeTitle: {
     flexGrow: 1,
@@ -150,20 +195,12 @@ export const styles = StyleSheet.create({
     minHeight: 52,
   },
   homeThemeButton: {
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...buttonPressablePill,
     flexShrink: 0,
   },
   homeThemeButtonText: {
-    fontSize: 14,
-    lineHeight: 18,
-    fontWeight: '700',
+    ...buttonTextSmall,
     paddingHorizontal: 4,
-    includeFontPadding: false,
-    textAlign: 'center',
   },
   content: {
     flex: 1,
@@ -194,15 +231,13 @@ export const styles = StyleSheet.create({
   optionButton: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
     gap: 10,
-    borderRadius: 16,
     borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    ...buttonPressableRounded,
+    justifyContent: 'flex-start',
   },
   optionButtonPressed: {
-    opacity: 0.8,
+    ...buttonPressed,
   },
   optionIndicator: {
     width: 20,
@@ -218,18 +253,15 @@ export const styles = StyleSheet.create({
     backgroundColor: STATE_DANGER,
   },
   optionButtonText: {
-    fontSize: 15,
-    fontWeight: '600',
+    ...buttonTextMedium,
   },
   colorButton: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
     gap: 10,
-    borderRadius: 16,
     borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    ...buttonPressableRounded,
+    justifyContent: 'flex-start',
   },
   colorSwatch: {
     width: 20,
@@ -238,8 +270,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
   },
   colorButtonText: {
-    fontSize: 15,
-    fontWeight: '600',
+    ...buttonTextMedium,
   },
   fontFamilyButtonText: {
     flexShrink: 1,
@@ -258,18 +289,14 @@ export const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: BRAND_ACCENT,
-    borderRadius: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    ...buttonPressablePrimary,
   },
   buttonHalf: {
     flex: 1,
-    alignItems: 'center',
   },
   buttonText: {
+    ...buttonTextLarge,
     color: SURFACE_WHITE,
-    fontSize: 16,
-    fontWeight: '600',
   },
   buttonDisabled: {
     opacity: 0.45,
@@ -373,13 +400,11 @@ export const styles = StyleSheet.create({
     lineHeight: 21,
   },
   closeButton: {
-    borderRadius: 16,
-    paddingHorizontal: 14,
+    ...buttonPressableRounded,
     paddingVertical: 10,
   },
   closeButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
+    ...buttonTextSmall,
   },
   picker: {
     gap: 16,
@@ -457,7 +482,7 @@ export const styles = StyleSheet.create({
     borderColor: BRAND_ACCENT,
   },
   fontChoiceButtonPressed: {
-    opacity: 0.8,
+    ...buttonPressed,
   },
   fontChoicePreview: {
     fontSize: 28,
@@ -493,21 +518,17 @@ export const styles = StyleSheet.create({
   },
   fontSizeModeButton: {
     flex: 1,
-    borderRadius: 16,
     borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    alignItems: 'center',
+    ...buttonPressableRounded,
   },
   fontSizeModeButtonSelected: {
     borderColor: BRAND_ACCENT,
   },
   fontSizeModeButtonPressed: {
-    opacity: 0.8,
+    ...buttonPressed,
   },
   fontSizeModeButtonText: {
-    fontSize: 15,
-    fontWeight: '600',
+    ...buttonTextMedium,
   },
   fontSizeSliderBlock: {
     gap: 12,
@@ -537,11 +558,8 @@ export const styles = StyleSheet.create({
   },
   animationOptionButton: {
     flex: 1,
-    borderRadius: 16,
     borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    alignItems: 'center',
+    ...buttonPressableRounded,
   },
   oddLastOption: {
     flexGrow: 0,
@@ -552,31 +570,26 @@ export const styles = StyleSheet.create({
     borderColor: BRAND_ACCENT,
   },
   animationOptionButtonPressed: {
-    opacity: 0.8,
+    ...buttonPressed,
   },
   animationOptionButtonText: {
-    fontSize: 15,
-    fontWeight: '600',
+    ...buttonTextMedium,
   },
   orientationOptionList: {
     gap: 8,
   },
   orientationOptionButton: {
-    borderRadius: 16,
     borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    alignItems: 'center',
+    ...buttonPressableRounded,
   },
   orientationOptionButtonSelected: {
     borderColor: BRAND_ACCENT,
   },
   orientationOptionButtonPressed: {
-    opacity: 0.8,
+    ...buttonPressed,
   },
   orientationOptionButtonText: {
-    fontSize: 15,
-    fontWeight: '600',
+    ...buttonTextMedium,
   },
   shareOptionRow: {
     flexDirection: 'row',
@@ -589,11 +602,8 @@ export const styles = StyleSheet.create({
   shareOptionButton: {
     flexGrow: 1,
     flexBasis: '48%',
-    borderRadius: 16,
     borderWidth: 1,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    alignItems: 'center',
+    ...buttonPressableRounded,
   },
   shareOddLastOption: {
     flexGrow: 0,
@@ -601,11 +611,58 @@ export const styles = StyleSheet.create({
     maxWidth: '50%',
   },
   shareOptionButtonPressed: {
-    opacity: 0.8,
+    ...buttonPressed,
   },
   shareOptionButtonText: {
-    fontSize: 15,
-    fontWeight: '600',
+    ...buttonTextMedium,
+  },
+  imagePreviewRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  imagePreviewItem: {
+    flex: 1,
+    minWidth: 0,
+    gap: 6,
+  },
+  imagePreviewCard: {
+    aspectRatio: 1,
+    borderRadius: 16,
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+  imagePreviewBackground: {
+    flex: 1,
+  },
+  imagePreviewBackgroundImage: {
+    ...StyleSheet.absoluteFill,
+  },
+  imagePreviewLabel: {
+    fontSize: 10,
+    lineHeight: 12,
+    fontWeight: '700',
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+  },
+  imagePreviewImage: {
+    width: '100%',
+    height: '100%',
+  },
+  imagePreviewLoading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imagePreviewInputs: {
+    gap: 12,
+  },
+  imagePreviewActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  imagePreviewActionButton: {
+    flex: 1,
+    borderWidth: 1,
   },
   colorTextInput: {
     borderWidth: 0,
