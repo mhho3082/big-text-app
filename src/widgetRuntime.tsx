@@ -64,7 +64,7 @@ function WidgetPreview({
         style={{
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop: 8,
+          marginTop: 4,
           borderRadius: 12,
           paddingVertical: 4,
           paddingHorizontal: 8,
