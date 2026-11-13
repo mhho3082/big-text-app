@@ -159,7 +159,7 @@ const locales: Record<AppLanguage, Locale> = {
     'history.resetCancel': 'Cancel',
     'fontPicker.title': 'Output font',
     'fontPicker.note':
-      'If a character does not render in one font, especially a rare Chinese character, please try other fonts as well.',
+      'For the best appearance, select a Chinese font for Chinese text and an English font for English text. If a character does not render in one font, especially a rare Chinese character, please try other fonts as well.',
     'fontRemark.heavy': 'Heavy',
     'fontRemark.tcVersion': 'TC Version',
     'fontCategory.english': 'English',
@@ -246,7 +246,7 @@ const locales: Record<AppLanguage, Locale> = {
     'history.resetCancel': '取消',
     'fontPicker.title': '輸出字體',
     'fontPicker.note':
-      '若某個字型無法顯示某些字元，尤其是生僻字，建議亦可再試用其他字型。',
+      '為了達到最佳顯示效果，中文請選用中文字體，英文請選用英文字體。若某個字型無法顯示某些字元，尤其是生僻字，建議亦可再試用其他字型。',
     'fontRemark.heavy': '粗體',
     'fontRemark.tcVersion': '繁體中文版',
     'fontCategory.english': '英文',
@@ -332,7 +332,7 @@ const locales: Record<AppLanguage, Locale> = {
     'history.resetCancel': '取消',
     'fontPicker.title': '输出字体',
     'fontPicker.note':
-      '如某个字体无法显示某些字符，尤其是生僻字，建议也试试其他字体。',
+      '为了获得最佳显示效果，中文请选用中文字体，英文请选用英文字体。如某个字体无法显示某些字符，尤其是生僻字，建议也试试其他字体。',
     'fontRemark.heavy': '粗体',
     'fontRemark.tcVersion': '繁体中文版',
     'fontCategory.english': '英文',

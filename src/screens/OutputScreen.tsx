@@ -77,6 +77,7 @@ export type OutputScreenProps = Pick<
   shareRequestId?: number;
   shareImageAspect?: ShareImageAspect;
   shareAction?: ShareAction;
+  onOutputFontSizeChange?: (size: number) => void;
 };
 
 export function OutputScreen({
@@ -99,6 +100,7 @@ export function OutputScreen({
   shareRequestId,
   shareImageAspect = 'landscape',
   shareAction = 'share',
+  onOutputFontSizeChange,
 }: OutputScreenProps) {
   const language = useAppStore(state => state.language);
   const { width, height } = useWindowDimensions();
@@ -324,11 +326,21 @@ export function OutputScreen({
         return;
       }
 
-      setOutputFontSize(clampedFontSize);
+      if (onOutputFontSizeChange) {
+        onOutputFontSizeChange(clampedFontSize);
+      } else {
+        setOutputFontSize(clampedFontSize);
+      }
 
       queueHistoryUpdate();
     },
-    [canAdjustFontSize, outputFontSize, queueHistoryUpdate, setOutputFontSize],
+    [
+      canAdjustFontSize,
+      onOutputFontSizeChange,
+      outputFontSize,
+      queueHistoryUpdate,
+      setOutputFontSize,
+    ],
   );
 
   const fontSizePanGesture = usePanGesture({

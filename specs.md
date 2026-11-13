@@ -72,6 +72,7 @@
 - The widget shows a preview using the chosen widget name.
 - The widget opens the app’s display view for that widget when tapped.
 - Once configured, the widget should remain tappable and should open the correct display screen reliably.
+- If the widget opens the display view with custom sizing enabled, the user can adjust the size by dragging there just like in the normal app flow.
 - The widget should update to reflect its saved configuration.
 
 ## Incoming Content

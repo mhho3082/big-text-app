@@ -20,7 +20,7 @@ import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
 import { QrScreen } from '../screens/QrScreen';
 import { styles } from '../styles';
-import { loadWidgetOptions } from '../state/widgetOptions';
+import { loadWidgetOptions, saveWidgetOptions } from '../state/widgetOptions';
 
 type RootStackParamList = {
   Home: undefined;
@@ -228,7 +228,33 @@ function WidgetOutputRoute({
   const [options, setOptions] = React.useState<
     PersistedAppOptions | null | undefined
   >(undefined);
+  const [outputFontSize, setOutputFontSize] = React.useState<number | null>(
+    null,
+  );
   const widgetId = route.params?.widgetId ?? widgetOutputWidgetId;
+
+  const handleOutputFontSizeChange = React.useCallback(
+    (size: number) => {
+      setOutputFontSize(size);
+
+      if (widgetId == null) {
+        return;
+      }
+
+      setOptions(current => {
+        if (!current) {
+          return current;
+        }
+
+        const nextOptions = { ...current, outputFontSize: size };
+
+        saveWidgetOptions(widgetId, nextOptions).catch(() => undefined);
+
+        return nextOptions;
+      });
+    },
+    [widgetId],
+  );
 
   React.useEffect(() => {
     let active = true;
@@ -245,6 +271,7 @@ function WidgetOutputRoute({
         }
 
         setOptions(nextOptions);
+        setOutputFontSize(nextOptions?.outputFontSize ?? null);
       })
       .catch(() => undefined);
 
@@ -279,12 +306,13 @@ function WidgetOutputRoute({
             clearLaunchRequest();
             BackHandler.exitApp();
           }}
+          onOutputFontSizeChange={handleOutputFontSizeChange}
           text={options.text}
           foregroundColor={options.foregroundColor}
           backgroundColor={options.backgroundColor}
           outputFontFamily={options.outputFontFamily}
           outputFontSizeMode={options.outputFontSizeMode}
-          outputFontSize={options.outputFontSize}
+          outputFontSize={outputFontSize ?? options.outputFontSize}
           outputScreenOrientation={options.outputScreenOrientation}
           outputAnimationStyle={options.outputAnimationStyle}
           outputAnimationInterval={options.outputAnimationInterval}
