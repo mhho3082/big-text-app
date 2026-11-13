@@ -5,6 +5,7 @@ import Share from 'react-native-share';
 import { t, type AppLanguage } from '../i18n';
 import { showToast } from '../native/toast';
 import { setWallpaper } from '../native/wallpaper';
+import { prepareStickerPreviewImage } from '../utils/stickerPreview';
 
 type UseOutputShareParams = {
   automaticSearchComplete: boolean;
@@ -12,7 +13,7 @@ type UseOutputShareParams = {
   language: AppLanguage;
   mode: 'display' | 'share';
   onExit: () => void;
-  onStickerCapture?: (uri: string) => void;
+  onStickerCapture?: (uri: string) => Promise<void> | void;
   outputFontSizeMode: 'automatic' | 'custom';
   shareAction: 'share' | 'wallpaper' | 'sticker';
   shareCaptureHeight: number;
@@ -55,6 +56,10 @@ export function useOutputShare({
     }
 
     if (shareRequestId == null) {
+      return;
+    }
+
+    if (shareAction === 'sticker' && onStickerCapture == null) {
       return;
     }
 
@@ -107,7 +112,12 @@ export function useOutputShare({
           await setWallpaper(uri);
           showToast(t('home.wallpaperSet', undefined, language));
         } else if (shareAction === 'sticker') {
-          onStickerCapture?.(uri);
+          const preparedUri = await prepareStickerPreviewImage(uri);
+          if (cancelled) {
+            return;
+          }
+
+          await onStickerCapture?.(preparedUri);
         } else {
           await Share.open({
             title: t('app.title', undefined, language),

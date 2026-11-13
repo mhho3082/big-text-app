@@ -89,15 +89,21 @@ function HomeRoute({
     string[] | null
   >(null);
   const stickerCaptureCountRef = React.useRef(0);
+  const stickerPreviewOpenRef = React.useRef(false);
   const homeTheme = getHomeTheme(homeThemeName);
 
   const openStickerPreview = React.useCallback(() => {
+    stickerPreviewOpenRef.current = true;
     stickerCaptureCountRef.current = 0;
     setStickerPreviewUris([]);
     useAppStore.getState().goToShare(stickerCaptureAspects[0], 'sticker');
   }, []);
 
-  const handleStickerCapture = React.useCallback((uri: string) => {
+  const handleStickerCapture = React.useCallback(async (uri: string) => {
+    if (!stickerPreviewOpenRef.current) {
+      return;
+    }
+
     setStickerPreviewUris(previousUris => [...(previousUris ?? []), uri]);
 
     stickerCaptureCountRef.current += 1;
@@ -107,8 +113,14 @@ function HomeRoute({
     if (nextAspect) {
       useAppStore.getState().goToShare(nextAspect, 'sticker');
     } else {
+      stickerPreviewOpenRef.current = false;
       useAppStore.getState().goToOutput();
     }
+  }, []);
+
+  const closeStickerPreview = React.useCallback(() => {
+    stickerPreviewOpenRef.current = false;
+    setStickerPreviewUris(null);
   }, []);
 
   return (
@@ -160,9 +172,9 @@ function HomeRoute({
         />
       ) : null}
       <StickerPreviewModal
-        visible={stickerPreviewUris != null && stickerPreviewUris.length === 3}
+        visible={stickerPreviewUris != null}
         imageUris={stickerPreviewUris ?? []}
-        onClose={() => setStickerPreviewUris(null)}
+        onClose={closeStickerPreview}
         theme={homeTheme}
       />
     </>

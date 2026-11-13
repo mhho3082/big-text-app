@@ -44,6 +44,10 @@
 - The app can share the current message as an image.
 - The app can share the current message as an image in landscape, portrait, or square format.
 - The app can prepare a sticker preview from the current message using the landscape, portrait, and square image captures.
+- Each sticker preview image is resized to fit within a 512x512 frame and centered on a transparent 512x512 canvas before previewing.
+- The sticker preview modal opens immediately and shows loading placeholders until each processed image is ready.
+- The sticker preview modal includes pack name and pack author text fields.
+- The sticker preview modal only enables confirm after all three processed images are ready and both text fields contain non-whitespace text.
 - The app can share the current message as plain text.
 - The app can set the current message image as wallpaper.
 - The app can show the current message as a QR code.

@@ -617,9 +617,10 @@ export const styles = StyleSheet.create({
     gap: 6,
   },
   stickerPreviewCard: {
-    aspectRatio: 0.7,
+    aspectRatio: 1,
     borderRadius: 16,
     borderWidth: 1,
+    overflow: 'hidden',
   },
   stickerPreviewLabel: {
     fontSize: 10,
@@ -631,6 +632,21 @@ export const styles = StyleSheet.create({
   stickerPreviewImage: {
     width: '100%',
     height: '100%',
+  },
+  stickerPreviewLoading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stickerPreviewInputs: {
+    gap: 12,
+  },
+  stickerPreviewActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  stickerPreviewActionButton: {
+    flex: 1,
   },
   colorTextInput: {
     borderWidth: 0,
