@@ -12,8 +12,9 @@ type UseOutputShareParams = {
   language: AppLanguage;
   mode: 'display' | 'share';
   onExit: () => void;
+  onStickerCapture?: (uri: string) => void;
   outputFontSizeMode: 'automatic' | 'custom';
-  shareAction: 'share' | 'wallpaper';
+  shareAction: 'share' | 'wallpaper' | 'sticker';
   shareCaptureHeight: number;
   shareCaptureWidth: number;
   shareRequestId?: number;
@@ -39,6 +40,7 @@ export function useOutputShare({
   language,
   mode,
   onExit,
+  onStickerCapture,
   outputFontSizeMode,
   shareAction,
   shareCaptureHeight,
@@ -104,6 +106,8 @@ export function useOutputShare({
         if (shareAction === 'wallpaper') {
           await setWallpaper(uri);
           showToast(t('home.wallpaperSet', undefined, language));
+        } else if (shareAction === 'sticker') {
+          onStickerCapture?.(uri);
         } else {
           await Share.open({
             title: t('app.title', undefined, language),
@@ -115,7 +119,7 @@ export function useOutputShare({
       } catch {
         // Ignore wallpaper/share failures and return to the caller.
       } finally {
-        if (!cancelled) {
+        if (!cancelled && shareAction !== 'sticker') {
           onExit();
           clearShareRequest();
         }
@@ -137,6 +141,7 @@ export function useOutputShare({
     language,
     mode,
     onExit,
+    onStickerCapture,
     outputFontSizeMode,
     shareAction,
     shareCaptureHeight,

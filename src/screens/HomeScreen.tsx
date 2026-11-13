@@ -9,6 +9,7 @@ type Props = {
   onOpenHistory: () => void;
   onOpenOutput: () => void;
   onOpenQr: () => void;
+  onOpenStickerPreview: () => void;
   onOpenShare: (
     shareImageAspect: 'landscape' | 'portrait' | 'square',
     shareAction?: ShareAction,
@@ -20,6 +21,7 @@ export function HomeScreen({
   onOpenHistory,
   onOpenOutput,
   onOpenQr,
+  onOpenStickerPreview,
   onOpenShare,
 }: Props) {
   const homeTheme = useAppStore(state => state.homeTheme);
@@ -67,6 +69,7 @@ export function HomeScreen({
       onOpenHistory={onOpenHistory}
       onOpenOutput={onOpenOutput}
       onOpenQr={onOpenQr}
+      onOpenStickerPreview={onOpenStickerPreview}
       onOpenShare={onOpenShare}
     />
   );

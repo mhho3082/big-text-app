@@ -607,6 +607,31 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
+  stickerPreviewRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  stickerPreviewItem: {
+    flex: 1,
+    minWidth: 0,
+    gap: 6,
+  },
+  stickerPreviewCard: {
+    aspectRatio: 0.7,
+    borderRadius: 16,
+    borderWidth: 1,
+  },
+  stickerPreviewLabel: {
+    fontSize: 10,
+    lineHeight: 12,
+    fontWeight: '700',
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+  },
+  stickerPreviewImage: {
+    width: '100%',
+    height: '100%',
+  },
   colorTextInput: {
     borderWidth: 0,
   },

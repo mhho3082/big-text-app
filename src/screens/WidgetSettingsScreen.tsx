@@ -46,6 +46,7 @@ type Props = {
   onOpenHistory?: () => void;
   onOpenOutput?: () => void;
   onOpenQr?: () => void;
+  onOpenStickerPreview?: () => void;
   onOpenShare?: (
     shareImageAspect: 'landscape' | 'portrait' | 'square',
     shareAction?: ShareAction,
@@ -64,6 +65,7 @@ export function WidgetSettingsScreen({
   onOpenHistory,
   onOpenOutput,
   onOpenQr,
+  onOpenStickerPreview,
   onOpenShare,
 }: Props) {
   const homeThemeName = useAppStore(state => state.homeTheme);
@@ -181,12 +183,14 @@ export function WidgetSettingsScreen({
     openShareImageSquare,
     openShareQr,
     openShareText,
+    openStickerPreview,
     setActivePicker,
     setAsWallpaper,
   } = useHomeScreenOrchestration({
     text,
     shareTitle: translate('app.title'),
     onOpenQr: openQr,
+    onOpenStickerPreview: onOpenStickerPreview ?? (() => undefined),
     onOpenShare: openShare,
   });
 
@@ -601,6 +605,7 @@ export function WidgetSettingsScreen({
           onShareAsImageLandscape={openShareImage}
           onShareAsImagePortrait={openShareImagePortrait}
           onShareAsImageSquare={openShareImageSquare}
+          onAddAsWhatsAppSticker={openStickerPreview}
           onSetAsWallpaper={setAsWallpaper}
           onShareAsText={openShareText}
           onShareAsQr={openShareQr}

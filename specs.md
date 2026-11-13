@@ -43,6 +43,7 @@
 
 - The app can share the current message as an image.
 - The app can share the current message as an image in landscape, portrait, or square format.
+- The app can prepare a sticker preview from the current message using the landscape, portrait, and square image captures.
 - The app can share the current message as plain text.
 - The app can set the current message image as wallpaper.
 - The app can show the current message as a QR code.

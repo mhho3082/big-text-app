@@ -77,6 +77,7 @@ export type OutputScreenProps = Pick<
   shareRequestId?: number;
   shareImageAspect?: ShareImageAspect;
   shareAction?: ShareAction;
+  onStickerCapture?: (uri: string) => void;
   onOutputFontSizeChange?: (size: number) => void;
 };
 
@@ -100,6 +101,7 @@ export function OutputScreen({
   shareRequestId,
   shareImageAspect = 'landscape',
   shareAction = 'share',
+  onStickerCapture,
   onOutputFontSizeChange,
 }: OutputScreenProps) {
   const language = useAppStore(state => state.language);
@@ -486,6 +488,7 @@ export function OutputScreen({
     language,
     mode,
     onExit,
+    onStickerCapture,
     outputFontSizeMode,
     shareAction,
     shareCaptureHeight,

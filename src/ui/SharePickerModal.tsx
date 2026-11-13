@@ -12,6 +12,7 @@ type Props = {
   onShareAsImageLandscape: () => void;
   onShareAsImagePortrait: () => void;
   onShareAsImageSquare: () => void;
+  onAddAsWhatsAppSticker: () => void;
   onSetAsWallpaper: () => void;
   onShareAsText: () => void;
   onShareAsQr: () => void;
@@ -24,6 +25,7 @@ export function SharePickerModal({
   onShareAsImageLandscape,
   onShareAsImagePortrait,
   onShareAsImageSquare,
+  onAddAsWhatsAppSticker,
   onSetAsWallpaper,
   onShareAsText,
   onShareAsQr,
@@ -48,6 +50,11 @@ export function SharePickerModal({
         label: t('home.shareImageSquare', undefined, language),
       },
       {
+        key: 'sticker',
+        onPress: onAddAsWhatsAppSticker,
+        label: t('home.addAsWhatsAppSticker', undefined, language),
+      },
+      {
         key: 'wallpaper',
         onPress: onSetAsWallpaper,
         label: t('home.setAsWallpaper', undefined, language),
@@ -66,6 +73,7 @@ export function SharePickerModal({
     [
       language,
       onSetAsWallpaper,
+      onAddAsWhatsAppSticker,
       onShareAsImageLandscape,
       onShareAsImagePortrait,
       onShareAsImageSquare,

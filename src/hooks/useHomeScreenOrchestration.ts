@@ -16,6 +16,7 @@ type UseHomeScreenOrchestrationParams = {
   text: string;
   shareTitle: string;
   onOpenQr: () => void;
+  onOpenStickerPreview: () => void;
   onOpenShare: (
     shareImageAspect: 'landscape' | 'portrait' | 'square',
     shareAction?: ShareAction,
@@ -26,6 +27,7 @@ export function useHomeScreenOrchestration({
   text,
   shareTitle,
   onOpenQr,
+  onOpenStickerPreview,
   onOpenShare,
 }: UseHomeScreenOrchestrationParams) {
   const [activePicker, setActivePicker] = React.useState<ActivePicker>(null);
@@ -61,6 +63,11 @@ export function useHomeScreenOrchestration({
     onOpenShare('square');
   }, [closePicker, onOpenShare]);
 
+  const openStickerPreview = React.useCallback(() => {
+    closePicker();
+    onOpenStickerPreview();
+  }, [closePicker, onOpenStickerPreview]);
+
   const setAsWallpaper = React.useCallback(() => {
     closePicker();
     onOpenShare('portrait', 'wallpaper');
@@ -84,6 +91,7 @@ export function useHomeScreenOrchestration({
     openShareImageSquare,
     openShareQr,
     openShareText,
+    openStickerPreview,
     setActivePicker,
     setAsWallpaper,
   };

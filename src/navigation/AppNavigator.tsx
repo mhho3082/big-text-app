@@ -12,15 +12,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { recordDisplayOptions } from '../db/appOptions';
 import { getPersistedOptions, useAppStore } from '../state/useAppStore';
 import type { PersistedAppOptions } from '../state/persistedOptions';
-import type { ShareAction } from '../types/output';
+import type { ShareAction, ShareImageAspect } from '../types/output';
 import { showToast } from '../native/toast';
 import { t } from '../i18n';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
 import { QrScreen } from '../screens/QrScreen';
+import { StickerPreviewModal } from '../ui/StickerPreviewModal';
 import { styles } from '../styles';
 import { loadWidgetOptions, saveWidgetOptions } from '../state/widgetOptions';
+import { getHomeTheme } from '../theme';
 
 type RootStackParamList = {
   Home: undefined;
@@ -49,6 +51,11 @@ const appFlowRouteNames: Array<keyof RootStackParamList> = [
   'Qr',
 ];
 const widgetFlowRouteNames: Array<keyof RootStackParamList> = ['WidgetOutput'];
+const stickerCaptureAspects: ShareImageAspect[] = [
+  'landscape',
+  'portrait',
+  'square',
+];
 
 function HomeRoute({
   navigation,
@@ -77,6 +84,32 @@ function HomeRoute({
   const outputVerticalAlignment = useAppStore(
     state => state.outputVerticalAlignment,
   );
+  const homeThemeName = useAppStore(state => state.homeTheme);
+  const [stickerPreviewUris, setStickerPreviewUris] = React.useState<
+    string[] | null
+  >(null);
+  const stickerCaptureCountRef = React.useRef(0);
+  const homeTheme = getHomeTheme(homeThemeName);
+
+  const openStickerPreview = React.useCallback(() => {
+    stickerCaptureCountRef.current = 0;
+    setStickerPreviewUris([]);
+    useAppStore.getState().goToShare(stickerCaptureAspects[0], 'sticker');
+  }, []);
+
+  const handleStickerCapture = React.useCallback((uri: string) => {
+    setStickerPreviewUris(previousUris => [...(previousUris ?? []), uri]);
+
+    stickerCaptureCountRef.current += 1;
+    const nextCount = stickerCaptureCountRef.current;
+    const nextAspect = stickerCaptureAspects[nextCount];
+
+    if (nextAspect) {
+      useAppStore.getState().goToShare(nextAspect, 'sticker');
+    } else {
+      useAppStore.getState().goToOutput();
+    }
+  }, []);
 
   return (
     <>
@@ -91,6 +124,7 @@ function HomeRoute({
           navigation.navigate('Output');
         }}
         onOpenQr={() => navigation.navigate('Qr')}
+        onOpenStickerPreview={openStickerPreview}
         onOpenShare={(
           nextShareImageAspect: 'landscape' | 'portrait' | 'square',
           nextShareAction?: ShareAction,
@@ -111,6 +145,7 @@ function HomeRoute({
           shareRequestId={shareRequestId}
           shareImageAspect={shareImageAspect}
           shareAction={shareAction}
+          onStickerCapture={handleStickerCapture}
           text={text}
           foregroundColor={foregroundColor}
           backgroundColor={backgroundColor}
@@ -124,6 +159,12 @@ function HomeRoute({
           outputVerticalAlignment={outputVerticalAlignment}
         />
       ) : null}
+      <StickerPreviewModal
+        visible={stickerPreviewUris != null && stickerPreviewUris.length === 3}
+        imageUris={stickerPreviewUris ?? []}
+        onClose={() => setStickerPreviewUris(null)}
+        theme={homeTheme}
+      />
     </>
   );
 }
