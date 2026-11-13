@@ -15,6 +15,12 @@ class ScreenOrientationModule(private val reactContext: ReactApplicationContext)
     applyScreenOrientation(reactContext.currentActivity, orientation)
   }
 
+  @ReactMethod
+  fun resetScreenOrientation() {
+    screenOrientation = "automatic"
+    applySystemScreenOrientation(reactContext.currentActivity)
+  }
+
   companion object {
     @Volatile
     var screenOrientation: String = "automatic"
@@ -26,7 +32,7 @@ class ScreenOrientationModule(private val reactContext: ReactApplicationContext)
 
       activity.runOnUiThread {
         if (orientation == "automatic") {
-          activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+          activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
         } else {
           activity.requestedOrientation = when (orientation) {
             "portrait" -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -36,6 +42,16 @@ class ScreenOrientationModule(private val reactContext: ReactApplicationContext)
             else -> ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
           }
         }
+      }
+    }
+
+    fun applySystemScreenOrientation(activity: Activity?) {
+      if (activity == null) {
+        return
+      }
+
+      activity.runOnUiThread {
+        activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
       }
     }
   }

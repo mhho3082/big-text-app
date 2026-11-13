@@ -2,7 +2,10 @@ import React from 'react';
 import { BackHandler } from 'react-native';
 import { setImmersiveMode } from '../native/immersiveMode';
 import { setKeepScreenOn } from '../native/keepScreenOn';
-import { setScreenOrientation } from '../native/screenOrientation';
+import {
+  resetScreenOrientation,
+  setScreenOrientation,
+} from '../native/screenOrientation';
 import type { OutputScreenOrientation } from '../types/output';
 
 type UseAndroidDisplayLifecycleParams = {
@@ -14,7 +17,7 @@ type UseAndroidDisplayLifecycleParams = {
 export function useAndroidDisplayLifecycle({
   headless,
   onExit,
-  screenOrientation = 'automatic',
+  screenOrientation,
 }: UseAndroidDisplayLifecycleParams) {
   React.useEffect(() => {
     if (headless) {
@@ -41,12 +44,14 @@ export function useAndroidDisplayLifecycle({
 
     setImmersiveMode(true);
     setKeepScreenOn(true);
-    setScreenOrientation(screenOrientation);
+    if (screenOrientation != null) {
+      setScreenOrientation(screenOrientation);
+    }
 
     return () => {
       setImmersiveMode(false);
       setKeepScreenOn(false);
-      setScreenOrientation('automatic');
+      resetScreenOrientation();
     };
   }, [headless, screenOrientation]);
 }

@@ -3,6 +3,7 @@ import type { OutputScreenOrientation } from '../types/output';
 
 type ScreenOrientationModule = {
   setScreenOrientation(orientation: OutputScreenOrientation): void;
+  resetScreenOrientation(): void;
 };
 
 const nativeModule = NativeModules.ScreenOrientation as
@@ -15,4 +16,12 @@ export function setScreenOrientation(orientation: OutputScreenOrientation) {
   }
 
   nativeModule.setScreenOrientation(orientation);
+}
+
+export function resetScreenOrientation() {
+  if (Platform.OS !== 'android' || nativeModule == null) {
+    return;
+  }
+
+  nativeModule.resetScreenOrientation();
 }

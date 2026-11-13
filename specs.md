@@ -12,6 +12,7 @@
 - The app remembers the last-used message and settings when the user leaves and returns later.
 - The app supports English, Traditional Chinese, and Simplified Chinese.
 - The app supports light mode and dark mode.
+- Non-display screens follow the device's normal rotation setting.
 
 ## Home Screen
 
@@ -23,6 +24,7 @@
 - The user can choose a custom text size.
 - The user can choose the text alignment.
 - The user can choose the screen orientation for the display.
+- The automatic orientation option follows the device sensor even if the phone has rotation lock enabled.
 - The user can choose an animation style for the displayed text.
 - The user can choose an animation interval.
 - The user can open the history view from the home screen.
