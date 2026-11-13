@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">大字显示</string>
-    <string name="widget_label">显示</string>
+    <string name="quick_display_label">快速显示</string>
 </resources>

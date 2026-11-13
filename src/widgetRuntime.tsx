@@ -14,7 +14,7 @@ import { WidgetConfigScreen } from './screens/WidgetConfigScreen';
 import { loadWidgetOptions, saveWidgetOptions } from './state/widgetOptions';
 import { NativeModules } from 'react-native';
 
-const WIDGET_NAME = 'WidgetProvider';
+const WIDGET_NAME = 'QuickDisplayWidgetProvider';
 
 const DEFAULT_WIDGET_OPTIONS = {
   homeTheme: 'light' as const,
@@ -54,7 +54,7 @@ function WidgetPreview({
       }}
       clickAction="OPEN_URI"
       clickActionData={{ uri: `bigtext://widget-output?widgetId=${widgetId}` }}
-      accessibilityLabel="Big text widget"
+      accessibilityLabel="Quick Display widget"
     >
       <SvgWidget
         svg={require('../assets/widget-icon.svg')}

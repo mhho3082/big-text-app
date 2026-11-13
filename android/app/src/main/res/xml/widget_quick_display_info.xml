@@ -9,5 +9,5 @@
     android:targetCellHeight="1"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen"
-    android:configure="com.mhho3082.bigtext.WidgetConfigurationActivity"
+    android:configure="com.mhho3082.bigtext.QuickDisplayWidgetConfigurationActivity"
     android:widgetFeatures="reconfigurable" />

@@ -4,7 +4,7 @@
 
 - The app lets a user turn a short message into a full-screen, highly legible display.
 - The app also lets a user share that message as an image, as plain text, as a QR code, or as wallpaper.
-- The app provides a homescreen widget that can launch the display view directly.
+- The app provides a homescreen widget called Quick Display that can launch the display view directly.
 
 ## Core App Behavior
 
@@ -64,7 +64,7 @@
 
 ## Widget
 
-- The app provides a homescreen widget.
+- The app provides a homescreen widget called Quick Display.
 - The widget can be configured when it is added.
 - The widget requires a name.
 - The widget shows a preview using the chosen widget name.

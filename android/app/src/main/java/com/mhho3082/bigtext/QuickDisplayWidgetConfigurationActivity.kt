@@ -2,4 +2,4 @@ package com.mhho3082.bigtext
 
 import com.reactnativeandroidwidget.RNWidgetConfigurationActivity
 
-class WidgetConfigurationActivity : RNWidgetConfigurationActivity()
+class QuickDisplayWidgetConfigurationActivity : RNWidgetConfigurationActivity()
