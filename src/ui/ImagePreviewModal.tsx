@@ -14,34 +14,40 @@ import { useAppStore } from '../state/useAppStore';
 import { styles } from '../styles';
 import { HomeTheme } from '../theme';
 
-const PREVIEW_LABEL_KEYS = [
-  'stickerPreview.landscape',
-  'stickerPreview.portrait',
-  'stickerPreview.square',
-] as const;
-
 type Props = {
   visible: boolean;
-  imageUris: string[];
+  titleKey: string;
+  imageUris: readonly (string | undefined)[];
+  imageCount?: number;
+  labelKeys?: readonly string[];
+  showPackFields?: boolean;
   onClose: () => void;
+  onConfirm: () => void;
   theme: HomeTheme;
 };
 
-const STICKER_PREVIEW_COUNT = 3;
 const STICKER_PREVIEW_CHECKERBOARD = require('../../assets/sticker-checkerboard-512.png');
 
-export function StickerPreviewModal({
+export function ImagePreviewModal({
   visible,
+  titleKey,
   imageUris,
+  imageCount = imageUris.length,
+  labelKeys,
+  showPackFields = false,
   onClose,
+  onConfirm,
   theme,
 }: Props) {
   const language = useAppStore(state => state.language);
   const [packName, setPackName] = React.useState('');
   const [packAuthor, setPackAuthor] = React.useState('');
-  const isComplete = imageUris.length === STICKER_PREVIEW_COUNT;
-  const canConfirm =
-    isComplete && packName.trim().length > 0 && packAuthor.trim().length > 0;
+  const imagesReady =
+    imageUris.length > 0 && imageUris.every(uri => Boolean(uri));
+  const packFieldsReady =
+    !showPackFields ||
+    (packName.trim().length > 0 && packAuthor.trim().length > 0);
+  const canConfirm = imagesReady && packFieldsReady;
 
   React.useEffect(() => {
     if (!visible) {
@@ -68,7 +74,7 @@ export function StickerPreviewModal({
           >
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.modalText }]}>
-                {t('home.stickerPreview', undefined, language)}
+                {t(titleKey, undefined, language)}
               </Text>
               <Pressable
                 onPress={onClose}
@@ -77,50 +83,49 @@ export function StickerPreviewModal({
                 <X color={theme.modalCloseIcon} strokeWidth={2.5} />
               </Pressable>
             </View>
-            <View style={styles.stickerPreviewRow}>
-              {Array.from({ length: STICKER_PREVIEW_COUNT }, (_, index) => {
+            <View style={styles.imagePreviewRow}>
+              {Array.from({ length: imageCount }, (_, index) => {
                 const uri = imageUris[index];
+                const labelKey = labelKeys?.[index];
 
                 return (
                   <View
-                    key={uri ?? `sticker-preview-placeholder-${index}`}
-                    style={styles.stickerPreviewItem}
+                    key={`image-preview-${index}`}
+                    style={styles.imagePreviewItem}
                   >
-                    <Text
-                      style={[
-                        styles.stickerPreviewLabel,
-                        { color: theme.modalText },
-                      ]}
-                    >
-                      {t(
-                        PREVIEW_LABEL_KEYS[index] ?? PREVIEW_LABEL_KEYS[0],
-                        undefined,
-                        language,
-                      )}
-                    </Text>
+                    {labelKey ? (
+                      <Text
+                        style={[
+                          styles.imagePreviewLabel,
+                          { color: theme.modalText },
+                        ]}
+                      >
+                        {t(labelKey, undefined, language)}
+                      </Text>
+                    ) : null}
                     <View
                       style={[
-                        styles.stickerPreviewCard,
+                        styles.imagePreviewCard,
                         {
                           borderColor: theme.border,
                           backgroundColor: theme.surface,
                         },
                       ]}
                     >
-                      <View style={styles.stickerPreviewBackground}>
+                      <View style={styles.imagePreviewBackground}>
                         <Image
                           source={STICKER_PREVIEW_CHECKERBOARD}
-                          style={styles.stickerPreviewBackgroundImage}
+                          style={styles.imagePreviewBackgroundImage}
                           resizeMode="repeat"
                         />
                         {uri ? (
                           <Image
                             source={{ uri }}
-                            style={styles.stickerPreviewImage}
+                            style={styles.imagePreviewImage}
                             resizeMode="contain"
                           />
                         ) : (
-                          <View style={styles.stickerPreviewLoading}>
+                          <View style={styles.imagePreviewLoading}>
                             <ActivityIndicator color={theme.modalText} />
                           </View>
                         )}
@@ -130,47 +135,53 @@ export function StickerPreviewModal({
                 );
               })}
             </View>
-            <View style={styles.stickerPreviewInputs}>
-              <TextInput
-                placeholder={t('stickerPreview.packName', undefined, language)}
-                placeholderTextColor={theme.placeholderText}
-                value={packName}
-                onChangeText={setPackName}
-                style={[
-                  styles.input,
-                  styles.widgetNameInput,
-                  {
-                    color: theme.inputText,
-                    backgroundColor: theme.inputBackground,
-                    borderColor: theme.inputBorder,
-                  },
-                ]}
-              />
-              <TextInput
-                placeholder={t(
-                  'stickerPreview.packAuthor',
-                  undefined,
-                  language,
-                )}
-                placeholderTextColor={theme.placeholderText}
-                value={packAuthor}
-                onChangeText={setPackAuthor}
-                style={[
-                  styles.input,
-                  styles.widgetNameInput,
-                  {
-                    color: theme.inputText,
-                    backgroundColor: theme.inputBackground,
-                    borderColor: theme.inputBorder,
-                  },
-                ]}
-              />
-            </View>
-            <View style={styles.stickerPreviewActions}>
+            {showPackFields ? (
+              <View style={styles.imagePreviewInputs}>
+                <TextInput
+                  placeholder={t(
+                    'stickerPreview.packName',
+                    undefined,
+                    language,
+                  )}
+                  placeholderTextColor={theme.placeholderText}
+                  value={packName}
+                  onChangeText={setPackName}
+                  style={[
+                    styles.input,
+                    styles.widgetNameInput,
+                    {
+                      color: theme.inputText,
+                      backgroundColor: theme.inputBackground,
+                      borderColor: theme.inputBorder,
+                    },
+                  ]}
+                />
+                <TextInput
+                  placeholder={t(
+                    'stickerPreview.packAuthor',
+                    undefined,
+                    language,
+                  )}
+                  placeholderTextColor={theme.placeholderText}
+                  value={packAuthor}
+                  onChangeText={setPackAuthor}
+                  style={[
+                    styles.input,
+                    styles.widgetNameInput,
+                    {
+                      color: theme.inputText,
+                      backgroundColor: theme.inputBackground,
+                      borderColor: theme.inputBorder,
+                    },
+                  ]}
+                />
+              </View>
+            ) : null}
+            <View style={styles.imagePreviewActions}>
               <Pressable
                 style={[
                   styles.button,
-                  styles.stickerPreviewActionButton,
+                  styles.imagePreviewActionButton,
                   { backgroundColor: theme.surface },
                 ]}
                 onPress={onClose}
@@ -182,10 +193,10 @@ export function StickerPreviewModal({
               <Pressable
                 style={[
                   styles.button,
-                  styles.stickerPreviewActionButton,
+                  styles.imagePreviewActionButton,
                   !canConfirm ? styles.buttonDisabled : null,
                 ]}
-                onPress={onClose}
+                onPress={onConfirm}
                 disabled={!canConfirm}
               >
                 <Text style={styles.buttonText}>

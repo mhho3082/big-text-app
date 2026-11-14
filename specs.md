@@ -43,6 +43,11 @@
 
 - The app can share the current message as an image.
 - The app can share the current message as an image in landscape, portrait, or square format.
+- Sharing as a landscape, portrait, or square image opens a preview modal instead of the system share prompt.
+- The image preview modal opens immediately and shows a loading indicator until the image is ready.
+- The image preview is fitted inside the preview window without resizing the image itself.
+- The image preview modal does not ask for pack name or pack author details.
+- The user confirms the image preview to open the system share prompt, or cancels to close the preview.
 - The app can prepare a sticker preview from the current message using the landscape, portrait, and square image captures.
 - Each sticker preview image is resized to fit within a 512x512 frame and centered on a transparent 512x512 canvas with a checkerboard preview background before previewing.
 - The sticker preview modal opens immediately and shows loading placeholders until each processed image is ready.

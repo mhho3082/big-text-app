@@ -1,5 +1,6 @@
 import React from 'react';
 import { BackHandler, Text, View } from 'react-native';
+import Share from 'react-native-share';
 import {
   createNavigationContainerRef,
   NavigationContainer,
@@ -19,7 +20,7 @@ import { HistoryScreen } from '../screens/HistoryScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { OutputScreen } from '../screens/OutputScreen';
 import { QrScreen } from '../screens/QrScreen';
-import { StickerPreviewModal } from '../ui/StickerPreviewModal';
+import { ImagePreviewModal } from '../ui/ImagePreviewModal';
 import { styles } from '../styles';
 import { loadWidgetOptions, saveWidgetOptions } from '../state/widgetOptions';
 import { getHomeTheme } from '../theme';
@@ -56,6 +57,16 @@ const stickerCaptureAspects: ShareImageAspect[] = [
   'portrait',
   'square',
 ];
+const stickerPreviewLabelKeys = [
+  'stickerPreview.landscape',
+  'stickerPreview.portrait',
+  'stickerPreview.square',
+] as const;
+const sharePreviewTitleKeys: Record<ShareImageAspect, string> = {
+  landscape: 'home.shareImageLandscape',
+  portrait: 'home.shareImagePortrait',
+  square: 'home.shareImageSquare',
+};
 
 function HomeRoute({
   navigation,
@@ -88,8 +99,13 @@ function HomeRoute({
   const [stickerPreviewUris, setStickerPreviewUris] = React.useState<
     string[] | null
   >(null);
+  const [sharePreview, setSharePreview] = React.useState<{
+    uri?: string;
+    aspect: ShareImageAspect;
+  } | null>(null);
   const stickerCaptureCountRef = React.useRef(0);
   const stickerPreviewOpenRef = React.useRef(false);
+  const sharePreviewOpenRef = React.useRef(false);
   const homeTheme = getHomeTheme(homeThemeName);
 
   const openStickerPreview = React.useCallback(() => {
@@ -123,6 +139,51 @@ function HomeRoute({
     setStickerPreviewUris(null);
   }, []);
 
+  const handleShareCapture = React.useCallback((uri: string) => {
+    if (!sharePreviewOpenRef.current) {
+      return;
+    }
+
+    setSharePreview(currentPreview => ({
+      aspect: currentPreview?.aspect ?? useAppStore.getState().shareImageAspect,
+      uri,
+    }));
+  }, []);
+
+  const openShare = React.useCallback(
+    (aspect: ShareImageAspect, action?: ShareAction) => {
+      if (action == null || action === 'share') {
+        sharePreviewOpenRef.current = true;
+        setSharePreview({ aspect });
+      }
+
+      useAppStore.getState().goToShare(aspect, action);
+    },
+    [],
+  );
+
+  const closeSharePreview = React.useCallback(() => {
+    sharePreviewOpenRef.current = false;
+    setSharePreview(null);
+  }, []);
+
+  const confirmSharePreview = React.useCallback(() => {
+    if (sharePreview?.uri == null) {
+      return;
+    }
+
+    const { uri } = sharePreview;
+    sharePreviewOpenRef.current = false;
+    setSharePreview(null);
+
+    Share.open({
+      title: t('app.title', undefined, useAppStore.getState().language),
+      url: uri,
+      type: 'image/png',
+      failOnCancel: false,
+    }).catch(() => undefined);
+  }, [sharePreview]);
+
   return (
     <>
       <HomeScreen
@@ -137,14 +198,7 @@ function HomeRoute({
         }}
         onOpenQr={() => navigation.navigate('Qr')}
         onOpenStickerPreview={openStickerPreview}
-        onOpenShare={(
-          nextShareImageAspect: 'landscape' | 'portrait' | 'square',
-          nextShareAction?: ShareAction,
-        ) => {
-          useAppStore
-            .getState()
-            .goToShare(nextShareImageAspect, nextShareAction);
-        }}
+        onOpenShare={openShare}
       />
       {shareRequestId != null ? (
         <OutputScreen
@@ -157,6 +211,7 @@ function HomeRoute({
           shareRequestId={shareRequestId}
           shareImageAspect={shareImageAspect}
           shareAction={shareAction}
+          onShareCapture={handleShareCapture}
           onStickerCapture={handleStickerCapture}
           text={text}
           foregroundColor={foregroundColor}
@@ -171,10 +226,27 @@ function HomeRoute({
           outputVerticalAlignment={outputVerticalAlignment}
         />
       ) : null}
-      <StickerPreviewModal
+      <ImagePreviewModal
         visible={stickerPreviewUris != null}
+        titleKey="home.stickerPreview"
         imageUris={stickerPreviewUris ?? []}
+        imageCount={stickerCaptureAspects.length}
+        labelKeys={stickerPreviewLabelKeys}
+        showPackFields
         onClose={closeStickerPreview}
+        onConfirm={closeStickerPreview}
+        theme={homeTheme}
+      />
+      <ImagePreviewModal
+        visible={sharePreview != null}
+        titleKey={
+          sharePreview == null
+            ? 'home.shareImage'
+            : sharePreviewTitleKeys[sharePreview.aspect]
+        }
+        imageUris={sharePreview == null ? [] : [sharePreview.uri]}
+        onClose={closeSharePreview}
+        onConfirm={confirmSharePreview}
         theme={homeTheme}
       />
     </>

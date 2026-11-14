@@ -607,51 +607,51 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
-  stickerPreviewRow: {
+  imagePreviewRow: {
     flexDirection: 'row',
     gap: 8,
   },
-  stickerPreviewItem: {
+  imagePreviewItem: {
     flex: 1,
     minWidth: 0,
     gap: 6,
   },
-  stickerPreviewCard: {
+  imagePreviewCard: {
     aspectRatio: 1,
     borderRadius: 16,
     borderWidth: 1,
     overflow: 'hidden',
   },
-  stickerPreviewBackground: {
+  imagePreviewBackground: {
     flex: 1,
   },
-  stickerPreviewBackgroundImage: {
+  imagePreviewBackgroundImage: {
     ...StyleSheet.absoluteFill,
   },
-  stickerPreviewLabel: {
+  imagePreviewLabel: {
     fontSize: 10,
     lineHeight: 12,
     fontWeight: '700',
     letterSpacing: 0.4,
     textTransform: 'uppercase',
   },
-  stickerPreviewImage: {
+  imagePreviewImage: {
     width: '100%',
     height: '100%',
   },
-  stickerPreviewLoading: {
+  imagePreviewLoading: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  stickerPreviewInputs: {
+  imagePreviewInputs: {
     gap: 12,
   },
-  stickerPreviewActions: {
+  imagePreviewActions: {
     flexDirection: 'row',
     gap: 12,
   },
-  stickerPreviewActionButton: {
+  imagePreviewActionButton: {
     flex: 1,
   },
   colorTextInput: {

@@ -77,6 +77,7 @@ export type OutputScreenProps = Pick<
   shareRequestId?: number;
   shareImageAspect?: ShareImageAspect;
   shareAction?: ShareAction;
+  onShareCapture?: (uri: string) => void;
   onStickerCapture?: (uri: string) => void;
   onOutputFontSizeChange?: (size: number) => void;
 };
@@ -101,6 +102,7 @@ export function OutputScreen({
   shareRequestId,
   shareImageAspect = 'landscape',
   shareAction = 'share',
+  onShareCapture,
   onStickerCapture,
   onOutputFontSizeChange,
 }: OutputScreenProps) {
@@ -488,6 +490,7 @@ export function OutputScreen({
     language,
     mode,
     onExit,
+    onShareCapture,
     onStickerCapture,
     outputFontSizeMode,
     shareAction,
