@@ -28,6 +28,7 @@ type Props = {
 };
 
 const STICKER_PREVIEW_COUNT = 3;
+const STICKER_PREVIEW_CHECKERBOARD = require('../../assets/sticker-checkerboard-512.png');
 
 export function StickerPreviewModal({
   visible,
@@ -106,17 +107,24 @@ export function StickerPreviewModal({
                         },
                       ]}
                     >
-                      {uri ? (
+                      <View style={styles.stickerPreviewBackground}>
                         <Image
-                          source={{ uri }}
-                          style={styles.stickerPreviewImage}
-                          resizeMode="contain"
+                          source={STICKER_PREVIEW_CHECKERBOARD}
+                          style={styles.stickerPreviewBackgroundImage}
+                          resizeMode="repeat"
                         />
-                      ) : (
-                        <View style={styles.stickerPreviewLoading}>
-                          <ActivityIndicator color={theme.modalText} />
-                        </View>
-                      )}
+                        {uri ? (
+                          <Image
+                            source={{ uri }}
+                            style={styles.stickerPreviewImage}
+                            resizeMode="contain"
+                          />
+                        ) : (
+                          <View style={styles.stickerPreviewLoading}>
+                            <ActivityIndicator color={theme.modalText} />
+                          </View>
+                        )}
+                      </View>
                     </View>
                   </View>
                 );

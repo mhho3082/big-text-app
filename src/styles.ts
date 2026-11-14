@@ -622,6 +622,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     overflow: 'hidden',
   },
+  stickerPreviewBackground: {
+    flex: 1,
+  },
+  stickerPreviewBackgroundImage: {
+    ...StyleSheet.absoluteFill,
+  },
   stickerPreviewLabel: {
     fontSize: 10,
     lineHeight: 12,
