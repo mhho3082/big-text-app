@@ -24,6 +24,7 @@ and anything else that needs to stand out from across the room.
 - 📤 Sharing: Share the message as an image in landscape, portrait, or square formats
 - 📨 Open from shared: Send text into the app for quick display
 - 🕘 History: Reuse recent display settings, or show them directly again
+- ▶️ Widget: Add a quick home screen button to open configured text full-screen
 - 🌐 Languages: Switch between English, Traditional Chinese, and Simplified Chinese
 - 🌙 Easy on the eyes: Toggle the home screen between light and dark mode
 
